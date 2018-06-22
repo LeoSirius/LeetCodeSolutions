@@ -15,3 +15,7 @@ public:
 		return result;
 	}
 };
+
+map底层是红黑树实现的，因此它的find函数时间复杂度：O(logn)
+unordered_map底层是哈希表,因此它的find函数时间复杂度：O(l)
+所以整个算法O(n)
