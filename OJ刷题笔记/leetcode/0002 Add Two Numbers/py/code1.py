@@ -7,7 +7,7 @@
 class Solution:
     def addTwoNumbers(self, l1: ListNode, l2: ListNode) -> ListNode:
         carry = 0
-        root = n = ListNode(0)
+        root = p = ListNode(0)
         while l1 or l2 or carry:
             v1 = v2 = 0
             if l1:
@@ -17,9 +17,7 @@ class Solution:
                 v2 = l2.val
                 l2 = l2.next
             carry, val = divmod(v1 + v2 + carry, 10)
-            n.next = ListNode(val)
-            n = n.next
+            p.next = ListNode(val)
+            p = p.next
         return root.next
-
-# Test Code
-s = Solution()
+                
