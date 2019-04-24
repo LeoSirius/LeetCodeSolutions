@@ -11,4 +11,3 @@ class Solution:
             usedChar[s[i]] = i
             
         return maxLength
-

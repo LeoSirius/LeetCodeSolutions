@@ -1,3 +1,7 @@
+## 思路1 用一个dict存放出现过的character
+
+使用usedChar存放出现过的字符，key是那个字符，value是字符对应的索引。
+
 `start <= usedChar[s[i]]`
 这行代码的作用是把在start之前的在usedChar中的字符排除在外。
 
