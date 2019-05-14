@@ -56,11 +56,11 @@ int Strstr(char s1[], char s2[]){
         return 0;
     for(int i = 0; s1[i]; ++i){
         int k = i, j = 0;
-        for(; s2[j]; ++k, ++k){
+        for(; s2[j]; ++j, ++k){
             if(s1[k] != s2[j])
                 break;
         }
-        if(s2[j] == 0)
+        if(s2[j] == 0)   // s2字符串已经遍历完，且包含在s1中
             return i;
     }
     return -1;
