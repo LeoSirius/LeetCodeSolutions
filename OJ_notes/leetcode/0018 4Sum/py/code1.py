@@ -20,6 +20,7 @@ class Solution:
                 for i in range(len(nums) - N + 1):
                     if i == 0 or (i > 0 and nums[i-1] != nums[i]):
                         Nsum(nums[i+1:], target - nums[i], N-1, result+[nums[i]], results)
+
         results = []
         Nsum(sorted(nums), target, 4, [], results)
         return results
