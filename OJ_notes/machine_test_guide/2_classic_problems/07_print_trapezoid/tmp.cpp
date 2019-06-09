@@ -1,21 +1,21 @@
-#include<stdio.h>
+#include<iostream>
 using namespace std;
 
 int main(){
     int h;
     while(scanf("%d", &h) != EOF){
-        int num_of_space = (h - 1) * 2;
-        int num_of_star = h;
+        int num_of_blank = (h - 1) * 2;
+        int num_of_cols = num_of_blank + h;
         for(int i = 0; i < h; i++){
-            for(int j = 0; j < num_of_space; j++){
+            int j = 0;
+            for(; j < num_of_blank; j++){
                 printf(" ");
             }
-            for(int j = 0; j < num_of_star; j++){
+            num_of_blank -= 2;
+            for(; j < num_of_cols; j++){
                 printf("*");
             }
             printf("\n");
-            num_of_space -= 2;
-            num_of_star += 2;
         }
     }
     return 0;

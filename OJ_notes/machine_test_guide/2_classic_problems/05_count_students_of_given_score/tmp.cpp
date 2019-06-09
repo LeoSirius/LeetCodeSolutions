@@ -1,17 +1,22 @@
-#include<stdio.h>
+#include<iostream>
 using namespace std;
 
-int Hash[101];
+int hashing[101];
+
 int main(){
     int n;
-    while(scanf("%d", &n) != EOF && n != 0){
+    while(scanf("%d", &n) != EOF and n != 0){
         for(int i = 0; i < n; i++){
-            int tmp;
-            scanf("%d", &tmp);
-            Hash[tmp]++;
+            hashing[i] = 0;
         }
-        int m;
-        scanf("%d", &m);
-        printf("%d\n", Hash[m]);
+        int score;
+        for(int i = 0; i < n; i++){
+            scanf("%d", &score);
+            hashing[score]++;
+        }
+        int target_socre;
+        scanf("%d", &target_socre);
+        printf("%d\n", hashing[target_socre]);
     }
+    return 0;
 }

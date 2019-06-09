@@ -1,21 +1,21 @@
-#include<stdio.h>
-#define OFFSET 500000
+#include<iostream>
 using namespace std;
 
-int Hash[1000001];
+#define OFFSET 500000
+int buf[1000001];
 
 int main(){
     int n, m;
     while(scanf("%d%d", &n, &m) != EOF){
-        int input;
+        int tmp;
         for(int i = 0; i < n; i++){
-            scanf("%d", &input);
-            Hash[OFFSET + input] = 1;
+            scanf("%d", &tmp);
+            buf[tmp+OFFSET] = 1;
         }
         for(int i = 500000; i >= -500000; i--){
-            if(Hash[i+OFFSET]){
-                m--;
+            if(buf[i+OFFSET] != 0){
                 printf("%d", i);
+                m--;
                 if(m != 0){
                     printf(" ");
                 }else{
@@ -25,4 +25,5 @@ int main(){
             }
         }
     }
+    return 0;
 }

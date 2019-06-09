@@ -1,21 +1,24 @@
-#include<stdio.h>
+#include<iostream>
 using namespace std;
 
 int main(){
-    int buf[200];
     int n;
+    int inputs[200];
     while(scanf("%d", &n) != EOF){
         for(int i = 0; i < n; i++){
-            scanf("%d", &buf[i]);
+            scanf("%d", &inputs[i]);
         }
         int x;
         scanf("%d", &x);
         for(int i = 0; i < n; i++){
-            if(x == buf[i]){
+            if(x == inputs[i]){
                 printf("%d\n", i);
+                break;
+            }
+            if(i == n - 1){
+                printf("-1\n");
             }
         }
-        printf("-1\n");
     }
-    return -1;
+    return 0;
 }
