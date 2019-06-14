@@ -1,68 +1,88 @@
 #include<iostream>
 #include<stack>
-#include<cctype>
-
 using namespace std;
 
-stack<char> operator_stk;
-stack<double> operand_stk;
+char str[201];
+stack<int> optr_stack;
+stack<double> oprd_stack;
 
-bool is_operator(char c){
-    return (c == '+' || c == '-' || c == '*' || c == '/');
+void get_next(bool & is_optr, char & ret_optr, int & ret_oprd, int & i){
+    if(str[i] == 0)
+        return;
+    if(str[i] >= '0' && str[i] <= '9'){
+        is_optr = false;
+    }else{
+        is_optr = true;
+        ret_optr = str[i];
+        i += 2;
+        return;
+    }
+    ret_oprd = 0;
+    for(; str[i] != ' ' && str[i] != 0; i++){
+        ret_oprd *= 10;
+        ret_oprd += str[i] - '0';
+    }
+    if(str[i] == ' ')
+        i++;
+    return;
 }
 
-bool is_strict_lower(char a, char b){
-    if(a == '+' || a == '-' && b == '*' || b == '/'){
+bool is_lower(char a, char b){
+    if((a == '+' || a == '-') && (b == '*' || b == '/'))
         return true;
-    }
     return false;
 }
 
+double compute(){
+
+    double a, b;
+    a = oprd_stack.top();
+    oprd_stack.pop();
+    b = oprd_stack.top();
+    oprd_stack.pop();
+    char optr = optr_stack.top();
+    optr_stack.pop();
+    double res;
+
+    printf("in compute %f %c %f\n", a, optr, b);
+    if(optr == '+')
+        res = a + b;
+    else if(res == '-')
+        res = a - b;
+    else if(res == '*')
+        res = a * b;
+    else if(res == '/')
+        res = a / b;
+    printf("push res = %f\n", res);
+    oprd_stack.push(res);
+    return 0;
+}
+
 int main(){
-    char input_str[201];
-    while(scanf("%s", input_str) != EOF && input_str[1] != '0'){
-        for(int i = 0; input_str[i]; i++){
-            if(isdigit(input_str[i])){
-                printf("push rand, rand = %c", input_str[i]);
-                operand_stk.push(input_str[i]);
-            }
-        }
-        for(int i = 0; input_str[i]; i++){
-            if(is_operator(input_str[i])){
-                if(operator_stk.empty() || is_strict_lower(input_str[i], operator_stk.top())){
-                    operator_stk.push(input_str[i]);
+    while(gets(str)){
+        if(str[0] == '0' && str[1] == 0)
+            break;
+        int idx = 0;
+        bool is_optr;
+        char ret_optr;
+        int ret_oprd;
+        while(!optr_stack.empty()) optr_stack.pop();
+        while(!oprd_stack.empty()) oprd_stack.pop();
+        while(str[idx]){
+            get_next(is_optr, ret_optr, ret_oprd, idx);
+            if(is_optr){
+                if(optr_stack.empty() || is_lower(ret_optr, optr_stack.top())){
+                    optr_stack.push(ret_optr);
                 }else{
-                    char cur_optr = operator_stk.top();
-                    operator_stk.pop();
-
-                    double a, b;
-                    a = operand_stk.top();
-                    operand_stk.pop();
-                    b = operand_stk.top();
-                    operand_stk.pop();
-
-                    switch (cur_optr){
-                    case '+':
-                        operand_stk.push(a + b);
-                        break;
-                    case '-':
-                        operand_stk.push(a - b);
-                        break;
-                    case '*':
-                        operand_stk.push(a * b);
-                        break;
-                    case '/':
-                        operand_stk.push(a / b);
-                        break;
-                    default:
-                        break;
-                    }
+                    compute();
                 }
+            }else{
+                oprd_stack.push(ret_oprd);
             }
         }
-        printf("operator_stk.empty() = %d", operator_stk.empty());
-        double res = operand_stk.top();
-        operand_stk.pop();
-        printf("%.2lf\n", res);
+        compute();
+        printf("oprd_stack.size() = %lu\n", oprd_stack.size());
+        printf("%.2f\n", oprd_stack.top());
     }
+    return -1;
 }
