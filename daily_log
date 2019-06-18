@@ -1,0 +1,7 @@
+// leetcode use universal index
+// machine_test_guide use chapter number two digits, plus topic number two digits
+
+20190618={
+    leetcode={py:[19,20], cpp:[1,2]},
+    machine_test_guide={},
+},
