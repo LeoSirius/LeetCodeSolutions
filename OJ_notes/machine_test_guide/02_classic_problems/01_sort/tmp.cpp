@@ -1,19 +1,25 @@
-#include<stdio.h>
+#include<iostream>
 #include<algorithm>
+#include<vector>
 using namespace std;
 
 int main(){
     int n;
-    int buf[100];
     while(scanf("%d", &n) != EOF){
+        vector<int> input_array;
+        int tmp;
         for(int i = 0; i < n; i++){
-            scanf("%d", &buf[i]);
+            scanf("%d", &tmp);
+            input_array.push_back(tmp);
         }
-        sort(buf, buf + n);
-        for(int i = 0; i < n; i++){
-            printf("%d ", buf[i]);
+        sort(input_array.begin(), input_array.end());
+
+        // no space after laster number, so treat it alone
+        for(int i = 0; i < input_array.size() - 1; i++){
+            printf("%d ", input_array[i]);
         }
+        printf("%d", input_array[input_array.size()-1]);
         printf("\n");
     }
-    return -1;
+    return 0;
 }

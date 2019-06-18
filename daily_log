@@ -3,5 +3,5 @@
 
 20190618={
     leetcode={py:[19,20], cpp:[1,2]},
-    machine_test_guide={},
+    machine_test_guide={cpp:[0306, 0201]},
 },
