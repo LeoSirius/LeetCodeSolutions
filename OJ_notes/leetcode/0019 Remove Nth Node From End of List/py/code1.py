@@ -7,10 +7,13 @@
 class Solution:
     def removeNthFromEnd(self, head: ListNode, n: int) -> ListNode:
         fast = slow = head
-        for _ in range(n):
-            fast = fast.next
-        if not fast:
-            return head.next
+        for i in range(n):
+            if fast.next:
+                fast = fast.next
+            else:
+                # if fast.next does not exists, which means n >= length of linked list
+                # so just remove the first node
+                return head.next
         while fast.next:
             fast = fast.next
             slow = slow.next

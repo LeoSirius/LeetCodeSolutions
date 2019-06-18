@@ -10,7 +10,9 @@ class Solution:
                     if s == target:
                         results.append(result + [nums[l], nums[r]])
                         l += 1
-                        while l < r and nums[l] == nums[l-1]:
+                        # because there is only left++, right did not move, 
+                        # so we only check duplicate from left 
+                        while l < r and nums[l] == nums[l-1]:       
                             l += 1
                     elif s < target:
                         l += 1

@@ -1,24 +1,21 @@
-class Solution:
-    def threeSumClosest(self, nums, target) -> int:
-        nums.sort()
-        closes_sum = nums[0] + nums[1] + nums[2]
-        min_diff = abs(target - closes_sum)
-        for i in range(len(nums) - 2):
-            l, r = i + 1, len(nums) - 1
-            s = nums[i] + nums[l] + nums[r]
-            while l < r:
-                if s == target:
-                    return s
-                elif s > target:
-                    r -= 1
-                else:
-                    l += 1
-                s = nums[i] + nums[l] + nums[r]
-                if min_diff > abs(target - s):
-                    min_diff = abs(target - s)
-                    closes_sum = s
-        return closes_sum
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.next = None
 
-s = Solution()
-res = s.threeSumClosest([0,2,1,-3], 1)
-print(res)
+class Solution:
+    def removeNthFromEnd(self, head: ListNode, n: int) -> ListNode:
+        fast = slow = head
+        for i in range(n):
+            if fast.next:
+                fast = fast.next
+            else:
+                # if fast.next does not exists, which means n >= length of linked list
+                # so just remove the first node
+                return head.next
+        while fast.next:
+            fast = fast.next
+            slow = slow.next
+        slow.next = slow.next.next
+        return head
