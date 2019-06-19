@@ -5,3 +5,6 @@
     leetcode={py:[19,20], cpp:[1,2]},
     machine_test_guide={cpp:[0306, 0201]},
 },
+20190619={
+    leetcode={py:[21,1], cpp:[3]}
+}

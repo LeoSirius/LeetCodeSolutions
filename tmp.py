@@ -1,17 +1,10 @@
 class Solution:
-    def isValid(self, s: str) -> bool:
-        mapping = {
-            ']': '[',
-            '}': '{',
-            ')': '(',
-        }
-        stack = []
-        for i, v in enumerate(s):
-            if v in mapping.values():
-                stack.append(v)
-            if v in mapping.keys():
-                if stack != [] and mapping[v] == stack[-1]:
-                    stack.pop()
-                else:
-                    return False
-        return stack == []
+    def twoSum(self, nums: List[int], target: int) -> List[int]:
+        # key: nums' element, value: index of that element
+        mapping = {}
+        for i in range(len(nums)):
+            num_to_find = target - nums[i]
+            if num_to_find in mapping.keys():
+                return [i, mapping[num_to_find]]
+            else:
+                mapping[nums[i]] = i
