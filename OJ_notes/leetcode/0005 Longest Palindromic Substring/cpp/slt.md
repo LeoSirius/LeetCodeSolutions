@@ -1,3 +1,6 @@
+## 思路1 枚举
+
+```cpp
 class Solution {
 public:
     string longestPalindrome(string s) {
@@ -26,3 +29,4 @@ public:
         return s.substr(start, max_len);
     }
 };
+```

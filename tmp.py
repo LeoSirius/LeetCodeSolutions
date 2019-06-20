@@ -1,10 +1,11 @@
 class Solution:
-    def twoSum(self, nums: List[int], target: int) -> List[int]:
-        # key: nums' element, value: index of that element
-        mapping = {}
-        for i in range(len(nums)):
-            num_to_find = target - nums[i]
-            if num_to_find in mapping.keys():
-                return [i, mapping[num_to_find]]
-            else:
-                mapping[nums[i]] = i
+    def lengthOfLongestSubstring(self, s: str) -> int:
+        start, max_len = 0, 0
+        mapping = {}    # mapping char to it's index
+        for i, char in enumerate(s):
+            if char in mapping:
+                # char is occured before, update start
+                start = max(start, mapping[char] + 1)
+            mapping[char] = i
+            max_len = max(max_len, i - start + 1)   
+        return max_len
