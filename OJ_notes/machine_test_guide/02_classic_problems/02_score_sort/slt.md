@@ -1,3 +1,8 @@
+## 思路1 重写结构体的小于运算符
+
+注意这道题描述不完整。可以看出是排升序。
+
+```cpp
 #include<stdio.h>
 #include<algorithm>
 #include<string.h>
@@ -29,3 +34,4 @@ int main(){
     }
     return 0;
 }
+```
