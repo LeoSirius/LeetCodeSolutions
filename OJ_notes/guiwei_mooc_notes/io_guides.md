@@ -66,7 +66,7 @@ int main(){
 若输入：
 
 ```c++
-34_k_456
+34 k 456
 ```
 
 则会输出：
@@ -182,7 +182,7 @@ int main(){
     //用cin则是: while(cin >> n)
     while(scanf("%d", &n) != EOF){
         if(n > mx)
-            mx = 0;
+            mx = n;
     }
     printf("%d", mx);
     return 0;
