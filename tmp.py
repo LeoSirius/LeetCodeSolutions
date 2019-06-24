@@ -1,20 +1,8 @@
 class Solution:
-    def convert(self, s: str, numRows: int) -> str:
-        if numRows >= len(s) or numRows == 1:
-            return s
-        step = 1
-        index = 0
-        res = [''] * numRows
-        for i, v in enumerate(s):
-            # cur_line is not index
-            res[index] += v
-            if index == numRows-1:
-                step = -1
-            elif index == 0:
-                step = 1
-            index += step
-        return ''.join(res)
-
-s = Solution()
-t = s.convert('PAYPALISHIRING', 3)
-print(t)
+    def reverse(self, x: int) -> int:
+        sign = 1 if x > 0 else -1
+        reversed_num = sign * int((str(sign*x))[::-1])
+        if reversed_num > 2**31-1 or reversed_num < -2**31:
+            return 0
+        else:
+            return reversed_num

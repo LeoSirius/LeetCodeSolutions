@@ -21,7 +21,7 @@
     machine_test_guide={cpp:[0205]},
 }，
 20190624={
-    
+    leetcode={py:[6,7], cpp:[8,9]}
 }
 
 // below is marked for weekend
