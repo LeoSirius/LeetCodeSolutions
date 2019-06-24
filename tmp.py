@@ -1,18 +1,20 @@
 class Solution:
-    def longestPalindrome(self, s: str) -> str:
-        res = ''
-        for i in range(len(s)):
-            tmp = self.spread_out(s, i, i)  # case 'aba'
-            if len(tmp) > len(res):
-                res = tmp
-            tmp = self.spread_out(s, i, i+1) # case 'abba'
-            if len(tmp) > len(res):
-                res = tmp
-        return res
+    def convert(self, s: str, numRows: int) -> str:
+        if numRows >= len(s) or numRows == 1:
+            return s
+        step = 1
+        index = 0
+        res = [''] * numRows
+        for i, v in enumerate(s):
+            # cur_line is not index
+            res[index] += v
+            if index == numRows-1:
+                step = -1
+            elif index == 0:
+                step = 1
+            index += step
+        return ''.join(res)
 
-    def spread_out(self, s, left, right):
-        while left >= 0 and right < len(s) and s[left] == s[right]:
-            left -= 1
-            right += 1
-        # 最后一次的left，right的索引已经不再符合条件，所以返回的时候不要包含它们
-        return s[left+1:right]
+s = Solution()
+t = s.convert('PAYPALISHIRING', 3)
+print(t)
