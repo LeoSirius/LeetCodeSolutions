@@ -31,6 +31,7 @@ public:
 ```python
 class Solution:
     def myAtoi(self, str: str) -> int:
+        # convert to list, str does not support del
         ls = list(str.strip())
         if len(ls) == 0:
             return 0
