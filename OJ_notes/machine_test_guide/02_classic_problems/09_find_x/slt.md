@@ -1,3 +1,8 @@
+## 思路1 遍历查找
+
+对于无序数组，只能遍历查找，线性时间复杂度。
+
+```cpp
 #include<iostream>
 using namespace std;
 
@@ -22,3 +27,4 @@ int main(){
     }
     return 0;
 }
+```

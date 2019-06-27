@@ -44,7 +44,7 @@ class Solution:
                     return s
                 if abs(target - s) < abs(target - result):
                     result = s
-                    
+
                 if s > target:
                     r -= 1
                 elif s < target:
