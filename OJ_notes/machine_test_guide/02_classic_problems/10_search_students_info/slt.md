@@ -1,3 +1,8 @@
+## 思路1 排序后用二分查找
+
+注意输入的学号不一定是有序的，所以先按学好进行排序，然后用二分查找。
+
+```cpp
 #include<iostream>
 #include<algorithm>
 using namespace std;
@@ -47,3 +52,4 @@ int main(){
     }
     return 0;
 }
+```
