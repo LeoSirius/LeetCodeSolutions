@@ -25,17 +25,23 @@
     machine_test_guide={cpp:[0207]},
 },
 20190625={
-    leetcode={py[8,9], cpp:[11,12]},
+    leetcode={py:[8,9], cpp:[11,12]},
     machine_test_guide={cpp:[0206]},
 },
 20190626={
-    leetcode={py[11,12], cpp:[13,14]},
+    leetcode={py:[11,12], cpp:[13,14]},
     machine_test_guide={cpp:[0208]},
 },
 20190627={
-    leetcode={py[13,14], cpp:[15,16]},
+    leetcode={py:[13,14], cpp:[15,16]},
     machine_test_guide={cpp:[0209]},
 },
+20190628={
+    leetcode={py:[15,16], cpp:[17,18]}
+},
+20190701={
+    leetcode={py:[17,18], cpp:[19,20]}
+}
 
 // below is marked for weekend
 // leetcode cpp:[4]    参考python

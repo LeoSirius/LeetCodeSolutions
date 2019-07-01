@@ -1,24 +1,17 @@
-#include<iostream>
-using namespace std;
-
-int main(){
-    int n;
-    while(scanf("%d", &n) != EOF){
-        int *array = new int[n];
-        for(int i = 0; i < n; i++){
-            scanf("%d", &array[i]);
-        }
-        int target;
-        int target_idx = -1;
-        scanf("%d", &target);
-        for(int i = 0; i < n; i++){
-            if(array[i] == target){
-                target_idx = i;
-                break;
+class Solution {
+public:
+    bool isValid(string s) {
+        stack<char> stk;
+        for(char&c : s){
+            switch(c){
+                case '[': stk.push(']'); break;
+                case '(': stk.push(')'); break;
+                case '{': stk.push('}'); break;
+                default:
+                    if(stk.size() == 0 || c != stk.top()) return false;
+                    else stk.pop();
             }
         }
-        delete [] array;
-        printf("%d\n", target_idx);
+        return stk.empty();
     }
-    return 0;
-}
+};

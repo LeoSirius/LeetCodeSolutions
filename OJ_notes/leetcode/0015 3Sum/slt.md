@@ -37,12 +37,15 @@ public:
 };
 ```
 
+注意跳过重复的代码和cpp中不一样的地方
+
 ```python
 class Solution:
     def threeSum(self, nums):
         nums.sort()
         res = []
         for i in range(len(nums) - 2):
+            # 对i的重复的跳过也不能和cpp一样，cpp可以自由的操纵i，但python中不能
             if i > 0 and nums[i] == nums[i-1]:
                 continue
             l, r = i + 1, len(nums) - 1
