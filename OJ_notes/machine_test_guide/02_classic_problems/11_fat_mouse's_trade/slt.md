@@ -1,3 +1,8 @@
+### 思路1 使用贪心算法
+
+一个房间java bean不用一次全部买完，所以用贪心算法可以得到最优解。
+
+```cpp
 #include<iostream>
 #include<algorithm>
 using namespace std;
@@ -31,6 +36,6 @@ int main(){
             }
         }
         printf("%.3f\n", total_java_beans);
-        delete [] rooms;
     }
 }
+```

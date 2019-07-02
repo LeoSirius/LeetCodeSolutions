@@ -28,14 +28,12 @@ public:
 class Solution:
     def isValid(self, s: str) -> bool:
         stack = []
-        mydict = {')':'(', ']':'[', '}':'{'}
-        for char in s:
-            if char in mydict.values():
-                stack.append(char)
-            elif char in mydict.keys():
-                if stack == [] or mydict[char] != stack.pop():
-                    return False
+        for c in s:
+            if c == '{': stack.append('}')
+            elif c == '[': stack.append(']')
+            elif c == '(': stack.append(')')
             else:
-                return False
+                if stack == [] or c != stack.pop():
+                    return False
         return stack == []
 ```

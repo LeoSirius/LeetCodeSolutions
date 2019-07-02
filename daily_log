@@ -41,6 +41,11 @@
 },
 20190701={
     leetcode={py:[17,18], cpp:[19,20]}
+    machine_test_guide={cpp:[210]},
+},
+20190702={
+    leetcode={py:[19,20], cpp:[21,1]}
+    machine_test_guide={cpp:[211]},
 }
 
 // below is marked for weekend
