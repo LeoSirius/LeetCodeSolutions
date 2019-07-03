@@ -46,7 +46,11 @@
 20190702={
     leetcode={py:[19,20], cpp:[21,1]}
     machine_test_guide={cpp:[211]},
+},
+20190703={
+    leetcode={py:[22,]}
 }
+
 
 // below is marked for weekend
 // leetcode cpp:[4]    参考python

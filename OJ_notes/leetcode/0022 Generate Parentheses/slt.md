@@ -1,3 +1,9 @@
+## 思路1 DFS
+
+剩下的右括号必须大于等于左括号，如果剩下的右括号小于左括号，说明有左括号没有与之匹配的右括号。
+
+
+```python
 class Solution:
     def generateParenthesis(self, n: int):
         if not n:
@@ -18,3 +24,4 @@ class Solution:
             self.dfs(l-1, r, res, string+'(')
         if r:
             self.dfs(l, r-1, res, string+')')
+```
