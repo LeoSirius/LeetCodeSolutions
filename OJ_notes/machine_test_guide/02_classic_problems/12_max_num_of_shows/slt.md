@@ -1,3 +1,8 @@
+### 思路1 利用贪心算法的思想
+
+选择结束时间作为贪心的对象
+
+```cpp
 #include<iostream>
 #include<algorithm>
 using namespace std;
@@ -30,3 +35,4 @@ int main(){
         delete [] shows;
     }
 }
+```

@@ -15,6 +15,7 @@ For each test case, print in a single line a real number accurate up to 3 decima
 
 ### 样例输入
 
+```
 5 3
 7 2
 4 3
@@ -24,8 +25,11 @@ For each test case, print in a single line a real number accurate up to 3 decima
 24 15
 15 10
 -1 -1
+```
 
 ### 样例输出
 
+```
 13.333
 31.500
+```
