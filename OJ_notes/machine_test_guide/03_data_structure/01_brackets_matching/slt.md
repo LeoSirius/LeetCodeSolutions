@@ -1,3 +1,8 @@
+### 思路1 利用栈
+
+用一个栈来存放所有左括号的索引。
+
+```cpp
 #include<iostream>
 #include<stack>
 using namespace std;
@@ -32,3 +37,4 @@ int main(){
     }
     return 0;
 }
+```

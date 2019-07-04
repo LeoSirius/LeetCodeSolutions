@@ -1,3 +1,8 @@
+### 思路1 k个分别反转，迭代实现
+
+关键是理清各个结点的指向
+
+```python
 # Definition for singly-linked list.
 # class ListNode:
 #     def __init__(self, x):
@@ -27,3 +32,4 @@ class Solution:
             else:
                 # 剩下的结点不到k个
                 return dummy.next
+```
