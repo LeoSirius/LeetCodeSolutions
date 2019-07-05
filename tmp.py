@@ -1,29 +1,12 @@
-# Definition for singly-linked list.
-# class ListNode:
-#     def __init__(self, x):
-#         self.val = x
-#         self.next = None
-
 class Solution:
-    def reverseKGroup(self, head: ListNode, k: int) -> ListNode:
-        dummy = jump = ListNode(0)
-        dummy.next = l = r = head
+    def removeDuplicates(self, nums: List[int]) -> int:
+        if not nums:
+            return 0
 
-        while True:
-            count = 0
-            while r and count < k:
-                count += 1
-                r = r.next
-            if count == k:
-                pre, cur = l, r
-                for _ in range(k):
-                    tmp = cur.next
-                    cur.next = pre
-                    pre = cur
-                    cur = tmp
-                jump.next = pre
-                jump = l
-                l = r
-            else:
-                # 剩下的结点不到k个
-                return dummy.next
+        new_tail = 0
+        for i in range(1, len(nums)):
+            if nums[new_tail] != nums[i]:
+                new_tail += 1
+                nums[new_tail] = nums[i]
+
+        return new_tail+1
