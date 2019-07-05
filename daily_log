@@ -56,8 +56,11 @@
     machine_test_guide={cpp[301]},
 },
 20190705={
-    leetcode={py:[26,27], cpp:[22,23]},
+    leetcode={py:[26,27,28], cpp:[22,23]},
 }
 
-// below is marked for weekend
-// leetcode cpp:[4]    参考python
+
+to be implemented
+
+// leetcode cpp:[4]    tips:参考python
+// [10]
