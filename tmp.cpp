@@ -1,34 +1,45 @@
-#include<iostream>
-#include<stack>
-using namespace std;
-
-char str[101];
-char ans[101];
-stack<int> stk;     // 这个stack只保存左括号的索引
-
-int main(){
-    while(scanf("%s", str) != EOF){
-        for(int i = 0; str[i] != 0; ++i){
-            if(str[i] == '('){
-                stk.push(i);
-                ans[i] = ' ';      // 暂时把左括号写成' '，后面还会检查
-            }else if(str[i] == ')'){
-                if(stk.empty()){
-                    ans[i] = '?';  // 没有匹配成功
-                }else{
-                    stk.pop();
-                    ans[i] = ' ';
-                }
-            }else{
-                ans[i] = ' ';
-            }
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* mergeKLists(vector<ListNode*>& lists) {
+        if(lists.empty()){
+            return nullptr;
         }
-        // 还有没匹配成功的左括号
-        while(stk.empty() == false){
-            ans[stk.top()] = '$';
-            stk.pop();
+        while(lists.size() >= 2){
+            lists.push_back(mergeTwoLists(lists[0], lists[1]));
+            lists.erase(lists.begin());
+            lists.erase(lists.begin());
         }
-        printf("%s\n%s\n", str, ans);
+        return lists[0];
     }
-    return 0;
-}
+
+    // 使用原来的结点merge，没有创建新的结点
+    ListNode* mergeTwoLists(ListNode *l1, ListNode *l2){
+        ListNode dummy_head = ListNode(0);
+        ListNode *p = &dummy_head;
+        while(l1 && l2){
+            if(l1->val < l2->val){
+                p->next = l1;
+                l1 = l1->next;
+            }else{
+                p->next = l2;
+                l2 = l2->next;
+            }
+            p = p->next;
+        }
+        if(l1){
+            p->next = l1;
+        }
+        if(l2){
+            p->next = l2;
+        }
+        return dummy_head.next;
+    }
+};

@@ -1,3 +1,6 @@
+### 思路1 类似第26题，只是判断的对象是给定的一个val
+
+```python
 class Solution:
     def removeElement(self, nums: List[int], val: int) -> int:
         if not nums:
@@ -9,3 +12,4 @@ class Solution:
                 new_tail += 1
                 nums[new_tail] = nums[i]
         return new_tail + 1
+```
