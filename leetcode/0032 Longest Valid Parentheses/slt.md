@@ -1,3 +1,6 @@
+### 思路1 利用一个栈来存放左括号的下标
+
+```python
 class Solution:
     def longestValidParentheses(self, s: str) -> int:
         if not s or len(s) < 2:
@@ -22,3 +25,4 @@ class Solution:
                         # e.g. (())  i = 2, stack[-1] = 0, res = 2
                         res = max(res, i - stack[-1])
         return res
+```

@@ -56,11 +56,15 @@
     machine_test_guide={cpp[301]},
 },
 20190705={
-    leetcode={py:[26,27,28], cpp:[22,23]},
+    leetcode={py:[26,27,28,29], cpp:[22,23]},
+},
+20190708={
+    leetcode={py:[31,32], cpp[24,25]}
 }
 
 
-to be implemented
+to be implemented：
 
-// leetcode cpp:[4]    tips:参考python
-// [10]
+leetcode cpp:[4]    tips:参考python
+[10]
+[30]
