@@ -67,12 +67,11 @@
     machine_test_guide={cpp:[303]},
 },
 20190710={
-    leetcode={py:[35,]}
+    leetcode={py:[35,36], cpp:[27,]}
 }
 
 
 to be implemented：
-
 leetcode cpp:[4]    tips:参考python
 [10]
 [30]
