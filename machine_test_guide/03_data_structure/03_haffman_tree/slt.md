@@ -1,3 +1,6 @@
+### 思路1 利用最小堆建树
+
+```cpp
 #include<iostream>
 #include<queue>
 using namespace std;
@@ -25,3 +28,4 @@ int main(){
     }
     return 0;
 }
+```

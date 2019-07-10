@@ -63,7 +63,8 @@
     machine_test_guide={cpp:[302]},
 },
 20190709={
-    leetcode={py:[33,]}
+    leetcode={py:[33,34], cpp:[26]},
+    machine_test_guide={cpp:[303]},
 }
 
 
