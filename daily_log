@@ -65,6 +65,9 @@
 20190709={
     leetcode={py:[33,34], cpp:[26]},
     machine_test_guide={cpp:[303]},
+},
+20190710={
+    leetcode={py:[35,]}
 }
 
 

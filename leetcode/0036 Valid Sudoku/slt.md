@@ -1,3 +1,6 @@
+### 思路1 迭代分别检查行列和小正方形
+
+```python
 class Solution:
     def isValidSudoku(self, board: List[List[str]]) -> bool:
         for row in board:
@@ -21,3 +24,4 @@ class Solution:
     def is_unit_valid(self, nums):
         nums = [i for i in nums if i != '.']
         return len(nums) == len(set(nums))
+```
