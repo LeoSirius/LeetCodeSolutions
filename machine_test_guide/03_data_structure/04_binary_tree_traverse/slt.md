@@ -1,3 +1,6 @@
+### 思路1 生成一个二叉树，在后序遍历
+
+```cpp
 #include<iostream>
 #include<string>
 using namespace std;
@@ -54,3 +57,4 @@ int main(){
     }
     return 0;
 }
+```

@@ -1,10 +1,10 @@
 # 输入输出相关
 
-## 读文件内容作为标准输入
+## 读文件内容作为标准输入(freopen)
 
 调试程序时手动输入太麻烦，若有测试数据的文件，可以直接用freopen(读作 f re open)。
 
-如文件c:\tmp\test.txt内容：
+如文件/test.txt内容：
 
 ```c++
 1 22 4 7 9 7
@@ -22,19 +22,21 @@ Code:
 #include<iostream>
 using namespace std;
 int main(){
-    freopen("c:\\tmp\\test.txt", "r", stdin);
-    int n, mx = 0;
+    freopen("/test.txt", "r", stdin);
+    int n, max = 0;
     while( cin >> n){
-        if(n > mx)
-            mx = n;
+        if(n > max)
+            max = n;
     }
-    printf("%d", mx);
+    printf("%d", max);
 }
 ```
 
 ## scanf, printf, cin, cout
 
 - cin、cout速度比scanf、pirntf慢，输入输出大量数据时使用后者
+- scanf各项用空格分隔，如果的是字符，输入的空格会被当成字符读入。cin不会
+- scanf的返回结果是成功读入的元素个数，cin则返回true和false表示成功或失败
 - 一个程序中不要同时使用cin和scanf，cout和printf
 
 ### 用scanf读入不同类型的变量
@@ -116,8 +118,11 @@ int main(){
 ```c++
 int n, m;
 printf("%d", scanf("%d%d", &n, &m));
+```
 
 例：
+
+```
 12 56
 2
 
