@@ -1,3 +1,6 @@
+### 思路1 直接暴力计算
+
+```python
 class Solution:
     def countAndSay(self, n: int) -> str:
         s = ['1']
@@ -22,3 +25,4 @@ class Solution:
             result = ''.join(temp)
             s = temp
         return result
+```
