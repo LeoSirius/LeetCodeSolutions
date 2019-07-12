@@ -1,30 +1,69 @@
-### 思路1 二分查找
+### 思路1 二分查找，先找最小元素
 
-题目要求时间复杂度为O(logn)，必然用二分查找。但是不同于一般的二分查找，这个是绕pivot旋转过的。观察可以发现，如果nums[left] <= nums[mid],那么[left,mid] 一定为单调递增序列。反之[mid,right]则为有序单调自增序列。
+先找到最小元素的index，再判断target是在最小元素的前面还是后面，再用常规的二分查找。
+
+```cpp
+class Solution {
+public:
+    int search(vector<int>& nums, int target) {
+        int len = nums.size();
+        if(len == 0) return -1;
+
+        int l, r, m;
+        l = 0, r = len - 1;
+
+        // find smallest's index
+        // 循环结束时l = r， m可能等于l，也可能比l小1
+        while(l < r){
+            m = (l+r) / 2;
+            if(nums[m] > nums[r]) l = m+1;
+            else r = m;
+        }
+
+        // 以最小索引为界，放弃target不可能存在的那一半
+        int s = l;
+        l = 0, r = len - 1;
+        if(nums[s] <= target && target <= nums[r])l = s;
+        else r = s;
+
+        while(l <= r){
+            m = (l + r) / 2;
+            if(nums[m] == target) return m;
+            else if(nums[m] > target) r = m - 1;
+            else l = m + 1;
+        }
+        return -1;
+    }
+};
+```
 
 ```python
 class Solution:
     def search(self, nums: List[int], target: int) -> int:
-        if not nums:
-            return -1
+        if not nums: return -1
+        l, r = 0, len(nums)-1
 
-        low, high = 0, len(nums) - 1
-        while low <= high:
-            mid = (low + high) // 2
-            if target == nums[mid]:
-                return mid
-            
-            if nums[low] <= nums[mid]:
-                # 注意边界条件，如果target比nums[low]还小，说明是被pivot到了后面
-                if nums[low] <= target <= nums[mid]:
-                    high = mid - 1
-                else:
-                    low = mid + 1
+        while l < r:
+            m = (l+r) // 2
+            if nums[m] > nums[r]:
+                l = m+1
             else:
-                # 同样注意右边的边界条件，如果target比nums[right]还打，说明被pivot到了前面
-                if nums[mid] <= target <= nums[high]:
-                    low = mid + 1
-                else:
-                    high = mid - 1
+                r = m
+        
+        small_index = l
+        l, r = 0, len(nums)-1
+        if nums[small_index] <= target <= nums[r]:
+            l = small_index
+        else:
+            r = small_index
+        
+        while l <= r:
+            m = (l+r) // 2
+            if nums[m] == target:
+                return m
+            elif nums[m] > target:
+                r = m - 1
+            else:
+                l = m + 1
         return -1
 ```

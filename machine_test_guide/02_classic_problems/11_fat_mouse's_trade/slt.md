@@ -36,6 +36,7 @@ int main(){
             }
         }
         printf("%.3f\n", total_java_beans);
+        delete [] rooms;
     }
 }
 ```
