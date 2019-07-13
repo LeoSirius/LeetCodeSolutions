@@ -1,3 +1,8 @@
+### 思路1 用递归来判断
+
+我们只用判断，不用再生成树本身
+
+```cpp
 #include<iostream>
 #include<vector>
 #include<string>
@@ -52,3 +57,4 @@ int main(){
     }
     return 0;
 }
+```
