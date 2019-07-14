@@ -79,7 +79,7 @@
     machine_test_guide={cpp:[211]},
 },
 20190713={
-    machine_test_guide={cpp:[]}
+    machine_test_guide={cpp:[305,306]}
 }
 
 to be implemented：
