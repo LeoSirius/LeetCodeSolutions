@@ -1,54 +1,36 @@
 #include<iostream>
-#include<vector>
-#include<string>
+#include<algorithm>
 using namespace std;
 
-bool Judge(vector<int> &tree, vector<int> &obj){
-    if(tree.size() == 0 && obj.size() == 0){
-        return true;
+struct Room{
+    int food;
+    int javabean;
+    double ratio;
+    bool operator < (const Room &b) const {
+        return ratio > b.ratio;
     }
-    // 序列的根必须同
-    if(tree.size() != obj.size() || tree[0] != obj[0]){
-        return false;
-    }
-
-    vector<int> tree_left, tree_right, obj_left, obj_right;
-    for(int i = 1; i < tree.size(); ++i){
-        if(tree[i] < tree[0]){
-            tree_left.push_back(tree[i]);
-        }else{
-            tree_right.push_back(tree[i]);
-        }
-        if(obj[i] < obj[0]){
-            obj_left.push_back(obj[i]);
-        }else{
-            obj_right.push_back(obj[i]);
-        }
-    }
-    return Judge(tree_left, obj_left) && Judge(tree_right, obj_right);
-}
+};
 
 int main(){
-    vector<int> tree, obj;
-    string str_tree, str_obj;
-
-    int n;
-    while(scanf("%d", &n) != EOF && n){
-        cin >> str_tree;
-        for(int i = 0; i < str_tree.size(); ++i){
-            tree.push_back(str_tree[i] - '0');
+    int m, n;
+    while(scanf("%d %d", &m, &n) != EOF && !(m == -1 && n == -1)){
+        Room *rooms = new Room[n];
+        for(int i = 0; i < n; ++i){
+            scanf("%d %d", &rooms[i].javabean, &rooms[i].food);
+            rooms[i].ratio = double(rooms[i].javabean) / rooms[i].food;
         }
-        while(n--){
-            cin >> str_obj;
-            for(int i = 0; i < str_obj.size(); ++i){
-                obj.push_back(str_obj[i] - '0');
-            }
-            if(Judge(tree, obj)){
-                cout << "YES" << endl;
+        sort(rooms, rooms + n);
+        double total_javabean = 0;
+        for(int i = 0; i < n && m; i++){
+            if(m > rooms[i].food){
+                total_javabean += rooms[i].javabean;
+                m -= rooms[i].food;
             }else{
-                cout << "NO" << endl;
+                total_javabean += m * rooms[i].ratio;
+                m = 0;
             }
         }
+        printf("%.3f\n", total_javabean);
     }
     return 0;
 }
