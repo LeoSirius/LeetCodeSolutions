@@ -1,6 +1,6 @@
 ### 思路1 把所有节点放在一个list，再sort，再串起来
 
-`python`的`sorted`可以制定排序对象的比较成员。`sorted(sorted_list, key=operator.attrgetter('val'))`就是用每个元素的`val`成员来进行排序。
+`python`的`sorted`可以制定排序对象的比较成员。`sorted(sorted_list, key=operator.attrgetter('val'))`就是用每个元素的`val`成员来进行排序。或者可以直接用lambda表达式。
 
 ```python
 # Definition for singly-linked list.
@@ -20,8 +20,8 @@ class Solution:
                 all_nodes.append(curr)
                 curr = curr.next
 
-        # 排好序，然后把他们串起来
-        all_nodes = sorted(all_nodes, key=operator.attrgetter('val'))
+        # 排好序，然后把他们串起来, key = val 按照元素的val排序
+        all_nodes = sorted(all_nodes, key=lambda: e: e.val)
         for i, node in enumerate(all_nodes):
             try:
                 node.next = all_nodes[i + 1]  # 每个结点的next指向下一个结点

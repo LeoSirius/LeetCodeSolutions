@@ -2,6 +2,39 @@
 
 回溯法（探索与回溯法）是一种选优搜索法，又称为试探法，按选优条件向前搜索，以达到目标。 但当探索到某一步时，发现原先选择并不优或达不到目标，就退回一步重新选择，这种走不通就退回再走的技术为回溯法，而满足回溯条件的某个状态的点称为“回溯点”。回溯法是暴力搜索法中的一种。
 
+```cpp
+class Solution {
+    bool check(vector<vector<char>>& board, int row, int col, char val){
+        int boxrow = row - row % 3;  // boxrow, boxcol 是每个小正方形最左上角的索引
+        int boxcol = col - col % 3;
+        for(int x = 0; x < 9; ++x) if(board[x][col] == val) return false;
+        for(int y = 0; y < 9; ++y) if(board[row][y] == val) return false;
+        for(int x = 0; x < 3; ++x)
+        for(int y = 0; y < 3; ++y)
+            if(board[boxrow+x][boxcol+y] == val) return false;
+        return true;
+    }
+    bool solveSudoku(vector<vector<char>>& board, int row, int col){
+        if(row == 9) return true;
+        if(col == 9) return solveSudoku(board, row+1, 0);
+        if(board[row][col] != '.') return solveSudoku(board, row, col+1);
+
+        for(char c = '1'; c <= '9'; ++c){
+            if(check(board, row, col, c)){
+                board[row][col] = c;
+                if(solveSudoku(board, row, col+1)) return true;
+                board[row][col] = '.';
+            }
+        }
+        return false;
+    }
+public:
+    void solveSudoku(vector<vector<char>>& board) {
+        solveSudoku(board, 0, 0);
+    }
+};
+```
+
 ```python
 class Solution:
     def solveSudoku(self, board: List[List[str]]) -> None:
