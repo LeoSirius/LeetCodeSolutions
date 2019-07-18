@@ -91,6 +91,10 @@
 20190716={
     machine_test_guide={cpp:[212]},
     leetcode={py:[23,24], cpp:[36,37]},
+},
+20190717={
+    machine_test_guide={cpp:[301]},
+    leetcode={py:[25,26], cpp:[38,39]},
 }
 
 to be implemented：

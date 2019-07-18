@@ -7,33 +7,33 @@
 #include<stack>
 using namespace std;
 
-char str[101];
-char ans[101];
-stack<int> stk;     // 这个stack只保存左括号的索引
-
 int main(){
-    while(scanf("%s", str) != EOF){
-        for(int i = 0; str[i] != 0; ++i){
-            if(str[i] == '('){
+    string input_str;
+    string res_str;
+    stack<int> stk;
+    while(getline(cin, input_str)){
+        while(!stk.empty()) stk.pop();
+        for(int i = 0; i < input_str.length(); ++i){
+            if(input_str[i] == '('){
                 stk.push(i);
-                ans[i] = ' ';      // 暂时把左括号写成' '，后面还会检查
-            }else if(str[i] == ')'){
-                if(stk.empty()){
-                    ans[i] = '?';  // 没有匹配成功
-                }else{
+                res_str += " ";
+            }else if(input_str[i] == ')'){
+                if(!stk.empty()){
                     stk.pop();
-                    ans[i] = ' ';
+                    res_str += " ";
+                }else{
+                    res_str += "?";
                 }
             }else{
-                ans[i] = ' ';
+                res_str += " ";
             }
         }
-        // 还有没匹配成功的左括号
-        while(stk.empty() == false){
-            ans[stk.top()] = '$';
+        while(!stk.empty()){
+            res_str[stk.top()] = '$';
             stk.pop();
         }
-        printf("%s\n%s\n", str, ans);
+        cout << input_str << endl;
+        cout << res_str << endl;
     }
     return 0;
 }
