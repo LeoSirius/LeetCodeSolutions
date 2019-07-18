@@ -12,9 +12,6 @@ stack<double> num_stk;
 stack<char> optr_stk;
 
 void get_next(string str, bool &is_optr, int &num, char &optr, int &i){
-    if(i >= str.length()){
-        return;
-    }
     if(isdigit(str[i])){
         is_optr = false;
         num = 0;
