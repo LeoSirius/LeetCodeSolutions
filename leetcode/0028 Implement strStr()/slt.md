@@ -1,4 +1,4 @@
-### 思路1 用python的切片
+### 思路1 brute-force
 
 题目是叫我们实现这个函数，而不是调用这个函数。
 直接以每个haystack字符作为起点，依次匹配needle中的字符。
@@ -10,6 +10,7 @@ public:
         int m = haystack.size(), n = needle.size();
 
         // i的上届是等于m-n的，如m=10， n=3，i最后等于7，最后还剩两个格子，加上i本身正好是3
+        // 如  aaaab和ab, 5 - 2 = 3，但i要循环4次
         for(int i = 0; i <= (m - n); ++i){
             int j = 0;
             for(; j < n; ++j){

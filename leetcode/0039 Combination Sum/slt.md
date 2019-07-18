@@ -2,23 +2,23 @@
 
 ```cpp
 class Solution {
-    void combinationSum(vector<int> &nums, int target, int begin, vector<int> &combination, vector<vector<int>> &res){
+    void combinationSum(vector<int> &nums, int target, int begin, vector<int> &path, vector<vector<int>> &res){
         if(!target){
-            res.push_back(combination);
+            res.push_back(path);
             return;
         }
         for(int i = begin; i < nums.size() && target >= nums[i]; ++i){
-            combination.push_back(nums[i]);
-            combinationSum(nums, target-nums[i], i, combination, res);
-            combination.pop_back();
+            path.push_back(nums[i]);
+            combinationSum(nums, target-nums[i], i, path, res); // 一个元素可以用多次，所以i不变
+            path.pop_back();
         }
     }
 public:
     vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
         vector<vector<int>> res;
-        vector<int> combination;
+        vector<int> path;
         sort(candidates.begin(), candidates.end());
-        combinationSum(candidates, target, 0, combination, res);
+        combinationSum(candidates, target, 0, path, res);
         return res;
     }
 };

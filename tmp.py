@@ -1,11 +1,6 @@
 class Solution:
-    def removeDuplicates(self, nums: List[int]) -> int:
-        if not nums:
-            return 0
-
-        new_tail = 0
-        for i in range(1, len(nums)):
-            if nums[new_tail] != nums[i]:
-                new_tail += 1
-                nums[new_tail] = nums[i]
-        return new_tail + 1
+    def strStr(self, haystack: str, needle: str) -> int:
+        for i in range(len(haystack)-len(needle)+1):
+            if haystack[i:i+len(needle)] == needle:
+                return i
+        return -1
