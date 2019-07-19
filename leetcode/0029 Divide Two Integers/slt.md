@@ -38,7 +38,7 @@ class Solution:
             while dividend >= i_times_of_divisor:
                 dividend -= i_times_of_divisor
                 res += i
-                i <<= 1
+                i <<= 1     # 左移以为相当于乘2
                 i_times_of_divisor <<= 1
         if not sign:
             res = -res

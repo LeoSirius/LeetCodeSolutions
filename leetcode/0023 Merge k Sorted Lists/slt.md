@@ -74,12 +74,8 @@ public:
             }
             p = p->next;
         }
-        if(l1){
-            p->next = l1;
-        }
-        if(l2){
-            p->next = l2;
-        }
+        if(l1) p->next = l1;
+        if(l2) p->next = l2;
         return dummy_head.next;
     }
 };
