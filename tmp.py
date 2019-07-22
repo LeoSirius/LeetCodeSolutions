@@ -1,20 +1,29 @@
 class Solution:
-    def nextPermutation(self, nums: List[int]) -> None:
-        """
-        Do not return anything, modify nums in-place instead.
-        """
-        length = len(nums)
-        p = length - 1
+    def search(self, nums: List[int], target: int) -> int:
+        if not nums:
+            return -1
 
-        while p > 0 and nums[p-1] >= nums[p]:
-            p -= 1
+        l, r = 0, len(nums)-1
+        while l < r:
+            m = (l + r) // 2
+            if nums[m] > nums[r]:
+                l = m + 1
+            else:
+                r = m
+        
+        small_index = l
+        l, r = 0, len(nums)-1
+        if nums[small_index] <= target <= nums[r]:
+            l = small_index
+        else:
+            r = small_index
 
-        reverse_len = length - p
-        for i in range(reverse_len // 2):
-            nums[p+i], nums[length-i-1] = nums[length-i-1], nums[p+i]
-
-        if p > 0:
-            for i in range(p, length):
-                if nums[i] > nums[p-1]:
-                    nums[p-1], nums[i] = nums[i], nums[p-1]
-                    break
+        while l <= r:
+            m = (l+r) // 2
+            if nums[m] == target:
+                return m
+            elif nums[m] > target:
+                r = m-1
+            else:
+                l = m+1
+        return -1

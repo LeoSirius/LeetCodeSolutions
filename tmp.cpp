@@ -8,32 +8,36 @@
  */
 class Solution {
 public:
-    ListNode* mergeKLists(vector<ListNode*>& lists) {
-        if(lists.size() == 0) return nullptr;
-        while(lists.size() >= 2){
-            lists.push_back(mergeTwoLists(lists[0], lists[1]));
-            lists.erase(lists.begin());
-            lists.erase(lists.begin());
-        }
-        return lists[0];
-    }
+    ListNode* reverseKGroup(ListNode* head, int k) {
+        if(head == nullptr || k == 1) return head;
+        ListNode *dummy_head = new ListNode(0);
+        dummy_head->next = head;
+        ListNode *jump = dummy_head;
+        ListNode *l, *r, *pre, *cur;
 
-    ListNode *mergeTwoLists(ListNode *l1, ListNode *l2){
-        ListNode dummy_head = ListNode(0);
-        ListNode *p = &dummy_head;
-        while(l1 && l2){
-            if(l1->val < l2->val){
-                p->next = l1;
-                p = p->next;
-                l1 = l1->next;
+        l = r = head;
+        while(true){
+            int count = 0;
+            while(r && count < k){
+                r = r->next;
+                count++;
+            }
+            if(count == k){
+                pre = r;
+                cur = l;
+                while(count--){
+                    ListNode *tmp_node = cur->next;
+                    cur->next = pre;
+                    pre = cur;
+                    cur = tmp_node;
+                }
+                jump->next = pre;
+                jump = l;
+                l = r;
             }else{
-                p->next = l2;
-                p = p->next;
-                l2 = l2->next;
+                return dummy_head->next;
             }
         }
-        if(l1) p->next = l1;
-        if(l2) p->next = l2;
-        return dummy_head.next;
+
     }
 };

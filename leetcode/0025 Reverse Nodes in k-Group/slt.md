@@ -25,7 +25,7 @@ public:
             int count = 0;
             // l is current group's first node
             // after this while, r point to (k+1)th node
-            //that is next group's frist node 
+            // which is next group's frist node 
             while(r && count < k){
                 r = r->next;
                 count++;
