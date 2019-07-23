@@ -1,21 +1,16 @@
-#include<iostream>
-#include<algorithm>
-using namespace std;
-
-int main(){
-    int n;
-    while(scanf("%d", &n) != EOF){
-        int *nums = new int[n];
-        for(int i = 0; i < n; i++){
-            int x;
-            scanf("%d", &x);
-            nums[i] = x;
+class Solution {
+public:
+    int removeElement(vector<int>& nums, int val) {
+        int length = nums.size();
+        if(length == 0){
+            return 0;
         }
-        sort(nums, nums+n);
-        for(int i = 0; i < n; i++){
-            printf("%d ", nums[i]);
+        int new_tail = 0;
+        for(int i = 0; i < length; i++){
+            if(nums[i] != val){
+                nums[new_tail++] = nums[i];
+            }
         }
-        printf("\n");
-        delete [] nums;
+        return new_tail;
     }
-}
+};

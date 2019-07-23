@@ -13,7 +13,7 @@ public:
         if(length == 0){
             return 0;
         }
-        for(int i = 0; i < length; ++i){
+        for(int i = 1; i < length; ++i){
             if(nums[new_tail] != nums[i]){
                 nums[++new_tail] = nums[i];
             }
