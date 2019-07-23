@@ -62,7 +62,7 @@ class Solution:
                     r = m - 1
                 else:
                     l = m
-            return l if nums[l] == target else -1
+            return r if nums[r] == target else -1
 
         return [bisearch_left(nums, target), bisearch_right(nums, target)]
 ```

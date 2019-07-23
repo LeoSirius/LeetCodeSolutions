@@ -1,97 +1,6 @@
 // leetcode use universal index
 // machine_test_guide use chapter number two digits, plus topic number two digits
 
-20190618={
-    leetcode={py:[19,20], cpp:[1,2]},
-    machine_test_guide={cpp:[0306, 0201]},
-},
-20190619={
-    leetcode={py:[21,1], cpp:[3]},
-    machine_test_guide={cpp:[0202]},
-},
-20190620={
-    leetcode={py:[2,3], cpp:[4(weekend),5]}
-    machine_test_guide={cpp:[0203]},
-},
-20190621={
-    leetcode={py:[4,5], cpp:[6,7]},
-    machine_test_guide={cpp:[0204]},
-},
-20190622={
-    machine_test_guide={cpp:[0205]},
-},
-20190624={
-    leetcode={py:[6,7], cpp:[8,9]},
-    machine_test_guide={cpp:[0207]},
-},
-20190625={
-    leetcode={py:[8,9], cpp:[11,12]},
-    machine_test_guide={cpp:[0206]},
-},
-20190626={
-    leetcode={py:[11,12], cpp:[13,14]},
-    machine_test_guide={cpp:[0208]},
-},
-20190627={
-    leetcode={py:[13,14], cpp:[15,16]},
-    machine_test_guide={cpp:[0209]},
-},
-20190628={
-    leetcode={py:[15,16], cpp:[17,18]}
-},
-20190701={
-    leetcode={py:[17,18], cpp:[19,20]}
-    machine_test_guide={cpp:[210]},
-},
-20190702={
-    leetcode={py:[19,20], cpp:[21,1]}
-    machine_test_guide={cpp:[211]},
-},
-20190703={
-    leetcode={py:[22,23,24]},
-    machine_test_guide={cpp:[212]},
-},
-20190704={
-    leetcode={py:[25]},
-    machine_test_guide={cpp[301]},
-},
-20190705={
-    leetcode={py:[26,27,28,29], cpp:[22,23]},
-},
-20190708={
-    leetcode={py:[31,32], cpp[24,25]},
-    machine_test_guide={cpp:[302]},
-},
-20190709={
-    leetcode={py:[33,34], cpp:[26]},
-    machine_test_guide={cpp:[303]},
-},
-20190710={
-    leetcode={py:[35,36], cpp:[27,28]},
-    machine_test_guide={cpp:[304]},
-},
-20190711={
-    leetcode={py:[37,38], cpp:[29,31]},
-    machine_test_guide={cpp:[210]},
-},
-20190712={
-    leetcode={py:[39,40], cpp:[32,33]},
-    machine_test_guide={cpp:[211]},
-},
-20190713={
-    machine_test_guide={cpp:[305,306]},
-},
-20190714={
-    machine_test_guide={cpp:[201]},
-},
-20190715={
-    machine_test_guide={cpp:[211]},
-    leetcode={py:[21,22], cpp:[34,35]},
-},
-20190716={
-    machine_test_guide={cpp:[212]},
-    leetcode={py:[23,24], cpp:[36,37]},
-},
 20190717={
     machine_test_guide={cpp:[301]},
     leetcode={py:[25,26], cpp:[38,39]},
@@ -105,8 +14,12 @@
     leetcode={py:[29,31], cpp:[22,23]},
 },
 20190722={
-    machine_test_guide={cpp:[304], [305]},
+    machine_test_guide={cpp:[304,305]},
     leetcode={py:[32,33], cpp:[24,25]}
+},
+20190723={
+    machine_test_guide={cpp:[306,201]},
+    leetcode={py:[34,]}
 }
 
 to be implemented：
