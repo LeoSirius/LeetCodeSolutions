@@ -1,35 +1,38 @@
 ## 思路1 重写结构体的小于运算符
 
-注意这道题描述不完整。可以看出是排升序。
+注意题目叫我们从小到大排序，可以看出是排升序。
 
 ```cpp
-#include<stdio.h>
+#include<iostream>
 #include<algorithm>
-#include<string.h>
+#include<string>
 using namespace std;
-struct E{
-    char name[101];
+
+struct Student{
+    string name;
     int age;
     int score;
-    bool operator < (const E &b) const{
-        if(score != b.score) return score < b.score;
-        int tmp = strcmp(name, b.name);
-        if(tmp != 0) 
-            return tmp < 0;
-        else
-            age < b.age; 
+    bool operator < (const Student &b) const{
+        if(score != b.score){
+            return score < b.score;
+        }else{
+            return name < b.name;
+        }
     }
-}buf[1000];
+};
 
 int main(){
     int n;
     while(scanf("%d", &n) != EOF){
+        Student *students = new Student[n];
         for(int i = 0; i < n; i++){
-            scanf("%s%d%d", buf[i].name, &buf[i].age, &buf[i].score);
+            cin >> students[i].name;
+            cin >> students[i].age;
+            cin >> students[i].score;
         }
-        sort(buf, buf + n);
+        sort(students, students + n);
         for(int i = 0; i < n; i++){
-            printf("%s %d %d\n", buf[i].name, buf[i].age, buf[i].score);
+            cout << students[i].name << ' ' << students[i].age << ' ' << students[i].score << endl;
         }
     }
     return 0;
