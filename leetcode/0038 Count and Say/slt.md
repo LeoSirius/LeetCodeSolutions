@@ -1,30 +1,26 @@
 ### 思路1 直接暴力计算
 
+利用python中list的特性，可以很好的直接计算。
+
 ```python
 class Solution:
     def countAndSay(self, n: int) -> str:
-        s = ['1']
-        result = '1'
-
-        # if n == 1, will return '1'
+        say_list = ['1']
+        # if n == 1, will return '1', so the for loop is  n-1 times
         for i in range(n-1):
             start = 0
-            temp = []
-
-            while start < len(s):
-                count = 1           # count表示s[start]的个数
+            tmp = []
+            while start < len(say_list):
+                count = 1               # count表示s[start]的个数
                 next = start + 1
-
-                while next < len(s) and s[start] == s[next]:
+                while next < len(say_list) and say_list[start] == say_list[next]:
                     next += 1
-                    count += 1      # 数出s[start]的个数，并让start跳到后面一个不同的元素
-                
-                temp.append(str(count))
-                temp.append(s[start])
+                    count += 1          # 数出s[start]的个数，并让start跳到后面一个不同的元素
+                tmp.append(str(count))
+                tmp.append(say_list[start])
                 start = next
-            result = ''.join(temp)
-            s = temp
-        return result
+            say_list = tmp
+        return ''.join(say_list)
 ```
 
 ### 思路2 递归

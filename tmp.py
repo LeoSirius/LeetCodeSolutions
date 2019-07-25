@@ -1,53 +1,18 @@
 class Solution:
-    def solveSudoku(self, board: List[List[str]]) -> None:
-        """
-        Do not return anything, modify board in-place instead.
-        """
-        self.board = board
-        self.solve()
-
-    def find_ussigned(self)
-        for r in range(9):
-            for c in range(9):
-                if self.board[r][c] == '.':
-                    return r, c
-        return -1, -1
-
-    def solve(self):
-        row, col = self.find_ussigned()
-        if (row, col) == (-1, -1):
-            return True
-        
-        for num in ['1','2','3','4','5','6','7','8','9']:
-            if self.is_safe(row, col, num):
-                self.board[row][col] = num
-                if self.solve():
-                    return True
-                self.board[row][col] = '.'
-        return False
-
-    def is_safe(self, row, col, ch):
-        box_row = row - row % 3
-        box_col = col - col % 3
-        if self.check_row(row, ch) and self.check_col(col, ch) and self.check_square(box_row, box_col, ch):
-            return True
-        return False
-        
-    def check_row(self, row, ch):
-        for col in range(9):
-            if self.board[row][col] == ch:
-                return False
-        return True
-    
-    def check_col(self, col, ch):
-        for row in range(9):
-            if self.board[row][col] == ch:
-                return False
-        return True
-    
-    def check_square(self, box_row, box_col, ch):
-        for r in range(box_row, box_row + 3):
-            for c in range(box_col, box_col + 3):
-                if self.board[r][c] == ch:
-                    return False
-        return True
+    def countAndSay(self, n: int) -> str:
+        say_list = ['1']
+        # if n == 1, will return '1', so the for loop is  n-1 times
+        for i in range(n-1):
+            start = 0
+            tmp = []
+            while start < len(say_list):
+                count = 1               # count表示s[start]的个数
+                next = start + 1
+                while next < len(say_list) and say_list[start] == say_list[next]:
+                    next += 1
+                    count += 1          # 数出s[start]的个数，并让start跳到后面一个不同的元素
+                tmp.append(str(count))
+                tmp.append(say_list[start])
+                start = next
+            say_list = tmp
+        return ''.join(say_list)
