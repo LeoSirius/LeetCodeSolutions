@@ -9,7 +9,8 @@
 #include<string>
 #include<map>
 using namespace std;
-#define ISLEAP(x) (x % 4 == 0 && x % 100 != 0) || x % 400 == 0
+
+#define ISLEAP(x) (x % 4 == 0 && x % 100 != 0) || (x % 400 == 0)
 
 int day_of_month[13][2] = {
     0,0,
@@ -29,7 +30,7 @@ int day_of_month[13][2] = {
 
 struct Date{
     int y, m, d;
-    void next_day(){
+    void next(){
         d++;
         if(d > day_of_month[m][ISLEAP(y)]){
             d = 1;
@@ -41,51 +42,52 @@ struct Date{
         }
     }
 };
+int hashing[3001][13][32];
 
-map<string, int> month_str_to_num;
-map<int, string> week_num_to_str;
+map<string, int> month_str_to_num = {
+    {"January", 1},
+    {"Februray", 2},
+    {"March", 3},
+    {"April", 4},
+    {"May", 5},
+    {"June", 6},
+    {"July", 7},
+    {"August", 8},
+    {"September", 9},
+    {"October", 10},
+    {"November", 11},
+    {"December", 12},
+};
 
-int hashing[3001][13][32];     //月日都从1开始
-Date tmp_date;
-
-void init(){
-    int cnt = 0;
-    tmp_date.y = 0, tmp_date.m = 1, tmp_date.d = 1;
-    while(tmp_date.y < 3001){
-        hashing[tmp_date.y][tmp_date.m][tmp_date.d] = cnt;
-        cnt++;
-        tmp_date.next_day();
-    }
-    month_str_to_num.insert(pair<string, int>("January", 1));
-    month_str_to_num.insert(pair<string, int>("Februray", 2));
-    month_str_to_num.insert(pair<string, int>("March", 3));
-    month_str_to_num.insert(pair<string, int>("April", 4));
-    month_str_to_num.insert(pair<string, int>("May", 5));
-    month_str_to_num.insert(pair<string, int>("June", 6));
-    month_str_to_num.insert(pair<string, int>("July", 7));
-    month_str_to_num.insert(pair<string, int>("August", 8));
-    month_str_to_num.insert(pair<string, int>("September", 9));
-    month_str_to_num.insert(pair<string, int>("October", 10));
-    month_str_to_num.insert(pair<string, int>("November", 11));
-    month_str_to_num.insert(pair<string, int>("December", 12));
-    week_num_to_str.insert(pair<int, string>(0, "Sunday"));
-    week_num_to_str.insert(pair<int, string>(1, "Monday"));
-    week_num_to_str.insert(pair<int, string>(2, "Tuesday"));
-    week_num_to_str.insert(pair<int, string>(3, "Wednesday"));
-    week_num_to_str.insert(pair<int, string>(4, "Thursday"));
-    week_num_to_str.insert(pair<int, string>(5, "Friday"));
-    week_num_to_str.insert(pair<int, string>(6, "Saturday"));
-}
+map<int, string> week_num_to_str = {
+    {0, "Sunday"},
+    {1, "Monday"},
+    {2, "Tuesday"},
+    {3, "Wednesday"},
+    {4, "Thursday"},
+    {5, "Friday"},
+    {6, "Saturday"},
+};
 
 int main(){
-    init();
+    Date tmp_day;
+    tmp_day.y = 0;
+    tmp_day.m = 1;
+    tmp_day.d = 1;
+    int count = 0;
+    while(tmp_day.y < 3001){
+        hashing[tmp_day.y][tmp_day.m][tmp_day.d] = count;
+        count++;
+        tmp_day.next();
+    }
+
     int y, m, d;
     string m_str;
     while(cin >> d >> m_str >> y){
         m = month_str_to_num[m_str];
-        int diff = hashing[y][m][d] - hashing[2019][6][23]; // 和已知的一个星期日之间的日期差
-        //这样不是简单的取绝对值，如-1经过下边的运算会变成6，所以上面减的顺序也不能变
+        int diff = hashing[y][m][d] - hashing[2019][7][28];
         cout << week_num_to_str[(diff % 7 + 7) % 7] << endl;
     }
+    return 0;
 }
 ```

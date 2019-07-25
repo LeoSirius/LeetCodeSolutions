@@ -1,4 +1,8 @@
 #include<iostream>
+#include<string>
+#include<map>
+using namespace std;
+
 #define ISLEAP(x) (x % 4 == 0 && x % 100 != 0) || (x % 400 == 0)
 
 int day_of_month[13][2] = {
@@ -31,26 +35,51 @@ struct Date{
         }
     }
 };
+int hashing[3001][13][32];
 
-int hash[5001][13][32];
-int abs(int x){return x > 0 ? x : -x;}
+map<string, int> month_str_to_num = {
+    {"January", 1},
+    {"Februray", 2},
+    {"March", 3},
+    {"April", 4},
+    {"May", 5},
+    {"June", 6},
+    {"July", 7},
+    {"August", 8},
+    {"September", 9},
+    {"October", 10},
+    {"November", 11},
+    {"December", 12},
+};
+
+map<int, string> week_num_to_str = {
+    {0, "Sunday"},
+    {1, "Monday"},
+    {2, "Tuesday"},
+    {3, "Wednesday"},
+    {4, "Thursday"},
+    {5, "Friday"},
+    {6, "Saturday"},
+};
 
 int main(){
-    Date first_day;
-    first_day.d = 1;
-    first_day.m = 1;
-    first_day.y = 0;
+    Date tmp_day;
+    tmp_day.y = 0;
+    tmp_day.m = 1;
+    tmp_day.d = 1;
     int count = 0;
-    while(first_day.y < 5001){
-        hash[first_day.y][first_day.m][first_day.d] = count++;
-        first_day.next();
+    while(tmp_day.y < 3001){
+        hashing[tmp_day.y][tmp_day.m][tmp_day.d] = count;
+        count++;
+        tmp_day.next();
     }
 
-    int y1, m1, d1, y2, m2, d2;
-    while(scanf("%4d%2d%2d", &y1, &m1, &d1) != EOF){
-        scanf("%4d%2d%2d", &y2, &m2, &d2);
-        int diff = hash[y2][m2][d2] - hash[y1][m1][d1];
-        printf("%d\n", abs(diff)+1);
+    int y, m, d;
+    string m_str;
+    while(cin >> d >> m_str >> y){
+        m = month_str_to_num[m_str];
+        int diff = hashing[y][m][d] - hashing[2019][7][28];
+        cout << week_num_to_str[(diff % 7 + 7) % 7] << endl;
     }
     return 0;
 }

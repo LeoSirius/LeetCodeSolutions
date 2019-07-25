@@ -1,5 +1,10 @@
 ### 思路1 回溯法
 
+DFS与回溯法的区别：
+
+- Backtracking is a more general purpose algorithm.
+- Depth-First search is a specific form of backtracking related to searching tree structures.
+
 回溯法（探索与回溯法）是一种选优搜索法，又称为试探法，按选优条件向前搜索，以达到目标。 但当探索到某一步时，发现原先选择并不优或达不到目标，就退回一步重新选择，这种走不通就退回再走的技术为回溯法，而满足回溯条件的某个状态的点称为“回溯点”。回溯法是暴力搜索法中的一种。
 
 ```cpp

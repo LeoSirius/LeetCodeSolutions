@@ -22,7 +22,11 @@
     leetcode={py:[34,35], cpp:[26,27]}
 },
 20190724={
-    machine_test_guide={cpp:[202,s]}
+    machine_test_guide={cpp:[202,203]},
+    leetcode={py:[36,37], cpp:[28]}
+},
+20190725={
+    machine_test_guide={cpp:[204,]}
 }
 
 to be implemented：
