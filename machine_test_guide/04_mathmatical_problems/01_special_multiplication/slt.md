@@ -1,3 +1,6 @@
+### 思路1 直接双重循环
+
+```cpp
 #include<iostream>
 using namespace std;
 
@@ -14,3 +17,4 @@ int main(){
     }
     return 0;
 }
+```

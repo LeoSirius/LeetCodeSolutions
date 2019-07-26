@@ -30,8 +30,8 @@
     leetcode={py:[38], cpp:[29]},
 },
 20190726={
-    machine_test_guide={cpp:[205]},
-    leetcode={py:[39], cpp:[30]}
+    machine_test_guide={cpp:[205,206]},
+    leetcode={py:[39,40], cpp:[31,32]},
 }
 
 to be implemented：

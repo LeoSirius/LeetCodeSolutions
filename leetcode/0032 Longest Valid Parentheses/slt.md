@@ -24,7 +24,7 @@ public:
                         // e.g. ))()  i = 3, leftmost = 1, res = 2
                         res = max(res, i - left_most);
                     }else{
-                        // e.g. (())  i = 2, stack[-1] = 0, res = 2
+                        // e.g. (())  i = 2, stack.top() = 0, res = 2
                         res = max(res, i - stk.top());
                     }
                 }
