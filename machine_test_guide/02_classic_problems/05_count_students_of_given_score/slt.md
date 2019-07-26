@@ -9,7 +9,7 @@ using namespace std;
 int main(){
     int n;
     while(scanf("%d", &n) != EOF && n != 0){
-        int *hashing = new int[101]{0};  // 这样会初始化为0
+        int *hashing = new int[101]{0};  // 这样会初始化为0, c++11可以这样写
         for(int i = 0; i < n; i++){
             int input_score;
             scanf("%d", &input_score);
