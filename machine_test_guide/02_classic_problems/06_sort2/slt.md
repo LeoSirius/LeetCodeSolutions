@@ -12,23 +12,26 @@ const int OFFSET = 500000;
 
 int main(){
     int n, m;
-    int *buf = new int[1000000]();
-    while(scanf("%d%d", &n, &m) != EOF){
-        for(int i = 0; i < n; ++i){
-            int input;
-            scanf("%d", &input);
-            buf[input+OFFSET]++;
+    while(scanf("%d %d", &n, &m) != EOF){
+        int *hashing = new int[1000001]{0};
+        for(int i = 0; i < n; i++){
+            int x;
+            scanf("%d", &x);
+            hashing[x+OFFSET] = 1;
         }
-        for(int i = 500000; i >= -500000; --i){
-            if(buf[i+OFFSET] != 0){
-                printf("%d ", i);
+        for(int i = 500000; i >= -500000; i--){
+            if(hashing[i+OFFSET]){
+                printf("%d", i);
                 m--;
-            }
-            if(m == 0){
-                break;
+                if(m){
+                    printf(" ");
+                }else{
+                    printf("\n");
+                    break;
+                }
             }
         }
+        delete [] hashing;
     }
-    return 0;
 }
 ```
