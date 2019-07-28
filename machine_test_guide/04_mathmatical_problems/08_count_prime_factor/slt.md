@@ -1,3 +1,8 @@
+### 思路1 求个质因数的幂次和
+
+以120为例，可以分解为2 * 2 * 2 * 3 * 5
+
+```cpp
 #include<iostream>
 #include<vector>
 #include<map>
@@ -47,3 +52,4 @@ int main(){
     }
     return 0;
 }
+```
