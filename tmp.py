@@ -1,22 +1,26 @@
-# Definition for singly-linked list.
-# class ListNode:
-#     def __init__(self, x):
-#         self.val = x
-#         self.next = None
-
 class Solution:
-    def addTwoNumbers(self, l1: ListNode, l2: ListNode) -> ListNode:
-        dummy_head = p = ListNode(0)
-        carry = 0
-        while carry or l1 or l2:
-            v1 = v2 = 0
-            if l1:
-                v1 = l1.val
-                l1 = l1.next
-            if l2:
-                v2 = l2.val
-                l2 = l2.next
-            carry, v = divmod(carry + v1 + v2, 10)
-            p.next = ListNode(v)
-            p = p.next
-        return dummy_head.next
+    def findMedianSortedArrays(self, nums1: List[int], nums2: List[int]) -> float:
+        left = (len(nums1) + len(nums2) + 1) // 2
+        right = (len(nums1) + len(nums2) + 2) // 2
+        return (self.findKth(nums1, nums1, left) + self.findKth(nums1, nums2, right)) / 2
+
+
+    def findKth(self, nums1, nums2, k):
+        if not nums1:
+            return nums2[k-1]
+        if not nums2:
+            return nums1[k-1]
+        
+        l1, l2 = len(nums1) // 2, len(nums2) // 2
+        v1, v2 = nums1[l1], nums2[l2]
+
+        if k-1 > l1+ l2:
+            if v1 < v2:
+                return self.findKth(nums1[l1+1:], nums2, k-(l1+1))
+            else:
+                return self.findKth(nums1, nums2[l2+1:], k-(l2+1))
+        else:
+            if v1 < v2:
+                return self.findKth(nums1, nums2[:l2], k)
+            else:
+                return self.findKth(nums1[:l1], nums2, k)

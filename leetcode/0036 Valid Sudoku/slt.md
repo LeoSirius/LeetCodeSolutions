@@ -1,10 +1,14 @@
 ### 思路1 利用3个二维数组一起检查
 
+关键是理解如何把0-8 * 0-8的91个方块放到0-8中
+
+我们先看i = 6,7,8的情况，这时i/3*3=6，j/3=0,1,2 加上就是（678）最后一行的三个大方块的编号。同理i = 3,4,5时，i/3*3=3，加上j就是（345）第二行三个大方块的编号。同理i = 0,1,2时，i/3*3=0，加上j/3就是（012）第一行三个大方块的编号。
+
 ```cpp
 class Solution {
 public:
     bool isValidSudoku(vector<vector<char>>& board) {
-        int used_row[9][9] = {0};
+        int used_row[9][9] = {0};       // 第一维是索引，第二维是数字减1
         int used_col[9][9] = {0};
         int used_square[9][9] = {0};
         for(int i = 0; i < board.size(); i++){

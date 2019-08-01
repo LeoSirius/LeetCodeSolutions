@@ -19,6 +19,7 @@ class Solution {
             if(board[boxrow+x][boxcol+y] == val) return false;
         return true;
     }
+    // 以递归的方式遍历了每个方格
     bool solveSudoku(vector<vector<char>>& board, int row, int col){
         if(row == 9) return true;
         if(col == 9) return solveSudoku(board, row+1, 0);

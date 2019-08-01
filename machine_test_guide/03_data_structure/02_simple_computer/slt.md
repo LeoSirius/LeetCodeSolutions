@@ -51,7 +51,7 @@ void compute(){
 }
 
 int main(){
-    // 我们的输入包含字符，所以用cin.getline() 接受一行输入，遇到换行停止
+    // 我们的输入包含空格，所以用cin.getline() 接受一行输入，遇到换行停止
     char * str;
     while(cin.getline(str, 201)){
         string input_str(str);   // 用char * 的str初始化一个string类的对象

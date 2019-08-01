@@ -9,7 +9,7 @@ class Solution {
         }
         for(int i = begin; i < nums.size() && target >= nums[i]; ++i){
             path.push_back(nums[i]);
-            combinationSum(nums, target-nums[i], i, path, res); // 一个元素可以用多次，所以i不变
+            combinationSum(nums, target-nums[i], i, path, res); // 一个元素可以用多次，所以i不变。组合不用检查，因为candidates里面没有重复的元素
             path.pop_back();
         }
     }

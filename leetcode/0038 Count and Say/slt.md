@@ -29,25 +29,25 @@ class Solution:
 class Solution {
 public:
     string countAndSay(int n) {
-        if(n == 1){return "1";}
-        if(n == 2){return "11";}
-        string result = countAndSay(n-1);
-        string new_result = "";
+        if(n == 1) return "1";
+        if(n == 2) return "11";
+        string last_say = countAndSay(n-1);
+        string new_say = "";
         int count = 1;
-        for(int i = 1; i < result.size(); ++i){
-            if(result[i] != result[i-1]){
-                new_result.push_back('0'+count);
-                new_result.push_back(result[i-1]);
+        for(int i = 1; i < last_say.size(); i++){
+            if(last_say[i] != last_say[i-1]){
+                new_say.push_back('0'+count);
+                new_say.push_back(last_say[i-1]);
                 count = 1;
             }else{
                 count++;
             }
-            if(i == result.size() - 1){
-                new_result.push_back('0'+count);
-                new_result.push_back(result[i]);
+            if(i == last_say.size() - 1){
+                new_say.push_back('0'+count);
+                new_say.push_back(last_say[i]);
             }
         }
-        return new_result;
+        return new_say;
     }
 };
 ```

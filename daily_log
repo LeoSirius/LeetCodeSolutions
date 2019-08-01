@@ -38,8 +38,16 @@
     leetcode={py:[1], cpp:[33, 34]},
 },
 20190730={
-    machine_test_guide={cpp:[209,210]},
-    leetcode={py:[2], cpp:[]}
+    machine_test_guide={cpp:[209,210,211]},
+    leetcode={py:[2], cpp:[35,36，37]}
+},
+20190731={
+    machine_test_guide={cpp:[212,301]},
+    leetcode={py:[3], cpp:[38,39]}
+},
+20190801={
+    machine_test_guide={cpp:[302,303]},
+    leetcode={py:[4], cpp:[4,5]}
 }
 
 to be implemented：
