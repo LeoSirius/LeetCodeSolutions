@@ -1,26 +1,18 @@
 class Solution:
-    def findMedianSortedArrays(self, nums1: List[int], nums2: List[int]) -> float:
-        left = (len(nums1) + len(nums2) + 1) // 2
-        right = (len(nums1) + len(nums2) + 2) // 2
-        return (self.findKth(nums1, nums1, left) + self.findKth(nums1, nums2, right)) / 2
+    def longestPalindrome(self, s: str) -> str:
+        res = ''
+        for i in range(len(s)):
+            tmp = self.spread_out(s, i, i)
+            if len(tmp) > len(res):
+                res = tmp
+            tmp = self.spread_out(s, i, i+1)
+            if len(tmp) > len(res):
+                res = tmp
+        return res
 
 
-    def findKth(self, nums1, nums2, k):
-        if not nums1:
-            return nums2[k-1]
-        if not nums2:
-            return nums1[k-1]
-        
-        l1, l2 = len(nums1) // 2, len(nums2) // 2
-        v1, v2 = nums1[l1], nums2[l2]
-
-        if k-1 > l1+ l2:
-            if v1 < v2:
-                return self.findKth(nums1[l1+1:], nums2, k-(l1+1))
-            else:
-                return self.findKth(nums1, nums2[l2+1:], k-(l2+1))
-        else:
-            if v1 < v2:
-                return self.findKth(nums1, nums2[:l2], k)
-            else:
-                return self.findKth(nums1[:l1], nums2, k)
+    def spread_out(self, s, left, right):
+        while left >= 0 and right < len(s) and s[left] == s[right]:
+            left -= 1
+            right += 1
+        return s[left+1:right]

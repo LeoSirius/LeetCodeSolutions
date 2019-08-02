@@ -47,8 +47,13 @@
 },
 20190801={
     machine_test_guide={cpp:[302,303]},
-    leetcode={py:[4], cpp:[4,5]}
+    leetcode={py:[4], cpp:[4,40]}
+},
+20190802={
+    machine_test_guide={cpp:[304,305]},
+    leetcode={py:[5], cpp:[1,2]}
 }
+
 
 to be implemented：
 leetcode cpp:[4]    tips:参考python

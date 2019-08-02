@@ -1,22 +1,24 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
 class Solution {
-    void dfs(vector<int>& nums, int target, int begin, vector<int>& path, vector<vector<int>>& res){
-        if(!target){
-            res.push_back(path);
-            return;
-        }
-        for(int i = begin; i < nums.size() && target >= nums[i]; i++){
-            if(i > begin && nums[i] == nums[i-1]) continue;
-            path.push_back(nums[i]);
-            dfs(nums, target - nums[i], i + 1, path, res);
-            path.pop_back();
-        }
-    }
 public:
-    vector<vector<int>> combinationSum2(vector<int>& candidates, int target) {
-        vector<vector<int>> res;
-        vector<int> path;
-        sort(candidates.begin(), candidates.end());
-        dfs(candidates, target, 0, path, res);
-        return res;
+    ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
+        ListNode dummy_head(0), *p = &dummy_head;
+        int carry = 0;
+        while(l1 || l2 || carry){
+            int sum = (l1 ? l1->val : 0) + (l2 ? l2->val : 0) + carry;
+            carry = sum / 10;
+            p->next = new ListNode(sum % 10);
+            p = p->next;
+            l1 = l1 ? l1->next : l1;
+            l2 = l2 ? l2->next : l2;
+        }
+        return dummy_head.next;
     }
 };

@@ -1,5 +1,7 @@
 ## 思路1 枚举
 
+时间复杂度O(n^2)
+
 ```cpp
 class Solution {
 public:
