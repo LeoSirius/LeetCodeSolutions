@@ -2,8 +2,6 @@
 
 我们可以将基数情况和偶数情况合并，如果是基数，就求两次同样的。
 
-unsolved code 
-
 ```cpp
 class Solution {
     double findKth(vector<int>& nums1, vector<int>& nums2, int k){

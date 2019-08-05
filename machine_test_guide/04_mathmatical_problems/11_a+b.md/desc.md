@@ -1,4 +1,6 @@
-#include<iostream>
+### 思路1 利用deque分别计算每一位
+
+```cpp#include<iostream>
 #include<deque>
 #include<string>
 using namespace std;
@@ -36,3 +38,4 @@ int main(){
     }
     return 0;
 }
+```

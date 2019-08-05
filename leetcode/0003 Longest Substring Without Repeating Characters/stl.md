@@ -8,9 +8,9 @@ class Solution {
 public:
     int lengthOfLongestSubstring(string s) {
         map<char, int> char_map;
-        int start = 0;
-        int max_len = 0;
-        for(int i = 0; i < s.size(); i++){
+        int start = 0, max_len = 0;
+        // 不要把s.size()放在循环里，影响速度
+        for(int i = 0; s[i]; i++){
             if(char_map.count(s[i])){
                 start = max(start, char_map[s[i]] + 1);
             }
@@ -20,9 +20,8 @@ public:
         return max_len;
     }
 };
-```
 
-## 思路2 用一个dict存放出现过的character
+```
 
 使用usedChar存放出现过的字符，key是那个字符，value是字符对应的索引。
 

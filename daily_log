@@ -52,10 +52,13 @@
 20190802={
     machine_test_guide={cpp:[304,305]},
     leetcode={py:[5], cpp:[1,2]}
+},
+20190805={
+    machine_test_guide={cpp:[306,401,402,403]},
+    leetcode={py:[6], cpp:[3,4]}
 }
 
 
 to be implemented：
-leetcode cpp:[4]    tips:参考python
 [10]
 [30]
