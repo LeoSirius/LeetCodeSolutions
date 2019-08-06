@@ -1,38 +1,22 @@
 #include<iostream>
-#include<deque>
 #include<string>
+#include<sstream>
 using namespace std;
 
 int main(){
-    string s1, s2;
-    while(cin >> s1 >> s2){
-        deque<int> a, b, sum;
-        for(int i = 0; s1[i]; i++) a.push_back(s1[i] - '0');
-        for(int i = 0; s2[i]; i++) b.push_back(s2[i] - '0');
-        int carry = 0;
-        while(a.size() && b.size()){
-            int s = carry + a.back() + b.back(); 
-            a.pop_back(), b.pop_back();
-            sum.push_front(s % 10);
-            carry = s / 10;
-        }
-        while(a.size()){
-            int s = carry + a.back(); 
-            a.pop_back();
-            sum.push_front(s % 10);
-            carry = s / 10;
-        }
-        while(b.size()){
-            int s = carry + b.back(); 
-            b.pop_back();
-            sum.push_front(s % 10);
-            carry = s / 10;
-        }
-        int size = sum.size();
-        for(int i = 0; i < size; i++){
-            cout << sum[i];
-        }
-        cout << endl;
-    }
-    return 0;
+    string input("Input test 123 4.7 A");
+    istringstream input_string_stream(input);
+    string str1, str2;
+    int i;
+    double d;
+    char c;
+    input_string_stream >> str1 >> str2 >> i >> d >> c;
+
+    cout << str1 << endl << str2 << endl;
+    cout << i << endl << d << endl << c << endl;
+    long L;
+    if(input_string_stream >> L) cout <<  "L = " << L << endl;
+    else cout << "empty" << endl;
+
+    return 0; 
 }

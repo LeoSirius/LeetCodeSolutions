@@ -1,4 +1,4 @@
-## 思路1 直接处理
+## 思路1 直接用切片反转
 
 先记录正负号，直接用切片反转，然后用`int(str())`的方法去掉0。最后返回时判断一下有没有越界。
 
@@ -7,7 +7,7 @@
 class Solution:
     def reverse(self, x: int) -> int:
         sign = 1 if x > 0 else -1
-        reversed_num = sign * int((str(sign*x))[::-1])
+        reversed_num = sign * int(str(sign*x)[::-1])
         if reversed_num > 2**31-1 or reversed_num < -2**31:
             return 0
         else:

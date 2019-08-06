@@ -56,6 +56,10 @@
 20190805={
     machine_test_guide={cpp:[306,401,402,403]},
     leetcode={py:[6], cpp:[3,4]}
+},
+20190806={
+    machine_test_guide={cpp:[404,405]},
+    leetcode={py:[7], cpp:[5,6]}
 }
 
 
