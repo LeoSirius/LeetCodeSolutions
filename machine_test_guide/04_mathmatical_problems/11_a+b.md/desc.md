@@ -1,41 +1,18 @@
-### 思路1 利用deque分别计算每一位
+### 题目描述
 
-```cpp#include<iostream>
-#include<deque>
-#include<string>
-using namespace std;
+实现一个加法器，使其能够输出a+b的值。a和b的位数不超过1000位
 
-int main(){
-    string s1, s2;
-    while(cin >> s1 >> s2){
-        deque<int> a, b, sum;
-        for(int i = 0; s1[i]; i++) a.push_back(s1[i] - '0');
-        for(int i = 0; s2[i]; i++) b.push_back(s2[i] - '0');
-        int carry = 0;
-        while(a.size() && b.size()){
-            int s = carry + a.back() + b.back(); 
-            a.pop_back(), b.pop_back();
-            sum.push_front(s % 10);
-            carry = s / 10;
-        }
-        while(a.size()){
-            int s = carry + a.back(); 
-            a.pop_back();
-            sum.push_front(s % 10);
-            carry = s / 10;
-        }
-        while(b.size()){
-            int s = carry + b.back(); 
-            b.pop_back();
-            sum.push_front(s % 10);
-            carry = s / 10;
-        }
-        int size = sum.size();
-        for(int i = 0; i < size; i++){
-            cout << sum[i];
-        }
-        cout << endl;
-    }
-    return 0;
-}
+### 输入
+
+两个整数a和b，均不超过1000位。
+
+### 输出
+
+可能有多组测试用例。对于每组测试用例，输出a+b的值。
+
+### 样例输入
+
+```
+2 6
+10000000000 100000000000000000000
 ```
