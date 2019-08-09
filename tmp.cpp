@@ -1,36 +1,16 @@
-#include<iostream>
-#include<vector>
-using namespace std;
+class Solution {
+public:
+    int lengthOfLongestSubstring(string s) {
+        int max_len = 0, start = 0;
+        map<char, int> char_map;
 
-vector<int> prime_num;
-bool not_prime[10001] = {false};   // 标记是否是非素数
-
-void init(){
-    for(int i = 2; i <= 10000; i++){
-        if(not_prime[i] == true) continue;   // 已经不是素数
-        prime_num.push_back(i);
-        // 我们从i * i开始标，因为若i * k(k < i)，则这个数必然在k时已经被标过了
-        for(int j = i * i; j <= 10000; j += i){
-            not_prime[j] = true;
-        }
-    }
-}
-
-int main(){
-    init();
-    int n;
-    while(scanf("%d", &n) != EOF){
-        int prime_size = prime_num.size();
-        bool has_qualified_prime = false;
-        for(int i = 0; i < prime_size; i++){
-            if(prime_num[i] > n) break;
-            if(prime_num[i] % 10 == 1){
-                has_qualified_prime = true;
-                printf("%d ", prime_num[i]);
+        for(int i = 0; s[i]; i++){
+            if(char_map.count(s[i])){
+                start = max(start, char_map[s[i]] + 1);
             }
+            char_map[s[i]] = i;
+            max_len = max(max_len, i - start + 1);
         }
-        if(!has_qualified_prime) printf("-1\n");
-        else printf("\n");
+        return max_len;
     }
-    return 0;
-}
+};

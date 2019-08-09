@@ -63,11 +63,27 @@
 },
 20190807={
     machine_test_guide={cpp:[406,407]},
+    leetcode={py:[8], cpp:[7,8]}
+},
+20190808={
+    machine_test_guide={cpp:[408,410]},
+    leetcode={py:[9], cpp:[9,1]}
+},
+20190809={
+    machine_test_guide={cpp:[411,301]},
+    leetcode={py:[1], cpp:[2,3]}
 }
 
+need improved:(解法不符合题意或者cheat)
+leetcode={
+    cpp:[7]
+}
 
 to be implemented：
-[10]
-[30]
 
-机试指南 409
+leetcode={
+    cpp:[10,30]
+},
+machine_test_guide={
+    409
+}
