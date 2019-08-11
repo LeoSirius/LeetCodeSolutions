@@ -1,3 +1,8 @@
+### 思路1 
+
+为了完成进制的转换，我们在前两题的基础上，还需要实现自定义bigInteger的除法和求模运算
+
+```cpp
 #include<iostream>
 #include<deque>
 #include<string>
@@ -141,3 +146,4 @@ int main(){
     }
     return 0;
 }
+```
