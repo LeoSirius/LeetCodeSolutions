@@ -1,36 +1,78 @@
 #include<iostream>
+#include<stack>
+#include<string>
 using namespace std;
 
-const int SIZE = 1000;
-int Tree[SIZE];
+stack<double> num_stk;
+stack<char> optr_stk;
 
-int find_root(int x){
-    if(Tree[x] == -1) return x;
-    else{
-        int root_idx = find_root(Tree[x]);  // 这里使用了路径压缩，把这个结点直接设置成根结点的子结点
-        Tree[x] = root_idx;
-        return root_idx;
+void get_next(string str, int& i, bool& is_optr, char &optr, int &num){
+    if(i >= str.length()) return;
+    if(isdigit(str[i])){
+        is_optr = false;
+        num = 0;
+        while(i < str.length() && isdigit(str[i])){
+            num = num * 10 + str[i] - '0';
+            i++;
+        }
+        if(str[i] == ' ') i++;   // 跳过空格
+    }else{
+        is_optr = true;
+        optr = str[i];
+        i += 2;  // 跳过当前的运算符和空格
+    }
+}
+
+bool is_higher(char a, char b){
+    if((a == '*' || a == '/') && (b == '+' || b == '-')) return true;
+    return false;
+}
+
+void compute(){
+    double a, b;
+    char optr;
+    if(num_stk.empty() || optr_stk.empty()) return;
+    b = num_stk.top(); num_stk.pop();
+    a = num_stk.top(); num_stk.pop();
+    optr = optr_stk.top(); optr_stk.pop();
+
+    switch(optr){
+        case '+': num_stk.push(a+b); break;
+        case '-': num_stk.push(a-b); break;
+        case '*': num_stk.push(a*b); break;
+        case '/': num_stk.push(a/b); break;
     }
 }
 
 int main(){
-    int n, m;
-    while(scanf("%d", &n) != EOF && n){
-        scanf("%d", &m);
-        for(int i = 1; i <= n; i++) Tree[i] = -1;  // 先初试化并查集
+    char* str;
+    string input_str;
+    while(cin.getline(str, 200)){
+        input_str = str;
+        if(!input_str.length() || (input_str.length() == 1 && input_str[0] == '0'))
+            break;
+        while(!num_stk.empty()) num_stk.pop();
+        while(!optr_stk.empty()) optr_stk.pop();
 
-        while(m--){
-            int a, b;
-            scanf("%d %d", &a, &b);
-            a = find_root(a);
-            b = find_root(b);
-            if(a != b) Tree[a] = b;
+        int idx = 0;
+        int cur_num;
+        char cur_optr;
+        bool is_optr;
+        while(idx < input_str.length()){
+            get_next(input_str, idx, is_optr, cur_optr, cur_num);
+            if(is_optr){
+                while(!optr_stk.empty() && is_higher(optr_stk.top(), cur_optr)){
+                    compute();
+                }
+                optr_stk.push(cur_optr);
+            }else{
+                num_stk.push(cur_num);
+            }
         }
-        int num_of_connected = 0;
-        for(int i = 1; i <= n; i++){
-            if(Tree[i] == -1) num_of_connected++;
+        while(!optr_stk.empty()){
+            compute();
         }
-        printf("%d\n", num_of_connected-1);
+        printf("%.2f\n", num_stk.top());
     }
     return 0;
 }

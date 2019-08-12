@@ -11,76 +11,69 @@ using namespace std;
 stack<double> num_stk;
 stack<char> optr_stk;
 
-void get_next(string str, bool &is_optr, int &num, char &optr, int &i){
+void get_next(string str, int& i, bool& is_optr, char &optr, int &num){
+    if(i >= str.length()) return;
     if(isdigit(str[i])){
         is_optr = false;
         num = 0;
-        for(; str[i] != ' ' && str[i] != 0; i++){
-            num *= 10;
-            num += str[i] - '0';
+        while(i < str.length() && isdigit(str[i])){
+            num = num * 10 + str[i] - '0';
+            i++;
         }
-        if(str[i] == ' ') i++;    // 跳过数字后面的那个空格
+        if(str[i] == ' ') i++;   // 跳过空格
     }else{
         is_optr = true;
         optr = str[i];
-        i += 2;  // 跳过运算符后面的那个空格
+        i += 2;  // 跳过当前的运算符和空格
     }
 }
 
-// a的优先级是否严格大于b
 bool is_higher(char a, char b){
-    if((b == '+' || b == '-') && (a == '*' || a == '/'))
-        return true;
+    if((a == '*' || a == '/') && (b == '+' || b == '-')) return true;
     return false;
 }
 
 void compute(){
-    double a, b, res;
+    double a, b;
     char optr;
-    // 注意数字栈的顺序和入栈是反的
+    if(num_stk.empty() || optr_stk.empty()) return;
     b = num_stk.top(); num_stk.pop();
     a = num_stk.top(); num_stk.pop();
     optr = optr_stk.top(); optr_stk.pop();
-    switch (optr){
-        case '+': res = a + b; break;
-        case '-': res = a - b; break;
-        case '*': res = a * b; break;
-        case '/': res = a / b; break;
+
+    switch(optr){
+        case '+': num_stk.push(a+b); break;
+        case '-': num_stk.push(a-b); break;
+        case '*': num_stk.push(a*b); break;
+        case '/': num_stk.push(a/b); break;
     }
-    num_stk.push(res);
 }
 
 int main(){
-    // 我们的输入包含空格，所以用cin.getline() 接受一行输入，遇到换行停止
-    char * str;
-    while(cin.getline(str, 201)){
-        string input_str(str);   // 用char * 的str初始化一个string类的对象
-        if(input_str.size() && input_str[0] == '0')
+    char* str;
+    string input_str;
+    while(cin.getline(str, 200)){
+        input_str = str;
+        if(!input_str.length() || (input_str.length() == 1 && input_str[0] == '0'))
             break;
-        
         while(!num_stk.empty()) num_stk.pop();
         while(!optr_stk.empty()) optr_stk.pop();
 
         int idx = 0;
         int cur_num;
+        char cur_optr;
         bool is_optr;
-        char optr;
-        while(true){
-            if(idx >= input_str.length())
-                break;
-            get_next(input_str, is_optr, cur_num, optr, idx);
+        while(idx < input_str.length()){
+            get_next(input_str, idx, is_optr, cur_optr, cur_num);
             if(is_optr){
-                if(!optr_stk.empty()){
-                    while(is_higher(optr_stk.top(), optr)){
-                        compute();   // 栈中有运算符，且优先级比当前外面的高，则弹出来计算
-                    }
+                while(!optr_stk.empty() && is_higher(optr_stk.top(), cur_optr)){
+                    compute();
                 }
-                optr_stk.push(optr); // 无论有没有弹出计算，外面的那个运算符都需要入栈
+                optr_stk.push(cur_optr);
             }else{
                 num_stk.push(cur_num);
             }
         }
-        // 字符串读完了，但是还有运算符和数字在栈中
         while(!optr_stk.empty()){
             compute();
         }
