@@ -1,6 +1,6 @@
 ## 思路1 枚举
 
-时间复杂度O(n^2)
+时间复杂度O(n^2)。下面的python实现的方法如果改成c++的话，会比cpp现在用的方法慢。因为spread_out被调用了两次。
 
 ```cpp
 class Solution {

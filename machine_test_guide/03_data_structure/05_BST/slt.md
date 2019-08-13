@@ -60,7 +60,7 @@ void post_order(Node *T){
 int main(){
     int n;
     while(scanf("%d", &n) != EOF){
-        Node *T = nullptr;
+        Node *T = nullptr;          // 初始化为nullptr，值是地址0x0，若不初始化而只是声明，则值是一个随机地址。
         for(int i = 0; i < n; ++i){
             int x;
             scanf("%d", &x);

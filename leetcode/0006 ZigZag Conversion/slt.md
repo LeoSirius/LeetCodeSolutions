@@ -6,28 +6,19 @@
 class Solution {
 public:
     string convert(string s, int numRows) {
-        const int len = int(s.size());
+        if(numRows == 1 || numRows >= s.size()) return s;
 
-        if(numRows <= 1 || numRows >= len)
-            return s;
-
-        string *strs = new string[numRows];  // array of string, size = numRows
-        int index = 0, step = 1;
-        for(int i = 0; i < len; i++){
-            strs[index].push_back(s[i]);
-            if(index == 0){
-                step = 1;
-            }else if(index == numRows - 1){
-                step = -1;
-            }
-            index += step;
+        vector<string> strs(numRows, "");
+        int step = 1, idx = 0;
+        for(int i = 0; i < s.size(); i++){
+            strs[idx] += s[i];
+            idx += step;
+            if(idx == 0) step = 1;
+            else if(idx == numRows-1) step = -1;
         }
-        s.clear();
-        for(int i = 0; i < numRows; i++){
-            s.append(strs[i]);
-        }
-        delete [] strs;
-        return s;
+        string res = "";
+        for(int i = 0; i < strs.size(); i++) res += strs[i];
+        return res;
     }
 };
 ```

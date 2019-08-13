@@ -78,7 +78,8 @@
     leetcode={py:[2], cpp:[4]},
 },
 20190813={
-    machine_test_guide={cpp:[304,]}
+    machine_test_guide={cpp:[304,305]},
+    leetcode={py:[3], cpp:[5,6]}
 }
 
 need improved:(解法不符合题意或者cheat)
