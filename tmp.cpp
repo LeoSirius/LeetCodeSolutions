@@ -1,78 +1,53 @@
 #include<iostream>
-#include<stack>
 #include<string>
 using namespace std;
 
-stack<double> num_stk;
-stack<char> optr_stk;
+struct Node{
+    char value;
+    Node* left;
+    Node* right;
+};
 
-void get_next(string str, int& i, bool& is_optr, char &optr, int &num){
-    if(i >= str.length()) return;
-    if(isdigit(str[i])){
-        is_optr = false;
-        num = 0;
-        while(i < str.length() && isdigit(str[i])){
-            num = num * 10 + str[i] - '0';
-            i++;
+string pre_str, in_str;
+
+Node* create_node(){
+    Node* new_node = new Node;
+    new_node->left = new_node->right = nullptr;
+    return new_node;
+}
+
+Node* build_tree(int s1, int e1, int s2, int e2){
+    int root_idx;
+    Node* cur_node = create_node();
+    cur_node->value = pre_str[s1];
+    for(int i = s2; i <= e2; i++){
+        if(pre_str[s1] == in_str[i]){
+            root_idx = i;
+            break;
         }
-        if(str[i] == ' ') i++;   // 跳过空格
-    }else{
-        is_optr = true;
-        optr = str[i];
-        i += 2;  // 跳过当前的运算符和空格
     }
+    if(root_idx != s2){
+        cur_node->left = build_tree(s1+1, s1+(root_idx-s2), s2, root_idx-1);
+    }
+    if(root_idx != e2){
+        cur_node->right = build_tree(s1+(root_idx-s2)+1, e1, root_idx+1, e2);
+    }
+    return cur_node;
 }
 
-bool is_higher(char a, char b){
-    if((a == '*' || a == '/') && (b == '+' || b == '-')) return true;
-    return false;
-}
-
-void compute(){
-    double a, b;
-    char optr;
-    if(num_stk.empty() || optr_stk.empty()) return;
-    b = num_stk.top(); num_stk.pop();
-    a = num_stk.top(); num_stk.pop();
-    optr = optr_stk.top(); optr_stk.pop();
-
-    switch(optr){
-        case '+': num_stk.push(a+b); break;
-        case '-': num_stk.push(a-b); break;
-        case '*': num_stk.push(a*b); break;
-        case '/': num_stk.push(a/b); break;
-    }
+void post_order(Node* tree){
+    if(tree == nullptr) return;
+    post_order(tree->left);
+    post_order(tree->right);
+    cout << tree->value;
 }
 
 int main(){
-    char* str;
-    string input_str;
-    while(cin.getline(str, 200)){
-        input_str = str;
-        if(!input_str.length() || (input_str.length() == 1 && input_str[0] == '0'))
-            break;
-        while(!num_stk.empty()) num_stk.pop();
-        while(!optr_stk.empty()) optr_stk.pop();
-
-        int idx = 0;
-        int cur_num;
-        char cur_optr;
-        bool is_optr;
-        while(idx < input_str.length()){
-            get_next(input_str, idx, is_optr, cur_optr, cur_num);
-            if(is_optr){
-                while(!optr_stk.empty() && is_higher(optr_stk.top(), cur_optr)){
-                    compute();
-                }
-                optr_stk.push(cur_optr);
-            }else{
-                num_stk.push(cur_num);
-            }
-        }
-        while(!optr_stk.empty()){
-            compute();
-        }
-        printf("%.2f\n", num_stk.top());
+    while(cin >> pre_str >> in_str){
+        int len = pre_str.size();
+        Node* tree = build_tree(0, len-1, 0, len-1);
+        post_order(tree);
+        cout << endl;
     }
     return 0;
 }

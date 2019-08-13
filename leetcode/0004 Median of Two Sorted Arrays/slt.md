@@ -8,8 +8,10 @@ class Solution {
         if(!nums1.size()) return nums2[k-1];
         if(!nums2.size()) return nums1[k-1];
 
+        // 这里是中间元素的索引，如果有5个元素，则l = 2
+        // 如果有6个元素，则l = 3
         int l1, l2, v1, v2;
-        l1 = nums1.size() / 2; 
+        l1 = nums1.size() / 2;
         l2 = nums2.size() / 2;
         v1 = nums1[l1]; v2 = nums2[l2];
 
@@ -37,6 +39,8 @@ class Solution {
     }
 public:
     double findMedianSortedArrays(vector<int>& nums1, vector<int>& nums2) {
+        // 如果是基数，如5，则left = right = 3
+        // 如果是偶数，如6，则left = 3, right = 4
         int left = (nums1.size() + nums2.size() + 1) / 2;
         int right = (nums1.size() + nums2.size() + 2) / 2;
         return (findKth(nums1, nums2, left) + findKth(nums1, nums2, right)) / 2;

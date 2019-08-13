@@ -6,54 +6,51 @@
 using namespace std;
 
 struct Node{
-    Node *left;
-    Node *right;
-    char v;
+    char value;
+    Node* left;
+    Node* right;
 };
-char str1[27], str2[27];    // 声明两个字符数组，分别保存输入的前序和中序遍历
 
-Node *create(){
-    // 申请一个结点空间，返回指向其的指针
-    Node *node = new Node();
-    node->left = node->right = nullptr;
-    return node;
+string pre_str, in_str;
+
+Node* create_node(){
+    Node* new_node = new Node;
+    new_node->left = new_node->right = nullptr;
+    return new_node;
 }
 
-void postorder(Node *T){
-    if(T == nullptr){
-        return;
-    }
-    postorder(T->left);
-    postorder(T->right);
-    printf("%c", T->v);
-}
-
-Node *build(int s1, int e1, int s2, int e2){
-    Node *node = create();
-    node->v = str1[s1];
-    int root_index;
-    for(int i = s2; i <= e2; ++i){
-        if(str1[s1] == str2[i]){
-            root_index = i;
+Node* build_tree(int s1, int e1, int s2, int e2){
+    int root_idx;
+    Node* cur_node = create_node();
+    cur_node->value = pre_str[s1];
+    for(int i = s2; i <= e2; i++){
+        if(pre_str[s1] == in_str[i]){
+            root_idx = i;
             break;
         }
     }
-    // 下面分别先检查左右子树不为空，再进行构建
-    if(root_index != s2){
-        node->left = build(s1+1, s1+(root_index-s2), s2, root_index-1);
+    if(root_idx != s2){
+        cur_node->left = build_tree(s1+1, s1+(root_idx-s2), s2, root_idx-1);
     }
-    if(root_index != e2){
-        node->right = build(s1+(root_index-s2)+1, e1, root_index+1, e2);
+    if(root_idx != e2){
+        cur_node->right = build_tree(s1+(root_idx-s2)+1, e1, root_idx+1, e2);
     }
-    return node;
+    return cur_node;
+}
+
+void post_order(Node* tree){
+    if(tree == nullptr) return;
+    post_order(tree->left);
+    post_order(tree->right);
+    cout << tree->value;
 }
 
 int main(){
-    while(scanf("%s %s", str1, str2) == 2){
-        int size = strlen(str1);
-        Node *T = build(0, size-1, 0, size-1);
-        postorder(T);
-        printf("\n");
+    while(cin >> pre_str >> in_str){
+        int len = pre_str.size();
+        Node* tree = build_tree(0, len-1, 0, len-1);
+        post_order(tree);
+        cout << endl;
     }
     return 0;
 }

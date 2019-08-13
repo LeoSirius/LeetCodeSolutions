@@ -16,15 +16,15 @@ int main(){
             scanf("%d", &temp);
             Q.push(temp);
         }
-        int res = 0;
+        int weight = 0;
         while(Q.size() > 1){
             int a, b;
             a = Q.top(); Q.pop();
             b = Q.top(); Q.pop();
-            res += a + b;
+            weight += a + b;
             Q.push(a+b);
         }
-        printf("%d\n", res);
+        printf("%d\n", weight);
     }
     return 0;
 }
