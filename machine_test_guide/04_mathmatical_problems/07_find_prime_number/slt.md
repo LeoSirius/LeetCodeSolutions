@@ -7,14 +7,15 @@
 #include<vector>
 using namespace std;
 
-vector<int> prime_num;
-bool not_prime[10001] = {false};   // 标记是否是非素数
+vector<int> prime_nums_with_right_one;      // 我们只保存个位是1的素数
+bool not_prime[10001] = {false};
 
 void init(){
     for(int i = 2; i <= 10000; i++){
-        if(not_prime[i] == true) continue;   // 已经不是素数
-        prime_num.push_back(i);
-        // 我们从i * i开始标，因为若i * k(k < i)，则这个数必然在k时已经被标过了
+        if(not_prime[i]) continue;
+        if(i % 10 == 1){
+            prime_nums_with_right_one.push_back(i);
+        }
         for(int j = i * i; j <= 10000; j += i){
             not_prime[j] = true;
         }
@@ -25,16 +26,11 @@ int main(){
     init();
     int n;
     while(scanf("%d", &n) != EOF){
-        int prime_size = prime_num.size();
-        bool has_qualified_prime = false;
-        for(int i = 0; i < prime_size; i++){
-            if(prime_num[i] > n) break;
-            if(prime_num[i] % 10 == 1){
-                has_qualified_prime = true;
-                printf("%d ", prime_num[i]);
-            }
+        int size = prime_nums_with_right_one.size();
+        for(int i = 0; i < size && prime_nums_with_right_one[i] < n; i++){
+            printf("%d ", prime_nums_with_right_one[i]);
         }
-        if(!has_qualified_prime) printf("-1\n");
+        if(!size) printf("-1\n");
         else printf("\n");
     }
     return 0;

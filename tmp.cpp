@@ -1,18 +1,32 @@
-class Solution {
-public:
-    string convert(string s, int numRows) {
-        if(numRows == 1 || numRows >= s.size()) return s;
+#include<iostream>
+#include<vector>
+using namespace std;
 
-        vector<string> strs(numRows, "");
-        int step = 1, idx = 0;
-        for(int i = 0; i < s.size(); i++){
-            strs[idx] += s[i];
-            idx += step;
-            if(idx == 0) step = 1;
-            else if(idx == numRows-1) step = -1;
+vector<int> prime_nums_with_right_one;      // 我们只保存个位是1的素数
+bool not_prime[10001] = {false};
+
+void init(){
+    for(int i = 2; i <= 10000; i++){
+        if(not_prime[i]) continue;
+        if(i % 10 == 1){
+            prime_nums_with_right_one.push_back(i);
         }
-        string res = "";
-        for(int i = 0; i < strs.size(); i++) res += strs[i];
-        return res;
+        for(int j = i * i; j <= 10000; j += i){
+            not_prime[j] = true;
+        }
     }
-};
+}
+
+int main(){
+    init();
+    int n;
+    while(scanf("%d", &n) != EOF){
+        int size = prime_nums_with_right_one.size();
+        for(int i = 0; i < size && prime_nums_with_right_one[i] < n; i++){
+            printf("%d ", prime_nums_with_right_one[i]);
+        }
+        if(!size) printf("-1\n");
+        else printf("\n");
+    }
+    return 0;
+}
