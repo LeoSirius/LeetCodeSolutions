@@ -1,32 +1,23 @@
 #include<iostream>
-#include<vector>
 using namespace std;
 
-vector<int> prime_nums_with_right_one;      // 我们只保存个位是1的素数
-bool not_prime[10001] = {false};
-
-void init(){
-    for(int i = 2; i <= 10000; i++){
-        if(not_prime[i]) continue;
-        if(i % 10 == 1){
-            prime_nums_with_right_one.push_back(i);
-        }
-        for(int j = i * i; j <= 10000; j += i){
-            not_prime[j] = true;
-        }
-    }
-}
-
 int main(){
-    init();
-    int n;
-    while(scanf("%d", &n) != EOF){
-        int size = prime_nums_with_right_one.size();
-        for(int i = 0; i < size && prime_nums_with_right_one[i] < n; i++){
-            printf("%d ", prime_nums_with_right_one[i]);
+    int a, b;
+    while(scanf("%d %d", &a, &b) != EOF && !(a == 0 && b == 0)){
+        int res = 1;
+        // 
+        // 若b是偶数，如8，a按循环会依次等于b=4,a^2, b=2,a^4, b=1,a^8, 
+        // 若b是奇数，如7，a按循环会依次等于res=a,b=3,a^2, res=a^3,b=1,a^4, res=a^4,b=0 over
+        while(b){
+            if(b % 2 == 1){
+                res *= a;
+                res %= 1000;
+            }
+            b /= 2;
+            a *= a;
+            a %= 1000;
         }
-        if(!size) printf("-1\n");
-        else printf("\n");
+        printf("%d\n", res);
     }
     return 0;
 }
