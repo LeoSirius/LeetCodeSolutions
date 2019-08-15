@@ -28,35 +28,25 @@ public:
         printf("\n");
     }
 
-    bigInteger operator + (const bigInteger& B) const
+    bigInteger operator * (int x) const
     {
         bigInteger res;
         int carry = 0;
-        deque<int>::const_reverse_iterator iter, iter_B;
-        iter = value.rbegin();
-        iter_B = B.value.rbegin();
-
-        while (iter != value.rend() || iter_B != B.value.rend() || carry)
+        deque<int>::const_reverse_iterator iter = value.rbegin();
+        while (iter != value.rend() || carry)
         {
-            int v1, v2;
-            v1 = v2 = 0;
+            int v1 = 0;
             if (iter != value.rend())
             {
                 v1 = *iter;
                 iter++;
             }
-            if (iter_B != B.value.rend())
-            {
-                v2 = *iter_B;
-                iter_B++;
-            }
-            int sum = v1 + v2 + carry;
-            res.value.push_front(sum % 10);
-            carry = sum / 10;
+            int multiple = v1 * x + carry;
+            res.value.push_front(multiple % 10);
+            carry = multiple / 10;
         }
         return res;
     }
-
     friend istream& operator >> (istream& is, bigInteger& bigInt);
 };
 
@@ -74,10 +64,14 @@ istream& operator >> (istream& is, bigInteger& bigInt)
 
 int main ()
 {
-    bigInteger a, b;
-    while (cin >> a >> b) 
+    int n;
+    while (scanf("%d", &n) != EOF)
     {
-        bigInteger res = a + b;
+        bigInteger res(1);
+        for (int i = 2; i <= n; i++)
+        {
+            res = res * i;
+        }
         res.print();
     }
     return 0;
