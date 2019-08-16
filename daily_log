@@ -87,7 +87,7 @@
 },
 20190815={
     machine_test_guide={cpp:[411,412]},
-    
+    leetcode={py:[5], cpp:[9,1]}
 }
 
 need improved:(解法不符合题意或者cheat)
