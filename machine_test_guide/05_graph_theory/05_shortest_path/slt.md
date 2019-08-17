@@ -1,3 +1,8 @@
+### 思路1 使用Floyd算法
+
+注意Floyd的时间复杂度是O(n^3)，如果结点数目较多，OJ使用Floyd算法可能超时。（注意path索引从0开始的）
+
+```cpp
 #include<iostream>
 #include<vector>
 using namespace std;
@@ -32,3 +37,4 @@ int main ()
     }
     return 0;
 }
+```
