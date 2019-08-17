@@ -1,3 +1,8 @@
+### 思路1 Kruskal算法求MST权值
+
+与上一题不同之处在于，这道题要先自己把坐标转化为结点及边。
+
+```cpp
 #include<iostream>
 #include<cmath>
 #include<algorithm>
@@ -79,3 +84,4 @@ int main(){
     }
     return 0;
 }
+```
