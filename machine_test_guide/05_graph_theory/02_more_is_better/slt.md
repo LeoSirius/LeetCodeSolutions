@@ -1,3 +1,6 @@
+### 思路1 利用并查集求得线最大连通分量的结点个数
+
+```cpp
 #include<iostream>
 using namespace std;
 
@@ -44,3 +47,4 @@ int main ()
     }
     return 0;
 }
+```
