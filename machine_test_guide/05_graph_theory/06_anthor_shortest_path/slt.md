@@ -1,3 +1,8 @@
+### 思路1 使用dijkstra算法
+
+根据题意，如果距离相同的话，我们还要对花费进行判断。
+
+```cpp
 #include<iostream>
 #include<vector>
 using namespace std;
@@ -86,3 +91,4 @@ int main ()
     }
     return 0;
 }
+```
