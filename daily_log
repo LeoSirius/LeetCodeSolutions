@@ -92,6 +92,9 @@
 20190816={
     machine_test_guide={cpp:[413]},
     leetcode={py:[6], cpp:[2,3]}
+},
+20190819={
+    machine_test_guide={cpp:[501,]}
 }
 
 need improved:(解法不符合题意或者cheat)
