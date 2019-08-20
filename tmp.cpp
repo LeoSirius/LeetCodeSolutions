@@ -1,48 +1,36 @@
-#include<iostream>
-using namespace std;
-
-const int SIZE = 10000001;
-int Tree[SIZE];
-int num_inside_connected[SIZE];
-
-int find_root (int x)
-{
-    if (Tree[x] == -1) return x;
-    else
-    {
-        int root = find_root(Tree[x]);
-        Tree[x] = root;
-        return root;
-    }
-}
-
-int main ()
-{
-    int n;
-    while (scanf("%d", &n) != EOF)
-    {
-        for (int i = 1; i <= SIZE; i++)
+class Solution {
+public:
+    string longestPalindrome(string s) {
+        if (s.size() <= 1) return s;
+        int max_len = 1, start = 0;
+        for (int i = 0; i < s.size();)
         {
-            Tree[i] = -1;
-            num_inside_connected[i] = 1;
-        }
-        for (int i = 1; i <= n; i++)
-        {
-            int a, b;
-            scanf("%d %d", &a, &b);
-            a = find_root(a);
-            b = find_root(b);
-            if (a != b)
+            int left, right;
+            left = right = i;
+            while (right < s.size() - 1 && s[right] == s[right+1]) right++;
+            i = right + 1;
+            while (left > 0 && right < s.size() - 1 && s[left-1] == s[right+1])
             {
-                Tree[a] = b;
-                num_inside_connected[b] += num_inside_connected[a];
+                left--; right++;
             }
-        }
-        int max_node_cnt = INT_MIN;
-        for (int i = 1; i <= SIZE; i++)
-            if (Tree[i] == -1 && max_node_cnt < num_inside_connected[i])
-                max_node_cnt = num_inside_connected[i];
-        printf("%d\n", max_node_cnt);
+            int new_len = right - left + 1;
+            if (new_len > max_len)
+            {
+                max_len = new_len;
+                start = max(start, left);
+            }
+            while(right < s.size()-1 && s[right+1] == s[right]) right++;
+            i = right + 1;    // 跳过重复的，下次i直接从这些重复的后面开始
+            while(right < s.size()-1 && left > 0 && s[right+1] == s[left-1]){
+                right++;
+                left--;
+            }
+            int new_len = right - left + 1;
+            if(new_len > max_len){
+                start = left;
+                max_len = new_len;
+            }
+         }
+        return s.substr(start, max_len);
     }
-    return 0;
-}
+};

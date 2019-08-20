@@ -2,6 +2,8 @@
 
 我们可以将基数情况和偶数情况合并，如果是基数，就求两次同样的。
 
+先判断k-1是在总索引的前半部分还是后半部分。如果k在后半部分，则我们抛弃两个数组中位数较小的那个数组的前半部分，否则抛弃两个数组中位数较大的那个数组的后半部分。
+
 ```cpp
 class Solution {
     double findKth(vector<int>& nums1, vector<int>& nums2, int k){
