@@ -17,7 +17,6 @@ public:
         
         while(str[i] >= '0' && str[i] <= '9'){
             result = result*10 + str[i++]-'0';
-            cout << "result = " << result << endl; 
             if(result*indicator >= INT_MAX) return INT_MAX;
             if(result*indicator <= INT_MIN) return INT_MIN;
         }

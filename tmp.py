@@ -1,16 +1,10 @@
 class Solution:
-    def myAtoi(self, str: str) -> int:
-        lst = list(str.strip())
-        if not len(lst):
-            return 0
-        
-        sign = -1 if lst[0] == '-' else 1
-        if lst[0] in ['-', '+']:
-            del lst[0]
+    def isPalindrome(self, x: int) -> bool:
+        if x < 0 or (x % 10 == 0 and x != 0):
+            return False
 
-        res, i = 0, 0
-        while i < len(lst) and lst[i].isdigit():
-            res = res * 10 + ord(lst[i]) - ord('0')
-            i += 1
-        
-        return max(min(2 ** 31 - 1, res * sign), - (2 ** 31))
+        rever_num = 0
+        while rever_num < x:
+            rever_num = rever_num * 10 + x % 10
+            x //= 10
+        return rever_num == x or rever_num // 10 == x
