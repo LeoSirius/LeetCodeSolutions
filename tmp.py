@@ -1,5 +1,16 @@
 class Solution:
-    def reverse(self, x: int) -> int:
-        sign = 1 if x >= 0 else -1
-        res = sign * int(str(sign * x)[::-1])
-        return 0 if res > 2 ** 31 -1 or res < -(2 ** 31) else res
+    def myAtoi(self, str: str) -> int:
+        lst = list(str.strip())
+        if not len(lst):
+            return 0
+        
+        sign = -1 if lst[0] == '-' else 1
+        if lst[0] in ['-', '+']:
+            del lst[0]
+
+        res, i = 0, 0
+        while i < len(lst) and lst[i].isdigit():
+            res = res * 10 + ord(lst[i]) - ord('0')
+            i += 1
+        
+        return max(min(2 ** 31 - 1, res * sign), - (2 ** 31))

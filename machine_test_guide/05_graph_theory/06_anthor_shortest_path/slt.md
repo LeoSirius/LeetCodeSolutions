@@ -8,7 +8,7 @@
 using namespace std;
 
 struct Node{
-    int idx;  // 邻接节点的编号
+    int adj;  // 邻接节点的编号
     int dist;
     int price;
 };
@@ -32,9 +32,9 @@ int main ()
             Node tmp_node;
             tmp_node.dist = d;
             tmp_node.price = p;
-            tmp_node.idx = b;
+            tmp_node.adj = b;
             path[a].push_back(tmp_node);    // 无向图，把a到b和b到a都加入
-            tmp_node.idx = a;
+            tmp_node.adj = a;
             path[b].push_back(tmp_node);
         }
         scanf("%d%d", &s, &t);
@@ -56,19 +56,22 @@ int main ()
             // 遍历cur_node的所有邻接点，按情况更新状态数组
             for (int j = 0; j < path[cur_node].size(); j++)
             {
-                int adj_node = path[cur_node][j].idx;
+                int adj_node = path[cur_node][j].adj;
                 if (is_solved[adj_node]) continue;
                 int dist = path[cur_node][j].dist;
                 int price = path[cur_node][j].price;
 
+                int dist_via_cur = dists[cur_node] + dist;
+                int price_via_cur = prices[cur_node] + price;
+
                 // 1.尚未计算过距离  2.之前的距离更长 3.距离相等，但是花费更小   
                 // 出现上面三种情况，则更新状态数组
                 if (dists[adj_node] == -1 || 
-                dists[adj_node] > dists[cur_node] + dist ||
-                (dists[adj_node] == dists[cur_node] + dist && prices[adj_node] > prices[cur_node] + price))
+                dists[adj_node] > dist_via_cur ||
+                (dists[adj_node] == dist_via_cur && prices[adj_node] > price_via_cur))
                 {
-                    dists[adj_node] = dists[cur_node] + dist;
-                    prices[adj_node] = prices[cur_node] + price;
+                    dists[adj_node] = dist_via_cur;
+                    prices[adj_node] = price_via_cur;
                 }
             }
 

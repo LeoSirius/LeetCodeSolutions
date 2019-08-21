@@ -1,50 +1,6 @@
 // leetcode use universal index
 // machine_test_guide use chapter number two digits, plus topic number two digits
 
-20190717={
-    machine_test_guide={cpp:[301]},
-    leetcode={py:[25,26], cpp:[38,39]},
-},
-20190718={
-    machine_test_guide={cpp:[302]},
-    leetcode={py:[27,28], cpp:[40,21]},
-},
-20190719={
-    machine_test_guide={cpp:[303]},
-    leetcode={py:[29,31], cpp:[22,23]},
-},
-20190722={
-    machine_test_guide={cpp:[304,305]},
-    leetcode={py:[32,33], cpp:[24,25]}
-},
-20190723={
-    machine_test_guide={cpp:[306,201]},
-    leetcode={py:[34,35], cpp:[26,27]}
-},
-20190724={
-    machine_test_guide={cpp:[202,203]},
-    leetcode={py:[36,37], cpp:[28]}
-},
-20190725={
-    machine_test_guide={cpp:[204]},
-    leetcode={py:[38], cpp:[29]},
-},
-20190726={
-    machine_test_guide={cpp:[205,206]},
-    leetcode={py:[39,40], cpp:[31,32]},
-},
-20190729={
-    machine_test_guide={cpp:[207,208]},
-    leetcode={py:[1], cpp:[33, 34]},
-},
-20190730={
-    machine_test_guide={cpp:[209,210,211]},
-    leetcode={py:[2], cpp:[35,36，37]}
-},
-20190731={
-    machine_test_guide={cpp:[212,301]},
-    leetcode={py:[3], cpp:[38,39]}
-},
 20190801={
     machine_test_guide={cpp:[302,303]},
     leetcode={py:[4], cpp:[4,40]}
@@ -98,6 +54,10 @@
     leetcode={py:[7], cpp:[4,5]}
 },
 20190820={
+    machine_test_guide={cpp:[503,504,505]},
+    leetcode={py:[8], cpp:[6,7]}
+},
+20190821={
     machine_test_guide={cpp:[]}
 }
 
