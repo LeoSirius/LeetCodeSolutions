@@ -1,21 +1,10 @@
-#include<iostream>
-#include<deque>
-using namespace std;
-
-int main ()
-{
-    int a, b, m;
-    while (scanf("%d %d %d", &m, &a, &b) != EOF && m) {
-        int sum = a + b;
-        deque<int> res;
-        while (sum) {
-            res.push_front(sum % m);
-            sum /= m;
-        }
-        deque<int>::const_iterator iter;
-        for (iter = res.begin(); iter != res.end(); iter++)
-            printf("%d", *iter);
-        printf("\n");
+class Solution {
+public:
+    string intToRoman(int num) {
+        string I[10] = {"", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX"};
+        string X[10] = {"", "X", "XX", "XXX", "XL", "L", "LX", "LXX", "LXXX", "XC"};
+        string C[10] = {"", "C", "CC", "CCC", "CD", "D", "DC", "DCC", "DCCC", "CM"};
+        string M[4] = {"", "M", "MM", "MMM"};
+        return M[num / 1000] + C[num / 100 % 10] + X[num / 10 % 10] + I[num % 10];
     }
-    return 0;
-}
+};
