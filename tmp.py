@@ -1,11 +1,7 @@
 class Solution:
-    def maxArea(self, height: List[int]) -> int:
-        left, right = 0, len(height) - 1
-        max_water = 0
-        while left < right:
-            max_water = max(max_water, (right-left) * min(height[left], height[right]))
-            if height[left] > height[right]:
-                right -= 1
-            else:
-                left += 1
-        return max_water
+    def intToRoman(self, num: int) -> str:
+        I = ['', 'I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX']
+        X = ['', 'X', 'XX', 'XXX', 'XL', 'L', 'LX', 'LXX', 'LXXX', 'XC']
+        C = ['', 'C', 'CC', 'CCC', 'CD', 'D', 'DC', 'DCC', 'DCCC', 'CM']
+        M = ['', 'M', 'MM', 'MMM']
+        return M[num // 1000] + C[num // 100 % 10] + X[num // 10 % 10] + I[num % 10]
