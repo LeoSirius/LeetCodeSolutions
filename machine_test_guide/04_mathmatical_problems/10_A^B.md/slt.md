@@ -12,7 +12,7 @@ int main(){
         int res = 1;
         while(b){
             if(b % 2 == 1){
-                res *= a;       // 如果是几次幂，则把当前的a^k乘到res上
+                res *= a;       // 如果是奇次幂，则把当前的a^k乘到res上
                 res %= 1000;
             }
             b /= 2;

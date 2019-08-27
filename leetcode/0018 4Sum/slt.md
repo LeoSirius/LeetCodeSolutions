@@ -33,46 +33,41 @@ class Solution:
         return results
 ```
 
-## 思路2 利用迭代化解为2sum，类似于3sum的思路
+## 思路2 思路同3sum，只是多了一重循环
 
 这个思路关键是处理好重复的跳过。由于我们是从左边往右边遍历的，所以需要往左移的case直接pass掉。
 
 ```cpp
-// 目前这个答案leetcode会报AddressSanitizer: heap-buffer-overflow
 class Solution {
 public:
     vector<vector<int>> fourSum(vector<int>& nums, int target) {
-        vector<vector<int>> total;
-        int n = nums.size();
-        if(n < 4) return total;
+        vector<vector<int>> res;
+        if (nums.size() < 4) return res;
         sort(nums.begin(), nums.end());
-        
-        for(int i = 0; i < n - 3; ++i){
-            if(i > 0 && nums[i-1] == nums[i]) continue;
-            if(nums[i]+nums[i+1]+nums[i+2]+nums[i+3] > target) break;   // 最小的四个都大于target
-            if(nums[i]+nums[n-1]+nums[n-2]+nums[n-3] < target) continue; // 加上最大的三个都还小于target，说明i要右移
-            for(int j = i + 1; j < n - 2; ++j){
-                if(j > i+1 && nums[j-1] == nums[j]) ++j;
-                if(nums[i]+nums[j]+nums[j+1]+nums[j+2] > target) break;
-                if(nums[i]+nums[j]+nums[n-1]+nums[n-2] < target) continue;
-                int l = j+1;
-                int r = n-1;
-                while(l < r){
-                    int sum = nums[i] + nums[j] + nums[l] + nums[r];
-                    if(sum == target){
-                        total.push_back(vector<int>{nums[i], nums[j], nums[l], nums[r]});
-                        while(l < r && nums[l] == nums[l+1]) ++l;
-                        while(l < r && nums[r] == nums[r-1]) --r;
-                        ++l, --r;
-                    }else if(sum > target){
-                        --r;
-                    }else{
-                        ++l;
-                    }
+
+        for (int i = 0; i < nums.size() - 3; i++) {
+            if (i > 0 && nums[i] == nums[i-1]) continue;
+            int three_target = target - nums[i];
+
+            for (int j = i + 1; j < nums.size() - 2; j++) {
+                if (j > i+1 && nums[j] == nums[j-1]) continue;
+                int two_target = three_target - nums[j];
+                int l, r;
+                l = j + 1; r = nums.size() - 1;
+                while (l < r) {
+                    int left, right;
+                    left = nums[l];;
+                    right = nums[r];
+                    if (left + right == two_target) {
+                        res.push_back(vector<int> {nums[i], nums[j], left, right});
+                        while (l < r && nums[l] == left) l++;
+                        while (l < r && nums[r] == right) r--; 
+                    } else if (left + right < two_target) l++;
+                    else r--;
                 }
             }
         }
-        return total;
+        return res;
     }
 };
 ```
