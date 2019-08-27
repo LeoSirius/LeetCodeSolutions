@@ -1,4 +1,4 @@
-### 思路1 利用并查集求得线最大连通分量的结点个数
+### 思路1 利用并查集求得最大连通分量的结点个数
 
 ```cpp
 #include<iostream>
@@ -10,35 +10,32 @@ const int SIZE = 10000001;
 int Tree[SIZE];
 int num_inside_connected[SIZE];
 
-int find_root (int x)
+int
+find_root (int x)
 {
     if (Tree[x] == -1) return x;
-    else
-    {
+    else {
         int root = find_root(Tree[x]);
         Tree[x] = root;
         return root;
     }
 }
 
-int main ()
+int
+main ()
 {
     int n;
-    while (scanf("%d", &n) != EOF)
-    {
-        for (int i = 1; i <= SIZE; i++)
-        {
+    while (scanf("%d", &n) != EOF) {
+        for (int i = 1; i <= SIZE; i++) {
             Tree[i] = -1;
             num_inside_connected[i] = 1;
         }
-        for (int i = 1; i <= n; i++)
-        {
+        for (int i = 1; i <= n; i++) {
             int a, b;
             scanf("%d %d", &a, &b);
             a = find_root(a);
             b = find_root(b);
-            if (a != b)
-            {
+            if (a != b) {
                 Tree[a] = b;
                 num_inside_connected[b] += num_inside_connected[a];  // 将sum结点的计数加到b的sum中
             }

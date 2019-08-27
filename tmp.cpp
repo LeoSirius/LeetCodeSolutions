@@ -1,32 +1,49 @@
-class Solution {
-public:
-    vector<vector<int>> fourSum(vector<int>& nums, int target) {
-        vector<vector<int>> res;
-        if (nums.size() < 4) return res;
-        sort(nums.begin(), nums.end());
+#include<iostream>
+using namespace std;
 
-        for (int i = 0; i < nums.size() - 3; i++) {
-            if (i > 0 && nums[i] == nums[i-1]) continue;
-            int three_target = target - nums[i];
+const int SIZE = 10000001;
+int Tree[SIZE];
+int num_of_connected[SIZE];
 
-            for (int j = i + 1; j < nums.size() - 2; j++) {
-                if (j > i+1 && nums[j] == nums[j-1]) continue;
-                int two_target = three_target - nums[j];
-                int l, r;
-                l = j + 1; r = nums.size() - 1;
-                while (l < r) {
-                    int left, right;
-                    left = nums[l];;
-                    right = nums[r];
-                    if (left + right == two_target) {
-                        res.push_back(vector<int> {nums[i], nums[j], left, right});
-                        while (l < r && nums[l] == left) l++;
-                        while (l < r && nums[r] == right) r--; 
-                    } else if (left + right < two_target) l++;
-                    else r--;
-                }
+int
+find_root (int x)
+{
+    if (Tree[x] == -1) return x;
+    else {
+        int root = find_root(Tree[x]);
+        Tree[x] = root;
+        return root;
+    }
+}
+
+int
+main ()
+{
+    int n;
+    while (scanf("%d", &n) != EOF) {
+        for (int i = 1; i <= SIZE; i++) {
+            Tree[i] = -1;
+            num_of_connected[i] = 1;
+        }
+
+        while (n--) {
+            int a, b;
+            scanf("%d %d", &a, &b);
+            a = find_root(a);
+            b = find_root(b);
+            if (a != b) {
+                Tree[a] = b;
+                num_of_connected[b] += num_of_connected[a];
             }
         }
-        return res;
+
+        int max_node_cnt = INT_MIN;
+        for (int i = 1; i <= SIZE; i++) {
+            if (Tree[i] == -1 && max_node_cnt < num_of_connected[i])
+                max_node_cnt = num_of_connected[i];
+        }
+
+        printf("%d\n", max_node_cnt);
     }
-};
+    return 0;
+}
