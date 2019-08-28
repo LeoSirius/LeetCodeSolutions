@@ -1,9 +1,10 @@
 #include<iostream>
+#include<algorithm>
+#include<vector>
 using namespace std;
 
-const int SIZE = 10000001;
+const int SIZE = 101;
 int Tree[SIZE];
-int num_of_connected[SIZE];
 
 int
 find_root (int x)
@@ -16,34 +17,41 @@ find_root (int x)
     }
 }
 
-int
-main ()
+struct
+Edge
+{
+    int a, b, weight;
+    bool
+    operator < (const Edge& B) const  // 这里重载一定要是const函数，不然sort时报错
+    {
+        return weight < B.weight;
+    }
+};
+
+int main ()
 {
     int n;
-    while (scanf("%d", &n) != EOF) {
-        for (int i = 1; i <= SIZE; i++) {
-            Tree[i] = -1;
-            num_of_connected[i] = 1;
+    while (scanf("%d", &n) != EOF && n) {
+        vector<Edge> edges;
+        for (int i = 1; i <= n; i++) Tree[i] = -1;
+        for (int i = 1; i <= n * (n - 1) / 2; i++) {
+            Edge new_edge;
+            scanf("%d %d %d", &new_edge.a, &new_edge.b, &new_edge.weight);
+            edges.push_back(new_edge);
         }
+        sort(edges.begin(), edges.end());
 
-        while (n--) {
-            int a, b;
-            scanf("%d %d", &a, &b);
-            a = find_root(a);
-            b = find_root(b);
+        int min_weight = 0;
+        for (int i = 1; i <= n*(n-1)/2; i++) {
+            // notice vector start from 0, so use i-1, i base from 1
+            int a = find_root(edges[i-1].a);
+            int b = find_root(edges[i-1].b);
             if (a != b) {
                 Tree[a] = b;
-                num_of_connected[b] += num_of_connected[a];
+                min_weight += edges[i-1].weight;
             }
         }
-
-        int max_node_cnt = INT_MIN;
-        for (int i = 1; i <= SIZE; i++) {
-            if (Tree[i] == -1 && max_node_cnt < num_of_connected[i])
-                max_node_cnt = num_of_connected[i];
-        }
-
-        printf("%d\n", max_node_cnt);
+        printf("%d\n", min_weight);
     }
     return 0;
 }

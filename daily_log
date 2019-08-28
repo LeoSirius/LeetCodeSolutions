@@ -76,6 +76,9 @@
 20190827={
     machine_test_guide={cpp:[412,413,501,502]},
     leetcode={py:[14], cpp:[17,18]},
+},
+20190828={
+    machine_test_guide={cpp:[]}
 }
 
 
