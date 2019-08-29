@@ -1,4 +1,4 @@
-## 思路1 利用字典映射左右括号
+## 思路1 直接把当前左括号对应的右括号入栈
 
 注意括号交错要返回False
 
@@ -9,7 +9,7 @@ class Solution {
 public:
     bool isValid(string s) {
         stack<char> stk;
-        for(char&c : s){
+        for(char &c : s){
             switch(c){
                 case '[': stk.push(']'); break;
                 case '(': stk.push(')'); break;
