@@ -51,7 +51,6 @@ int BFS(int a, int b, int c)
             flag[x][y][z] = true;
             // 如果已经到终点，则返回时间
             if (x == a - 1 && y == b - 1 && z == c - 1) return cur_status.t + 1;
-
         }
     }
     return -1;
