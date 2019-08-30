@@ -6,33 +6,42 @@
 #include<iostream>
 #include<algorithm>
 #include<string>
+#include<vector>
 using namespace std;
 
-struct Student{
+struct Student
+{
     string name;
-    int age;
-    int score;
-    bool operator < (const Student &b) const{
-        if(score != b.score){
-            return score < b.score;
-        }else{
-            return name < b.name;
+    int age, score;
+
+    bool
+    operator < (Student const &B) const
+    {
+        if (score != B.score) {
+            return score < B.score;
+        } else {
+            if (name != B.name) {
+                return strcmp(name.c_str(), B.name.c_str()) < 0;
+            } else {
+                return age < B.age;
+            }
         }
     }
 };
 
-int main(){
+int main ()
+{
     int n;
-    while(scanf("%d", &n) != EOF){
-        Student *students = new Student[n];
-        for(int i = 0; i < n; i++){
-            cin >> students[i].name;
-            cin >> students[i].age;
-            cin >> students[i].score;
+    while (scanf("%d", &n) != EOF) {
+        vector<Student> students;
+        for (int i = 0; i < n; i++) {
+            Student student;
+            cin >> student.name >> student.age >> student.score;
+            students.push_back(student);
         }
-        sort(students, students + n);
-        for(int i = 0; i < n; i++){
-            cout << students[i].name << ' ' << students[i].age << ' ' << students[i].score << endl;
+        sort(students.begin(), students.end());
+        for (int i = 0; i < n; i++) {
+            printf("%s %2d %2d\n", students[i].name.c_str(), students[i].age, students[i].score);
         }
     }
     return 0;

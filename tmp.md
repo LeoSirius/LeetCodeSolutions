@@ -1,55 +1,68 @@
 ### 题目描述
 
-对输入的n个数进行排序并输出。
+有N个学生的数据，将学生数据按照成绩从低到高排序，如果成绩相同则按照姓名字符的字母排序，如果姓名的字母顺序也相同则按照学生的年龄排序，并输出N个学生排序后的信息。
 
 ### 输入
 
-输入的第一行包括一个整数n（1 <= n <= 100）。接下来的一行包括n个整数。
+测试数据有多组，每组输入第一行有一个整数N(N <= 1000)，接下来的N行包括N个学生的数据。每个学生的数据包括姓名（长度不超过100的字符串）、年龄（整数型）、成绩（小于等于100的整数）。
 
 ### 输出
 
-可能有多组测试数据，对每组测试数据，将排序后的n个整数输出，每个数后面都有一个空格。每个测试用例的结果占一行。
+将学生信息按成绩进行排序，成绩相同的则按姓名的字母顺序进行排序。然后输出学生信息。按照如下格式输出：姓名 年龄 成绩
 
 ### 样例输入
 
 ```
-4
-1 4 3 2
+3
+abc 20 99
+bcd 19 97
+bed 20 97
 ```
 
 ### 样例输出
 
 ```
-1 2 3 4 
+bcd 19 97
+bed 20 97
+abc 20 99
 ```
 
-### 思路1 用内置sort排序
+## 思路1 重写结构体的小于运算符
 
-内置`sort`是用的快排实现，n*logn的复杂度
+注意题目叫我们从小到大排序，可以看出是排升序。
 
 ```cpp
 #include<iostream>
 #include<algorithm>
-#include<vector>
+#include<string>
 using namespace std;
+
+struct Student{
+    string name;
+    int age;
+    int score;
+    bool operator < (const Student &b) const{
+        if(score != b.score){
+            return score < b.score;
+        }else{
+            return name < b.name;
+        }
+    }
+};
 
 int main(){
     int n;
     while(scanf("%d", &n) != EOF){
-        vector<int> input_array;
-        int tmp;
+        Student *students = new Student[n];
         for(int i = 0; i < n; i++){
-            scanf("%d", &tmp);
-            input_array.push_back(tmp);
+            cin >> students[i].name;
+            cin >> students[i].age;
+            cin >> students[i].score;
         }
-        sort(input_array.begin(), input_array.end());
-
-        // no space after laster number, so treat it alone
-        for(int i = 0; i < input_array.size() - 1; i++){
-            printf("%d ", input_array[i]);
+        sort(students, students + n);
+        for(int i = 0; i < n; i++){
+            cout << students[i].name << ' ' << students[i].age << ' ' << students[i].score << endl;
         }
-        printf("%d", input_array[input_array.size()-1]);
-        printf("\n");
     }
     return 0;
 }

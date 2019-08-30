@@ -22,8 +22,12 @@
     leetcode={py:[15], cpp:[19,20]},
 },
 20190829={
-    machine_test_guide={cpp:[506,602]},
-    leetcode={py:[16], cpp:[]}
+    machine_test_guide={cpp:[506,602,201]},
+    leetcode={py:[16], cpp:[11,12,]}
+},
+20190830={
+    machine_test_guide={cpp:[202]},
+    leetcode={py:[17], cpp:[13]},
 }
 
 

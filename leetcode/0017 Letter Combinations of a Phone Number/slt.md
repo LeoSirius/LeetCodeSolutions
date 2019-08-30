@@ -32,7 +32,7 @@ python可以利用列表生成式。除此之外，还可以用递归。
 ```python
 class Solution:
     def letterCombinations(self, digits: str) -> List[str]:
-        mapping = {
+        my_dict = {
             '2': 'abc',
             '3': 'def',
             '4': 'ghi',
@@ -44,9 +44,10 @@ class Solution:
         }
         if len(digits) == 0:
             return []
-        if len(digits) == 1:
-            return list(mapping[digits[0]])
-        prev = self.letterCombinations(digits[:-1])
-        additional = mapping[digits[-1]]
-        return [x + y for x in prev for y in additional]
+        elif len(digits) == 1:
+            return list(my_dict[digits[0]])
+        else:
+            prev = self.letterCombinations(digits[:-1])
+            additional = list(my_dict[digits[-1]])
+            return [x + y for x in prev for y in additional]
 ```
