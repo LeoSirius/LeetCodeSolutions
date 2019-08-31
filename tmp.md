@@ -1,68 +1,91 @@
 ### 题目描述
 
-有N个学生的数据，将学生数据按照成绩从低到高排序，如果成绩相同则按照姓名字符的字母排序，如果姓名的字母顺序也相同则按照学生的年龄排序，并输出N个学生排序后的信息。
+有两个日期，求两个日期之间的天数，如果两个日期是连续的我们规定它们之间的天数为两天。
 
 ### 输入
 
-测试数据有多组，每组输入第一行有一个整数N(N <= 1000)，接下来的N行包括N个学生的数据。每个学生的数据包括姓名（长度不超过100的字符串）、年龄（整数型）、成绩（小于等于100的整数）。
+有多组数据，每组数据有两行，分别表示两个日期，形式为YYYYMMDD
 
 ### 输出
 
-将学生信息按成绩进行排序，成绩相同的则按姓名的字母顺序进行排序。然后输出学生信息。按照如下格式输出：姓名 年龄 成绩
+每组数据输出一行，即日期差值
 
 ### 样例输入
 
 ```
-3
-abc 20 99
-bcd 19 97
-bed 20 97
+20110412
+20110422
 ```
 
 ### 样例输出
 
 ```
-bcd 19 97
-bed 20 97
-abc 20 99
+11
 ```
 
-## 思路1 重写结构体的小于运算符
+### 思路1 转化为与同一时间原点的日期差值
 
-注意题目叫我们从小到大排序，可以看出是排升序。
+我们把输入的两天与00000101这天的日期之差算出来，然后再算两天的日期之查。
+
+有两点注意：
+
+- 我们用一个三位数组保存差值，而年月日是这个差值的数组下标。这种把数据本身同数据的存储地址联系起来的思想就是Hash的基本思想。
+- 我们把`buf`数组定义为全局变量而不是放在`main`函数中。若太大的内存定义在函数中，可能栈溢出。凡事需要大量开辟内存空间的情况，我们都定义为全局变量，或用`malloc`等函数动态申请空间。
 
 ```cpp
 #include<iostream>
-#include<algorithm>
-#include<string>
-using namespace std;
+#define ISLEAP(x) (x % 4 == 0 && x % 100 != 0) || (x % 400 == 0)
 
-struct Student{
-    string name;
-    int age;
-    int score;
-    bool operator < (const Student &b) const{
-        if(score != b.score){
-            return score < b.score;
-        }else{
-            return name < b.name;
+int day_of_month[13][2] = {
+    0,0,
+    31,31,
+    28,29,
+    31,31,
+    30,30,
+    31,31,
+    30,30,
+    31,31,
+    31,31,
+    30,30,
+    31,31,
+    30,30,
+    31,31,
+};
+
+struct Date{
+    int y, m, d;
+    void next(){
+        d++;
+        if(d > day_of_month[m][ISLEAP(y)]){
+            d = 1;
+            m++;
+            if(m > 12){
+                m = 1;
+                y++;
+            }
         }
     }
 };
 
+int hash[5001][13][32];
+int abs(int x){return x > 0 ? x : -x;}
+
 int main(){
-    int n;
-    while(scanf("%d", &n) != EOF){
-        Student *students = new Student[n];
-        for(int i = 0; i < n; i++){
-            cin >> students[i].name;
-            cin >> students[i].age;
-            cin >> students[i].score;
-        }
-        sort(students, students + n);
-        for(int i = 0; i < n; i++){
-            cout << students[i].name << ' ' << students[i].age << ' ' << students[i].score << endl;
-        }
+    Date first_day;
+    first_day.d = 1;
+    first_day.m = 1;
+    first_day.y = 0;
+    int count = 0;
+    while(first_day.y < 5001){
+        hash[first_day.y][first_day.m][first_day.d] = count++;
+        first_day.next();
+    }
+
+    int y1, m1, d1, y2, m2, d2;
+    while(scanf("%4d%2d%2d", &y1, &m1, &d1) != EOF){
+        scanf("%4d%2d%2d", &y2, &m2, &d2);
+        int diff = hash[y2][m2][d2] - hash[y1][m1][d1];
+        printf("%d\n", abs(diff)+1);
     }
     return 0;
 }

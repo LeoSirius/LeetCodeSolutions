@@ -1,1 +1,3 @@
-从原Notes仓库中分离出来，独立建库，方便管理。
+不断补充中...
+
+leetcode目录下是leetcode的刷题笔记。machine_test_guide目录下是机试指南一书的笔记。
