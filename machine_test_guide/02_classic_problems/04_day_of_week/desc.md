@@ -4,19 +4,19 @@ We now use the Gregorian style of dating in Russia. The leap years are years wit
 
 Your task is to write a program which will compute the day of the weeek correspoding to a given data in the nearest past or in the future using today's agreement about dating.
 
-### 输出
+### 输入
 
 There is one single line contains the day number d, month name M and year number y( 1000 <= y <= 3000). The month name is the corresponding English name starting from the capital letter.
 
-### 输入
+### 输出
 
 Output a single line with the English name of the day of week corresponding to the date, starting from the capital letter. All other letters must be in lower case.
 
 ### 样例输入
 
 ```
-9 October 2001
-14 October 2001
+4 September 2019
+1 October 2019
 ```
 
 ### 样例输出
