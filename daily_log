@@ -31,10 +31,11 @@
 },
 20190902={
     machine_test_guide={cpp:[203]},
-    leetcode={cpp:[18]}
+    leetcode={cpp:[14]}
 },
 20190903={
-    machine_test_guide={cpp:[]}
+    machine_test_guide={cpp:[204]},
+    leetcode={cpp:[15]}
 }
 
 
