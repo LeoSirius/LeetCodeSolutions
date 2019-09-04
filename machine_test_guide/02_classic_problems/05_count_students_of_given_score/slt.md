@@ -6,19 +6,20 @@
 #include<iostream>
 using namespace std;
 
-int main(){
+int
+main ()
+{
     int n;
-    while(scanf("%d", &n) != EOF && n != 0){
-        int *hashing = new int[101]{0};  // 这样会初始化为0, c++11可以这样写
-        for(int i = 0; i < n; i++){
-            int input_score;
-            scanf("%d", &input_score);
-            hashing[input_score]++;
+    while (scanf("%d", &n) != EOF && n != 0) {
+        int scores[101] = {0};
+        for (int i = 0; i < n; i++) {
+            int x;
+            scanf("%d", &x);
+            scores[x]++;
         }
-        int target_score;
-        scanf("%d", &target_score);
-        printf("%d\n", hashing[target_score]);
-        delete [] hashing;
+        int target;
+        scanf("%d", &target);
+        printf("%d\n", scores[target]);
     }
     return 0;
 }
