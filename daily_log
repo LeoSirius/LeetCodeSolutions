@@ -38,7 +38,12 @@
     leetcode={cpp:[15]}
 },
 20190904={
-    machine_test_guide={cpp:[]}
+    machine_test_guide={cpp:[205]},
+    leetcode={cpp:[16]}
+},
+20190905={
+    machine_test_guide={cpp:[206]},
+    leetcode={cpp:[17]}
 }
 
 
