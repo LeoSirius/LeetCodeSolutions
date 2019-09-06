@@ -44,7 +44,12 @@
 20190905={
     machine_test_guide={cpp:[206]},
     leetcode={cpp:[17]}
-}
+},
+20190906={
+    machine_test_guide={cpp:[207]},
+    leetcode={cpp:[18]},
+},
+
 
 
 need improved:(解法不符合题意或者cheat)

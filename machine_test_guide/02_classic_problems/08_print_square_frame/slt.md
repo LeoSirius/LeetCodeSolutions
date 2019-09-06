@@ -11,43 +11,38 @@
 #include<iostream>
 using namespace std;
 
-int main(){
-    char buf[82][82];
-    int size;
-    char in_char, out_char;
-    bool is_first_case = true;
-    while(scanf("%d %c %c", &size, &in_char, &out_char) == 3){
-        // 除了第一个测试用例之外的每个测试用例前面都有一个空行
-        if(is_first_case){
-            is_first_case = false;
-        }else{
-            printf("\n");
-        }
-        int num_circle = 1;
-        int border_len = 1;
-        while(border_len <= size){
-            char cur_char = (num_circle % 2 == 1) ? in_char : out_char;
-            int x = size / 2;       //  x, y为左上角的那个坐标，先定位到中心，在减去当前边长的一半
-            x -= border_len / 2;
-            int y = x;
-            for(int i = 0; i < border_len; ++i){
-                buf[x+i][y] = cur_char;
-                buf[x+i][y+border_len-1] = cur_char;
-                buf[x][y+i] = cur_char;
-                buf[x+border_len-1][y+i] = cur_char;
+int
+main ()
+{
+    int n;
+    char a, b;
+    while (scanf("%d %c %c", &n, &a, &b) != EOF) {
+        int buffer[81][81] = {0};
+        int num_of_circle = 0;
+        char cur_char;
+        for (int cur_size = 1; cur_size <= n; cur_size += 2) {
+            num_of_circle++;
+            cur_char = num_of_circle % 2 == 1 ? a : b;
+            int x, y;        //  x, y为左上角的那个坐标，先定位到中心，在减去当前边长的一半。xy都是从0开始
+            x = (n / 2) - (cur_size / 2);
+            y = x;
+            for (int i = 0; i < cur_size; i++) {
+                buffer[x][y+i] = cur_char;
+                buffer[x+cur_size-1][y+i] = cur_char;
+                buffer[x+i][y] = cur_char;
+                buffer[x+i][y+cur_size-1] = cur_char;
             }
-            ++num_circle;
-            border_len += 2;
         }
-        if(size != 1){
-            buf[0][0] = buf[0][size-1] = buf[size-1][0] = buf[size-1][size-1] = ' ';
+        if (n > 1) {
+            buffer[0][0] = buffer[0][n-1] = buffer[n-1][0] = buffer[n-1][n-1] = ' ';
         }
-        for(int i = 0; i < size; i++){
-            for(int j = 0; j < size; j++){
-                printf("%c", buf[i][j]);
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                printf("%c", buffer[i][j]);
             }
             printf("\n");
         }
+        printf("\n");
     }
 }
 ```
