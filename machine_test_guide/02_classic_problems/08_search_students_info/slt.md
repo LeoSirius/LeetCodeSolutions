@@ -4,52 +4,63 @@
 
 ```cpp
 #include<iostream>
+#include<string>
+#include<vector>
 #include<algorithm>
 using namespace std;
 
-struct Student{
-    int id;
-    char name[10];
-    char gender[5];
-    int age;
-    // 按学号升序排序
-    bool operator < (const Student B)const{
-        return id < B.id;
+struct Student
+{
+    unsigned int id;
+    string name;
+    string gender;
+    unsigned int age;
+
+    bool
+    operator < (Student const &another) const {
+        return id < another.id;
     }
 };
 
-void binary_sort_and_print(Student *students, int student_num, int target_id){
-    int l = 0;
-    int r = student_num - 1;
-    while(l <= r){
-        int mid = l + (r - l) / 2;
-        int current_id = students[mid].id;
-        if(current_id == target_id){
-            printf("%02d %s %s %d\n", students[mid].id, students[mid].name, students[mid].gender, students[mid].age);
+void find_and_print(vector<Student> &students, int target_id)
+{
+    int l, r, m;
+    l = 0; r = students.size() - 1;
+    while (l <= r) {
+        m = l + (r - l) / 2;
+        if (students[m].id == target_id) {
+            printf("%02d %s %s %d\n", students[m].id, students[m].name.c_str(), students[m].gender.c_str(), students[m].age);
             break;
-        }else if(current_id < target_id){
-            l = mid + 1;
-        }else{
-            r = mid - 1;
+        } else if (target_id < students[m].id) {
+            r = m - 1;
+        } else {
+            l = m + 1;
         }
     }
 }
 
-int main(){
-    int n, m;
-    while(scanf("%d", &n) != EOF){
-        Student *students = new Student[n];
-        for(int i = 0; i < n; i++){
-            scanf("%2d %s %s %d", &students[i].id, students[i].name, students[i].gender, &students[i].age);
+int
+main ()
+{
+    int n;
+    while (scanf("%d", &n) != EOF) {
+        vector<Student> students;
+        Student tmp_student;
+        for (int i = 0; i < n; i++) {
+            cin >> tmp_student.id >> tmp_student.name
+                >> tmp_student.gender >> tmp_student.age;
+            students.push_back(tmp_student);
         }
-        scanf("%d", &m);
-        sort(students, students+n);
-        for(int i = 0; i < m; i++){
+        int m; scanf("%d", &m);
+        sort(students.begin(), students.end());
+        for (int i = 0; i < m; i++) {
             int target_id;
             scanf("%d", &target_id);
-            binary_sort_and_print(students, n, target_id);
+            find_and_print(students, target_id);
         }
     }
     return 0;
 }
+
+
 ```
