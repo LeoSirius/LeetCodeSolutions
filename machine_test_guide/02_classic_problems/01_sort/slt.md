@@ -1,31 +1,37 @@
-### 思路1 用内置sort排序
+## 思路1 利用Hash
 
-内置`sort`是用的快排实现，n*logn的复杂度
+注意这题的时间限制。如果用快排的话时间复杂度还是O(nlogn)。我们可以利用数组的下标来表示数，用数组的值来表示那个数被输入没有。利用数组随机存取的特性，我们可以在O(n)的时间复杂度内就完成计算。
+
+这道题明确说明了输入的数各不相同。其实有相同值也可以做。用数组的值来表示下标对应的数输入了几次即可。
 
 ```cpp
 #include<iostream>
-#include<algorithm>
-#include<vector>
 using namespace std;
 
-int main(){
-    int n;
-    while(scanf("%d", &n) != EOF){
-        vector<int> input_array;
-        int tmp;
-        for(int i = 0; i < n; i++){
-            scanf("%d", &tmp);
-            input_array.push_back(tmp);
-        }
-        sort(input_array.begin(), input_array.end());
+const int OFFSET = 500000;
 
-        // no space after laster number, so treat it alone
-        for(int i = 0; i < input_array.size() - 1; i++){
-            printf("%d ", input_array[i]);
+int main(){
+    int n, m;
+    while(scanf("%d %d", &n, &m) != EOF){
+        int *hashing = new int[1000001]{0};
+        for(int i = 0; i < n; i++){
+            int x;
+            scanf("%d", &x);
+            hashing[x+OFFSET] = 1;
         }
-        printf("%d", input_array[input_array.size()-1]);
-        printf("\n");
+        for(int i = 500000; i >= -500000; i--){
+            if(hashing[i+OFFSET]){
+                printf("%d", i);
+                m--;
+                if(m){
+                    printf(" ");
+                }else{
+                    printf("\n");
+                    break;
+                }
+            }
+        }
+        delete [] hashing;
     }
-    return 0;
 }
 ```
