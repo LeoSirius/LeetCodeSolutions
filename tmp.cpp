@@ -1,45 +1,42 @@
 #include<iostream>
-#include<vector>
 #include<algorithm>
+#include<vector>
 using namespace std;
 
-struct Room
+struct Show
 {
-    double javabean;
-    double catFood;
-    double java_per_food;
+    int s, e;
 
-    bool
-    operator < (Room const &other) const
-    {
-        return java_per_food > other.java_per_food;
+    bool operator < (Show const &other) const {
+        if (e != other.e) {
+            return e < other.e;
+        } else {
+            return s > other.s;
+        }
     }
 };
 
 int
 main ()
 {
-    int m, n;
-    while (scanf("%d %d", &m, &n) != EOF && !(m == -1 && n == -1)) {
-        vector<Room> rooms;
+    int n;
+    while (scanf("%d", &n) != EOF && n != 0) {
+        vector<Show> shows;
         for (int i = 0; i < n; i++) {
-            Room room;
-            scanf("%lf %lf", &room.javabean, &room.catFood);
-            room.java_per_food = room.javabean / room.catFood;
-            rooms.push_back(room);
+            Show show;
+            scanf("%d %d", &show.s, &show.e);
+            shows.push_back(show);
         }
-        sort(rooms.begin(), rooms.end());
-        double total_bean = 0;
-        for (int i = 0; i < rooms.size() && m > 0; i++) {
-            if (m > rooms[i].catFood) {
-                total_bean += rooms[i].javabean;
-                m -= rooms[i].catFood;
-            } else {
-                total_bean += m * rooms[i].java_per_food;
-                m = 0;
+        sort(shows.begin(), shows.end());
+        int cur_time = 0;
+        int show_cnt = 0;
+        for (int i = 0; i < shows.size(); i++) {
+            if (cur_time <= shows[i].s) {
+                show_cnt++;
+                cur_time = shows[i].e;
             }
         }
-        printf("%.3f\n", total_bean);
+        printf("%d\n", show_cnt);
     }
     return EXIT_SUCCESS;
 }

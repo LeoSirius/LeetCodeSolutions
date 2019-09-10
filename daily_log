@@ -6,7 +6,8 @@
     leetcode={cpp:[19]}
 },
 20190910={
-    machine_test_guide={cpp:[]}
+    machine_test_guide={cpp:[209,210]},
+    leetcode={cpp:[]}
 }
 
 
