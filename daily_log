@@ -2,9 +2,12 @@
 // machine_test_guide use chapter number two digits, plus topic number two digits
 
 20190909={
-    machine_test_guide={cpp:[207,]},  // find_x
+    machine_test_guide={cpp:[207,208]},  // find_x
     leetcode={cpp:[19]}
 },
+20190910={
+    machine_test_guide={cpp:[]}
+}
 
 
 

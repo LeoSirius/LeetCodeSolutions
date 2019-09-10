@@ -4,39 +4,48 @@
 
 ```cpp
 #include<iostream>
+#include<vector>
 #include<algorithm>
 using namespace std;
 
-struct Room{
-    double java_beans;
-    double food;
-    double ratio;   // java_beans per food
-    bool operator < (const Room B) const{
-        return ratio > B.ratio;     // 重载，使得按照ratio的降序排列
+struct Room
+{
+    double javabean;
+    double catFood;
+    double java_per_food;
+
+    bool
+    operator < (Room const &other) const
+    {
+        return java_per_food > other.java_per_food;
     }
 };
 
-int main(){
-    int M, N;
-    while(scanf("%d %d", &M, &N) != EOF && (M != -1 || N != -1)){
-        Room *rooms = new Room[N];
-        for(int i = 0; i < N; i++){
-            scanf("%lf %lf", &rooms[i].java_beans, &rooms[i].food);
-            rooms[i].ratio = rooms[i].java_beans / rooms[i].food;
+int
+main ()
+{
+    int m, n;
+    while (scanf("%d %d", &m, &n) != EOF && !(m == -1 && n == -1)) {
+        vector<Room> rooms;
+        for (int i = 0; i < n; i++) {
+            Room room;
+            scanf("%lf %lf", &room.javabean, &room.catFood);
+            room.java_per_food = room.javabean / room.catFood;
+            rooms.push_back(room);
         }
-        sort(rooms, rooms + N);
-        double total_java_beans = 0;
-        for(int i = 0; i < N && M != 0; i++){
-            if(M >= rooms[i].food){
-                total_java_beans += rooms[i].java_beans;
-                M -= rooms[i].food;
-            }else{
-                total_java_beans += rooms[i].ratio * M;
-                M = 0;
+        sort(rooms.begin(), rooms.end());
+        double total_bean = 0;
+        for (int i = 0; i < rooms.size() && m > 0; i++) {
+            if (m > rooms[i].catFood) {
+                total_bean += rooms[i].javabean;
+                m -= rooms[i].catFood;
+            } else {
+                total_bean += m * rooms[i].java_per_food;
+                m = 0;
             }
         }
-        printf("%.3f\n", total_java_beans);
-        delete [] rooms;
+        printf("%.3f\n", total_bean);
     }
+    return EXIT_SUCCESS;
 }
 ```
