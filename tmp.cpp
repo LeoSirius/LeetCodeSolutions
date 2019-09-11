@@ -1,29 +1,34 @@
-/**
- * Definition for singly-linked list.
- * struct ListNode {
- *     int val;
- *     ListNode *next;
- *     ListNode(int x) : val(x), next(NULL) {}
- * };
- */
-class Solution {
-public:
-    ListNode* mergeTwoLists(ListNode* l1, ListNode* l2) {
-        ListNode head(0);
-        ListNode *p = &head;
-        while (l1 || l2) {
-            int v1, v2;
-            v1 = l1 ? l1->val : INT_MAX;
-            v2 = l2 ? l2->val : INT_MAX;
-            if (v1 < v2) {
-                p->next = l1;
-                l1 = l1->next;
+#include<iostream>
+#include<string>
+#include<stack>
+using namespace std;
+
+int main()
+{
+    string str;
+    while (cin >> str) {
+        stack<int> stk;
+        string res_str = "";
+        for (int i = 0; str[i]; i++) {
+            if (str[i] == '(') {
+                stk.push(i);
+                res_str += ' ';
+            } else if (str[i] == ')') {
+                if (stk.empty()) {
+                    res_str += '?';
+                } else {
+                    stk.pop();
+                    res_str += ' ';
+                }
             } else {
-                p->next = l2;
-                l2 = l2->next;
+                res_str += ' ';
             }
-            p = p->next;
         }
-        return head.next;
+        while (!stk.empty()) {
+            res_str[stk.top()] = '$';
+            stk.pop();
+        }
+        cout << str << endl << res_str << endl;
     }
-};
+    return EXIT_SUCCESS;
+}

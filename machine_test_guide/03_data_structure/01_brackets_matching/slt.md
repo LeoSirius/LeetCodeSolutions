@@ -4,37 +4,37 @@
 
 ```cpp
 #include<iostream>
+#include<string>
 #include<stack>
 using namespace std;
 
-int main(){
-    string input_str;
-    string res_str;
-    stack<int> stk;
-    while(getline(cin, input_str)){
-        while(!stk.empty()) stk.pop();
-        for(int i = 0; i < input_str.length(); ++i){
-            if(input_str[i] == '('){
+int main()
+{
+    string str;
+    while (cin >> str) {
+        stack<int> stk;
+        string res_str = "";
+        for (int i = 0; str[i]; i++) {
+            if (str[i] == '(') {
                 stk.push(i);
-                res_str += " ";
-            }else if(input_str[i] == ')'){
-                if(!stk.empty()){
+                res_str += ' ';
+            } else if (str[i] == ')') {
+                if (stk.empty()) {
+                    res_str += '?';
+                } else {
                     stk.pop();
-                    res_str += " ";
-                }else{
-                    res_str += "?";
+                    res_str += ' ';
                 }
-            }else{
-                res_str += " ";
+            } else {
+                res_str += ' ';
             }
         }
-        while(!stk.empty()){
+        while (!stk.empty()) {
             res_str[stk.top()] = '$';
             stk.pop();
         }
-        cout << input_str << endl;
-        cout << res_str << endl;
+        cout << str << endl << res_str << endl;
     }
-    return 0;
+    return EXIT_SUCCESS;
 }
 ```
