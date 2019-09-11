@@ -10,7 +10,7 @@
     leetcode={cpp:[20]}
 },
 20190911={
-    machine_test_guide={cpp:[301,]},
+    machine_test_guide={cpp:[301,302]},
     leetcode={cpp:[21]}
 }
 
