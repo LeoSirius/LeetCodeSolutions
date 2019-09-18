@@ -2,73 +2,70 @@
 
 ```cpp
 #include<iostream>
-#include<string>
 using namespace std;
 
-struct Node{
-    Node *left;
-    Node *right;
-    int value;
+struct Node {
+    Node *left, *right;
+    int val;
 };
 
-Node *create(){
-    Node *node = new Node();
+Node *create_node(int x)
+{
+    Node *node = new Node;
+    node->val = x;
     node->left = node->right = nullptr;
     return node;
 }
 
-Node *insert(Node *T, int x){
-    if(T == nullptr){
-        T = create();
-        T->value = x;
-        return T;
-    }else if(x < T->value){
-        T->left = insert(T->left, x);
-    }else{
-        T->right = insert(T->right, x);
+Node *insert(int x, Node *node)
+{
+    if (node == nullptr) {
+        node = create_node(x);
+    } else if (x < node->val) {
+        node->left = insert(x, node->left);
+    } else {
+        node->right = insert(x, node->right);
     }
-    return T;
+    return node;
 }
 
-void pre_order(Node *T){
-    if(T == nullptr){
-        return;
-    }
-    printf("%d ", T->value);
-    pre_order(T->left);
-    pre_order(T->right);
+void preorder(Node *tree)
+{
+    if (tree == nullptr) return;
+    printf("%d ", tree->val);
+    preorder(tree->left);
+    preorder(tree->right);
 }
 
-void in_order(Node *T){
-    if(T == nullptr){
-        return;
-    }
-    in_order(T->left);
-    printf("%d ", T->value);
-    in_order(T->right);
+void inorder(Node *tree)
+{
+    if (tree == nullptr) return;
+    inorder(tree->left);
+    printf("%d ", tree->val);
+    inorder(tree->right);
 }
 
-void post_order(Node *T){
-    if(T == nullptr){
-        return;
-    }
-    post_order(T->left);
-    post_order(T->right);
-    printf("%d ", T->value);
+void postorder(Node *tree)
+{
+    if (tree == nullptr) return;
+    postorder(tree->left);
+    postorder(tree->right);
+    printf("%d ", tree->val);
 }
 
-int main(){
+int main()
+{
     int n;
-    while(scanf("%d", &n) != EOF){
-        Node *T = nullptr;          // 初始化为nullptr，值是地址0x0，若不初始化而只是声明，则值是一个随机地址。
-        for(int i = 0; i < n; ++i){
+    while (scanf("%d", &n) != EOF) {
+        Node *tree_root = nullptr;
+        for (int i = 0; i < n; i++) {
             int x;
             scanf("%d", &x);
-            T = insert(T, x);
+            tree_root = insert(x, tree_root);
         }
-        pre_order(T); cout << endl;
-        in_order(T); cout << endl;
-        post_order(T); cout << endl;
+        preorder(tree_root); printf("\n");
+        inorder(tree_root); printf("\n");
+        postorder(tree_root); printf("\n");
     }
     return 0;
 }
