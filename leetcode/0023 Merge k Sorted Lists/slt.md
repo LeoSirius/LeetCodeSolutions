@@ -1,4 +1,56 @@
-### 思路1 把所有节点放在一个list，再sort，再串起来
+### 思路1 不断的两两merge
+
+```cpp
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* mergeKLists(vector<ListNode*>& lists) {
+        ListNode *res = nullptr;
+        if (lists.size() == 0) {
+            return res;
+        } else if (lists.size() == 1) {
+            return lists[0];
+        }
+        while (lists.size() > 1) {
+            res = mergeTwo(lists[0], lists[1]);
+            lists.erase(lists.begin(), lists.begin()+2);  // vector.erase 很慢
+            lists.push_back(res);
+        }
+        return res;
+    }
+
+    ListNode* mergeTwo(ListNode *h1, ListNode *h2)
+    {
+        ListNode head(0);
+        ListNode *l1, *l2, *p;
+        p = &head;
+        l1 = h1; l2 = h2;
+        int v1, v2;
+        while (l1 || l2) {
+            v1 = l1 ? l1->val : __INT_MAX__;
+            v2 = l2 ? l2->val : __INT_MAX__;
+            if (v1 < v2) {
+                p->next = l1;
+                l1 = l1->next;
+            } else {
+                p->next = l2;
+                l2 = l2->next;
+            }
+            p = p->next;
+        }
+        return head.next;
+    }
+};
+```
+
+### 思路2 把所有节点放在一个list，再sort，再串起来
 
 `python`的`sorted`可以制定排序对象的比较成员。`sorted(sorted_list, key=operator.attrgetter('val'))`就是用每个元素的`val`成员来进行排序。或者可以直接用lambda表达式。
 
@@ -33,50 +85,4 @@ class Solution:
             return all_nodes[0]
         else:
             return None
-```
-
-### 思路2 不断的两两merge
-
-```cpp
-/**
- * Definition for singly-linked list.
- * struct ListNode {
- *     int val;
- *     ListNode *next;
- *     ListNode(int x) : val(x), next(NULL) {}
- * };
- */
-class Solution {
-public:
-    ListNode* mergeKLists(vector<ListNode*>& lists) {
-        if(lists.empty()){
-            return nullptr;
-        }
-        while(lists.size() >= 2){
-            lists.push_back(mergeTwoLists(lists[0], lists[1]));
-            lists.erase(lists.begin());
-            lists.erase(lists.begin());
-        }
-        return lists[0];
-    }
-
-    // 使用原来的结点merge，没有创建新的结点
-    ListNode* mergeTwoLists(ListNode *l1, ListNode *l2){
-        ListNode dummy_head = ListNode(0);
-        ListNode *p = &dummy_head;
-        while(l1 && l2){
-            if(l1->val < l2->val){
-                p->next = l1;
-                l1 = l1->next;
-            }else{
-                p->next = l2;
-                l2 = l2->next;
-            }
-            p = p->next;
-        }
-        if(l1) p->next = l1;
-        if(l2) p->next = l2;
-        return dummy_head.next;
-    }
-};
 ```
