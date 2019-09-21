@@ -4,7 +4,6 @@
 
 ```cpp
 #include<iostream>
-#include<string>
 #include<deque>
 using namespace std;
 
@@ -13,25 +12,25 @@ int main()
     int a, b;
     string n;
     while (cin >> a >> n >> b) {
-        long long decimal = 0, base = 1;
+        int base = 1;
+        int dec = 0;
         for (int i = n.size() - 1; i >= 0; i--) {
-            int cur_num = 0;
-            if (n[i] >= '0' && n[i] <= '9') cur_num = n[i] - '0';
-            else if (n[i] >= 'A' && n[i] <= 'Z') cur_num = n[i] - 'A' + 10;
-            decimal += cur_num * base;
+            int cur;
+            if (n[i] >= '0' && n[i] <= '9') cur = n[i] - '0';
+            else cur = n[i] - 'A' + 10;
+            dec += + cur * base;
             base *= a;
         }
-
         deque<char> res;
-        while (decimal) {
-            int mod = decimal % b;
-            decimal /= b;
-            if (mod < 10) res.push_front(mod + '0');
-            else res.push_front(mod - 10 + 'A');
-        }
         deque<char>::const_iterator iter;
-        for (iter = res.begin(); iter != res.end(); iter++)
+        while (dec) {
+            int mod = dec % b;
+            res.push_front("0123456789ABCDEF"[mod]);
+            dec /= b;
+        }
+        for (iter = res.begin(); iter != res.end(); iter++) {
             printf("%c", *iter);
+        }
         printf("\n");
     }
     return 0;
