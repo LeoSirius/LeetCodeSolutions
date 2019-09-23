@@ -1,32 +1,12 @@
-#include<iostream>
-#include<deque>
-using namespace std;
-
-int main()
-{
-    int a, b;
-    string n;
-    while (cin >> a >> n >> b) {
-        int base = 1;
-        int dec = 0;
-        for (int i = n.size() - 1; i >= 0; i--) {
-            int cur;
-            if (n[i] >= '0' && n[i] <= '9') cur = n[i] - '0';
-            else cur = n[i] - 'A' + 10;
-            dec += + cur * base;
-            base *= a;
+class Solution {
+public:
+    int removeElement(vector<int>& nums, int val) {
+        int new_tail = -1;
+        for (int i = 0; i < nums.size(); i++) {
+            if (val != nums[i]) {
+                nums[++new_tail] = nums[i];
+            }
         }
-        deque<char> res;
-        deque<char>::const_iterator iter;
-        while (dec) {
-            int mod = dec % b;
-            res.push_front("0123456789ABCDEF"[mod]);
-            dec /= b;
-        }
-        for (iter = res.begin(); iter != res.end(); iter++) {
-            printf("%c", *iter);
-        }
-        printf("\n");
+        return new_tail+1;
     }
-    return 0;
-}
+};

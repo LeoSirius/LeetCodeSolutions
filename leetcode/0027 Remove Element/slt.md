@@ -4,17 +4,13 @@
 class Solution {
 public:
     int removeElement(vector<int>& nums, int val) {
-        int left_most = 0;
-        int len_nums = nums.size();
-        if (len_nums == 0){
-            return 0;
-        }
-        for(int i = 0; i < len_nums; i++){
-            if(nums[i] != val){
-                nums[left_most++] = nums[i];
+        int new_tail = -1;
+        for (int i = 0; i < nums.size(); i++) {
+            if (val != nums[i]) {
+                nums[++new_tail] = nums[i];
             }
         }
-        return left_most;
+        return new_tail+1;
     }
 };
 ```
