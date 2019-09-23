@@ -1,12 +1,16 @@
-class Solution {
-public:
-    int removeElement(vector<int>& nums, int val) {
-        int new_tail = -1;
-        for (int i = 0; i < nums.size(); i++) {
-            if (val != nums[i]) {
-                nums[++new_tail] = nums[i];
-            }
-        }
-        return new_tail+1;
+#include<iostream>
+using namespace std;
+
+int gcd(int a, int b)
+{
+    return b == 0 ? a : gcd(b, a % b);
+}
+
+int main()
+{
+    int a, b;
+    while (scanf("%d %d", &a, &b) != EOF) {
+        printf("%d\n", a * b / gcd(a, b));
     }
-};
+    return 0;
+}

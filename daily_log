@@ -34,9 +34,9 @@
     leetcode={cpp:[26]}
 },
 20190923={
-    machine_test_guide={cpp:[]},
+    machine_test_guide={cpp:[404]},
     leetcode={cpp:[27]}
-}
+},
 
 
 
