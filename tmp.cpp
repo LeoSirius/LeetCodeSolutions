@@ -1,16 +1,21 @@
 #include<iostream>
+#include<cmath>
 using namespace std;
 
-int gcd(int a, int b)
+bool is_prime(int x)
 {
-    return b == 0 ? a : gcd(b, a % b);
+    int sqrtx = sqrt(x);
+    for (int i = 2; i <= sqrtx; i++) {
+        if (x % i == 0) return false;
+    }
+    return true;
 }
 
 int main()
 {
-    int a, b;
-    while (scanf("%d %d", &a, &b) != EOF) {
-        printf("%d\n", a * b / gcd(a, b));
+    int n;
+    while (scanf("%d", &n) != EOF) {
+        is_prime(n) ? printf("yes\n") : printf("no\n");
     }
     return 0;
 }
