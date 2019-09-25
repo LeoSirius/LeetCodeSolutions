@@ -1,41 +1,33 @@
-class Solution {
-public:
-    int divide(int dividend, int divisor) {
-        if (dividend == INT_MIN && divisor == -1) return INT_MAX;
-        long dvd = labs(dividend), dvs = labs(divisor);
-        int sign = dividend > 0 ^ divisor > 0 ? -1 : 1;
-        int res = 0;
-        while (dvs <= dvd) {
-            int tmp = dvs;
-            int m = 1;
-            while (tmp << 1 <= dvd) {
-                tmp <<= 1;
-                m <<= 1;
-            }
-            res += m;
-            dvd -= tmp;
-        }
-        return sign * res;
-    }
-};
+#include<iostream>
+#include<vector>
+using namespace std;
 
-class Solution {
-public:
-    int divide(int dividend, int divisor) {
-        if (dividend == INT_MIN && divisor == -1) {
-            return INT_MAX;
+void init_primes(int n, vector<bool> &is_prime)
+{
+    for (int i = 2; i < n; i++) {
+        if (!is_prime[i]) continue;
+        for (int j = i * i; j <= n; j += i) {
+            is_prime[j] = false;
         }
-        long dvd = labs(dividend), dvs = labs(divisor), ans = 0;
-        int sign = dividend > 0 ^ divisor > 0 ? -1 : 1;
-        while (dvd >= dvs) {
-            long temp = dvs, m = 1;
-            while (temp << 1 <= dvd) {
-                temp <<= 1;
-                m <<= 1;
-            }
-            dvd -= temp;
-            ans += m;
-        }
-        return sign * ans;
     }
-};
+
+}
+
+int main()
+{
+    int n;
+    while (scanf("%d", &n) != EOF) {
+        vector<bool> is_prime(n+1, true);
+        init_primes(n, is_prime);
+        bool has_res = false;
+        for (int i = 2; i < n; i++) {
+            if (i % 10 == 1 && is_prime[i]) {
+                has_res = true;
+                printf("%d ", i);
+            }
+        }
+        if(!has_res) printf("-1");
+        printf("\n");
+    }
+    return 0;
+}

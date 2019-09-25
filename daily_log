@@ -43,7 +43,7 @@
 },
 20190925={
     machine_test_guide={cpp:[]},
-    leetcode={cpp:[]}
+    leetcode={cpp:[29]}
 }
 
 
