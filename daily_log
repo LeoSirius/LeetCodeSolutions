@@ -40,6 +40,10 @@
 20190924={
     machine_test_guide={cpp:[405]},
     leetcode={cpp:[28]}
+},
+20190925={
+    machine_test_guide={cpp:[]},
+    leetcode={cpp:[]}
 }
 
 
