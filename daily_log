@@ -42,8 +42,12 @@
     leetcode={cpp:[28]}
 },
 20190925={
-    machine_test_guide={cpp:[]},
+    machine_test_guide={cpp:[406]},
     leetcode={cpp:[29]}
+},
+20190926={
+    machine_test_guide={cpp:[407]},
+    leetcode={cpp:[31]}
 }
 
 
@@ -52,7 +56,7 @@
 
 need improved:(解法不符合题意或者cheat)
 leetcode={
-    cpp:[7, 8]
+    cpp:[7, 8, 29]
 }
 
 to be implemented：
