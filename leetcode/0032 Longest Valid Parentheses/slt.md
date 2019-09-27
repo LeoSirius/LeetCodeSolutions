@@ -4,33 +4,26 @@
 class Solution {
 public:
     int longestValidParentheses(string s) {
-        int len = s.size();
-        if(len < 2){
-            return 0;
-        }
-        stack<int> stk;     // 存放左括号的下标
-        int left_most = -1; // left_most + 1 是当前匹配括号的开始索引
-        int res = 0;
-
-        for(int i = 0; i < len; ++i){
-            if(s[i] == '('){
+        stack<int> stk;        // 存放左括号的下标
+        int left_most = -1;    // left_most + 1 是当前匹配括号的开始索引
+        int max_len = 0;
+        for (int i = 0; s[i]; i++) {
+            if (s[i] == '(') {
                 stk.push(i);
-            }else{
-                if(stk.empty()){
+            } else {
+                if (stk.empty()) {
                     left_most = i;
-                }else{
+                } else {
                     stk.pop();
-                    if(stk.empty()){
-                        // e.g. ))()  i = 3, leftmost = 1, res = 2
-                        res = max(res, i - left_most);
-                    }else{
-                        // e.g. (())  i = 2, stack.top() = 0, res = 2
-                        res = max(res, i - stk.top());
+                    if (stk.empty()) {
+                        max_len = max(max_len, i - left_most);  // e.g. ))()  i = 3, leftmost = 1, res = 2
+                    } else {
+                        max_len = max(max_len, i - stk.top());  // e.g. (())  i = 2, stack.top() = 0, res = 2
                     }
                 }
             }
         }
-        return res;
+        return max_len;
     }
 };
 ```
