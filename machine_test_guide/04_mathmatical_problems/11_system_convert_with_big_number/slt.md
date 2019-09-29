@@ -2,6 +2,9 @@
 
 为了完成进制的转换，我们在前两题的基础上，还需要实现自定义bigInteger的除法和求模运算。除法中，我们预期的结果是按整除返回结果，所以如果除不尽最后的remainder直接丢掉就行了。求模中，求模的过程类似除法，只是随后把remainder返回，而不是丢掉。
 
+
+注意对is_zero的判断。注意除法，我们把res开头的0都去掉，方便is_zero判断。
+
 ```cpp
 #include<iostream>
 #include<deque>

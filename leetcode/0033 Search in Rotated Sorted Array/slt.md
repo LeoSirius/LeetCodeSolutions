@@ -9,7 +9,7 @@ public:
         int len = nums.size();
         if(len == 0) return -1;
 
-        int l, r, m;
+        int l, r, m, s;
         l = 0, r = len - 1;
 
         // find smallest's index
@@ -21,7 +21,7 @@ public:
         }
 
         // 以最小索引为界，放弃target不可能存在的那一半
-        int s = l;
+        s = l;
         l = 0, r = len - 1;
         if(nums[s] <= target && target <= nums[r])l = s;
         else r = s;

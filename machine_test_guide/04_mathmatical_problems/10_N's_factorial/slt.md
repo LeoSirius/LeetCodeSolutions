@@ -6,79 +6,61 @@
 ```cpp
 #include<iostream>
 #include<deque>
-using  namespace std;
+using namespace std;
 
-class bigInteger
+class BigInteger
 {
 private:
     deque<int> value;
 
 public:
-    bigInteger () {};
-    bigInteger (int x)
+    BigInteger() {};
+    BigInteger(int x)
     {
-        while (x)
-        {
+        value.clear();
+        while(x){
             value.push_front(x % 10);
             x /= 10;
         }
     }
 
-    void print ()
+    void print()
     {
-        deque<int>::const_iterator iter = value.begin();
-        for (; iter != value.end(); iter++)
-        {
+        deque<int>::const_iterator iter;
+        for (iter = value.begin(); iter != value.end(); iter++) {
             printf("%d", *iter);
         }
-        printf("\n");
     }
 
-    bigInteger operator * (int x) const
+    BigInteger operator * (int k) const
     {
-        bigInteger res;
         int carry = 0;
-        deque<int>::const_reverse_iterator iter = value.rbegin();
-        while (iter != value.rend() || carry)
-        {
-            int v1 = 0;
-            if (iter != value.rend())
-            {
-                v1 = *iter;
-                iter++;
-            }
-            int multiple = v1 * x + carry;
-            res.value.push_front(multiple % 10);
-            carry = multiple / 10;
+        BigInteger res;
+        deque<int>::const_reverse_iterator iter;
+        iter = value.rbegin();
+        while (iter != value.rend() || carry) {
+            int v1 = iter != value.rend() ? *iter++ : 0;
+            int mul = v1 * k + carry;
+            res.value.push_front(mul % 10);
+            carry = mul / 10;
         }
         return res;
     }
-    friend istream& operator >> (istream& is, bigInteger& bigInt);
+
+
+
 };
 
-istream& operator >> (istream& is, bigInteger& bigInt)
-{
-    string s;
-    cin >> s;
-    bigInt.value.clear();
-    for (int i = 0; s[i]; i++)
-    {
-        bigInt.value.push_back(s[i] - '0');
-    }
-    return is;
-}
-
-int main ()
+int main()
 {
     int n;
-    while (scanf("%d", &n) != EOF)
-    {
-        bigInteger res(1);
-        for (int i = 2; i <= n; i++)
-        {
+    while (scanf("%d", &n) != EOF) {
+        BigInteger res(n);
+        for (int i = 1; i < n; i++) {
             res = res * i;
         }
         res.print();
+        printf("\n");
     }
     return 0;
 }
