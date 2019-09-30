@@ -1,4 +1,4 @@
-// leetcode use universal index
+// leetcode use universal index, current stage do top 100 linked questions
 // machine_test_guide use chapter number two digits, plus topic number two digits
 
 20190909={
@@ -56,7 +56,11 @@
 20190929={
     machine_test_guide={cpp:[410, 411]},
     leetcode={cpp:[33]}
-}
+},
+20190930={
+    machine_test_guide={cpp:[]},
+    leetcode={cpp:[]}
+},
 
 
 
