@@ -1,54 +1,6 @@
 // leetcode use universal index, current stage do top 100 linked questions
 // machine_test_guide use chapter number two digits, plus topic number two digits
 
-20190909={
-    machine_test_guide={cpp:[207,208]},  // find_x
-    leetcode={cpp:[19]}
-},
-20190910={
-    machine_test_guide={cpp:[209,210]},
-    leetcode={cpp:[20]}
-},
-20190911={
-    machine_test_guide={cpp:[301,302]},
-    leetcode={cpp:[21]}
-},
-20190916={
-    machine_test_guide={cpp:[303,304]},
-    leetcode={cpp:[22,]}
-},
-20190918={
-    machine_test_guide={cpp:[305]},
-    leetcode={cpp:[23,]}
-},
-20190919={
-    machine_test_guide={cpp:[]},
-    leetcode={cpp:[24]}
-},
-20190920={
-    machine_test_guide={cpp:[306],[401]},
-    leetcode={cpp:[25]}
-},
-20190921={
-    machine_test_guide={cpp:[402],[403]},
-    leetcode={cpp:[26]}
-},
-20190923={
-    machine_test_guide={cpp:[404]},
-    leetcode={cpp:[27]}
-},
-20190924={
-    machine_test_guide={cpp:[405]},
-    leetcode={cpp:[28]}
-},
-20190925={
-    machine_test_guide={cpp:[406]},
-    leetcode={cpp:[29]}
-},
-20190926={
-    machine_test_guide={cpp:[407]},
-    leetcode={cpp:[31]}
-},
 20190927={
     machine_test_guide={cpp:[408,409]},
     leetcode={cpp:[32]}
@@ -58,8 +10,8 @@
     leetcode={cpp:[33]}
 },
 20190930={
-    machine_test_guide={cpp:[]},
-    leetcode={cpp:[]}
+    machine_test_guide={cpp:[501，502]},
+    leetcode={cpp:[41,42]},
 },
 
 
