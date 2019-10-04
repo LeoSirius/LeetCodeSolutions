@@ -19,6 +19,6 @@ public:
     void ReplaceBlank(char str[], int length)
     {
     }
-}
+};
 ```
 

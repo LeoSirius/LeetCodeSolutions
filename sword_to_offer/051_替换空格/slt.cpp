@@ -29,4 +29,4 @@ void ReplaceBlank(char str[], int length)
         idx_origin--;
     }
 }
-}
+};
