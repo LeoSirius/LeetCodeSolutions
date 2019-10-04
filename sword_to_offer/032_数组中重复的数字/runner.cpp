@@ -1,7 +1,19 @@
 #include<iostream>
 using namespace std;
 
+// class Solution{
+// public:
+// // 参数:
+// //        numbers:     一个整数数组
+// //        length:      数组的长度
+// // 返回值:             
+// //        正数  - 输入有效，并且数组中存在重复的数字，返回值为重复的数字
+// //        -1   - 输入无效，或者数组中没有重复的数字
+//     int getDuplication(const int* numbers, int length)
+//     {
 
+//     }
+// };
 
 
 
