@@ -1,14 +1,6 @@
 ### 题目描述
 
-输入一个链表的头节点，从尾到头反过来打印每个节点的值。链表节点的定义如下：
-
-```cpp
-struct ListNode
-{
-    int m_nKey;
-    ListNode *m_pNext;
-}
-```
+输入一个链表的头节点，从尾到头反过来打印每个节点的值。
 
 ### 样例输入
 
@@ -21,6 +13,11 @@ struct ListNode
 ### 初始代码
 
 ```cpp
+// struct ListNode
+// {
+//     int m_nKey;
+//     ListNode *m_pNext;
+// }
 class Solution{
 public:
     void PrintListReversingly(ListNode* pHead)
