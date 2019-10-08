@@ -13,17 +13,16 @@
 ### 初始代码
 
 ```cpp
-class Solution{
-public:
 // 参数:
 //        numbers:     一个整数数组
 //        length:      数组的长度
-//        duplication: (输出) 数组中的一个重复的数字
 // 返回值:             
-//        true  - 输入有效，并且数组中存在重复的数字
-//        false - 输入无效，或者数组中没有重复的数字
-    bool duplicate(int numbers[], int length, int *duplication)
+//        duplication: (输出) 数组中的一个重复的数字, 没有则返回-1
+class Solution{
+public:
+    int duplicate(int numbers[], int length)
     {
+
     }
 };
 ```

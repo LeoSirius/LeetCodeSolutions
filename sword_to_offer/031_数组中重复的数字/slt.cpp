@@ -1,24 +1,20 @@
 class Solution{
 public:
-    bool duplicate(int numbers[], int length, int *duplication)
+// 参数:
+//        numbers:     一个整数数组
+//        length:      数组的长度
+// 返回值:             
+//        duplication: (输出) 数组中的一个重复的数字, 没有则返回-1
+    int duplicate(int numbers[], int length)
     {
-        if (numbers == nullptr || length <= 0)
-            return false;
-        
-        for (int i = 0; i < length; i++) {
-            if (numbers[i] < 0 || numbers[i] > length - 1)
-                return false;
-        }
-
         for (int i = 0; i < length; i++) {
             while (numbers[i] != i) {
                 if (numbers[i] == numbers[numbers[i]]) {
-                    *duplication = numbers[i];
-                    return true;
+                    return numbers[i];
                 }
                 swap(numbers[i], numbers[numbers[i]]);
             }
         }
-        return false;
+        return -1;
     }
 };
