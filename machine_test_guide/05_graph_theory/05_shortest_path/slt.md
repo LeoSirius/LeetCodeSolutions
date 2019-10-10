@@ -29,7 +29,7 @@ int main ()
                 {
                     if (path[i][k] == -1 || path[k][j] == -1)
                         continue; // 有一个不通，则直接跳过
-                    if (path[i][j] == -1 || path[i][k] + path[k][j] < path[i][j])
+                    if (path[i][j] == -1 || path[i][j] > path[i][k] + path[k][j])
                         path[i][j] = path[i][k] + path[k][j];
                 }
         

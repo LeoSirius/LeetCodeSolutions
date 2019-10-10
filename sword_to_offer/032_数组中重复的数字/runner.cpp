@@ -16,7 +16,6 @@ using namespace std;
 // };
 
 
-
 // ====================测试代码====================
 void test(const char* testName, int* numbers, int length, int* duplications, int dupLength)
 {
@@ -106,12 +105,12 @@ void test9()
 }
 
 // 无效的输入
-void test10()
-{
-    int* numbers = nullptr;
-    int duplications[] = { -1 };
-    test("test10", numbers, 0, duplications, sizeof(duplications) / sizeof(int));
-}
+// void test10()
+// {
+//     int* numbers = nullptr;
+//     int duplications[] = { -1 };
+//     test("test10", numbers, 0, duplications, sizeof(duplications) / sizeof(int));
+// }
 
 int main()
 {
@@ -124,6 +123,5 @@ int main()
     test7();
     test8();
     test9();
-    test10();
     return 0;
 }

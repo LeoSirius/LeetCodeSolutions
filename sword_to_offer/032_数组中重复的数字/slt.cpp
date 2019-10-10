@@ -1,5 +1,6 @@
 class Solution{
 public:
+// 返回整个数组numbers中，数值范围在[start, end]内的数的个数
 int countRange(const int *numbers, int length, int start, int end)
 {
     if (numbers == nullptr)
@@ -12,7 +13,7 @@ int countRange(const int *numbers, int length, int start, int end)
     return count;
 }
 
-int getDuplication(const int* numbers, int length)
+int getDuplication(const int *numbers, int length)
 {
     if (numbers == nullptr || length <= 0)
         return -1;

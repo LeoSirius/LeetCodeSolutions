@@ -16,8 +16,18 @@
 20191008={
     machine_test_guide={cpp:[503]},
     leetcode={cpp:[43]},
-    sword={cpp:[]}
+    sword={cpp:[031]}
 },
+20191009={
+    machine_test_guide={cpp:[504]},
+    leetcode={cpp:[1]},
+    sword={cpp:[032]}
+},
+20191010={
+    machine_test_guide={cpp:[505]}，
+    leetcode={cpp:[]},
+    sword={cpp:[041]},
+}
 
 
 
