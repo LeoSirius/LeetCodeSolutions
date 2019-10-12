@@ -13,9 +13,9 @@
 ### 初始代码
 
 ```cpp
+/*length 为字符数组str的总容量，大于或等于字符串str的实际长度*/
 class Solution{
 public:
-/*length 为字符数组str的总容量，大于或等于字符串str的实际长度*/
     void ReplaceBlank(char str[], int length)
     {
     }

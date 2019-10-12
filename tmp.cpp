@@ -1,31 +1,24 @@
-#include<iostream>
-#include<vector>
-using namespace std;
-
-int main()
-{
-    int n, m;
-    while (scanf("%d %d", &n, &m) != EOF && !(n == 0 && m == 0)) {
-        vector<vector<int>> path(n, vector<int>(n, -1));
-        for (int i = 0; i < n; i++)
-            path[i][i] = -1;
-
-        while (m--) {
-            int a, b, c;
-            scanf("%d %d %d", &a, &b, &c);
-            path[a-1][b-1] = path[b-1][a-1] = c;
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
+        int carry = 0;
+        ListNode res_head(0), *p = &res_head;
+        while (l1 || l2 || carry) {
+            int sum = (l1 ? l1->val : 0) + (l2 ? l2->val : 0) + carry;
+            p->next = new ListNode(sum % 10);
+            p = p->next;
+            carry = sum / 10;
+            l1 = l1 ? l1->next : l1;
+            l2 = l2 ? l2->next : l2;
         }
-
-        for (int k = 0; k < n; k++) {
-            for (int i = 0; i < n; i++) {
-                for (int j = 0; j < n; j++) {
-                    if (path[i][k] == -1 || path[k][j] == -1) continue;
-                    if (path[i][j] == -1 || path[i][j] > path[i][k] + path[k][j])
-                        path[i][j] = path[i][k] + path[k][j];
-                }
-            }
-        }
-        printf("%d\n", path[0][n-1]);
+        return res_head.next;
     }
-    return 0;
-}
+};

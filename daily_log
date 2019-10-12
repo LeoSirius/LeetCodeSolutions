@@ -25,9 +25,16 @@
 },
 20191010={
     machine_test_guide={cpp:[505]}，
-    leetcode={cpp:[]},
     sword={cpp:[041]},
-}
+},
+20191011={
+    sword={cpp:[051]},
+},
+20191012={
+    machine_test_guide={cpp:[506]},
+    leetcode={cpp:[2]},
+    sword={cpp:[061]},
+},
 
 
 

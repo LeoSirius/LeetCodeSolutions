@@ -1,4 +1,5 @@
 #include "../Utilities/List.h"
+#include <iostream>
 #include <stack>
 using namespace std;
 
@@ -9,14 +10,32 @@ using namespace std;
 //     }
 // };
 
+class Solution{
+public:
+    void PrintListReversingly(ListNode* pHead)
+    {
+        stack<int> stk;
+        ListNode *p = pHead;
+        while (p) {
+            stk.push(p->m_nValue);
+            p = p->m_pNext;
+        }
+        while (!stk.empty()) {
+            cout << stk.top() << " ";
+            stk.pop();
+        }
+    }
+};
+
 // ====================测试代码====================
 void Test(ListNode* pHead)
 {
     Solution s;
     PrintList(pHead);
-    s.PrintListReversingly_Iteratively(pHead);
+    //s.PrintListReversingly_Iteratively(pHead);
+    s.PrintListReversingly(pHead);
     printf("\n");
-    s.PrintListReversingly_Recursively(pHead);
+    //s.PrintListReversingly_Recursively(pHead);
 }
 
 // 1->2->3->4->5
