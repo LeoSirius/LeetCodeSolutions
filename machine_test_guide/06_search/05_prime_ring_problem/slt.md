@@ -1,3 +1,8 @@
+### 思路1 使用DFS
+
+我们用回溯法枚举每一个值。第一个数已经确定为1，我们再枚举后面的每个数，使两个相邻的数和为素数即可。
+
+```c++
 #include<iostream>
 #include<vector>
 #include<cmath>
@@ -60,3 +65,4 @@ int main()
     }
     return 0;
 }
+```
