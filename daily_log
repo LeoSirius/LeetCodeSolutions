@@ -35,6 +35,14 @@
     leetcode={cpp:[2]},
     sword={cpp:[061]},
 },
+20191014={
+    machine_test_guide={cpp:[602]},
+    leetcode={cpp:[3]},
+},
+20191015={
+    machine_test_guide={cpp:[604]},
+    leetcode={cpp:[4]},
+}
 
 
 
@@ -51,5 +59,5 @@ leetcode={
     10,30,44,
 },
 machine_test_guide={
-    409,
+    507， 601
 }

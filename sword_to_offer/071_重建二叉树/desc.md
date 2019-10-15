@@ -26,3 +26,5 @@ BinaryTreeNode* Construct(int* preorder, int* inorder, int length)
 }
 };
 ```
+
+### 待改造：把测试用例改成和expected的后续遍历进行比较

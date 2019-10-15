@@ -5,16 +5,17 @@
 start标记最近一个没有重复的字符的索引。如果当前字符已经在map中，则和start进行比较，start取最靠后的，这样保持start记录的是最近一个没有重复字符的开始索引。
 另外，map和set两种容器的底层结构都是红黑树，所以容器中不会出现相同的元素，因此count()的结果只能为0和1。
 
+注意start只能向前移动`start = max(start, char_map[s[i]] + 1);`。列入`abba`，当i扫描到最后一个a时，第一个a在map中，如果不加max，则start会往后回去。
+
 ```cpp
 class Solution {
 public:
     int lengthOfLongestSubstring(string s) {
         map<char, int> char_map;
         int start = 0, max_len = 0;
-        // 不要把s.size()放在循环里，影响速度
         for(int i = 0; s[i]; i++){
             if(char_map.count(s[i])){
-                start = max(start, char_map[s[i]] + 1);
+                start = max(start, char_map[s[i]] + 1);  // 在子串中重复出现了，更新子串的起点
             }
             char_map[s[i]] = i;
             max_len = max(max_len, i - start + 1);
