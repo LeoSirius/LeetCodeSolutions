@@ -42,7 +42,15 @@
 20191015={
     machine_test_guide={cpp:[604]},
     leetcode={cpp:[4]},
-}
+},
+20191016={
+    machine_test_guide={cpp:[605]},
+    leetcode={cpp:[5]}
+},
+20191017={
+    machine_test_guide={cpp:[606]},
+    leetcode={cpp:[6]}
+},
 
 
 

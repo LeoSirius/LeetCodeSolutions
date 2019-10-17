@@ -6,19 +6,23 @@
 class Solution {
 public:
     string convert(string s, int numRows) {
-        if(numRows == 1 || numRows >= s.size()) return s;
+        if (numRows == 1 || numRows >= s.size()) return s;
+        vector<string> res(numRows, "");
+        int step;
+        int cur_row = 0;
 
-        vector<string> strs(numRows, "");
-        int step = 1, idx = 0;
-        for(int i = 0; i < s.size(); i++){
-            strs[idx] += s[i];
-            idx += step;
-            if(idx == 0) step = 1;
-            else if(idx == numRows-1) step = -1;
+        for (int i = 0; s[i]; i++) {
+            res[cur_row] += s[i];
+            if (cur_row == numRows - 1) {
+                step = -1;
+            } else if (cur_row == 0) {
+                step = 1;
+            }
+            cur_row += step;
         }
-        string res = "";
-        for(int i = 0; i < strs.size(); i++) res += strs[i];
-        return res;
+        string res_str = "";
+        for (int i = 0; i < res.size(); i++) res_str += res[i];
+        return res_str;
     }
 };
 ```
