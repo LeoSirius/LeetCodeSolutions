@@ -3,9 +3,6 @@ using namespace std;
 
 int main()
 {
-    long a;
-    int b;
-    cout << sizeof(a) << endl;
-    cout << sizeof(b) << endl;
+    cout << "-17 \% 10 = " << -17 % 10 << endl;
     return 0;
 }

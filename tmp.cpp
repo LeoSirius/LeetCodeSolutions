@@ -1,25 +1,37 @@
 #include<iostream>
 #include<vector>
+#include<algorithm>
 using namespace std;
+
+struct Student
+{
+    string name;
+    int age;
+    int score;
+    bool operator < (Student const &other) const
+    {
+        if (score != other.score) {
+            return score < other.score;
+        } else {
+            return name < other.name;
+        }
+    }
+};
 
 int main()
 {
-    int n, m;
-    const int OFFSET = 500000;
-    while (scanf("%d %d", &n, &m) != EOF) {
-        vector<bool> is_in(1000000, false);
+    int n;
+    while (scanf("%d", &n) != EOF) {
+        vector<Student> students;
         for (int i = 0; i < n; i++) {
-            int input;
-            scanf("%d", &input);
-            is_in[input + OFFSET] = true;
+            Student stu;
+            cin >> stu.name >> stu.age >> stu.score;
+            students.push_back(stu);
         }
-        for (int i = 500000; i >= -500000 && m; i--) {
-            if (is_in[i + OFFSET]) {
-                printf("%d ", i);
-                m--;
-            }
+        sort(students.begin(), students.end());
+        for (int i = 0; i < n; i++) {
+            cout << students[i].name << " " << students[i].age << " " << students[i].score << endl;
         }
-        printf("\n");
     }
     return 0;
 }
