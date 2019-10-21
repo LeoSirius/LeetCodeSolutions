@@ -1,37 +1,20 @@
 #include<iostream>
 #include<vector>
-#include<algorithm>
 using namespace std;
-
-struct Student
-{
-    string name;
-    int age;
-    int score;
-    bool operator < (Student const &other) const
-    {
-        if (score != other.score) {
-            return score < other.score;
-        } else {
-            return name < other.name;
-        }
-    }
-};
 
 int main()
 {
     int n;
-    while (scanf("%d", &n) != EOF) {
-        vector<Student> students;
+    while (scanf("%d", &n) != EOF && n) {
+        vector<int> my_map(101, 0);
         for (int i = 0; i < n; i++) {
-            Student stu;
-            cin >> stu.name >> stu.age >> stu.score;
-            students.push_back(stu);
+            int score;
+            scanf("%d", &score);
+            my_map[score]++;
         }
-        sort(students.begin(), students.end());
-        for (int i = 0; i < n; i++) {
-            cout << students[i].name << " " << students[i].age << " " << students[i].score << endl;
-        }
+        int target_score;
+        scanf("%d", &target_score);
+        printf("%d\n", my_map[target_score]);
     }
     return 0;
 }
