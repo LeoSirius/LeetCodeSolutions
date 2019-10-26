@@ -9,32 +9,42 @@
 
 ```cpp
 #include<iostream>
-#define ISLEAP(x) (x % 4 == 0 && x % 100 != 0) || (x % 400 == 0)
+using namespace std;
 
-int day_of_month[13][2] = {
-    0,0,
-    31,31,
-    28,29,
-    31,31,
-    30,30,
-    31,31,
-    30,30,
-    31,31,
-    31,31,
-    30,30,
-    31,31,
-    30,30,
-    31,31,
-};
+#define IS_LEAP(x) ((x % 4 == 0 && x % 100 != 0) || (x % 400 == 0))
 
-struct Date{
+int get_max_day_in_month(int y, int m)
+{
+    switch (m) {
+        case 1:
+        case 3:
+        case 5:
+        case 7:
+        case 8:
+        case 10:
+        case 12:
+            return 31;
+        case 4:
+        case 6:
+        case 9:
+        case 11:
+            return 30;
+        case 2:
+            return IS_LEAP(y) ? 29 : 28;
+    }
+}
+
+struct Date
+{
+    Date(int y, int m, int d): y(y), m(m), d(d) {};
     int y, m, d;
-    void next(){
+    void next()
+    {
         d++;
-        if(d > day_of_month[m][ISLEAP(y)]){
+        if (d > get_max_day_in_month(y, m)) {
             d = 1;
             m++;
-            if(m > 12){
+            if (m > 12) {
                 m = 1;
                 y++;
             }
@@ -42,25 +52,27 @@ struct Date{
     }
 };
 
-int hash[5001][13][32];
-int abs(int x){return x > 0 ? x : -x;}
+int buf[5001][13][32];
 
-int main(){
-    Date first_day;
-    first_day.d = 1;
-    first_day.m = 1;
-    first_day.y = 0;
+void init()
+{
+    Date date(0, 0, 0);
     int count = 0;
-    while(first_day.y < 5001){
-        hash[first_day.y][first_day.m][first_day.d] = count++;
-        first_day.next();
+    while (date.y < 5001) {
+        buf[date.y][date.m][date.d] = count;
+        count++;
+        date.next();
     }
+}
 
+int main()
+{
+    init();
     int y1, m1, d1, y2, m2, d2;
-    while(scanf("%4d%2d%2d", &y1, &m1, &d1) != EOF){
+    while (scanf("%4d%2d%2d", &y1, &m1, &d1) != EOF) {
         scanf("%4d%2d%2d", &y2, &m2, &d2);
-        int diff = hash[y2][m2][d2] - hash[y1][m1][d1];
-        printf("%d\n", abs(diff)+1);
+        int diff = abs(buf[y1][m1][d1] - buf[y2][m2][d2]) + 1;
+        printf("%d\n", diff);
     }
     return 0;
 }

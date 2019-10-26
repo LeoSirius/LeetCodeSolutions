@@ -1,63 +1,17 @@
 // machine_test_guide use chapter number two digits, plus topic number two digits
-// leetcode 先做前150道
+// leetcode 先做前150道 2019-06-28开始
 
-20190927={
-    machine_test_guide={cpp:[408,409]},
-    leetcode={cpp:[32]}
-},
-20190929={
-    machine_test_guide={cpp:[410, 411]},
-    leetcode={cpp:[33]}
-},
-20190930={
-    machine_test_guide={cpp:[501，502]},
-    leetcode={cpp:[41,42]},
-},
-20191008={
-    machine_test_guide={cpp:[503]},
-    leetcode={cpp:[43]},
-    sword={cpp:[031]}
-},
-20191009={
-    machine_test_guide={cpp:[504]},
-    leetcode={cpp:[1]},
-    sword={cpp:[032]}
-},
-20191010={
-    machine_test_guide={cpp:[505]}，
-    sword={cpp:[041]},
-},
-20191011={
-    sword={cpp:[051]},
-},
-20191012={
-    machine_test_guide={cpp:[506]},
-    leetcode={cpp:[2]},
-    sword={cpp:[061]},
-},
-20191014={
-    machine_test_guide={cpp:[602]},
-    leetcode={cpp:[3]},
-},
-20191015={
-    machine_test_guide={cpp:[604]},
-    leetcode={cpp:[4]},
-},
-20191016={
-    machine_test_guide={cpp:[605]},
-    leetcode={cpp:[5]}
-},
-20191017={
-    machine_test_guide={cpp:[201]},
-    leetcode={cpp:[6]}
-},
-20191018={
-    machine_test_guide={cpp:[202]},
-    leetcode={cpp:[7]}
-},
 20191021={
     machine_test_guide={cpp:[203]},
     leetcode={cpp:[8]},
+},
+20191022={
+    machine_test_guide={cpp:[]},
+    leetcode={cpp:[9]},
+},
+20191024={
+    machine_test_guide={cpp:[204]},
+    leetcode={cpp:[]}
 }
 
 
