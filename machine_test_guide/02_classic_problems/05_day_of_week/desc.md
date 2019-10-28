@@ -10,7 +10,7 @@ There is one single line contains the day number d, month name M and year number
 
 ### 输出
 
-Output a single line with the English name of the day of week corresponding to the date, starting from the capital letter. All other letters must be in lower case.
+输出星期数，星期日-0，星期一-1，以此类推。
 
 ### 样例输入
 
@@ -22,6 +22,6 @@ Output a single line with the English name of the day of week corresponding to t
 ### 样例输出
 
 ```
-Tuesday
-Sunday
+3
+2
 ```

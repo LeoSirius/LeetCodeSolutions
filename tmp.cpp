@@ -1,68 +1,39 @@
 #include<iostream>
+#include<map>
 using namespace std;
 
-#define IS_LEAP(x) ((x % 4 == 0 && x % 100 != 0) || (x % 400 == 0))
-
-int get_max_day_in_month(int y, int m)
-{
-    switch (m) {
-        case 1:
-        case 3:
-        case 5:
-        case 7:
-        case 8:
-        case 10:
-        case 12:
-            return 31;
-        case 4:
-        case 6:
-        case 9:
-        case 11:
-            return 30;
-        case 2:
-            return IS_LEAP(y) ? 29 : 28;
-    }
-}
-
-struct Date
-{
-    Date(int y, int m, int d): y(y), m(m), d(d) {};
-    int y, m, d;
-    void next()
-    {
-        d++;
-        if (d > get_max_day_in_month(y, m)) {
-            d = 1;
-            m++;
-            if (m > 12) {
-                m = 1;
-                y++;
-            }
-        }
-    }
+map<string, int> monthstr2int = {
+    {"January", 1},
+    {"February", 2},
+    {"March", 3},
+    {"April", 4},
+    {"May", 5},
+    {"June", 6},
+    {"July", 7},
+    {"August", 8},
+    {"September", 9},
+    {"October", 10},
+    {"November", 11},
+    {"December", 12},
 };
-
-int buf[5001][13][32];
-
-void init()
-{
-    Date date(0, 0, 0);
-    int count = 0;
-    while (date.y < 5001) {
-        buf[date.y][date.m][date.d] = count;
-        count++;
-        date.next();
-    }
-}
 
 int main()
 {
-    init();
-    int y1, m1, d1, y2, m2, d2;
-    while (scanf("%4d%2d%2d", &y1, &m1, &d1) != EOF) {
-        scanf("%4d%2d%2d", &y2, &m2, &d2);
-        int diff = abs(buf[y1][m1][d1] - buf[y2][m2][d2]) + 1;
-        printf("%d\n", diff);
+    int day, month, year;
+    string mon_str;
+    while (cin >> day >> mon_str >> year) {
+        month = monthstr2int[mon_str];
+        int c = year / 100;
+        int y = year % 100;
+        int m;
+        if (month >= 3) {
+            m = month;
+        } else {
+            m = month + 12;
+            y -= 1;
+        }
+        int w = y + y / 4 + c / 4 - 2 * c + (26 * (m + 1)) / 10 + day - 1;
+        printf("%d\n", w % 7);
     }
     return 0;
 }
