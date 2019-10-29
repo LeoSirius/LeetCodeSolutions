@@ -9,40 +9,40 @@
 
 ```cpp
 #include<iostream>
+#include<vector>
 using namespace std;
 
-int
-main ()
+int main()
 {
-    int n;
-    char a, b;
-    while (scanf("%d %c %c", &n, &a, &b) != EOF) {
-        int buffer[81][81] = {0};
+    int size;
+    char i_ch, o_ch;
+    while (scanf("%d %c %c", &size, &i_ch, &o_ch) != EOF) {
+        vector<vector<int>> buf(size, vector<int> (size, 0));
         int num_of_circle = 0;
-        char cur_char;
-        for (int cur_size = 1; cur_size <= n; cur_size += 2) {
+        for (int cur_size = 1; cur_size <= size; cur_size += 2) {
             num_of_circle++;
-            cur_char = num_of_circle % 2 == 1 ? a : b;
-            int x, y;        //  x, y为左上角的那个坐标，先定位到中心，在减去当前边长的一半。xy都是从0开始
-            x = (n / 2) - (cur_size / 2);
+            char cur_char = num_of_circle % 2 == 1 ? i_ch : o_ch;
+            int x, y;        //  x, y为当期安圈左上角的那个坐标，先定位到中心，在减去当前边长的一半。xy都是从0开始
+            x = (size / 2) - (cur_size / 2);
             y = x;
             for (int i = 0; i < cur_size; i++) {
-                buffer[x][y+i] = cur_char;
-                buffer[x+cur_size-1][y+i] = cur_char;
-                buffer[x+i][y] = cur_char;
-                buffer[x+i][y+cur_size-1] = cur_char;
+                buf[x][y + i] = cur_char;
+                buf[x + cur_size - 1][y + i] = cur_char;
+                buf[x + i][y] = cur_char;
+                buf[x + i][y + cur_size - 1] = cur_char;
+            }
+            if (size > 1) {
+                buf[0][size-1] = buf[size-1][0] = buf[0][0] = buf[size-1][size-1] = ' ';
             }
         }
-        if (n > 1) {
-            buffer[0][0] = buffer[0][n-1] = buffer[n-1][0] = buffer[n-1][n-1] = ' ';
-        }
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < n; j++) {
-                printf("%c", buffer[i][j]);
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
+                printf("%c", buf[i][j]);
             }
             printf("\n");
         }
         printf("\n");
     }
+    return 0;
 }
 ```

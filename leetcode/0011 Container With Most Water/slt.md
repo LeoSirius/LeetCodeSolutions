@@ -2,26 +2,6 @@
 
 `crystal clear`的solution [link](https://leetcode.com/problems/container-with-most-water/discuss/6100/Simple-and-clear-proofexplanation)
 
-
-```cpp
-class Solution {
-public:
-    int maxArea(vector<int>& height) {
-        int left = 0, right = height.size()-1;
-        int max_water = 0;
-        while(left < right){
-            max_water = max(max_water, (right-left) * min(height[right], height[left]));
-            if(height[left] < height[right]){
-                left++;
-            }else{
-                right--;
-            }
-        }
-        return max_water;
-    }
-};
-```
-
 ```python
 class Solution:
     def maxArea(self, height: List[int]) -> int:

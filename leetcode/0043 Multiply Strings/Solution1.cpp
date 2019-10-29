@@ -27,7 +27,7 @@ public:
 
 
 // ====================测试代码====================
-bool test(string testName, string num1, string num2, string res)
+void test(string testName, string num1, string num2, string res)
 {
     Solution s;
     if(res == s.multiply(num1, num2)){
