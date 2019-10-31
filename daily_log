@@ -21,6 +21,10 @@
 20191030={
     leetcode={cpp:[12]},
     machine_test_guide={cpp:[207]},
+},
+20191031={
+    leetcode={cpp:[13]},
+    machine_test_guide={cpp:[]},
 }
 
 

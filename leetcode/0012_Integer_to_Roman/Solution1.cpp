@@ -13,7 +13,7 @@ public:
     }
 };
 
-bool test(string test_name, int num, string expected)
+void test(string test_name, int num, string expected)
 {
     Solution s;
     if (s.intToRoman(num) == expected) {
@@ -23,13 +23,8 @@ bool test(string test_name, int num, string expected)
     }
 }
 
-void test1()
-{
-    test("test1", 58, "LVIII");
-}
-
 int main()
 {
-    test1();
+    test("test1", 58, "LVIII");
     return 0;
 }
