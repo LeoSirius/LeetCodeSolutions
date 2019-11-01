@@ -1,43 +1,42 @@
 #include<iostream>
-#include<algorithm>
 #include<vector>
+#include<algorithm>
 using namespace std;
 
-struct Student
+struct Room
 {
-    Student(int id, string name, string gender, int score)
-        :id(id), name(name), gender(gender), score(score) {}
-    int id;
-    string name;
-    string gender;
-    int score;
+    Room (double j, double f, double j_per_f)
+        :j(j), f(f), j_per_f(j_per_f) {}
+    double j, f, j_per_f;
+    bool operator < (const Room &other) const
+    {
+        return j_per_f > other.j_per_f;
+    }
 };
 
 int main()
 {
-    int n;
-    while (scanf("%d", &n) != EOF) {
-        vector<Student> students;
-        for (int i = 0; i < n; i++) {
-            int id, score; string name, gender;
-            cin >> id >> name >> gender >> score;
-            Student student(id, name, gender, score);
-            students.push_back(student);
+    int m_f, n_room;
+    while (scanf("%d %d", &m_f, &n_room) != EOF && (m_f != -1 && n_room != -1)) {
+        vector<Room> rooms;
+        for (int i = 0; i < n_room; i++) {
+            int j, f;
+            scanf("%d %d", &j, &f);
+            Room room(j, f, double(j) / f);
+            rooms.push_back(room);
         }
-        int m; scanf("%d", &m);
-        while (m--) {
-            int target_id; scanf("%d", &target_id);
-            int left = 0, right = students.size() - 1;
-            while (left <= right) {
-                int mid = left + (right - left) / 2;
-                if (target_id > students[mid].id) left = mid + 1;
-                else if (target_id < students[mid].id) right = mid - 1;
-                else {
-                    cout << students[mid].id << " " << students[mid].name << " " << students[mid].gender << " " << students[mid].score << endl;
-                    break;
-                }
+        sort(rooms.begin(), rooms.end());
+        double res_java = 0;
+        for (int i = 0; i < rooms.size() && m_f; i++) {
+            if (m_f > rooms[i].f) {
+                res_java += rooms[i].j;
+                m_f -= rooms[i].f;
+            } else {
+                res_java += rooms[i].j_per_f * m_f;
+                m_f = 0;
             }
         }
+        printf("%.3f\n", res_java);
     }
     return 0;
 }

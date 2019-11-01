@@ -1,6 +1,6 @@
 ### 思路1 使用贪心算法
 
-一个房间java bean不用一次全部买完，所以用贪心算法可以得到最优解。
+一个房间java bean不用一次全部买完，所以用贪心算法可以得到最优解。注意我们要求尽可能多的java，所以比值大的room要靠前，这里排序用降序。
 
 ```cpp
 #include<iostream>
@@ -10,42 +10,39 @@ using namespace std;
 
 struct Room
 {
-    double javabean;
-    double catFood;
-    double java_per_food;
-
-    bool
-    operator < (Room const &other) const
+    Room (double j, double f, double j_per_f)
+        :j(j), f(f), j_per_f(j_per_f) {}
+    double j, f, j_per_f;
+    bool operator < (const Room &other) const
     {
-        return java_per_food > other.java_per_food;
+        return j_per_f > other.j_per_f;
     }
 };
 
-int
-main ()
+int main()
 {
-    int m, n;
-    while (scanf("%d %d", &m, &n) != EOF && !(m == -1 && n == -1)) {
+    int m_f, n_room;
+    while (scanf("%d %d", &m_f, &n_room) != EOF && (m_f != -1 && n_room != -1)) {
         vector<Room> rooms;
-        for (int i = 0; i < n; i++) {
-            Room room;
-            scanf("%lf %lf", &room.javabean, &room.catFood);
-            room.java_per_food = room.javabean / room.catFood;
+        for (int i = 0; i < n_room; i++) {
+            int j, f;
+            scanf("%d %d", &j, &f);
+            Room room(j, f, double(j) / f);
             rooms.push_back(room);
         }
         sort(rooms.begin(), rooms.end());
-        double total_bean = 0;
-        for (int i = 0; i < rooms.size() && m > 0; i++) {
-            if (m > rooms[i].catFood) {
-                total_bean += rooms[i].javabean;
-                m -= rooms[i].catFood;
+        double res_java = 0;
+        for (int i = 0; i < rooms.size() && m_f; i++) {
+            if (m_f > rooms[i].f) {
+                res_java += rooms[i].j;
+                m_f -= rooms[i].f;
             } else {
-                total_bean += m * rooms[i].java_per_food;
-                m = 0;
+                res_java += rooms[i].j_per_f * m_f;
+                m_f = 0;
             }
         }
-        printf("%.3f\n", total_bean);
+        printf("%.3f\n", res_java);
     }
-    return EXIT_SUCCESS;
+    return 0;
 }
 ```
