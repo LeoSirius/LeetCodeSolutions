@@ -4,45 +4,43 @@
 
 ```cpp
 #include<iostream>
-#include<algorithm>
 #include<vector>
+#include<algorithm>
 using namespace std;
 
 struct Show
 {
-    int s, e;
-
-    bool operator < (Show const &other) const {
-        if (e != other.e) {
-            return e < other.e;
-        } else {
-            return s > other.s;
-        }
+    Show(int stime, int etime)
+    :stime(stime), etime(etime) {}
+    int stime, etime;
+    bool operator < (const Show &other) const
+    {
+        return etime < other.etime;
     }
 };
 
-int
-main ()
+int main()
 {
     int n;
-    while (scanf("%d", &n) != EOF && n != 0) {
+    while (scanf("%d", &n) != EOF && n) {
         vector<Show> shows;
         for (int i = 0; i < n; i++) {
-            Show show;
-            scanf("%d %d", &show.s, &show.e);
+            int st, et;
+            scanf("%d %d", &st, &et);
+            Show show(st, et);
             shows.push_back(show);
         }
         sort(shows.begin(), shows.end());
-        int cur_time = 0;
-        int show_cnt = 0;
+        int count = 0;
+        int time = 0;
         for (int i = 0; i < shows.size(); i++) {
-            if (cur_time <= shows[i].s) {
-                show_cnt++;
-                cur_time = shows[i].e;
+            if (time <= shows[i].stime) {
+                time = shows[i].etime;
+                count++;
             }
         }
-        printf("%d\n", show_cnt);
+        printf("%d\n", count);
     }
-    return EXIT_SUCCESS;
+    return 0;
 }
 ```
