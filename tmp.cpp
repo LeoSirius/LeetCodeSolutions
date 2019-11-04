@@ -1,40 +1,33 @@
 #include<iostream>
-#include<vector>
-#include<algorithm>
-using namespace std;
-
-struct Show
-{
-    Show(int stime, int etime)
-    :stime(stime), etime(etime) {}
-    int stime, etime;
-    bool operator < (const Show &other) const
-    {
-        return etime < other.etime;
-    }
-};
+#include<stack>
+using  namespace std;
 
 int main()
 {
-    int n;
-    while (scanf("%d", &n) != EOF && n) {
-        vector<Show> shows;
-        for (int i = 0; i < n; i++) {
-            int st, et;
-            scanf("%d %d", &st, &et);
-            Show show(st, et);
-            shows.push_back(show);
-        }
-        sort(shows.begin(), shows.end());
-        int count = 0;
-        int time = 0;
-        for (int i = 0; i < shows.size(); i++) {
-            if (time <= shows[i].stime) {
-                time = shows[i].etime;
-                count++;
+    string str;
+    while (cin >> str) {
+        stack<int> left_idx_stk;
+        string res_str = "";
+        for (int i = 0; str[i]; i++) {
+            if (str[i] == '(') {
+                left_idx_stk.push(i);
+                res_str += ' ';
+            } else if (str[i] == ')') {
+                if (!left_idx_stk.empty()) {
+                    left_idx_stk.pop();
+                    res_str += ' ';
+                } else {
+                    res_str += '?';
+                }
+            } else {
+                res_str += ' ';
             }
         }
-        printf("%d\n", count);
+        while (!left_idx_stk.empty()) {
+            res_str[left_idx_stk.top()] = '$';
+            left_idx_stk.pop();
+        }
+        cout << str << endl << res_str << endl;
     }
     return 0;
 }
