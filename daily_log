@@ -38,6 +38,10 @@
     leetcode={cpp:[16]},
     machine_test_guide={cpp:[301]},
 },
+20191105={
+    leetcode={cpp:[17]},
+    machine_test_guide={cpp:[]},
+}
 
 
 need improved:(解法不符合题意或者cheat)
