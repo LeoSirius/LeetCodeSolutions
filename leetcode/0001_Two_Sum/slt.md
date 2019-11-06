@@ -4,27 +4,7 @@
 
 find()的时间复杂是常量。
 
-```cpp
-class Solution {
-public:
-    vector<int> twoSum(vector<int>& nums, int target) {
-        vector<int> res;
-        // key is value in nums, value of hash is its index
-        unordered_map<int, int> map;
-        for (int i = 0; i < nums.size(); i++) {
-            int num_to_find = target - nums[i];
-            if (map.find(num_to_find) != map.end()) {
-                res.push_back(map[num_to_find]);
-                res.push_back(i);
-                return res;
-            } else {
-                map[nums[i]] = i;
-            }
-        }
-        return res;
-    }
-};
-```
+返回vector的顺序不重要。
 
 ```py
 class Solution:

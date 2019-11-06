@@ -1,48 +1,15 @@
+// 2019-06-28开始
 // machine_test_guide use chapter number two digits, plus topic number two digits
-// leetcode 先做前150道 2019-06-28开始
+// leetcode 按tag来做，现阶段所有tag中不做hard
 
-20191021={
-    machine_test_guide={cpp:[203]},
-    leetcode={cpp:[8]},
-},
-20191022={
-    leetcode={cpp:[9]},
-},
-20191024={
-    machine_test_guide={cpp:[204]},
-},
-20191028={
-    machine_test_guide={cpp:[205]},
-},
-20191029={
-    leetcode={cpp:[11]},
-    machine_test_guide={cpp:[206]},
-},
-20191030={
-    leetcode={cpp:[12]},
-    machine_test_guide={cpp:[207]},
-},
-20191031={
-    leetcode={cpp:[13]},
-    machine_test_guide={cpp:[208]},
-},
-20191101={
-    leetcode={cpp:[14]},
-    machine_test_guide={cpp:[209]},
-},
-20191102={
-    leetcode={cpp:[15]},
-    machine_test_guide={cpp:[210]},
-},
-20191104={
-    leetcode={cpp:[16]},
-    machine_test_guide={cpp:[301]},
-},
 20191105={
     leetcode={cpp:[17]},
-    machine_test_guide={cpp:[]},
+    machine_test_guide={cpp:[302]},
+},
+20191106={
+    leetcode={c[1]},
+    machine_test_guide={cpp:[303]}
 }
-
 
 need improved:(解法不符合题意或者cheat)
 leetcode={
