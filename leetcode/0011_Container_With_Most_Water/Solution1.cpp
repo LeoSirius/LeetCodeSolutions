@@ -5,18 +5,16 @@ using namespace std;
 class Solution {
 public:
     int maxArea(vector<int>& height) {
-        int left = 0;
-        int right = height.size() - 1;
-        int max_area = 0;
-        while (left <= right) {
-            max_area = max(max_area, (right - left) * min(height[left], height[right]));
+        int left = 0, right = height.size() - 1;
+        int max_water = (right - left) * min(height[left], height[right]);
+        while (left < right) {
             if (height[left] < height[right])
                 left++;
             else
                 right--;
+            max_water = max(max_water, (right - left) * min(height[left], height[right]));
         }
-        cout << "max_area = " << max_area << endl;
-        return max_area;
+        return max_water;
     }
 };
 

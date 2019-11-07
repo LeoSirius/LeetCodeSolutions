@@ -1,15 +1,20 @@
 // 2019-06-28开始
 // machine_test_guide use chapter number two digits, plus topic number two digits
-// leetcode 按tag来做，现阶段所有tag中不做hard
+// leetcode 按topics来做，现阶段所有topics中不做hard, 当前做的是array topic
 
 20191105={
     leetcode={cpp:[17]},
     machine_test_guide={cpp:[302]},
 },
 20191106={
-    leetcode={c[1]},
-    machine_test_guide={cpp:[303]}
+    leetcode={cpp:[1]},
+    machine_test_guide={cpp:[303]},
+},
+20191107={
+    leetcode={cpp:[11]},
+    machine_test_guide={cpp:[304]}，
 }
+
 
 need improved:(解法不符合题意或者cheat)
 leetcode={

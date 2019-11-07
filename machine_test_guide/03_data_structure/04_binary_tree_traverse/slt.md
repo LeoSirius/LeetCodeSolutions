@@ -11,6 +11,7 @@ void print_post(int s1, int e1, int s2, int e2)
 {
     int root_idx = s2;
     while (str_pre[s1] != str_in[root_idx]) root_idx++;
+    // 递归，先输出左子树，再输出右子树，再输出根结点。root_idx-s2是左边的结点的个数。
     if (root_idx != s2) print_post(s1+1, s1+(root_idx-s2), s2, root_idx-1);
     if (root_idx != e2) print_post(s1+(root_idx-s2)+1, e1, root_idx+1, e2);
     printf("%c", str_in[root_idx]);
