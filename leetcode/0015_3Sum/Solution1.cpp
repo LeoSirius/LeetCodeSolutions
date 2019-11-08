@@ -7,7 +7,7 @@ class Solution {
 public:
     vector<vector<int>> threeSum(vector<int>& nums) {
         vector<vector<int>> res;
-        if (nums.size() < 3) return res;   // critical check, size_t是无符号的，不然下面size-2会负溢出
+        if (nums.size() < 3) return res;    // critical check, size_t是无符号的，不然下面size-2会负溢出
         sort(nums.begin(), nums.end());
         for (int i = 0; i < nums.size() - 2; i++) {
             if (i > 0 && nums[i] == nums[i-1]) continue;
@@ -15,11 +15,10 @@ public:
             while (left < right) {
                 int sum = nums[i] + nums[left] + nums[right];
                 if (sum == 0) {
-                    int l_value = nums[left];
-                    int r_value = nums[right];
-                    res.push_back(vector<int>{nums[i], l_value, r_value});
-                    while (left < right && nums[left] == l_value) left++;
-                    while (left < right && nums[right] == r_value) right--;
+                    res.push_back(vector<int>{nums[i], nums[left], nums[right]});
+                    while (left < right && nums[left] == nums[left+1]) left++;
+                    while (left < right && nums[right] == nums[right-1]) right--;
+                    left++; right--;
                 } else if (sum > 0) {
                     right--;
                 } else {

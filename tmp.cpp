@@ -1,27 +1,70 @@
 #include<iostream>
-#include<string>
 using namespace std;
 
-string pre_str, in_str, post_str;
-
-void print_post(int s1, int e1, int s2, int e2)
+struct node
 {
-    int root_idx = s2;
-    while (pre_str[s1] != in_str[root_idx]) root_idx++;
-    if (root_idx != s2) {
-        print_post(s1+1, s1+root_idx-s2, s2, root_idx-1);
-    }
-    if (root_idx != e2) {
-        print_post(s1+root_idx-s2+1, e1, root_idx+1, e2);
-    }
-    printf("%c", in_str[root_idx]);
+    int value;
+    node *left, *right;
+};
+
+node *create_node(int value)
+{
+    node *new_node = new node;
+    new_node->value = value;
+    new_node->left = new_node->right = nullptr;
+    return new_node;
 }
 
-int main()
+node *insert(node *tree, int value)
 {
-    while (cin >> pre_str >> in_str) {
-        print_post(0, pre_str.size()-1, 0, in_str.size()-1);
-        printf("\n");
+    if (tree == nullptr) {
+        tree = create_node(value);
+        return tree;
+    } else if (value < tree->value) {
+        tree->left = insert(tree->left, value);
+    } else {
+        tree->right = insert(tree->right, value);
+    }
+    return tree;
+}
+
+void pre_order(node *tree)
+{
+    if (tree == nullptr) return;
+    printf("%d ", tree->value);
+    pre_order(tree->left);
+    pre_order(tree->right);
+}
+
+void in_order(node *tree)
+{
+    if (tree == nullptr) return;
+    in_order(tree->left);
+    printf("%d ", tree->value);
+    in_order(tree->right);
+}
+
+void post_order(node *tree)
+{
+    if (tree == nullptr) return;
+    post_order(tree->left);
+    post_order(tree->right);
+    printf("%d ", tree->value);
+}
+
+int main ()
+{
+    int n;
+    while (scanf("%d", &n) != EOF) {
+        node *tree = nullptr;
+        for (int i = 0; i < n; i++) {
+            int value;
+            scanf("%d", &value);
+            tree = insert(tree, value);
+        }
+        pre_order(tree);printf("\n");
+        in_order(tree);printf("\n");
+        post_order(tree);printf("\n");
     }
     return 0;
 }

@@ -12,8 +12,13 @@
 },
 20191107={
     leetcode={cpp:[11]},
-    machine_test_guide={cpp:[304]}，
+    machine_test_guide={cpp:[304]},
+},
+20191108={
+    leetcode={cpp:[15,]},
+    machine_test_guide={cpp:[305]},
 }
+
 
 
 need improved:(解法不符合题意或者cheat)
