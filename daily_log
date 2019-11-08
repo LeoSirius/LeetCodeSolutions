@@ -15,7 +15,7 @@
     machine_test_guide={cpp:[304]},
 },
 20191108={
-    leetcode={cpp:[15,]},
+    leetcode={cpp:[15,16]},
     machine_test_guide={cpp:[305]},
 }
 
