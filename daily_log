@@ -18,6 +18,10 @@
 20191108={
     leetcode={cpp:[15,16,18]},
     machine_test_guide={cpp:[305]},
+},
+20191111={
+    leetcode={cpp:[26, 27]},
+    machine_test_guide={cpp:[306]}
 }
 
 

@@ -4,26 +4,6 @@
 
 我们用new_tail来作为已经整理好的没有重复元素的数组的最后一个索引。然后用i去找后面的元素，如果重复就跳过，如果i和new_tail的元素不同，则把i上的元素放到new_tail后面。时间复杂度为O(n),空间复杂度为O(1)。
 
-```cpp
-class Solution {
-public:
-    int removeDuplicates(vector<int>& nums) {
-        int new_tail = 0;
-        int length = nums.size();
-        if(length == 0){
-            return 0;
-        }
-        for(int i = 1; i < length; ++i){
-            if(nums[new_tail] != nums[i]){
-                nums[++new_tail] = nums[i];
-            }
-        }
-        return new_tail + 1;
-
-    }
-};
-```
-
 ```python
 class Solution:
     def removeDuplicates(self, nums: List[int]) -> int:
