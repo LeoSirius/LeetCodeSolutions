@@ -2,49 +2,58 @@
 #include<vector>
 using namespace std;
 
-bool Judge(vector<char> &tree, vector<char> &obj)
-{
-    if (tree.size() == 0 && obj.size() == 0) return true;
-    if (tree.size() != obj.size() || tree[0] != obj[0]) return false;
+class Solution {
+public:
+    int search(vector<int>& nums, int target) {
+        int len = nums.size();
+        if (len == 0) return -1;
 
-    vector<char> tree_left, tree_right, obj_left, obj_right;
-    char root = tree[0];
-    for (int i = 1; i < tree.size(); i++) {
-        if (tree[i] < root)
-            tree_left.push_back(tree[i]);
+        int left, right, mid, small;
+        
+        left = 0, right = len - 1;
+        while (left < right) {
+            mid = left + (right - left) / 2;
+            if (nums[mid] > nums[right])
+                left = mid + 1;
+            else
+                right = mid;
+        }
+
+        small = left;
+        left = 0;
+        right = len - 1;
+        if (nums[small] <= target && target <= nums[right])
+            left = small;
         else
-            tree_right.push_back(tree[i]);
-        if (obj[i] < root)
-            obj_left.push_back(obj[i]);
-        else
-            obj_right.push_back(obj[i]);
+            right = small - 1;
+
+        while (left <= right) {
+            mid = left + (right - left) / 2;
+            if (target > nums[mid])
+                left = mid + 1;
+            else if (target < nums[mid])
+                right = mid - 1;
+            else
+                return mid;
+        }
+        return -1;
     }
-    return Judge(tree_left, obj_left) && Judge(tree_right, obj_right);
+};
+
+void test(string test_name, vector<int>& nums, int target, int expected)
+{
+    Solution s;
+    if (s.search(nums, target) == expected) {
+        cout << test_name << " success." << endl;
+    } else {
+        cout << test_name << " failed." << endl;
+    }
 }
 
 int main()
 {
-    int n;
-    while (scanf("%d", &n) != EOF && n) {
-        string tree_str, obj_str;
-        cin >> tree_str;
-        vector<char> tree;
-        for (int i = 0; tree_str[i]; i++) {
-            tree.push_back(tree_str[i]);
-        }
-
-        while (n--) {
-            cin >> obj_str;
-            vector<char> obj;
-            for (int i = 0; obj_str[i]; i++) {
-                obj.push_back(obj_str[i]);
-            }
-            if (Judge(tree, obj)) {
-                printf("YES\n");
-            } else {
-                printf("NO\n");
-            }
-        }
-    }
-    return 0;
+    vector<int> nums1 = {4,5,6,7,0,1,2};
+    int target1 = 0;
+    int expected1 = 4;
+    test("test1", nums1, target1, expected1);
 }

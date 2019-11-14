@@ -2,6 +2,17 @@
 
 时间有限制O(log n)。显然我们必须使用二分查找，但是又不能直接用二分查找。先找到最小元素的index，再判断target是在最小元素的前面还是后面，再用常规的二分查找。
 
+用二分查找rotate数组中最小元素的方法
+
+```cpp
+// 循环结束时l = r， m可能等于l，也可能比l小1
+while(l < r){
+    m = (l+r) / 2;
+    if(nums[m] > nums[r]) l = m+1;
+    else r = m;
+}
+```
+
 ```cpp
 class Solution {
 public:
