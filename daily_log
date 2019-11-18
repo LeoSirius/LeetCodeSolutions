@@ -31,7 +31,7 @@
     leetcode={sql:[175]},
 },
 20191118={
-    leetcode={cpp:[34]},
+    leetcode={cpp:[34], sql:[176]},
     machine_test_guide={cpp:[402]},
 },
 
