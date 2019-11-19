@@ -34,6 +34,10 @@
     leetcode={cpp:[34], sql:[176]},
     machine_test_guide={cpp:[402]},
 },
+20191119={
+    leetcode={cpp:[35]},
+    machine_test_guide={cpp:[403]},
+}
 
 
 

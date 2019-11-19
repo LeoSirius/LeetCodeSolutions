@@ -4,13 +4,24 @@ using namespace std;
 
 int main()
 {
-    int m, a, b;
-    while (scanf("%d %d %d", &m, &a, &b) != EOF && m) {
-        int sum = a + b;
+    int a, b;
+    string n;
+    while (cin >> a >> n >> b) {
+        int decimal = 0;
+        // 跳过最后一位
+        int base = 1;
+        for (int i = n.size() - 1; i >= 0; i--) {
+            if (n[i] >= '0' && n[i] <= '9') {
+                decimal += base * (n[i] - '0');
+            } else {
+                decimal += base * (n[i] - 'A' + 10);
+            }
+            base *= a;
+        }
         deque<int> res;
-        while (sum) {
-            res.push_front(sum % m);
-            sum /= m;
+        while (decimal) {
+            res.push_front(decimal % b);
+            decimal /= b;
         }
         for (int i = 0; i < res.size(); i++) {
             printf("%d", res[i]);
