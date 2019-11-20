@@ -1,7 +1,9 @@
 // 2019-06-28开始
 // machine_test_guide use chapter number two digits, plus topic number two digits
-// leetcode 按topics来做，现阶段所有topics中不做hard, 当前做的是array topic
+// leetcode 按topics来做，现阶段所有topics中不做hard, 
 // 所有hard 另外不按分类集中一起做
+
+// 当前做的是array topic的前20道
 
 20191105={
     leetcode={cpp:[17]},
@@ -37,7 +39,11 @@
 20191119={
     leetcode={cpp:[35]},
     machine_test_guide={cpp:[403]},
-}
+},
+20191120={
+    leetcode={cpp:[39]},
+    machine_test_guide={cpp:[404]}
+},
 
 
 
