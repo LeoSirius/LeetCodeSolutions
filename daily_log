@@ -44,6 +44,10 @@
     leetcode={cpp:[39]},
     machine_test_guide={cpp:[404]}
 },
+20191121={
+    leetcode={cpp:[40]},
+    machine_test_guide={cpp:[405]},
+}
 
 
 
