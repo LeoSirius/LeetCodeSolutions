@@ -3,7 +3,7 @@
 // leetcode 按topics来做，现阶段所有topics中不做hard, 
 // 所有hard 另外不按分类集中一起做
 
-// 当前做的是array topic的前40道
+// 当前做的是array topic的前4页
 // sql 前10
 
 20191105={
@@ -60,6 +60,9 @@
 },
 20191127={
     leetcode={cpp:[54, 55], sql:[181]},
+},
+20191128={
+    leetcode={cpp:[56, 59], sql:[182]},
 }
 
 
