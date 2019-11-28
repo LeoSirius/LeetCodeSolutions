@@ -8,7 +8,6 @@ public:
         int i = 0;
         for (int reach = 0; i < nums.size() && i <= reach; i++) {
             reach = max(i + nums[i], reach);
-            cout << "i = " << i << ", reach = " << reach << endl;
         }
         return i == nums.size();
     }
