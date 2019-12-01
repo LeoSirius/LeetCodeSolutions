@@ -20,20 +20,12 @@ private:
 
 template<typename T> void CQueue<T>::appendTail(const T& element)
 {
-    stack1.push(element);
+
 } 
 
 template<typename T> T CQueue<T>::deleteHead()
 {
-    if (stack2.size() <= 0) {
-        while (stack1.size()) {
-            stack2.push(stack1.top());
-            stack1.pop();
-         }
-    }
-    T tmp = stack2.top();
-    stack2.pop();
-    return tmp;
+
 }
 
 // ====================测试代码====================
