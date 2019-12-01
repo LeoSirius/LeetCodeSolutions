@@ -1,31 +1,59 @@
+
 #include<iostream>
 #include<vector>
 using namespace std;
 
 class Solution {
 public:
-    vector<int> plusOne(vector<int>& digits) {
-        vector<int> res;
-        int carry = 0;
-        for (int i = digits.size() - 1; i >= 0; i--) {
-            int sum = digits[i] + carry;
-            if (i == digits.size() - 1) {
-                sum += 1;
+    void setZeroes(vector<vector<int>>& matrix) {
+        int m, n;
+        m = matrix.size();
+        if (m) n = matrix[0].size();
+        
+        bool is_first_row_zero = false, is_first_col_zero = false;
+
+        for (int i = 0; i < m; i++) {
+            if (matrix[i][0] == 0) {
+                is_first_col_zero = true;
+                break;
             }
-            res.insert(res.begin(), sum % 10);
-            carry = sum / 10;
         }
-        if (carry) {
-            res.insert(res.begin(), carry);
+        for (int j = 0; j < n; j++) {
+            if (matrix[0][j] == 0) {
+                is_first_row_zero = true;
+                break;
+            }
         }
-        return res;
+
+        for (int i = 1; i < m; i++) {
+            for (int j = 1; j < n; j++) {
+                if (matrix[i][j] == 0) {
+                    matrix[i][0] = matrix[0][j] = 0;
+                }
+            }
+        }
+        for (int i = 1; i < m; i++) {
+            for (int j = 1; j < n; j++) {
+                if (matrix[i][0] == 0 || matrix[0][j] == 0)
+                    matrix[i][j] = 0;
+            }
+        }
+        if (is_first_row_zero) {
+            for (int j = 0; j < n; j++)
+                matrix[0][j] = 0;
+        }
+        if (is_first_col_zero) {
+            for (int i = 0; i < m; i++)
+                matrix[i][0] = 0;
+        }
     }
 };
 
-void test(string test_name, vector<int> &digits, vector<int> &expected)
+void test(string test_name, vector<vector<int>> &matrix, vector<vector<int>> expected)
 {
     Solution s;
-    if (s.plusOne(digits) == expected) {
+    s.setZeroes(matrix);
+    if (matrix == expected) {
         cout << test_name << " success." << endl;
     } else {
         cout << test_name << " failed." << endl;
@@ -34,18 +62,39 @@ void test(string test_name, vector<int> &digits, vector<int> &expected)
 
 int main()
 {
-    vector<int> digits1 = {1,2,3};
-    vector<int> expected1 = {1,2,4};
-    test("test1", digits1, expected1);
+    vector<vector<int>> matrix1 = {
+        {1,1,1},
+        {1,0,1},
+        {1,1,1}
+    };
+    vector<vector<int>> expected1 = {
+        {1,0,1},
+        {0,0,0},
+        {1,0,1}
+    };
+    test("test1", matrix1, expected1);
 
-    vector<int> digits2 = {4,3,2,1};
-    vector<int> expected2 = {4,3,2,2};
-    test("test2", digits2, expected2);
+    vector<vector<int>> matrix2 = {
+        {0,1,2,0},
+        {3,4,5,2},
+        {1,3,1,5},
+    };
+    vector<vector<int>> expected2 = {
+        {0,0,0,0},
+        {0,4,5,0},
+        {0,3,1,0}
+    };
+    test("test2", matrix2, expected2);
 
-    vector<int> digits3 = {9};
-    vector<int> expected3 = {1,0};
-    test("test3", digits3, expected3);
+    vector<vector<int>> matrix3 = {
+        {1},
+        {0}
+    };
+    vector<vector<int>> expected3 = {
+        {0},
+        {0}
+    };
+    test("test3", matrix3, expected3);
 
     return 0;
 }
-
