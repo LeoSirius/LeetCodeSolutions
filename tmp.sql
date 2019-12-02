@@ -1,24 +1,15 @@
-select d.name as Department,e.name as Employee,e.salary as Salary 
-from Employee as e inner join Department as d on e.DepartmentId=d.id 
-where (select count( distinct salary) 
-      from Employee 
-      where salary>e.salary and departmentid=e.DepartmentId )<3 
-order by e.departmentid,Salary desc;
 
 
-SELECT d.name as Department, e.name AS Employee, e.salary as Salary
-FROM Employee as e inner join Department as d
-ON e.DepartmentId=d.Id
-WHERE (
-  SELECT count(distinct Salary)
-  FROM Employee
-  WHERE Salary > e.Salary AND DepartmentId=e.DepartmentId
-)<3
-ORDER BY e.DepartmentId, e.Salary DESC;
+SELECT w1.Id
+FROM Weather w1 INNER JOIN Weather w2
+ON DATEDIFF(w1.RecordDate, w2.RecordDate)=1 AND w1.Temperature > w2.Temperature;
 
+select a.Id from  Weather as a join Weather as b on a.Temperature > b.Temperature and dateDiff(a.RecordDate,b.RecordDate) = 1 
 
+SELECT DATEDIFF(w1.RecordDate, w2.RecordDate)
+FROM Weather w1 INNER JOIN Weather w2
+WHERE w1.RecordDate="2015-01-01" AND w2.RecordDate="2015-01-01";
 
-CREATE TABLE `Employee`
 
 CREATE TABLE `Employee` (
   `Id` int(11) NOT NULL AUTO_INCREMENT,
@@ -45,3 +36,27 @@ Values
 (7, "Will", 70000, 1);
 
 INSERT INTO Department VALUES (1, "IT"), (2, "Sales");
+
+
++---------+------------------+------------------+
+| Id(INT) | RecordDate(DATE) | Temperature(INT) |
++---------+------------------+------------------+
+|       1 |       2015-01-01 |               10 |
+|       2 |       2015-01-02 |               25 |
+|       3 |       2015-01-03 |               20 |
+|       4 |       2015-01-04 |               30 |
++---------+------------------+------------------+
+
+CREATE TABLE `Weather` (
+  `Id` int(11) NOT NULL AUTO_INCREMENT,
+  `RecordDate` DATE NOT NULL,
+  `Temperature` int(11) NOT NULL,
+  PRIMARY KEY (`Id`)
+) ENGINE=InnoDB;
+
+INSERT INTO Weather (Id, RecordDate, Temperature)
+VALUES
+(1,"2015-01-01", 10),
+(2,"2015-01-02", 25),
+(3,"2015-01-03", 20),
+(4,"2015-01-04", 30);

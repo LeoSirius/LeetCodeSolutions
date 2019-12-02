@@ -73,6 +73,9 @@
 20191201={
     leetcode={sql:[185]},
     sword={cpp:[9]}
+},
+20191202={
+    leetcode={cpp:[74, ], sql:[197]},
 }
 
 
