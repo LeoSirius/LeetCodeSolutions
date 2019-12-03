@@ -78,7 +78,7 @@
     leetcode={cpp:[74, ], sql:[197]},
 },
 20191203={
-    leetcode={cpp:[75, ], sql:[262]},
+    leetcode={cpp:[75, ], sql:[262, 511]},
 },
 
 

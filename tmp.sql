@@ -75,3 +75,25 @@ VALUES
 (2,"2015-01-02", 25),
 (3,"2015-01-03", 20),
 (4,"2015-01-04", 30);
+
+CREATE TABLE `Activity` (
+  `Id` int(11) NOT NULL AUTO_INCREMENT,
+  `player_id` int(11) NOT NULL,
+  `device_id` int(11) NOT NULL,
+  `event_date` DATE NOT NULL,
+  `games_played` int(11) NOT NULL,
+  PRIMARY KEY (`Id`)
+) ENGINE=InnoDB;
+
+INSERT INTO Activity VALUES 
+  (1,1,2,"2016-03-01",5),
+  (2,1,2,"2016-05-02",6),
+  (3,2,3,"2017-06-25",1),
+  (4,3,1,"2016-03-02",0),
+  (5,3,4,"2018-07-03",5);
+
+INSERT INTO Activity VALUES 
+  (2,1,2,"2016-05-02",6),
+  (3,2,3,"2017-06-25",1),
+  (4,3,1,"2016-03-02",0),
+  (5,3,4,"2018-07-03",5);
