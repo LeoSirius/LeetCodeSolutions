@@ -1,14 +1,29 @@
 
+select 
+t.Request_at Day, 
+round(sum(case when t.Status like 'cancelled_%' then 1 else 0 end)/count(*),2) Rate
+from Trips t 
+inner join Users u 
+on t.Client_Id = u.Users_Id and u.Banned='No'
+where t.Request_at between '2013-10-01' and '2013-10-03'
+group by t.Request_at
 
-SELECT w1.Id
-FROM Weather w1 INNER JOIN Weather w2
-ON DATEDIFF(w1.RecordDate, w2.RecordDate)=1 AND w1.Temperature > w2.Temperature;
+SELECT t.Request_at Day,
+ROUND(SUM(CASE WHEN t.Status LIKE "cancelled_%" THEN 1 ELSE 0 END)/COUNT(*), 2) AS "Cancellation Rate"
+FROM Trips t INNER JOIN Users u
+ON t.Client_Id=u.Users_Id and u.Banned="No"
+WHERE t.Request_at BETWEEN "2013-10-01" AND "2013-10-03"
+GROUP BY t.Request_at;
 
-select a.Id from  Weather as a join Weather as b on a.Temperature > b.Temperature and dateDiff(a.RecordDate,b.RecordDate) = 1 
 
-SELECT DATEDIFF(w1.RecordDate, w2.RecordDate)
-FROM Weather w1 INNER JOIN Weather w2
-WHERE w1.RecordDate="2015-01-01" AND w2.RecordDate="2015-01-01";
+select temp.request_at Day,
+round(sum(case temp.status when 'completed' then 0 else 1 end)/count(temp.status),2) 'Cancellation Rate' 
+from (
+  select status,request_at from trips t left join users u on t.client_id = u.users_id where u.banned ='no'
+  ) temp 
+where request_at between '2013-10-01' and '2013-10-03' 
+group by temp.request_at;
+
 
 
 CREATE TABLE `Employee` (
