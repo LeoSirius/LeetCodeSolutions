@@ -1,32 +1,49 @@
+select t1.player_id,t1.event_date,(sum(t2.games_played))as games_played_so_far 
+    from activity t1 join activity t2 
+    on(t1.player_id=t2.player_id and t1.event_date>=t2.event_date)
+group by t1.player_id ,t1.event_date
+
+
+SELECT a1.player_id, a1.event_date, sum(a2.games_played) AS games_played_so_far
+FROM Activity a1 INNER JOIN Activity a2
+ON a1.player_id=a2.player_id AND a1.event_date >= a2.event_date
+GROUP BY a1.player_id, a1.event_date;
+
 Activity table:
 +-----------+-----------+------------+--------------+
 | player_id | device_id | event_date | games_played |
 +-----------+-----------+------------+--------------+
 | 1         | 2         | 2016-03-01 | 5            |
 | 1         | 2         | 2016-05-02 | 6            |
-| 2         | 3         | 2017-06-25 | 1            |
+| 1         | 3         | 2017-06-25 | 1            |
 | 3         | 1         | 2016-03-02 | 0            |
 | 3         | 4         | 2018-07-03 | 5            |
 +-----------+-----------+------------+--------------+
 
 Result table:
-+-----------+-----------+
-| player_id | device_id |
-+-----------+-----------+
-| 1         | 2         |
-| 2         | 3         |
-| 3         | 1         |
-+-----------+-----------+
++-----------+------------+---------------------+
+| player_id | event_date | games_played_so_far |
++-----------+------------+---------------------+
+| 1         | 2016-03-01 | 5                   |
+| 1         | 2016-05-02 | 11                  |
+| 1         | 2017-06-25 | 12                  |
+| 3         | 2016-03-02 | 0                   |
+| 3         | 2018-07-03 | 5                   |
++-----------+------------+---------------------+
 
 
-SELECT a.player_id, a.device_id
-FROM Activity a
-WHERE (a.player_id, a.event_date) IN (
-    SELECT player_id, min(event_date)
-    FROM Activity
-    GROUP BY player_id
-);
+| 1         | 2016-03-01 | 5                   |
+| 1         | 2016-05-02 | 11                  |
+| 1         | 2017-06-25 | 12                  |
 
+1 2016-03-01 1 2016-03-01  5
+
+1 2016-05-02 1 2016-03-01  5
+1 2016-05-02 1 2016-05-02  6
+
+1 2017-06-25 1 2016-03-01  5
+1 2017-06-25 1 2016-05-02  6
+1 2017-06-25 1 2017-06-25  1
 
 CREATE TABLE `Employee` (
   `Id` int(11) NOT NULL AUTO_INCREMENT,
