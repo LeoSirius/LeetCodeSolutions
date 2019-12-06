@@ -1,49 +1,29 @@
-select t1.player_id,t1.event_date,(sum(t2.games_played))as games_played_so_far 
-    from activity t1 join activity t2 
-    on(t1.player_id=t2.player_id and t1.event_date>=t2.event_date)
-group by t1.player_id ,t1.event_date
 
 
-SELECT a1.player_id, a1.event_date, sum(a2.games_played) AS games_played_so_far
-FROM Activity a1 INNER JOIN Activity a2
-ON a1.player_id=a2.player_id AND a1.event_date >= a2.event_date
-GROUP BY a1.player_id, a1.event_date;
+select *
+from activity a,
+(select player_id,min(event_date) first_date from activity group by player_id) b
+where a.player_id=b.player_id
 
-Activity table:
-+-----------+-----------+------------+--------------+
-| player_id | device_id | event_date | games_played |
-+-----------+-----------+------------+--------------+
-| 1         | 2         | 2016-03-01 | 5            |
-| 1         | 2         | 2016-05-02 | 6            |
-| 1         | 3         | 2017-06-25 | 1            |
-| 3         | 1         | 2016-03-02 | 0            |
-| 3         | 4         | 2018-07-03 | 5            |
-+-----------+-----------+------------+--------------+
+select round(
+  sum(case when datediff(a.event_date,b.first_date)=1 then 1 else 0 end)
+  /
+  (select count(distinct(player_id)) from activity), 2
+  )
+as fraction
+from activity a,
+(select player_id,min(event_date) first_date from activity group by player_id) b
+where a.player_id=b.player_id;
 
-Result table:
-+-----------+------------+---------------------+
-| player_id | event_date | games_played_so_far |
-+-----------+------------+---------------------+
-| 1         | 2016-03-01 | 5                   |
-| 1         | 2016-05-02 | 11                  |
-| 1         | 2017-06-25 | 12                  |
-| 3         | 2016-03-02 | 0                   |
-| 3         | 2018-07-03 | 5                   |
-+-----------+------------+---------------------+
+SELECT ROUND(
+  SUM(CASE WHEN DATEDIFF(a.event_date, b.first_date)=1 THEN 1 ELSE 0 END) / 
+  (SELECT COUNT(DISTINCT(player_id)) FROM Activity)
+  , 2
+) AS fraction
+FROM Activity a INNER JOIN
+(SELECT player_id, MIN(event_date) first_date FROM Activity GROUP BY player_id) b
+ON a.player_id=b.player_id;
 
-
-| 1         | 2016-03-01 | 5                   |
-| 1         | 2016-05-02 | 11                  |
-| 1         | 2017-06-25 | 12                  |
-
-1 2016-03-01 1 2016-03-01  5
-
-1 2016-05-02 1 2016-03-01  5
-1 2016-05-02 1 2016-05-02  6
-
-1 2017-06-25 1 2016-03-01  5
-1 2017-06-25 1 2016-05-02  6
-1 2017-06-25 1 2017-06-25  1
 
 CREATE TABLE `Employee` (
   `Id` int(11) NOT NULL AUTO_INCREMENT,

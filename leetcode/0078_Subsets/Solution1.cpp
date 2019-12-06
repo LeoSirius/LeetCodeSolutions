@@ -7,7 +7,6 @@ class Solution {
     void subsets(vector<int> &nums, int i, vector<int> &sub, vector<vector<int>> &subs)
     {
         subs.push_back(sub);
-        cout << endl;
         for (int j = i; j < nums.size(); j++) {
             sub.push_back(nums[j]);
             subsets(nums, j + 1, sub, subs);
