@@ -3,8 +3,8 @@
 // leetcode 按topics来做，现阶段所有topics中不做hard, 
 // 所有hard 另外不按分类集中一起做
 
-// 当前做的是array topic的前5页
-// sql 前10
+// 当前做的是array topic的前4页， 排除hard
+// sql 所有easy题目
 
 20191105={
     leetcode={cpp:[17]},
@@ -89,6 +89,11 @@
 20191206={
     leetcode={cpp:[88, 90], sql:[550,]}
 },
+20191207={
+    leetcode={cpp:[577, 584, 586, 595, 596, 597, 603]},
+},
+
+
 
 
 
