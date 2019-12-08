@@ -1,7 +1,6 @@
 // 2019-06-28开始
-// machine_test_guide use chapter number two digits, plus topic number two digits
 // leetcode 按topics来做，现阶段所有topics中不做hard, 
-// 所有hard 另外不按分类集中一起做
+// 周末集中做hard前20，即page1
 
 // 当前做的是array topic的前4页， 排除hard
 // sql 所有easy题目
@@ -90,9 +89,11 @@
     leetcode={cpp:[88, 90], sql:[550,]}
 },
 20191207={
-    leetcode={cpp:[577, 584, 586, 595, 596, 597, 603, 610]},
+    leetcode={sql:[577, 584, 586, 595, 596, 597, 603, 610]},
 },
-
+20191208={
+    leetcode={sql:[613, 619, 175, 176]}
+},
 
 
 
