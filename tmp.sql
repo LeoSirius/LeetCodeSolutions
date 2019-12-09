@@ -1,14 +1,14 @@
 
 
-SELECT
-    Employee.name, Bonus.bonus
-FROM
-    Employee
-        LEFT JOIN
-    Bonus ON Employee.empid = Bonus.empid
-WHERE
-    bonus < 1000 OR bonus IS NULL
-
+CREATE FUNCTION getNthHighestSalary(N INT) RETURNS INT
+BEGIN
+  DECLARE M INT;
+  SET M = N - 1;
+  RETURN (
+      # Write your MySQL query statement below.
+      SELECT DISTINCT Salary FROM Employee ORDER BY Salary LIMIT M, 1
+  );
+END
 
 select round(
   sum(case when datediff(a.event_date,b.first_date)=1 then 1 else 0 end)
