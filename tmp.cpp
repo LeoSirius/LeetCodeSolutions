@@ -8,10 +8,16 @@ class Solution {
 public:
     vector<int> twoSum(vector<int>& nums, int target) {
         vector<int> res;
-        vector<int> cur_not_found;
+        unordered_map<int, int> my_map;
         for (int i = 0; i < nums.size(); i++) {
             int num_to_find = target - nums[i];
+            if (my_map.find(num_to_find) != my_map.end()) {
+                res = {i, my_map[num_to_find]};
+                return res;
+            }
+            my_map[nums[i]] = i;
         }
+        return res;
     }
 };
 
