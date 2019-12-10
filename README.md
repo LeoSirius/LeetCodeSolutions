@@ -1,3 +1,3 @@
 不断补充中...
 
-leetcode目录下是leetcode的刷题笔记。machine_test_guide目录下是机试指南一书的笔记。
+除SQL外基本每道题都有自己的单元测试哦
