@@ -5,16 +5,17 @@ using namespace std;
 class Solution {
 public:
     int maxArea(vector<int>& height) {
+        int max_area = 0;
         int left = 0, right = height.size() - 1;
-        int max_water = (right - left) * min(height[left], height[right]);
         while (left < right) {
-            if (height[left] < height[right])
+            max_area = max(max_area, min(height[left], height[right]) * (right - left));
+            if (height[left] < height[right]) {
                 left++;
-            else
+            } else {
                 right--;
-            max_water = max(max_water, (right - left) * min(height[left], height[right]));
+            }
         }
-        return max_water;
+        return max_area;
     }
 };
 
@@ -28,14 +29,10 @@ void test(string test_name, vector<int>& height, int res)
     }
 }
 
-void test1()
-{
-    vector<int> height{1, 8, 6, 2, 5, 4, 8, 3, 7};
-    test("test1", height, 49);
-}
-
 int main()
 {
-    test1();
+    vector<int> height1{1, 8, 6, 2, 5, 4, 8, 3, 7};
+    int expected1 = 49;
+    test("test1", height1, expected1);
     return 0;
 }

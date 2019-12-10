@@ -1,9 +1,17 @@
 // 2019-06-28开始
 // leetcode 按topics来做，现阶段所有topics中不做hard, 
-// 周末集中做hard前20，即page1
+// 周末集中做hard
 
-// 当前做的是array topic的前4页， 排除hard
-// sql 所有easy题目
+// 正在做的round
+[
+    [mysql前20(easy,mid)],
+    [array前20(easy,mid)],
+]
+
+// 已经做完的round
+[
+    [array前40(easy,mid), 2019-12-10],
+]
 
 20191105={
     leetcode={cpp:[17]},
@@ -98,7 +106,7 @@
     leetcode={sql:[177], cpp:[105, 106, 118, 119]},
 },
 20191210={
-    leetcode={sql:[178], cpp:[120, 121, 122, 152, 1]}
+    leetcode={sql:[178], cpp:[120, 121, 122, 152, 1, 11, 15]}
 },
 
 
