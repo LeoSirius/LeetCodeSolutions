@@ -4,7 +4,7 @@
 
 // 正在做的round
 [
-    [mysql前20(easy,mid)],
+    [mysql前20(easy)],
     [array前20(easy,mid)],
 ]
 
@@ -107,6 +107,9 @@
 },
 20191210={
     leetcode={sql:[178], cpp:[120, 121, 122, 152, 1, 11, 15]}
+},
+20191211={
+    leetcode={sql:[181], cpp:[16, 18, ]}
 },
 
 

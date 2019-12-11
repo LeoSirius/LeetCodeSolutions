@@ -4,38 +4,7 @@
 
 注意题目要求是unique triplets，所以有重复的还得跳过。ilr三个指针都有是否重复的判断。
 
-```cppclass Solution {
-class Solution {
-public:
-    vector<vector<int>> threeSum(vector<int>& nums) {
-        vector<vector<int>> res;
-        sort(nums.begin(), nums.end());
-
-        for (int i = 0; i < nums.size(); i++) {
-            if (i > 0 && nums[i] == nums[i-1]) continue;
-            int l, r;
-            l = i + 1; r = nums.size() - 1;
-            while (l < r) {
-                int sum = nums[i] + nums[l] + nums[r];
-                if (sum == 0) {
-                    int left = nums[l];
-                    int right = nums[r];
-                    res.push_back(vector<int> {nums[i], left, right});
-                    while (l < r && left == nums[l]) l++;
-                    while (l < r && right == nums[r]) r--;
-                } else if (sum > 0) {
-                    r--;
-                } else {
-                    l++;
-                }
-            }
-        }
-        return res;
-    }
-};
-```
-
-注意跳过重复的代码和cpp中不一样的地方
+python注意跳过重复的代码和cpp中不一样的地方
 
 ```python
 class Solution:

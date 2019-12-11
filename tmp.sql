@@ -1,27 +1,17 @@
 
++----+-------+--------+-----------+
+| Id | Name  | Salary | ManagerId |
++----+-------+--------+-----------+
+| 1  | Joe   | 70000  | 3         |
+| 2  | Henry | 80000  | 4         |
+| 3  | Sam   | 60000  | NULL      |
+| 4  | Max   | 90000  | NULL      |
++----+-------+--------+-----------+
 
-+----+-------+
-| Id | Score |
-+----+-------+
-| 1  | 3.50  |
-| 2  | 3.65  |
-| 3  | 4.00  |
-| 4  | 3.85  |
-| 5  | 4.00  |
-| 6  | 3.65  |
-+----+-------+
-For example, given the above Scores table, your query should generate the following report (order by highest score):
+SELECT e1.Name AS Employee
+FROM Employee e1 JOIN Employee e2
+ON e1.ManagerId=e2.Id AND e1.Salary > e2.Salary;
 
-+-------+------+
-| Score | Rank |
-+-------+------+
-| 4.00  | 1    |
-| 4.00  | 1    |
-| 3.85  | 2    |
-| 3.65  | 3    |
-| 3.65  | 3    |
-| 3.50  | 4    |
-+-------+------+
 
 SELECT Score, (
     SELECT COUNT(DISTINCT Score)
