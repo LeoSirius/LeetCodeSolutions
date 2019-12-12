@@ -1,16 +1,30 @@
 
-+----+-------+--------+-----------+
-| Id | Name  | Salary | ManagerId |
-+----+-------+--------+-----------+
-| 1  | Joe   | 70000  | 3         |
-| 2  | Henry | 80000  | 4         |
-| 3  | Sam   | 60000  | NULL      |
-| 4  | Max   | 90000  | NULL      |
-+----+-------+--------+-----------+
+SELECT p1.Email
+FROM Person p1 INNER JOIN Person p2
+GROUP BY p1.Email=p2.Email
+HAVING COUNT(*)>1;
 
-SELECT e1.Name AS Employee
-FROM Employee e1 JOIN Employee e2
-ON e1.ManagerId=e2.Id AND e1.Salary > e2.Salary;
+SELECT Email
+FROM Person
+GROUP BY Email
+HAVING Count(Email) > 1;
+
+Person
++----+---------+
+| Id | Email   |
++----+---------+
+| 1  | a@b.com |
+| 2  | c@d.com |
+| 3  | a@b.com |
++----+---------+
+For example, your query should return the following for the above table:
+
++---------+
+| Email   |
++---------+
+| a@b.com |
++---------+
+
 
 
 SELECT Score, (

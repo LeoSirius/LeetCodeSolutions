@@ -29,30 +29,7 @@
 
 简单思路的证明：从7开始是降序的，也就是说7 4 3 1不可能通过重新排列构成更大的数字。如果要得到next permutation，那么必须把2这个位置的数字给换掉才行，而且只能换成比2大的数字在才能使next permutation > current permutation.至于换成多大的数字，很明显的需要换成在2后面的数字中刚好比2大的数字。
 
-```cpp
-class Solution {
-public:
-    void nextPermutation(vector<int>& nums) {
-        int n = nums.size(), k, l;
-        for(k = n - 2; k >= 0; --k){
-            if(nums[k] < nums[k+1]){
-                break;      // e.g. [1 2 3 9 8 7], k = 2, point to 3
-            }
-        }
-        if(k < 0){
-            reverse(nums.begin(), nums.end());  // e.g. [3,2,1] to [1,2,3]
-        }else{
-            for(l = n - 1; l > k; --l){
-                if(nums[l] > nums[k]){
-                    break;      // let l point the first larger than nums[k]'s number counting from back
-                }
-            }
-            swap(nums[k], nums[l]);
-            reverse(nums.begin()+k+1, nums.end());
-        }
-    }
-};
-```
+注意两次遍历都是从后往前哦。
 
 ```python
 class Solution:
