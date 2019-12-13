@@ -1,31 +1,36 @@
+Table: Customers.
 
-SELECT p1.Email
-FROM Person p1 INNER JOIN Person p2
-GROUP BY p1.Email=p2.Email
-HAVING COUNT(*)>1;
++----+-------+
+| Id | Name  |
++----+-------+
+| 1  | Joe   |
+| 2  | Henry |
+| 3  | Sam   |
+| 4  | Max   |
++----+-------+
+Table: Orders.
 
-SELECT Email
-FROM Person
-GROUP BY Email
-HAVING Count(Email) > 1;
+1 joe 1
 
-Person
-+----+---------+
-| Id | Email   |
-+----+---------+
-| 1  | a@b.com |
-| 2  | c@d.com |
-| 3  | a@b.com |
-+----+---------+
-For example, your query should return the following for the above table:
++----+------------+
+| Id | CustomerId |
++----+------------+
+| 1  | 3          |
+| 2  | 1          |
++----+------------+
+Using the above tables as example, return the following:
 
-+---------+
-| Email   |
-+---------+
-| a@b.com |
-+---------+
++-----------+
+| Customers |
++-----------+
+| Henry     |
+| Max       |
++-----------+
 
-
+SELECT Name
+FROM Customers LEFT JOIN Orders
+ON Customers.Id=Orders.CustomerId
+WHERE Orders.CustomerId IS NULL;
 
 SELECT Score, (
     SELECT COUNT(DISTINCT Score)

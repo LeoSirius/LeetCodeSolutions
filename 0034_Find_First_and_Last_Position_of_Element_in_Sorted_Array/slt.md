@@ -2,10 +2,18 @@
 
 首先我们说明一下二分查找，记住二分查找如果有重复的，找最左边和最右边的数的方法即可。
 
-先来看看找左边的方法，不同于传统的二分查找，这里有两点不同：一是while的条件里没有等号，二是我们把下面的2和3归结为一个case：
-1. If A[mid] < target, then the range must begins on the right of mid (hence i = mid+1 for the next iteration)
-2. If A[mid] > target, it means the range must begins on the left of mid (j = mid-1)
-3. If A[mid] = target, then the range must begins on the left of or at mid (j= mid)
+
+先找左边界，再找右边界。找左边界从右边逼近，找右边界从左边逼近找左边界的方法：
+
+1. target < A[mid]，左边界索引一定小于mid，right = mid - 1
+2. target = A[mid]，左边界就是mid或小于mid，right = mid
+3. target > A[mid]，左边界大于mid，left = mid + 1
+
+很多解答都把1和2写在了一起，即（综合1和2，当`target <= A[mid]`时，right = mid;）其实这样不好理解，
+
+注意找右边的时候mid要加1，因为默认是向左对齐的。
+
+
 
 2和3可以合并写成 2*. If A[mid] >= target, j = mid;
 
@@ -37,3 +45,31 @@ class Solution:
 
         return [bisearch_left(nums, target), bisearch_right(nums, target)]
 ```
+
+
+
+利用二分思想先找其左边界，再找其右边界即可，注意找左边界的时候，由右侧逼近；找右边界的时候，由左侧逼近，即可。
+
+class Solution {
+public:
+    vector<int> searchRange(vector<int>& nums, int target) {
+        vector<int> res(2,-1);
+        if(nums.empty()) return res;
+        int n=nums.size(),l=0,r=n-1;
+        while(l<r){
+            int m=l+(r-l)/2;
+            if(nums[m]>=target) r=m;
+            else l=m+1;
+        }
+        if(nums[l]!=target) return res;
+        res[0]=l;
+        r=n;
+        while(l<r){
+            int m=l+(r-l)/2;
+            if(nums[m]<=target) l=m+1;
+            else r=m;
+        }
+        res[1]=l-1;
+        return res;
+    }
+};

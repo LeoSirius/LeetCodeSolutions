@@ -36,5 +36,10 @@ int main()
     int expected1 = 1;
     test("test1", nums1, target1, expected1);
 
+    vector<int> nums2 = {1,3,5,6};
+    int target2 = 7;
+    int expected2 = 4;
+    test("test2", nums2, target2, expected2);
+
     return 0;
 }
