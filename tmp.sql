@@ -1,31 +1,33 @@
-Table: Customers.
++----+------------------+
+| Id | Email            |
++----+------------------+
+| 1  | john@example.com |
+| 2  | bob@example.com  |
+| 3  | john@example.com |
++----+------------------+
+Id is the primary key column for this table.
+For example, after running your query, the above Person table should have the following rows:
+Write a SQL query to delete all duplicate email entries in a table named Person, keeping only unique emails based on its smallest Id.
 
-+----+-------+
-| Id | Name  |
-+----+-------+
-| 1  | Joe   |
-| 2  | Henry |
-| 3  | Sam   |
-| 4  | Max   |
-+----+-------+
-Table: Orders.
 
-1 joe 1
++----+------------------+
+| Id | Email            |
++----+------------------+
+| 1  | john@example.com |
+| 2  | bob@example.com  |
++----+------------------+
 
-+----+------------+
-| Id | CustomerId |
-+----+------------+
-| 1  | 3          |
-| 2  | 1          |
-+----+------------+
-Using the above tables as example, return the following:
+DELETE p1.Email
+FROM Person p1 INNER JOIN Person p2
+ON p1.Email=p2.Email AND p1.Id>p2.Id;
 
-+-----------+
-| Customers |
-+-----------+
-| Henry     |
-| Max       |
-+-----------+
+CREATE TABLE `Person` (
+  `Id` int(11) NOT NULL AUTO_INCREMENT,
+  `Email` char(50) NOT NULL,
+  PRIMARY KEY (`Id`)
+) ENGINE=InnoDB;
+
+INSERT INTO Person VALUES (1, "john@example.com"), (2, "bob@example.com"), (3, "john@example.com");
 
 SELECT Name
 FROM Customers LEFT JOIN Orders

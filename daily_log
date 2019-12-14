@@ -116,7 +116,10 @@
 },
 20191213={
     leetcode={sql:[183], cpp:[33, 34, 35]}
-}
+},
+20191214={
+    leetcode={sql:[196], cpp:[39, 40, 48]}
+},
 
 
 
@@ -128,13 +131,4 @@
 need improved:(解法不符合题意或者cheat)
 leetcode={
     cpp:[7, 8, 29]
-}
-
-
-to be implemented：
-leetcode={
-    10,30,44,
-},
-machine_test_guide={
-    507， 601
 }

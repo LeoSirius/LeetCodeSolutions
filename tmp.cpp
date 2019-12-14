@@ -1,45 +1,41 @@
-#include<iostream>
-#include<vector>
+#include <iostream>
+#include <vector>
 using namespace std;
 
 class Solution {
 public:
-    int searchInsert(vector<int>& nums, int target) {
-        if (nums.size() == 0) return -1;
-        int left = 0, right = nums.size() - 1;
-        int mid;
-        while(left <= right){
-            mid = left + (right - left) / 2;
-            if(nums[mid] == target) return mid;
-            else if(target > nums[mid]) left = mid + 1;
-            else right = mid - 1;
+    void rotate(vector<vector<int>>& matrix) {
+        reverse(matrix.begin(), matrix.end());
+        for (int i = 0; i < matrix.size(); i++) {
+            for (int j = i + 1; j < matrix[i].size(); j++)
+                swap(matrix[i][j], matrix[j][i]);
         }
-        return left;
     }
 };
 
-void test(string test_name, vector<int> &nums, int target, int expected)
+void test(string test_name, vector<vector<int>> matrix, vector<vector<int>> &expected)
 {
     Solution s;
-    if (s.searchInsert(nums, target) == expected) {
+    s.rotate(matrix);
+    if (matrix == expected) {
         cout << test_name << " success." << endl;
     } else {
         cout << test_name << " failed." << endl;
     }
-
 }
 
 int main()
 {
-    vector<int> nums1 = {1, 3, 5, 6};
-    int target1 = 2;
-    int expected1 = 1;
-    test("test1", nums1, target1, expected1);
-
-    vector<int> nums2 = {1,3,5,6};
-    int target2 = 7;
-    int expected2 = 4;
-    test("test2", nums2, target2, expected2);
-
+    vector<vector<int>> matrix1 = {
+        {1,2,3},
+        {4,5,6},
+        {7,8,9},
+    };
+    vector<vector<int>> expected1 = {
+        {7,4,1},
+        {8,5,2},
+        {9,6,3},
+    };
+    test("test1", matrix1, expected1);
     return 0;
 }
