@@ -1,5 +1,7 @@
 ### 思路1 dp
 
-`maxSubArray(int A[], int i)`表示包含了A[i]统计的最大子列和。
+`dp[i]`表示包含了nums[i]这个元素的最大子列和，不是`nums[0, i]`中的最大子列和。
 
-`maxSubArray(A, i) = maxSubArray(A, i - 1) > 0 ? maxSubArray(A, i - 1) : 0 + A[i];`
+`dp[i] = max(0, dp[i-1]) + nums[i]`
+
+所以我们还要对dp中的每个元素检查，找到最大的元素。那个最大的元素才是整个nums的最大子列和。

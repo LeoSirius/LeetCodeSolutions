@@ -1,0 +1,50 @@
+// 2019-06-28开始
+// leetcode 按topics来做，现阶段所有topics中不做hard, 
+// 周末集中做hard
+
+// 正在做的round
+[
+    [mysql 1-20(easy)],
+    [array 1-20(easy,mid)],
+    [dp 1-10(easy,mid)]
+]
+
+// 已经做完的round
+[
+    [array 1-40(easy,mid), 2019-12-10],
+]
+
+
+20191209={
+    leetcode={sql:[177], cpp:[105, 106, 118, 119]},
+},
+20191210={
+    leetcode={sql:[178], cpp:[120, 121, 122, 152, 1, 11, 15]}
+},
+20191211={
+    leetcode={sql:[181], cpp:[16, 18, ]}
+},
+20191212={
+    leetcode={sql:[182], cpp:[26, 27, 31]}
+},
+20191213={
+    leetcode={sql:[183], cpp:[33, 34, 35]}
+},
+20191214={
+    leetcode={sql:[196], array:[39, 40, 48, 53, 54]}
+},
+20191215={
+    leetcode={sql:[511, 512], dp:[05, 53, ]}
+}
+
+
+
+
+
+
+
+
+need improved:(解法不符合题意或者cheat)
+leetcode={
+    cpp:[7, 8, 29]
+}
