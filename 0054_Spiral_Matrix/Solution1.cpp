@@ -23,6 +23,7 @@ public:
             col_end--;
             if (row_begin <= row_end) {
                 // row_begin <= row_end， 说明还有行，因此可以left扫描
+                // 这里需要检查，是因为while中的条件是等于，而在第一个for之后，row_begin++
                 for (int i = col_end; i >= col_begin; i--) {
                     res.push_back(matrix[row_end][i]);
                 }

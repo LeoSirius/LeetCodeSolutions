@@ -1,16 +1,16 @@
-#include<iostream>
-#include<vector>
+#include <iostream>
+#include <vector>
 using namespace std;
 
 class Solution {
 public:
     int maxSubArray(vector<int>& nums) {
-        int res = nums[0];
-        int sum = 0;
-        for (int i = 0; i < nums.size(); i++) {
-            sum += nums[i];
-            res = max(sum, res);
-            sum = max(sum, 0);
+        vector<int> dp(nums.size());    //dp[i] means the maximum subarray ending with A[i];
+        dp[0] = nums[0];
+        int res = dp[0];
+        for (int i = 1; i < nums.size(); i++) {
+            dp[i] = max(0, dp[i-1]) + nums[i];
+            res = max(res, dp[i]);
         }
         return res;
     }

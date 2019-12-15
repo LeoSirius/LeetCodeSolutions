@@ -1,3 +1,0 @@
-UPDATE share_uploadlinkshare 
-set expire_date = 
-ADDTIME (date('2019-07-01') + interval 0 hour,time(expire_date));
