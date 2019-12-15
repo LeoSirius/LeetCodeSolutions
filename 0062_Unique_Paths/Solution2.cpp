@@ -1,19 +1,16 @@
 #include <iostream>
-#include <vector>
 using namespace std;
 
 class Solution {
 public:
     int uniquePaths(int m, int n) {
-        vector<int> dp(n, 1);
-        for (int i = 1; i < m; i++) {
-            for (int j = 1; j < n; j++) {
-                dp[j] += dp[j-1];
-                cout << dp[j] << " ";
-            }
-            cout << endl;
-        }
-        return dp[n-1];
+        long int res = 1;
+        int N = m + n - 2;
+        int k = m - 1;
+        for (int i = 1; i <= k; i++)
+            res = res * (N - k + i) / i;
+        
+        return res;
     }
 };
 
