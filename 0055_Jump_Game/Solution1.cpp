@@ -34,5 +34,4 @@ int main()
     test("test2", nums2, expected2);
 
     return 0;
-
 }

@@ -1,14 +1,64 @@
-SELECT 
+Select all employee s name and bonus whose bonus is < 1000.
 
-DELETE p1.Email
-FROM Person p1 INNER JOIN Person p2
-ON p1.Email=p2.Email AND p1.Id>p2.Id;
+SELECT e.name, b.bonus
+FROM Employee e LEFT JOIN Bonus b
+ON e.empId=b.empId
+WHERE b.bonus < 1000 OR b.bonus IS NULL;
 
-CREATE TABLE `Person` (
+Table:Employee
+
++-------+--------+-----------+--------+
+| empId |  name  | supervisor| salary |
++-------+--------+-----------+--------+
+|   1   | John   |  3        | 1000   |
+|   2   | Dan    |  3        | 2000   |
+|   3   | Brad   |  null     | 4000   |
+|   4   | Thomas |  3        | 4000   |
++-------+--------+-----------+--------+
+empId is the primary key column for this table.
+Table: Bonus
+
++-------+-------+
+| empId | bonus |
++-------+-------+
+| 2     | 500   |
+| 4     | 2000  |
++-------+-------+
+empId is the primary key column for this table.
+Example ouput:
+
++-------+-------+
+| name  | bonus |
++-------+-------+
+| John  | null  |
+| Dan   | 500   |
+| Brad  | null  |
++-------+-------+
+
+CREATE TABLE `Employee` (
   `Id` int(11) NOT NULL AUTO_INCREMENT,
-  `Email` char(50) NOT NULL,
+  `Name` char(50) NOT NULL,
+  `supervisor` int(50),
+  `salary` int(50) NOT NULL,
   PRIMARY KEY (`Id`)
 ) ENGINE=InnoDB;
+
+INSERT INTO Employee VALUES
+(1, "John", 3, 1000),
+(2, "Dan", 3, 2000),
+(3, "Brad", null, 4000),
+(4, "Thomas", 3, 4000);
+
+CREATE TABLE `Bonus` (
+  `Id` int(11) NOT NULL,
+  `bonus` int(50) NOT NULL,
+  PRIMARY KEY (`Id`, `bonus`)
+) ENGINE=InnoDB;
+
+INSERT INTO Bonus VALUES
+(2, 500),
+(4, 2000);
+
 
 INSERT INTO Person VALUES (1, "john@example.com"), (2, "bob@example.com"), (3, "john@example.com");
 
