@@ -3,31 +3,30 @@
 using namespace std;
 
 class Solution {
-    static bool compare_first_element(vector<int> a, vector<int> b)
-    {
-        return a[0] < b[0];
-    }
 public:
-    vector<vector<int>> merge(vector<vector<int>>& intervals) {
-        vector<vector<int>> res;
-        if (intervals.size() == 0) return res;
-        sort(intervals.begin(), intervals.end(), compare_first_element);
-        res.push_back(intervals[0]);
-        for (int i = 1; i < intervals.size(); i++) {
-            if (res.back()[1] < intervals[i][0]) {
-                res.push_back(intervals[i]);
-            } else {
-                res.back()[1] = max(res.back()[1], intervals[i][1]);
+    int minPathSum(vector<vector<int>>& grid) {
+
+        int m = grid.size();
+        int n = grid[0].size();
+        vector<int> dp(n, grid[0][0]);
+        // 第一行
+        for (int i = 1; i < n; i++) {
+            dp[i] = dp[i-1] + grid[0][i];
+        }
+        for (int i = 1; i < m; i++) {
+            dp[0] += grid[i][0];
+            for (int j = 1; j < n; j++) {
+                dp[j] = min(dp[j-1], dp[j]) + grid[i][j];
             }
         }
-        return res;
+        return dp[n-1];
     }
 };
 
-void test(string test_name, vector<vector<int>> &intervals, vector<vector<int>> &expected)
+void test(string test_name, vector<vector<int>> &grid, int expected)
 {
     Solution s;
-    if (s.merge(intervals) == expected) {
+    if (s.minPathSum(grid) == expected) {
         cout << test_name << " success." << endl;
     } else {
         cout << test_name << " failed." << endl;
@@ -36,33 +35,13 @@ void test(string test_name, vector<vector<int>> &intervals, vector<vector<int>> 
 
 int main()
 {
-    vector<vector<int>> intervals1 = {
-        {1,3},
-        {2,6},
-        {8,10},
-        {15,18}
+    vector<vector<int>> grid1 = {
+        {1,3,1},
+        {1,5,1},
+        {4,2,1},
     };
-    vector<vector<int>> expected1 = {
-        {1,6},
-        {8,10},
-        {15,18}
-    };
-    test("test1", intervals1, expected1);
-
-    vector<vector<int>> intervals2 = {
-        {1,4},
-        {4,5}
-    };
-    vector<vector<int>> expected2 = {
-        {1,5},
-    };
-    test("test2", intervals2, expected2);
-
-    vector<vector<int>> intervals3 = {
-        {1,4},{0,4}
-    };
-    vector<vector<int>> expected3 = {{0,4}};
-    test("test3", intervals3, expected3);
+    int expected1 = 7;
+    test("test1", grid1, expected1);
 
     return 0;
 }
