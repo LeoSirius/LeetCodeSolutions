@@ -7,16 +7,12 @@ public:
     int climbStairs(int n) {
         if (n == 1) return 1;
         else if (n == 2) return 2;
-
-        int one_before = 2;
-        int two_before = 1;
-        int all_steps;
+        vector<int> dp(n, 1);
+        dp[1] = 2;
         for (int i = 2; i < n; i++) {
-            all_steps = two_before + one_before;
-            two_before = one_before;
-            one_before = all_steps;
+            dp[i] = dp[i-1] + dp[i-2];
         }
-        return all_steps;
+        return dp[n-1];
     }
 };
 
