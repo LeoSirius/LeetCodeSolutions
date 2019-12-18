@@ -26,24 +26,12 @@ class Solution {
         if (start > end) list.push_back(nullptr);
         for (int i = start; i <= end; i++) {
             vector<TreeNode*> left_list = generateTrees(start, i - 1);
-            for (auto i : left_list)
-                if (i)
-                    cout << i->val << endl;
             vector<TreeNode*> right_list = generateTrees(i + 1, end);
-            for (auto i : right_list)
-                if (i)
-                    cout << i->val << endl;
             for (auto left : left_list) {
                 for (auto right : right_list) {
                     TreeNode *root = new TreeNode(i);
                     root->left = left;
                     root->right = right;
-                    // cout << "now push val = " << root->val << " ";
-                    // if (left)
-                    //     cout << "leftval = " << left->val << " ";
-                    // if (right)
-                    //     cout << "rightval = " << right->val << " ";
-                    // cout << endl;
                     list.push_back(root);
                 }
             }
@@ -70,11 +58,6 @@ void test(string test_name, int n, vector<vector<int>> expected1)
 {
     Solution s;
     vector<TreeNode*> trees = s.generateTrees(n);
-    cout << endl;
-    for (auto i : trees) {
-      cout << i->val << " ";
-    }
-    cout << endl;
     vector<vector<int>> res_orders;
     vector<int> res_order;
     for (auto tree : trees) {
@@ -102,7 +85,6 @@ void test(string test_name, int n, vector<vector<int>> expected1)
 int main()
 {
     // use preorder to check result tree
-    // 题目返回的是一个根节点的数组
     int n1 = 3;
     vector<vector<int>> expected1 = {
         {1,3,2},
@@ -111,12 +93,11 @@ int main()
         {2,1,3},
         {1,2,3},
     };
-    // test("test1", n1, expected1);
-    test("test1", 2, expected1);
+    test("test1", n1, expected1);
 
     int n2 = 0;
     vector<vector<int>> expected2;
-    // test("test2", n2, expected2);
+    test("test2", n2, expected2);
 
     return 0;
 }

@@ -1,25 +1,26 @@
-+------+------+-----------+
-| id   | name | referee_id|
-+------+------+-----------+
-|    1 | Will |      NULL |
-|    2 | Jane |      NULL |
-|    3 | Alex |         2 |
-|    4 | Bill |      NULL |
-|    5 | Zack |         1 |
-|    6 | Mark |         2 |
-+------+------+-----------+
-Write a query to return the list of customers NOT referred by the person with id '2'.
+| order_number | customer_number | order_date | required_date | shipped_date | status | comment |
+|--------------|-----------------|------------|---------------|--------------|--------|---------|
+| 1            | 1               | 2017-04-09 | 2017-04-13    | 2017-04-12   | Closed |         |
+| 2            | 2               | 2017-04-15 | 2017-04-20    | 2017-04-18   | Closed |         |
+| 3            | 3               | 2017-04-16 | 2017-04-25    | 2017-04-20   | Closed |         |
+| 4            | 3               | 2017-04-18 | 2017-04-28    | 2017-04-25   | Closed |         |
+Sample Output
 
-For the sample data above, the result is:
+| customer_number |
+|-----------------|
+| 3               |
 
-+------+
-| name |
-+------+
-| Will |
-| Jane |
-| Bill |
-| Zack |
-+------+
+
+CREATE TABLE `Orders` (
+  `order_number` int(11) NOT NULL AUTO_INCREMENT,
+  `customer_number` int(50) NOT NULL,
+  PRIMARY KEY (`order_number`)
+) ENGINE=InnoDB;
+
+INSERT INTO Orders VALUES
+(1, 1),
+(2,2),(3,3),(4,3);
+
 
 SELECT name
 FROM customers
