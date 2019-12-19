@@ -5,13 +5,14 @@
 // 正在做的round
 [
     [mysql 1-20(easy)],
-    [dp 1-10(easy,mid)]
+    [math 1-10(easy,mid)]
 ]
 
 // 已经做完的round
 [
     [array 1-40(easy,mid), 2019-12-10],
     [array 1-20(easy,mid), 2019-12-16],
+    [dp 1-10(easy,mid), 2019-12-19],
 ]
 
 
@@ -22,7 +23,10 @@
     leetcode={sql:[584], dp:[70]}
 },
 20191218={
-    leetcode={sql:[586], dp:[91, 95, ]}
+    leetcode={sql:[586], dp:[91, 95]}
+},
+20191219={
+    leetcode={sql:[595], dp:[96, 120, ] }
 }
 
 

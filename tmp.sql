@@ -1,25 +1,31 @@
-| order_number | customer_number | order_date | required_date | shipped_date | status | comment |
-|--------------|-----------------|------------|---------------|--------------|--------|---------|
-| 1            | 1               | 2017-04-09 | 2017-04-13    | 2017-04-12   | Closed |         |
-| 2            | 2               | 2017-04-15 | 2017-04-20    | 2017-04-18   | Closed |         |
-| 3            | 3               | 2017-04-16 | 2017-04-25    | 2017-04-20   | Closed |         |
-| 4            | 3               | 2017-04-18 | 2017-04-28    | 2017-04-25   | Closed |         |
-Sample Output
 
-| customer_number |
-|-----------------|
-| 3               |
+There is a table World
 
++-----------------+------------+------------+--------------+---------------+
+| name            | continent  | area       | population   | gdp           |
++-----------------+------------+------------+--------------+---------------+
+| Afghanistan     | Asia       | 652230     | 25500100     | 20343000      |
+| Albania         | Europe     | 28748      | 2831741      | 12960000      |
+| Algeria         | Africa     | 2381741    | 37100000     | 188681000     |
+| Andorra         | Europe     | 468        | 78115        | 3712000       |
+| Angola          | Africa     | 1246700    | 20609294     | 100990000     |
++-----------------+------------+------------+--------------+---------------+
+A country is big if it has an area of bigger than 3 million square km or a population of more than 25 million.
 
-CREATE TABLE `Orders` (
-  `order_number` int(11) NOT NULL AUTO_INCREMENT,
-  `customer_number` int(50) NOT NULL,
-  PRIMARY KEY (`order_number`)
-) ENGINE=InnoDB;
+Write a SQL solution to output big countries' name, population and area.
 
-INSERT INTO Orders VALUES
-(1, 1),
-(2,2),(3,3),(4,3);
+For example, according to the above table, we should output:
+
++--------------+-------------+--------------+
+| name         | population  | area         |
++--------------+-------------+--------------+
+| Afghanistan  | 25500100    | 652230       |
+| Algeria      | 37100000    | 2381741      |
++--------------+-------------+--------------+
+
+SELECT name, population, area
+FROM World
+WHERE area >= 3000000 or population >= 25000000;
 
 
 SELECT name
