@@ -26,7 +26,10 @@
     leetcode={sql:[586], dp:[91, 95]}
 },
 20191219={
-    leetcode={sql:[595], dp:[96, 120, ] }
+    leetcode={sql:[595], dp:[96, 120]}
+},
+20191220={
+    leetcode={sql:[596], math:[2, 7, 8, 9,]}
 }
 
 
@@ -38,5 +41,5 @@
 
 need improved:(解法不符合题意或者cheat)
 leetcode={
-    cpp:[7, 8, 29]
+    cpp:[8, 29]
 }
