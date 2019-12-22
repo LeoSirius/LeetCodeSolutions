@@ -1,11 +1,11 @@
-#include<iostream>
-#include<map>
+#include <iostream>
+#include <unordered_map>
 using namespace std;
 
 class Solution {
 public:
     int romanToInt(string s) {
-        map<char, int> roman2int = {
+        unordered_map<char, int> roman2int = {
             {'I', 1},
             {'V', 5},
             {'X', 10},
@@ -22,8 +22,7 @@ public:
                 res -= roman2int[s[i]];
             }
         }
-        res += roman2int[s[s.size()-1]];
-        return res;
+        return res + roman2int[s[s.size()-1]];
     }
 };
 

@@ -1,46 +1,43 @@
 #include <iostream>
+#include <unordered_map>
 using namespace std;
 
 class Solution {
 public:
-    bool isPalindrome(int x) {
-        if (x < 0 || (x != 0 && x % 10 == 0)) return false;
-        int pal = 0;
-        while (pal < x) {
-            pal = pal * 10 + x % 10;
-            x /= 10;
+    int romanToInt(string s) {
+        unordered_map<char, int> roman2int = {
+            {'I', 1},
+            {'V', 5},
+            {'X', 10},
+            {'L', 50},
+            {'C', 100},
+            {'D', 500},
+            {'M', 1000},
+        };
+        int res = 0;
+        for (int i = 0; i < s.size() - 1; i++) {
+            if (roman2int[s[i]] >= roman2int[s[i+1]]) {
+                res += roman2int[s[i]];
+            } else {
+                res -= roman2int[s[i]];
+            }
         }
-        return pal == x || pal / 10 == x;
+        return res + roman2int[s[s.size()-1]];
     }
 };
 
-void test(string test_name, int x, bool expected)
+void test(string test_name, string s, int expected)
 {
-    Solution s;
-    if (s.isPalindrome(x) == expected) {
-        cout << test_name << " success." << endl;
+    Solution solution;
+    if (solution.romanToInt(s) == expected) {
+        cout << test_name << " success. " << endl;
     } else {
-        cout << test_name << " failed." << endl;
+        cout << test_name << " failed. " << endl;
     }
 }
 
 int main()
 {
-    int x1 = 121;
-    bool expected1 = true;
-    test("test1", x1, expected1);
-
-    int x2 = -121;
-    bool expected2 = false;
-    test("test2", x2, expected2);
-
-    int x3 = 10;
-    bool expected3 = false;
-    test("test3", x3, expected3);
-
-    int x4 = 0;
-    bool expected4 = true;
-    test("test4", x4, expected4);
-
+    test("test1", "MCMXCIV", 1994);
     return 0;
 }
