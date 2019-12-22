@@ -50,6 +50,15 @@ CREATE TABLE `Employee` (
   PRIMARY KEY (`Id`)
 ) ENGINE=InnoDB;
 
+CREATE TABLE `cinema` (
+  `seat_id` int(11) NOT NULL AUTO_INCREMENT,
+  `free` int(50) NOT NULL,
+  PRIMARY KEY (`seat_id`)
+) ENGINE=InnoDB;
+
+INSERT INTO cinema VALUES
+(1,1),(2,0),(3,1),(4,1),(5,1);
+
 INSERT INTO Employee VALUES
 (1, "John", 3, 1000),
 (2, "Dan", 3, 2000),
