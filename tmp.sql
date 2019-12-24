@@ -50,6 +50,12 @@ CREATE TABLE `Employee` (
   PRIMARY KEY (`Id`)
 ) ENGINE=InnoDB;
 
+CREATE TABLE `Employee` (
+  `Id` int(11) NOT NULL AUTO_INCREMENT,
+  `Salary` int(50) NOT NULL,
+  PRIMARY KEY (`Id`)
+) ENGINE=InnoDB;
+
 CREATE TABLE `cinema` (
   `seat_id` int(11) NOT NULL AUTO_INCREMENT,
   `free` int(50) NOT NULL,
