@@ -1,22 +1,20 @@
-
-#include<iostream>
-#include<vector>
+#include <iostream>
+#include <vector>
 using namespace std;
 
 class Solution {
 public:
     string longestCommonPrefix(vector<string>& strs) {
-        string prefix = "";
-        // p 表示列号。对每一列，遍历所有字符串
-        for (int p = 0; strs.size() > 0; prefix += strs[0][p++]) {
-            for (int i = 0 ; i < strs.size(); i++) {
-                // p已经走到了最短那个字符串的尽头 or
-                // p列有字符不同， 则返回
-                if (p >= strs[i].size() || (i > 0 && strs[i][p] != strs[i-1][p]))
-                    return prefix;
+        string res = "";
+        for (int col = 0; strs.size() > 0; res += strs[0][col++]) {
+            for (int row = 0; row < strs.size(); row++) {
+                // col已经走到了最短那个字符串的尽头 or
+                // col有字符不同， 则返回
+                if (col >= strs[row].size() || row > 0 && strs[row][col] != strs[row-1][col])
+                    return res;
             }
         }
-        return prefix;
+        return res;
     }
 };
 

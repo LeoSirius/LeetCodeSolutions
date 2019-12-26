@@ -5,6 +5,7 @@
 // 正在做的round
 [
     [mysql 1-20(easy)],
+    [string 1-10(easy,mid)]
     
 ]
 
@@ -44,6 +45,12 @@
 },
 20191224={
     leetcode={math:[60], }
+},
+20191225={
+    leetcode={string:[3, 5, 6, 8,]}
+},
+20191226={
+    leetcode={string:[12, 13, 14, 17]}
 }
 
 
