@@ -1,35 +1,14 @@
-There is a table courses with columns: student and class
 
-Please list out all classes which have more than or equal to 5 students.
 
-For example, the table:
+CREATE TABLE `Weather` (
+  `Id` int(11) NOT NULL AUTO_INCREMENT,
+  `RecordDate` datetime(6) NOT NULL,
+  `Temperature` int(11) NOT NULL,
+  PRIMARY KEY (`Id`)
+) ENGINE=InnoDB;
 
-+---------+------------+
-| student | class      |
-+---------+------------+
-| A       | Math       |
-| B       | English    |
-| C       | Math       |
-| D       | Biology    |
-| E       | Math       |
-| F       | Computer   |
-| G       | Math       |
-| H       | Math       |
-| I       | Math       |
-+---------+------------+
-
-SELECT class
-FROM courses
-GROUP BY class
-HAVING COUNT( DISTINCT student) >= 5;
-
-Should output:
-
-+---------+
-| class   |
-+---------+
-| Math    |
-+---------+
+INSERT INTO Weather VALUES 
+(1, "2015-01-01", 10), (2, 2015-01-02, 25), (3, 2015-01-03, 20), (4, 2015-01-04, 30);
 
 
 SELECT name, population, area

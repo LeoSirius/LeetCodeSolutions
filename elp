@@ -57,7 +57,7 @@
     leetcode={string:[20, 22], sql:[182, 183, 196]}
 },
 20191228={
-    leetcode={tree:[94, 95, 96, 98]}
+    leetcode={tree:[94, 95, 96, 98], sql:[197, 511, ]}
 }
 
 
