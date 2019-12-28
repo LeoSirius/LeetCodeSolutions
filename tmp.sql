@@ -41,6 +41,18 @@ SELECT name
 FROM customers
 WHERE referee_id != 2;
 
+CREATE TABLE `Customers` (
+  `Id` int(11) NOT NULL AUTO_INCREMENT,
+  `Name` char(50) NOT NULL,
+  PRIMARY KEY (`Id`)
+) ENGINE=InnoDB;
+
+CREATE TABLE `Orders` (
+  `Id` int(11) NOT NULL AUTO_INCREMENT,
+  `CustomerId` int(11) NOT NULL,
+  PRIMARY KEY (`Id`)
+) ENGINE=InnoDB;
+
 
 CREATE TABLE `Employee` (
   `Id` int(11) NOT NULL AUTO_INCREMENT,
@@ -81,6 +93,11 @@ INSERT INTO Bonus VALUES
 (2, 500),
 (4, 2000);
 
+CREATE TABLE `Person` (
+  `Id` int(11) NOT NULL,
+  `Email` varchar(255) NOT NULL,
+  PRIMARY KEY (`Id`)
+) ENGINE=InnoDB;
 
 INSERT INTO Person VALUES (1, "john@example.com"), (2, "bob@example.com"), (3, "john@example.com");
 

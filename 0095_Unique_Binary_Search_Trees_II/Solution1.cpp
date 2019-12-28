@@ -22,21 +22,22 @@ struct TreeNode {
 class Solution {
     vector<TreeNode*> generateTrees(int start, int end)
     {
-        vector<TreeNode*> list;
-        if (start > end) list.push_back(nullptr);
+        vector<TreeNode*> root_list;
+        // 这里加个空指针，保证下面双重循环的时候能够进得去。
+        if (start > end) root_list.push_back(nullptr);
         for (int i = start; i <= end; i++) {
-            vector<TreeNode*> left_list = generateTrees(start, i - 1);
-            vector<TreeNode*> right_list = generateTrees(i + 1, end);
-            for (auto left : left_list) {
-                for (auto right : right_list) {
+            vector<TreeNode*> left_root_list = generateTrees(start, i - 1);
+            vector<TreeNode*> right_root_list = generateTrees(i + 1, end);
+            for (auto left : left_root_list) {
+                for (auto right : right_root_list) {
                     TreeNode *root = new TreeNode(i);
                     root->left = left;
                     root->right = right;
-                    list.push_back(root);
+                    root_list.push_back(root);
                 }
             }
         }
-        return list;
+        return root_list;
     }
 public:
     vector<TreeNode*> generateTrees(int n) {
