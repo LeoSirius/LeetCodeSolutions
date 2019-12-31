@@ -5,7 +5,7 @@
 // 正在做的round
 [
     [mysql 1-20(easy)],
-    [tree 1-10(easy, mid)],
+    [hash_table 1-10(easy, mid)],
     
 ]
 
@@ -17,6 +17,7 @@
     [mysql 1-20(easy), 2019-12-22],
     [math 1-10(easy,mid), 2019-12-24],
     [string 1-10(easy,mid), 2019-12-27],
+    [tree 1-10(easy, mid), 2019-12-31],
 ]
 
 
@@ -66,7 +67,7 @@
     leetcode={tree:[100, 101, 102, ], mysql:[595, 596]}
 },
 20191231={
-    leetcode={tree:[103, 104, 105, ]}
+    leetcode={tree:[103, 104, 105], hash_table:[1]}
 },
 
 
