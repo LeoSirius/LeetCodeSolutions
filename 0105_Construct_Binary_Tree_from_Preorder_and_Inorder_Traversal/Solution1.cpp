@@ -1,15 +1,6 @@
-#include<iostream>
-#include<vector>
+#include <iostream>
+#include <vector>
 using namespace std;
-/**
- * Definition for a binary tree node.
- * struct TreeNode {
- *     int val;
- *     TreeNode *left;
- *     TreeNode *right;
- *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
- * };
- */
 
 struct TreeNode {
     int val;
@@ -19,36 +10,34 @@ struct TreeNode {
 };
 
 class Solution {
-    vector<int> my_preorder;
-    vector<int> my_inorder;
-    TreeNode *build_tree(int pb, int pe, int ib, int ie)
+    vector<int> pre;
+    vector<int> in;
+    TreeNode *build_tree(int p1, int p2, int i1, int i2)
     {
-        // TreeNode *node;
-        TreeNode *node = new TreeNode(my_preorder[pb]);
-        int root_idx_in_in = ib;
-        for (int i = ib; i <= ie; i++) {
-            if (my_inorder[i] == node->val) {
-                root_idx_in_in = i;
+        TreeNode *node = new TreeNode(pre[p1]);
+        int root_idx = i1;
+        for (int i = i1; i <= i2; i++) {
+            if (in[i] == node->val) {
+                root_idx = i;
                 break;
             }
         }
-
-        int left_node_num = root_idx_in_in - ib;
-        if (root_idx_in_in > ib) {
-            node->left = build_tree(pb + 1, pb + left_node_num, ib, root_idx_in_in - 1);
+        int left_cnt = root_idx - i1;
+        int right_cnt = i2 - root_idx;
+        if (root_idx > i1) {
+            node->left = build_tree(p1+1, p1+left_cnt, i1, root_idx-1);
         }
-        if (root_idx_in_in < ie) {
-            node->right = build_tree(pb + left_node_num + 1, pe, root_idx_in_in + 1, ie);
+        if (root_idx < i2) {
+            node->right = build_tree(p1+left_cnt+1, p2, root_idx+1, i2);
         }
         return node;
     }
 public:
     TreeNode* buildTree(vector<int>& preorder, vector<int>& inorder) {
-        if (preorder.size() != inorder.size() || preorder.size() == 0 || inorder.size() == 0)
-            return nullptr;
-        my_preorder = preorder;
-        my_inorder = inorder;
-        return build_tree(0, my_preorder.size() - 1, 0, my_inorder.size() - 1);
+        pre = preorder;
+        in = inorder;
+        if (pre.size() != in.size() || pre.size() == 0) return nullptr;
+        return build_tree(0, preorder.size()-1, 0, inorder.size()-1);
     }
 };
 
