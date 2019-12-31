@@ -67,7 +67,7 @@
     leetcode={tree:[100, 101, 102, ], mysql:[595, 596]}
 },
 20191231={
-    leetcode={tree:[103, 104, 105], hash_table:[1]}
+    leetcode={tree:[103, 104, 105], hash_table:[1], mysql:[597]}
 },
 
 
