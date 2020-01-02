@@ -1,4 +1,22 @@
-## 思路1 利用递归化解为2sum
+## 思路1 思路同3sum，只是多了一重循环
+
+我们查重检查的是同一个索引指向的下一个元素和当前元素是否相同。而不是i和j和l和r所指的元素是否相同
+
+vector<int> nums2 = {-3,-2,-1,0,0,1,2,3};
+int target2 = 0;
+vector<vector<int>> expected2 = {
+    {-3,-2,2,3},
+    {-3,-1,1,3},
+    {-3,0,0,3},
+    {-3,0,1,2},
+    {-2,-1,0,3},
+    {-2,-1,1,2},
+    {-2,0,0,2},   这里有两个0是因为j和l都是0。
+    {-1,0,0,1}
+};
+
+
+## 思路2 利用递归化解为2sum
 
 注意我们是排好序的，所以在一开始可以直接把一些情况pass掉
 
@@ -33,41 +51,3 @@ class Solution:
         return results
 ```
 
-## 思路2 思路同3sum，只是多了一重循环
-
-这个思路关键是处理好重复的跳过。由于我们是从左边往右边遍历的，所以需要往左移的case直接pass掉。
-
-```cpp
-class Solution {
-public:
-    vector<vector<int>> fourSum(vector<int>& nums, int target) {
-        vector<vector<int>> res;
-        if (nums.size() < 4) return res;
-        sort(nums.begin(), nums.end());
-
-        for (int i = 0; i < nums.size() - 3; i++) {
-            if (i > 0 && nums[i] == nums[i-1]) continue;
-            int three_target = target - nums[i];
-
-            for (int j = i + 1; j < nums.size() - 2; j++) {
-                if (j > i+1 && nums[j] == nums[j-1]) continue;
-                int two_target = three_target - nums[j];
-                int l, r;
-                l = j + 1; r = nums.size() - 1;
-                while (l < r) {
-                    int left, right;
-                    left = nums[l];;
-                    right = nums[r];
-                    if (left + right == two_target) {
-                        res.push_back(vector<int> {nums[i], nums[j], left, right});
-                        while (l < r && nums[l] == left) l++;
-                        while (l < r && nums[r] == right) r--; 
-                    } else if (left + right < two_target) l++;
-                    else r--;
-                }
-            }
-        }
-        return res;
-    }
-};
-```
