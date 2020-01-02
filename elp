@@ -74,7 +74,7 @@
     leetcode={mysql:[603, 607, 610, 613, 619]}
 },
 20200102={
-    leetcode={hash_table:[3, 18, 36]}
+    leetcode={hash_table:[3, 18, 36, 49, 94]}
 }
 
 
