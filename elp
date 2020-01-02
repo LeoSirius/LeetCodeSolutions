@@ -6,7 +6,7 @@
 [
     
     [hash_table 1-10(easy, mid)],
-    
+    [mysql 1-20(easy)]
 ]
 
 // 已经做完的round
@@ -74,8 +74,8 @@
     leetcode={mysql:[603, 607, 610, 613, 619]}
 },
 20200102={
-    leetcode={hash_table:[3, 18, 36, 49, 94]}
-}
+    leetcode={hash_table:[3, 18, 36, 49, 94], mysql:[175, 176, 181, 182, 183]}
+},
 
 
 need improved:(解法不符合题意或者cheat)
