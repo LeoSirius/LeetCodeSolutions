@@ -76,6 +76,9 @@
 20200102={
     leetcode={hash_table:[3, 18, 36, 49, 94], mysql:[175, 176, 181, 182, 183]}
 },
+20200103={
+    leetcode={hash_table:[136, 138, 159, ]}
+},
 
 
 need improved:(解法不符合题意或者cheat)
