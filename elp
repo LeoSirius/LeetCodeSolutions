@@ -81,7 +81,7 @@
     leetcode={hash_table:[136, 138, 159, ]}
 },
 20200104={
-    leetcode={hash_table:[166], }
+    leetcode={hash_table:[166], mysql:[196, 197, 511, 512, 577]}
 }
 
 
