@@ -1,41 +1,25 @@
 #include <iostream>
-#include <unordered_map>
+#include <vector>
 using namespace std;
 
 class Solution {
 public:
-    string fractionToDecimal(int numerator, int denominator) {
-        if (!numerator) return "0";
-        string res = "";
-
-        if (numerator > 0 ^ denominator > 0) {
-            res += "-";
-        }
-        // 防止溢出
-        long long n = abs((long long)numerator), d = abs((long long)denominator), r = n % d;
-        res += to_string(n / d);
-        if (!r) return res;
-
-        res += ".";
-        unordered_map<long long, int> mp;
-        while (r) {
-            if (mp.find(r) != mp.end()) {
-                res.insert(mp[r], "(");
-                res += ")";
-                break;
-            }
-            mp[r] = res.size();
-            r *= 10;
-            res += to_string(r / d);
-            r %= d;
-        }
-        return res;
+    int uniquePathsWithObstacles(vector<vector<int> > &obstacleGrid) {
+        int m = obstacleGrid.size(), n = obstacleGrid[0].size();
+        vector<vector<long long>> dp(m+1, vector<long long>(n+1,0));
+        dp[1][0] = 1;
+        for (int i = 1 ; i <= m ; ++i)
+            for (int j = 1 ; j <= n ; ++j)
+                if (!obstacleGrid[i-1][j-1])
+                    dp[i][j] = dp[i-1][j]+dp[i][j-1];
+        return dp[m][n];
     }
 };
 
-void test(string test_name, int numerator, int denominator, string expected)
+void test(string test_name, vector<vector<int>> &obstacleGrid, int expected)
 {
-    if (Solution().fractionToDecimal(numerator, denominator) == expected) {
+    Solution s;
+    if (s.uniquePathsWithObstacles(obstacleGrid) == expected) {
         cout << test_name << " success." << endl;
     } else {
         cout << test_name << " failed." << endl;
@@ -44,25 +28,21 @@ void test(string test_name, int numerator, int denominator, string expected)
 
 int main()
 {
-    int numerator1 = 1;
-    int denominator1 = 2;
-    string expected1 = "0.5";
-    test("test1", numerator1, denominator1, expected1);
+    vector<vector<int>> obstacleGrid1 = {
+        {0,0,0},
+        {0,1,0},
+        {0,0,0}
+    };
+    int expected1 = 2;
+    test("test1", obstacleGrid1, expected1);
 
-    int numerator2 = 2;
-    int denominator2 = 1;
-    string expected2 = "2";
-    test("test2", numerator2, denominator2, expected2);
+    vector<vector<int>> obstacleGrid2 = {{1}};
+    int expected2 = 0;
+    test("test2", obstacleGrid2, expected2);
 
-    int numerator3 = 2;
-    int denominator3 = 3;
-    string expected3 = "0.(6)";
-    test("test3", numerator3, denominator3, expected3);
-
-    int numerator4 = 4;
-    int denominator4 = 333;
-    string expected4 = "0.(012)";
-    test("test4", numerator4, denominator4, expected4);
+    vector<vector<int>> obstacleGrid3 = {{1, 0}};
+    int expected3 = 0;
+    test("test3", obstacleGrid3, expected3);
 
     return 0;
 }

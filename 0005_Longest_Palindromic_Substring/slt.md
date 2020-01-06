@@ -2,8 +2,10 @@
 
 dp(i, j) represents whether s(i ... j) can form a palindromic substring, dp(i, j) is true when s(i) equals to s(j) and s(i+1 ... j-1) is a palindromic substring. When we found a palindrome, check if it's the longest one. Time complexity O(n^2).
 
-`dp[i][j]`代表`s[i,j]`是否是回文。
-如果`s[i] == s[j]`且`s[i+1, j-1]`是回文，则`s[i,j]`是回文。
+`dp[l][r]`代表`s[l,r]`是否是回文。
+如果`s[l] == s[r]`且`s[r+1, l-1]`是回文，则`s[l,r]`是回文。
+
+如果`s[l] == s[r]`且`r-l<=2`，则`s[l,r]`是回文。如aba或aa。
 
 ## 思路2 中心散开法
 
