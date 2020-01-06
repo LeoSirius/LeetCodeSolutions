@@ -7,7 +7,7 @@
     
     
     [mysql 1-20(easy)],
-    [dp 1-10(easy, mid)],
+    [math 1-10(easy, mid)],
 ]
 
 // 已经做完的round
@@ -21,6 +21,7 @@
     [tree 1-10(easy, mid), 2019-12-31],
     [mysql 1-20(easy), 2020-01-01],
     [hash_table 1-10(easy, mid), 2020-01-04],
+    [dp 1-10(easy, mid), 2020-01-06],
 ]
 
 
@@ -85,7 +86,7 @@
     leetcode={hash_table:[166], mysql:[196, 197, 511, 512, 577]}
 },
 20200106={
-    leetcode={dp:[5, 53, 62, 63]}
+    leetcode={dp:[5, 53, 62, 63, 64, 70, 91, 95, 96, 120], math:[2, ]}
 }
 
 
