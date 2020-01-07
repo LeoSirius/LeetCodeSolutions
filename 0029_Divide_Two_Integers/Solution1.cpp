@@ -12,16 +12,19 @@ public:
                 return dividend;
             else {
                 // divisor 不是+-1
-                // divisor 是奇数 divide(dividend+1,divisor)，dividend(-2147483647， divisor)
+                // divisor 是奇数, divisor绝对值>=3, 最后会取整，所以dividend+1不影响结果 divide(dividend+1,divisor)，dividend(-2147483647， divisor)
                 // divisor 是偶数 divide(dividend>>1,divisor>>1), 即双方都除以2再运算，INT_MIN本身是偶数
                 return ((divisor & 1) == 1) ? divide(dividend+1,divisor) : divide(dividend>>1,divisor>>1);
             }
         }
-        if (divisor == INT_MIN) return 0;  // 因为最后是要取整的，所以这个必然是0
+
+        // 因为最后是要取整的，所以这个必然是0
+        // 注意我们先检查了dividend， 如果两个都是INT_MIN，则结果是1
+        if (divisor == INT_MIN) return 0;
 
         int dvd = abs(dividend), dvs = abs(divisor), res = 0, x = 0;
         while (dvd >= dvs) {
-            // dvd >= (dvs << x << 1), 如果dvd=MAX，不成立的条件是MAX <= ...，右边那个溢出了
+            // dvd >= (dvs << x << 1), 如果dvd=MAX，不成立的条件是MAX < ...，右边会溢出
             // 所以写成：(dvd >> 1) >= (dvs << x)
             // after for loop:  dvs*2^x <= dvd < dvs*2^(x+1)
             for (x = 0; (dvd >> 1) - (dvs << x) >= 0; x++);

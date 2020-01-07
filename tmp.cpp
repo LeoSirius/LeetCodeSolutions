@@ -3,15 +3,29 @@ using namespace std;
 
 class Solution {
 public:
-    int divide(int dividend, int divisor) {
-        
+    string multiply(string num1, string num2) {
+        string res(num1.size() + num2.size(), '0');
+        for (int i = num1.size() - 1; i >= 0; i--) {
+            int carry = 0;
+            for (int j = num2.size() - 1; j >= 0; j--) {
+                int tmp = (res[i + j + 1] - '0') + (num1[i] - '0') * (num2[j] - '0') + carry;
+                res[i + j + 1] = tmp % 10 + '0';
+                carry = tmp / 10;
+            }
+            res[i] += carry;
+            cout << res << endl;
+        }
+        size_t starpos = res.find_first_not_of("0");
+        if (starpos != string::npos)
+            return res.substr(starpos);
+        return "0";
     }
 };
 
-void test(string test_name, int dividend, int divisor, int expected)
+void test(string test_name, string num1, string num2, string expected)
 {
     Solution s;
-    if (s.divide(dividend, divisor) == expected) {
+    if (s.multiply(num1, num2) == expected) {
         cout << test_name << " success." << endl;
     } else {
         cout << test_name << " failed." << endl;
@@ -20,25 +34,13 @@ void test(string test_name, int dividend, int divisor, int expected)
 
 int main()
 {
-    int dividend1 = 10;
-    int divisor1 = 3;
-    int expected1 = 3;
-    test("test1", dividend1, divisor1, expected1);
+    string num11 = "2";
+    string num21 = "3";
+    string expected1 = "6";
+    test("test1", num11, num21, expected1);
 
-    int dividend2 = 7;
-    int divisor2 = -3;
-    int expected2 = -2;
-    test("test2", dividend2, divisor2, expected2);
-
-    int dividend3 = -1;
-    int divisor3 = -1;
-    int expected3 = 1;
-    test("test3", dividend3, divisor3, expected3);
-
-    int dividend4 = 2147483647;
-    int divisor4 = 1;
-    int expected4 = 2147483647;
-    test("test4", dividend4, divisor4, expected4);
-
-    return 0;
+    string num12 = "123";
+    string num22 = "456";
+    string expected2 = "56088";
+    test("test2", num12, num22, expected2);
 }

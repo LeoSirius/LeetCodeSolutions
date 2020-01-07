@@ -15,7 +15,7 @@ public:
             res[i] += carry;
         }
         size_t startpos = res.find_first_not_of("0");
-        if (string::npos != startpos) {
+        if (startpos != string::npos) {
             return res.substr(startpos);
         }
         return "0";
