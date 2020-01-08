@@ -1,46 +1,42 @@
 #include <iostream>
+#include <unordered_map>
 using namespace std;
 
 class Solution {
 public:
-    string multiply(string num1, string num2) {
-        string res(num1.size() + num2.size(), '0');
-        for (int i = num1.size() - 1; i >= 0; i--) {
-            int carry = 0;
-            for (int j = num2.size() - 1; j >= 0; j--) {
-                int tmp = (res[i + j + 1] - '0') + (num1[i] - '0') * (num2[j] - '0') + carry;
-                res[i + j + 1] = tmp % 10 + '0';
-                carry = tmp / 10;
-            }
-            res[i] += carry;
-            cout << res << endl;
+    int romanToInt(string s) {
+        unordered_map<char, int> mp = {
+            {'I', 1},
+            {'V', 5},
+            {'X', 10},
+            {'L', 50},
+            {'C', 100},
+            {'D', 500},
+            {'M', 1000}
+        };
+        int res = 0;
+        for (int i = 0; i < s.size() - 1; i++) {
+            if (mp[s[i]] < mp[s[i+1]])
+                res -= mp[s[i]];
+            else
+                res += mp[s[i]];
         }
-        size_t starpos = res.find_first_not_of("0");
-        if (starpos != string::npos)
-            return res.substr(starpos);
-        return "0";
+        return res + mp[s[s.size()-1]];
     }
 };
 
-void test(string test_name, string num1, string num2, string expected)
+void test(string test_name, string s, int expected)
 {
-    Solution s;
-    if (s.multiply(num1, num2) == expected) {
-        cout << test_name << " success." << endl;
+    Solution solution;
+    if (solution.romanToInt(s) == expected) {
+        cout << test_name << " success. " << endl;
     } else {
-        cout << test_name << " failed." << endl;
+        cout << test_name << " failed. " << endl;
     }
 }
 
 int main()
 {
-    string num11 = "2";
-    string num21 = "3";
-    string expected1 = "6";
-    test("test1", num11, num21, expected1);
-
-    string num12 = "123";
-    string num22 = "456";
-    string expected2 = "56088";
-    test("test2", num12, num22, expected2);
+    test("test1", "MCMXCIV", 1994);
+    return 0;
 }

@@ -7,10 +7,10 @@ public:
     string getPermutation(int n, int k) {
         vector<int> fac(n + 1, 1);
         for (int i = 1; i <= n; i++) {
-            fac[i] = i * fac[i-1];
+            fac[i] = i * fac[i-1];       // fac[i] store i!
         }
 
-        vector<char> num_char(n, '0');
+        vector<char> num_char(n, '0');    // from 1 to n
         for (int i = 0; i < n; i++) {
             num_char[i] = i + 1 + '0';
         }

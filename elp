@@ -4,8 +4,8 @@
 
 // 正在做的round
 [
-    [mysql 1-20(easy)],
-    [math 1-10(easy, mid)],
+    [string 1-10(easy,mid)],
+    [mysql 21-30(easy)]
 ]
 
 // 已经做完的round
@@ -20,6 +20,8 @@
     [mysql 1-20(easy), 2020-01-01],
     [hash_table 1-10(easy, mid), 2020-01-04],
     [dp 1-10(easy, mid), 2020-01-06],
+    [mysql 1-20(easy), 2020-01-07],
+    [math 1-10(easy, mid), 2020-01-08],
 ]
 
 
@@ -89,6 +91,9 @@
 20200107={
     leetcode={math:[7, 8, 9, 12, 13, 29, 43], mysql:[603, 607, 610, 613, 619]},
 },
+20200108={
+    leetcode={math:[50, 60], string:[3, 5, 6, 8, 12, 13, ]}
+}
 
 
 need improved:(解法不符合题意或者cheat)
