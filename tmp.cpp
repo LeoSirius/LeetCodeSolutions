@@ -1,42 +1,36 @@
 #include <iostream>
+#include <vector>
 #include <unordered_map>
 using namespace std;
 
 class Solution {
 public:
-    int romanToInt(string s) {
-        unordered_map<char, int> mp = {
-            {'I', 1},
-            {'V', 5},
-            {'X', 10},
-            {'L', 50},
-            {'C', 100},
-            {'D', 500},
-            {'M', 1000}
-        };
-        int res = 0;
-        for (int i = 0; i < s.size() - 1; i++) {
-            if (mp[s[i]] < mp[s[i+1]])
-                res -= mp[s[i]];
-            else
-                res += mp[s[i]];
-        }
-        return res + mp[s[s.size()-1]];
+    vector<string> letterCombinations(string digits) {
+        string num2ch[10] = {"0", "1", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
+
+        vector<string> res;
+        
     }
 };
 
-void test(string test_name, string s, int expected)
+void test(string test_name, string digits, vector<string> expected)
 {
-    Solution solution;
-    if (solution.romanToInt(s) == expected) {
-        cout << test_name << " success. " << endl;
+    Solution s;
+    // 这道题不管顺序，只要元素一样即可
+    vector<string> a = s.letterCombinations(digits);
+    vector<string> b = expected;
+    sort(a.begin(), a.end());
+    sort(expected.begin(), expected.end());
+    if (a == b) {
+        cout << test_name << " success." << endl;
     } else {
-        cout << test_name << " failed. " << endl;
+        cout << test_name << " failed." << endl;
     }
 }
 
 int main()
 {
-    test("test1", "MCMXCIV", 1994);
-    return 0;
+    string digits1 = "23";
+    vector<string> expected1 = {"ad","ae","af","bd","be","bf","cd","ce","cf"};
+    test("test1", digits1, expected1);
 }
