@@ -1,27 +1,21 @@
 #include <iostream>
 #include <vector>
-#include <unordered_map>
 using namespace std;
 
 class Solution {
 public:
-    vector<string> letterCombinations(string digits) {
-        string num2ch[10] = {"0", "1", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
-
-        vector<string> res;
+    vector<string> generateParenthesis(int n) {
         
     }
 };
 
-void test(string test_name, string digits, vector<string> expected)
+void test(string test_name, int n, vector<string> expected)
 {
     Solution s;
-    // 这道题不管顺序，只要元素一样即可
-    vector<string> a = s.letterCombinations(digits);
-    vector<string> b = expected;
-    sort(a.begin(), a.end());
+    vector<string> res = s.generateParenthesis(n);
+    sort(res.begin(), res.end());
     sort(expected.begin(), expected.end());
-    if (a == b) {
+    if (res == expected) {
         cout << test_name << " success." << endl;
     } else {
         cout << test_name << " failed." << endl;
@@ -30,7 +24,15 @@ void test(string test_name, string digits, vector<string> expected)
 
 int main()
 {
-    string digits1 = "23";
-    vector<string> expected1 = {"ad","ae","af","bd","be","bf","cd","ce","cf"};
-    test("test1", digits1, expected1);
+    int n1 = 3;
+    vector<string> expected1 = {
+        "((()))",
+        "(()())",
+        "(())()",
+        "()(())",
+        "()()()"
+    };
+    test("test1", n1, expected1);
+
+    return 0;
 }
