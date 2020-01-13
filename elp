@@ -119,7 +119,13 @@
     leetcode={
         sql:[1075, 1076, 1082]
     }
-}
+},
+20200113={
+    leetcode={
+        sql:[1083],
+        tree:[98, ]
+    }
+},
 
 
 need improved:(解法不符合题意或者cheat)
