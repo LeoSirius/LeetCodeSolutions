@@ -9,18 +9,12 @@ struct TreeNode {
 };
 
 class Solution {
-    bool is_same(TreeNode *p, TreeNode *q)
-    {
-        if (p == nullptr && q == nullptr) return true;
-        if (p == nullptr || q == nullptr) return false;
-        if (p->val == q->val)
-            if (is_same(p->left, q->left) && is_same(p->right, q->right))
-                return true;
-        return false;
-    }
 public:
     bool isSameTree(TreeNode* p, TreeNode* q) {
-        return is_same(p, q);
+        if (p == nullptr && q == nullptr) return true;
+        if (p == nullptr || q == nullptr) return false;
+        if (p->val != q->val) return false;
+        return isSameTree(p->left, q->left) && isSameTree(p->right, q->right);
     }
 };
 
