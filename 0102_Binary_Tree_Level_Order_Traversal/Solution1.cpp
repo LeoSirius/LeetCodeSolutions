@@ -9,28 +9,25 @@ struct TreeNode {
     TreeNode *right;
     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
 };
-
 class Solution {
 public:
     vector<vector<int>> levelOrder(TreeNode* root) {
         vector<vector<int>> res;
         if (!root) return res;
-
-        queue<TreeNode*> my_queue;
-        my_queue.push(root);
-        while (!my_queue.empty()) {
-            int count = my_queue.size();
+        queue<TreeNode*> mq;
+        mq.push(root);
+        TreeNode* cur_node;
+        while (!mq.empty()) {
+            int count = mq.size();
             vector<int> row;
-            while (count) {
-                TreeNode *cur_node = my_queue.front(); my_queue.pop();
+            while (count--) {
+                cur_node = mq.front();
+                mq.pop();
                 row.push_back(cur_node->val);
-                count--;
-                if (cur_node->left) {
-                    my_queue.push(cur_node->left);
-                }
-                if (cur_node->right) {
-                    my_queue.push(cur_node->right);
-                }
+                if (cur_node->left)
+                    mq.push(cur_node->left);
+                if (cur_node->right)
+                    mq.push(cur_node->right);
             }
             res.push_back(row);
         }

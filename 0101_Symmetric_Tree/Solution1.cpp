@@ -9,14 +9,11 @@ struct TreeNode {
 };
 
 class Solution {
-    bool is_sym(TreeNode *l, TreeNode *r)
-    {
-        if (l == nullptr && r == nullptr) return true;
-        if (l == nullptr || r == nullptr) return false;
-        if (l->val == r->val)
-            if (is_sym(l->left, r->right) && is_sym(l->right, r->left))
-                return true;
-        return false;
+    bool is_sym(TreeNode* l, TreeNode *r) {
+        if (!l && !r) return true;
+        if (!l || !r) return false;
+        if (l->val != r->val) return false;
+        return is_sym(l->left, r->right) && is_sym(l->right, r->left);
     }
 public:
     bool isSymmetric(TreeNode* root) {

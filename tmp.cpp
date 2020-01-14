@@ -1,4 +1,6 @@
 #include <iostream>
+#include <vector>
+#include <queue>
 using namespace std;
 
 struct TreeNode {
@@ -7,21 +9,36 @@ struct TreeNode {
     TreeNode *right;
     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
 };
-
 class Solution {
 public:
-    bool isSameTree(TreeNode* p, TreeNode* q) {
-        if (p == nullptr && q == nullptr) return true;
-        if (p == nullptr || q == nullptr) return false;
-        if (p->val != q->val) return false;
-        return isSameTree(p->left, q->left) && isSameTree(p->right, q->right);
+    vector<vector<int>> levelOrder(TreeNode* root) {
+        vector<vector<int>> res;
+        if (!root) return res;
+        queue<TreeNode*> mq;
+        mq.push(root);
+        TreeNode* cur_node;
+        while (!mq.empty()) {
+            int count = mq.size();
+            vector<int> row;
+            while (count--) {
+                cur_node = mq.front();
+                mq.pop();
+                row.push_back(cur_node->val);
+                if (cur_node->left)
+                    mq.push(cur_node->left);
+                if (cur_node->right)
+                    mq.push(cur_node->right);
+            }
+            res.push_back(row);
+        }
+        return res;
     }
 };
 
-void test(string test_name, TreeNode* p, TreeNode* q, bool expected)
+void test(string test_name, TreeNode *root, vector<vector<int>> expected)
 {
     Solution s;
-    if (s.isSameTree(p, q) == expected) {
+    if (s.levelOrder(root) == expected) {
         cout << test_name << " success." << endl;
     } else {
         cout << test_name << " failed." << endl;
@@ -30,43 +47,24 @@ void test(string test_name, TreeNode* p, TreeNode* q, bool expected)
 
 int main()
 {
-    TreeNode* p1 = new TreeNode(1);
-    p1->left = new TreeNode(2);
-    p1->right = new TreeNode(3);
-    TreeNode* q1 = new TreeNode(1);
-    q1->left = new TreeNode(2);
-    q1->right = new TreeNode(3);
-    bool expected1 = true;
-    // Input:     1         1
-    //           / \       / \
-    //          2   3     2   3
-    // Output: true
-    test("test1", p1, q1, expected1);
+    TreeNode *t1 = new TreeNode(3);
+    t1->left = new TreeNode(9);
+    t1->right = new TreeNode(20);
+    t1->right->left = new TreeNode(15);
+    t1->right->right = new TreeNode(7);
+    vector<vector<int>> expected1 = {
+        {3}, {9, 20}, {15, 7}
+    };
+    //     3
+    //    / \
+    //   9  20
+    //     /  \
+    //    15   7
+    test("test1", t1, expected1);
 
-
-    TreeNode *p2 = new TreeNode(1);
-    p2->left = new TreeNode(2);
-    TreeNode *q2 = new TreeNode(1);
-    q2->right = new TreeNode(2);
-    bool expected2 = false;
-    // Input:     1         1
-    //           /           \
-    //          2             2
-    // Output: false
-    test("test2", p2, q2, expected2);
-
-    TreeNode *p3 = new TreeNode(1);
-    p3->left = new TreeNode(2);
-    p3->right = new TreeNode(1);
-    TreeNode *q3 = new TreeNode(1);
-    q3->left = new TreeNode(1);
-    q3->right = new TreeNode(2);
-    bool expected3 = false;
-    // Input:     1         1
-    //           / \       / \
-    //          2   1     1   2
-    // Output: false
-    test("test3", p3, q3, expected3);
+    TreeNode *t2 = nullptr;
+    vector<vector<int>> expected2;
+    test("test2", t2, expected2);
 
     return 0;
 }
