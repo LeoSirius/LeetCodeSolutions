@@ -237,6 +237,30 @@ CREATE TABLE `courses` (
   PRIMARY KEY (`Id`)
 ) ENGINE=InnoDB;
 
+CREATE TABLE `Product` (
+  `product_id` int(11) NOT NULL AUTO_INCREMENT,
+  `product_name` char(50) NOT NULL,
+  PRIMARY KEY (`product_id`)
+) ENGINE=InnoDB;
+
+INSERT INTO Product VALUES
+(1, "G8"),
+(2, "G4"),
+(3, "iphone");
+
+CREATE TABLE `Sales` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `product_id` int(11) NOT NULL,
+  `sale_date` datetime(6) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB;
+
+INSERT INTO Sales VALUES
+(1, 1, "2019-01-21"),
+(2, 2, "2019-02-17"),
+(3, 2, "2019-06-02"),
+(4, 3, "2019-05-13");
+
 INSERT INTO courses VALUES
 (1, "A", "Math"),
 (2, "B", "English"),
