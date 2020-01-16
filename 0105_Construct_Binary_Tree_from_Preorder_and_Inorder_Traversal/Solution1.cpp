@@ -8,27 +8,26 @@ struct TreeNode {
     TreeNode *right;
     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
 };
-
 class Solution {
     vector<int> pre;
     vector<int> in;
-    TreeNode *build_tree(int p1, int p2, int i1, int i2)
+    TreeNode* build_tree(int s1, int e1, int s2, int e2)
     {
-        TreeNode *node = new TreeNode(pre[p1]);
-        int root_idx = i1;
-        for (int i = i1; i <= i2; i++) {
+        TreeNode *node = new TreeNode(pre[s1]);
+        int root_in;
+        for (int i = s2; i <= e2; i++) {
             if (in[i] == node->val) {
-                root_idx = i;
+                root_in = i;
                 break;
             }
         }
-        int left_cnt = root_idx - i1;
-        int right_cnt = i2 - root_idx;
-        if (root_idx > i1) {
-            node->left = build_tree(p1+1, p1+left_cnt, i1, root_idx-1);
+        int left_cnt = root_in - s2;
+        int right_cnt = e2 - root_in;
+        if (left_cnt) {
+            node->left = build_tree(s1+1, s1+left_cnt, s2, root_in-1);
         }
-        if (root_idx < i2) {
-            node->right = build_tree(p1+left_cnt+1, p2, root_idx+1, i2);
+        if (right_cnt) {
+            node->right = build_tree(s1+left_cnt+1, e1, root_in+1, e2);
         }
         return node;
     }
@@ -36,8 +35,8 @@ public:
     TreeNode* buildTree(vector<int>& preorder, vector<int>& inorder) {
         pre = preorder;
         in = inorder;
-        if (pre.size() != in.size() || pre.size() == 0) return nullptr;
-        return build_tree(0, preorder.size()-1, 0, inorder.size()-1);
+        if (pre.size() == 0 || pre.size() != in.size()) return nullptr;
+        return build_tree(0, pre.size()-1, 0, in.size()-1);
     }
 };
 
