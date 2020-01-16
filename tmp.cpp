@@ -1,6 +1,5 @@
 #include <iostream>
 #include <vector>
-#include <queue>
 using namespace std;
 
 struct TreeNode {
@@ -10,35 +9,54 @@ struct TreeNode {
     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
 };
 class Solution {
-public:
-    vector<vector<int>> levelOrder(TreeNode* root) {
-        vector<vector<int>> res;
-        if (!root) return res;
-        queue<TreeNode*> mq;
-        mq.push(root);
-        TreeNode* cur_node;
-        while (!mq.empty()) {
-            int count = mq.size();
-            vector<int> row;
-            while (count--) {
-                cur_node = mq.front();
-                mq.pop();
-                row.push_back(cur_node->val);
-                if (cur_node->left)
-                    mq.push(cur_node->left);
-                if (cur_node->right)
-                    mq.push(cur_node->right);
+    vector<int> pre;
+    vector<int> in;
+    TreeNode* build_tree(int s1, int e1, int s2, int e2)
+    {
+        TreeNode *node = new TreeNode(pre[s1]);
+        int root_in;
+        for (int i = s2; i <= e2; i++) {
+            if (in[i] == node->val) {
+                root_in = i;
+                break;
             }
-            res.push_back(row);
         }
-        return res;
+        int left_cnt = root_in - s2;
+        int right_cnt = e2 - root_in;
+        if (left_cnt) {
+            node->left = build_tree(s1+1, s1+left_cnt, s2, root_in-1);
+        }
+        if (right_cnt) {
+            node->right = build_tree(s1+left_cnt+1, e1, root_in+1, e2);
+        }
+        return node;
+    }
+public:
+    TreeNode* buildTree(vector<int>& preorder, vector<int>& inorder) {
+        pre = preorder;
+        in = inorder;
+        if (pre.size() == 0 || pre.size() != in.size()) return nullptr;
+        return build_tree(0, pre.size()-1, 0, in.size()-1);
     }
 };
 
-void test(string test_name, TreeNode *root, vector<vector<int>> expected)
+void get_postorder(TreeNode *T, vector<int> &postorder)
+{
+    if (T == nullptr)
+        return;
+    get_postorder(T->left, postorder);
+    get_postorder(T->right, postorder);
+    postorder.push_back(T->val);
+}
+
+void test(string test_name, vector<int> &preorder, vector<int> &inorder, vector<int> &expected_post)
 {
     Solution s;
-    if (s.levelOrder(root) == expected) {
+    vector<int> postorder;
+    TreeNode *tree = s.buildTree(preorder, inorder);
+    
+    get_postorder(tree, postorder);
+    if (postorder == expected_post) {
         cout << test_name << " success." << endl;
     } else {
         cout << test_name << " failed." << endl;
@@ -47,24 +65,23 @@ void test(string test_name, TreeNode *root, vector<vector<int>> expected)
 
 int main()
 {
-    TreeNode *t1 = new TreeNode(3);
-    t1->left = new TreeNode(9);
-    t1->right = new TreeNode(20);
-    t1->right->left = new TreeNode(15);
-    t1->right->right = new TreeNode(7);
-    vector<vector<int>> expected1 = {
-        {3}, {9, 20}, {15, 7}
-    };
+    // preorder = [3,9,20,15,7]
+    // inorder = [9,3,15,20,7]
+    // Return the following binary tree:
     //     3
     //    / \
     //   9  20
     //     /  \
     //    15   7
-    test("test1", t1, expected1);
+    vector<int> pre1 = {3,9,20,15,7};
+    vector<int> in1 = {9,3,15,20,7};
+    vector<int> expected1 = {9, 15, 7, 20, 3};
+    test("test1", pre1, in1, expected1);
 
-    TreeNode *t2 = nullptr;
-    vector<vector<int>> expected2;
-    test("test2", t2, expected2);
+    vector<int> pre2 = {};
+    vector<int> in2 = {};
+    vector<int> expected2 = {};
+    test("test2", pre2, in2, expected2);
 
     return 0;
 }
