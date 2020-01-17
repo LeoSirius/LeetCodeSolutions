@@ -4,7 +4,7 @@
 
 // 正在做的round
 [
-    [tree 1-10(easy)],
+    [hash_table 1-10(easy, mid), ],
     
 ]
 
@@ -24,6 +24,7 @@
     [math 1-10(easy, mid), 2020-01-08],
     [string 1-10(easy,mid), 2020-01-11],
     [mysql 21-30(easy), 2020-01-14],
+    [tree 1-10(easy, mid), 2020-01-17],
 ]
 
 
@@ -135,6 +136,9 @@
 },
 20200116={
     leetcode={tree:[103, 104, 105, ]}
+},
+20200117={
+    leetcode={hash_table:[1, 3, 18, 36, 49]}
 }
 
 
