@@ -2,7 +2,6 @@
 #include <vector>
 using namespace std;
 
-// Definition for a Node.
 class Node {
 public:
     int val;
@@ -16,29 +15,28 @@ class Solution {
 public:
     Node* copyRandomList(Node* head) {
         if (!head) return nullptr;
-        Node* ite = head;
-        while (ite) { // 用next连接   // copy node without random
-            Node* n = new Node(ite->val, ite->next, nullptr);
-            Node* c = ite->next;
-            ite->next = n;
-            ite = c;
-            
-        }
-        ite = head;
-        while (ite) { // 连接random
-            if (ite->random) ite->next->random = ite->random->next;
-            ite = ite->next->next;
-        }
-        ite = head;
-
-        Node* ret = head->next;
-        while (ite->next) { // 有丝分裂(大雾)
-            Node* c = ite->next;
-            ite->next = ite->next->next;
-            ite = c;
+        Node *p = head;
+        while (p) {         // 用next连接   // copy node without random
+            Node *node = new Node(p->val, p->next, nullptr);
+            Node *p_next = p->next;
+            p->next = node;
+            p = p_next;
         }
 
-        return ret;
+        p = head;
+        while (p) {         // 连接random
+            if (p->random) p->next->random = p->random->next;
+            p = p->next->next;
+        }
+
+        Node* res = head->next;
+        p = head;
+        while (p->next) {   // 有丝分裂(大雾)
+            Node *tmp = p->next;
+            p->next = p->next->next;
+            p = tmp;
+        }
+        return res;
     }
 };
 
@@ -80,5 +78,4 @@ int main()
     test("test1", a0);
 
 }
-
 
