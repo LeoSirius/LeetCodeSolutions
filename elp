@@ -6,7 +6,7 @@
 [
     
     [mysql 21-30(easy)],
-    
+    [dp 11-20(easy,mid), 2019-12-19]
 ]
 
 // 已经做完的round
@@ -40,8 +40,11 @@
     leetcode={sql:[620, 627, 1050, 1068, 1069, 1075, 1076, ]}
 },
 20200119={
-    leetcode={hash_table:[138, 159, 166], }
+    leetcode={hash_table:[138, 159, 166], sql:[1082]}
 },
+20200120={
+    leetcode={dp:[121, 139, 152， ]}
+}
 
 
 need improved:(解法不符合题意或者cheat)
