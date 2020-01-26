@@ -51,7 +51,10 @@
     leetcode={sql:[1083, 1084]}
 },
 20200126={
-    leetcode={sql:[1113, ]}
+    leetcode={sql:[1113]}
+},
+20200127={
+    leetcode={sql:[1141]}
 }
 
 
