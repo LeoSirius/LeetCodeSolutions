@@ -54,8 +54,8 @@
     leetcode={sql:[1113]}
 },
 20200127={
-    leetcode={sql:[1141]}
-}
+    leetcode={sql:[1141, 1142, 1148, ]}
+},
 
 
 need improved:(解法不符合题意或者cheat)
