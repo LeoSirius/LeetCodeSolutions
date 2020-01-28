@@ -248,6 +248,26 @@ INSERT INTO Product VALUES
 (2, "G4"),
 (3, "iphone");
 
+CREATE TABLE `Submissions` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `sub_id` int(11) NOT NULL,
+  `parent_id` int(11),
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB;
+
+INSERT INTO Submissions VALUES
+(1, 1, NULL),
+(2, 2, NULL),
+(3, 1, NULL),
+(4, 12, NULL),
+(5, 3, 1),
+(6, 5, 2),
+(7, 3, 1),
+(8, 4, 1),
+(9, 9, 1),
+(10, 10, 2),
+(11, 6, 7);
+
 CREATE TABLE `Sales` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `product_id` int(11) NOT NULL,
