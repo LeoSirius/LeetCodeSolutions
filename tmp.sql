@@ -281,6 +281,20 @@ INSERT INTO Sales VALUES
 (3, 2, "2019-06-02"),
 (4, 3, "2019-05-13");
 
+CREATE TABLE `Employee` (
+  `employee_id` int(11) NOT NULL AUTO_INCREMENT,
+  `team_id` int(11) NOT NULL,
+  PRIMARY KEY (`employee_id`)
+) ENGINE=InnoDB;
+
+INSERT INTO Employee VALUES
+(1,8),
+(2,8),
+(3,8),
+(4,7),
+(5,9),
+(6,9);
+
 INSERT INTO courses VALUES
 (1, "A", "Math"),
 (2, "B", "English"),
