@@ -1,7 +1,9 @@
 ### 思路1
 
+注意最后除了ctr降序，还需要ad_id升序。
+
 ```sql
-SELECT DISTINCT ad_id,
+SELECT ad_id,
 IFNULL(
     ROUND(
         SUM(action="Clicked") / (SUM(action="Clicked") +  SUM(action="Viewed")) * 100, 
