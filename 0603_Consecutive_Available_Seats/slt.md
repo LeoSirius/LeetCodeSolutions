@@ -3,8 +3,9 @@
 自联结 + abs
 
 ```sql
-SELECT DISTINCT a.seat_id
-FROM cinema a JOIN cinema b
-  ON (abs(a.seat_id - b.seat_id) = 1) AND a.free=1 AND b.free=1
-ORDER BY a.seat_id;
+SELECT DISTINCT c1.seat_id
+FROM cinema c1 JOIN cinema c2
+ON ABS(c1.seat_id-c2.seat_id)=1
+WHERE c1.free=1 AND c2.free=1
+ORDER BY c1.seat_id;
 ```
