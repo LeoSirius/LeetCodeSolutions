@@ -69,8 +69,10 @@
 },
 20200214={
     leetcode={sql:[584, ]}
+},
+20200215={
+    leetcode={sql:[586, 595, 596, 597]}
 }
-
 
 need improved:(解法不符合题意或者cheat)
 leetcode={
