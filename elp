@@ -4,7 +4,8 @@
 
 // 正在做的round
 [
-    [math 11-20(easy,mid)]
+    [math 11-20(easy,mid)]，
+    [mysql 21-30(easy)],
     
 ]
 
@@ -82,6 +83,9 @@
 },
 20200218={
     leetcode={sql:[610, 613, 619, ], dp:[279], math:[67, 69, ]}
+},
+20200219={
+    leetcode={math:[166, 168, 171], sql:[620, 627, 1050]}
 }
 
 need improved:(解法不符合题意或者cheat)
