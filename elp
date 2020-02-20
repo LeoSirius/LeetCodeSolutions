@@ -88,7 +88,7 @@
     leetcode={math:[166, 168, 171], sql:[620, 627, 1050]}
 },
 20200220={
-    leetcode={math:[172, 202, 204], sql:[1068, 1069, ]}
+    leetcode={math:[172, 202, 204], sql:[1068, 1069, 1075]}
 }
 
 need improved:(解法不符合题意或者cheat)
