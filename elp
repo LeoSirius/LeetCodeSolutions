@@ -5,8 +5,6 @@
 // 正在做的round
 [
     [string 11-20(easy,mid)],
-    [mysql 21-30(easy)],
-    
 ]
 
 
@@ -37,6 +35,8 @@
     [dp 11-20(easy,mid), 2020-02-18],
     [mysql 11-20(easy), 2020-02-18],
     [math 11-20(easy,mid), 2020-02-21],
+    [mysql 21-30(easy), 2020-02-21],
+
 
 ]
 
@@ -92,7 +92,10 @@
     leetcode={math:[172, 202, 204], sql:[1068, 1069, 1075]}
 },
 20200221={
-    leetcode={math:[223, 231], string:[28], sql:[1076, 1082, 1083, 1084]}
+    leetcode={math:[223, 231], string:[28, ], sql:[1076, 1082, 1083, 1084]}
+},
+20200221={
+    leetcode={string:[38, ]}
 }
 
 need improved:(解法不符合题意或者cheat)
