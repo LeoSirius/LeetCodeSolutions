@@ -1,5 +1,7 @@
 ### 思路1 使用distinct直接计算
 
+`总session数 / 总用户数`
+
 ```sql
 SELECT
 IFNULL(

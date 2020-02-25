@@ -307,53 +307,44 @@ INSERT INTO courses VALUES
 (10, "I", "Math");
 
 
-| A       | Math       |
-| B       | English    |
-| C       | Math       |
-| D       | Biology    |
-| E       | Math       |
-| F       | Computer   |
-| G       | Math       |
-| H       | Math       |
-| I       | Math       |
+If the preferred delivery date of the customer is the same as the order date then the order is called immediate otherwise its called scheduled.
 
-
-Write an SQL query that reports the products that were only sold in spring 2019. 
-That is, between 2019-01-01 and 2019-03-31 inclusive.
+Write an SQL query to find the percentage of immediate orders in the table, rounded to 2 decimal places.
 
 The query result format is in the following example:
 
-Product table:
-+------------+--------------+------------+
-| product_id | product_name | unit_price |
-+------------+--------------+------------+
-| 1          | S8           | 1000       |
-| 2          | G4           | 800        |
-| 3          | iPhone       | 1400       |
-+------------+--------------+------------+
-
-Sales table:
-+-----------+------------+----------+------------+----------+-------+
-| seller_id | product_id | buyer_id | sale_date  | quantity | price |
-+-----------+------------+----------+------------+----------+-------+
-| 1         | 1          | 1        | 2019-01-21 | 2        | 2000  |
-| 1         | 2          | 2        | 2019-02-17 | 1        | 800   |
-| 2         | 2          | 3        | 2019-06-02 | 1        | 800   |
-| 3         | 3          | 4        | 2019-05-13 | 2        | 2800  |
-+-----------+------------+----------+------------+----------+-------+
+Delivery table:
++-------------+-------------+------------+-----------------------------+
+| delivery_id | customer_id | order_date | customer_pref_delivery_date |
++-------------+-------------+------------+-----------------------------+
+| 1           | 1           | 2019-08-01 | 2019-08-02                  |
+| 2           | 5           | 2019-08-02 | 2019-08-02                  |
+| 3           | 1           | 2019-08-11 | 2019-08-11                  |
+| 4           | 3           | 2019-08-24 | 2019-08-26                  |
+| 5           | 4           | 2019-08-21 | 2019-08-22                  |
+| 6           | 2           | 2019-08-11 | 2019-08-13                  |
++-------------+-------------+------------+-----------------------------+
 
 Result table:
-+-------------+--------------+
-| product_id  | product_name |
-+-------------+--------------+
-| 1           | S8           |
-+-------------+--------------+
-The product with id 1 was only sold in spring 2019 while the other two were sold after.
++----------------------+
+| immediate_percentage |
++----------------------+
+| 33.33                |
++----------------------+
+The orders with delivery id 2 and 3 are immediate while the others are scheduled.
 
-SELECT product_id, product_name
-FROM Product
-WHERE product_id NOT IN(
-SELECT p.product_id
-FROM Sales s JOIN Product p
-ON s.product_id=p.product_id
-WHERE s.sale_date < '2019-01-01' OR s.sale_date > '2019-03-31');
+SELECT ROUND(IFNULL(
+(SELECT COUNT(*)
+FROM Delivery
+WHERE order_date=customer_pref_delivery_date) / 
+(SELECT COUNT(*) FROM Delivery)
+, 0) * 100, 2)
+AS immediate_percentage;
+
+Create table If Not Exists Delivery (delivery_id int, customer_id int, order_date date, customer_pref_delivery_date date);
+insert into Delivery (delivery_id, customer_id, order_date, customer_pref_delivery_date) values ('1', '1', '2019-08-01', '2019-08-02');
+insert into Delivery (delivery_id, customer_id, order_date, customer_pref_delivery_date) values ('2', '5', '2019-08-02', '2019-08-02');
+insert into Delivery (delivery_id, customer_id, order_date, customer_pref_delivery_date) values ('3', '1', '2019-08-11', '2019-08-11');
+insert into Delivery (delivery_id, customer_id, order_date, customer_pref_delivery_date) values ('4', '3', '2019-08-24', '2019-08-26');
+insert into Delivery (delivery_id, customer_id, order_date, customer_pref_delivery_date) values ('5', '4', '2019-08-21', '2019-08-22');
+insert into Delivery (delivery_id, customer_id, order_date, customer_pref_delivery_date) values ('6', '2', '2019-08-11', '2019-08-13');
