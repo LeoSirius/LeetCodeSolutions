@@ -305,46 +305,74 @@ INSERT INTO courses VALUES
 (8, "G", "Math"),
 (9, "H", "Math"),
 (10, "I", "Math");
+Table: Queries
 
++-------------+---------+
+| Column Name | Type    |
++-------------+---------+
+| query_name  | varchar |
+| result      | varchar |
+| position    | int     |
+| rating      | int     |
++-------------+---------+
+There is no primary key for this table, it may have duplicate rows.
+This table contains information collected from some queries on a database.
+The position column has a value from 1 to 500.
+The rating column has a value from 1 to 5. Query with rating less than 3 is a poor query.
+ 
 
-If the preferred delivery date of the customer is the same as the order date then the order is called immediate otherwise its called scheduled.
+We define query quality as:
 
-Write an SQL query to find the percentage of immediate orders in the table, rounded to 2 decimal places.
+The average of the ratio between query rating and its position.
+
+We also define poor query percentage as:
+
+The percentage of all queries with rating less than 3.
+
+Write an SQL query to find each query_name, the quality and poor_query_percentage.
+
+Both quality and poor_query_percentage should be rounded to 2 decimal places.
 
 The query result format is in the following example:
 
-Delivery table:
-+-------------+-------------+------------+-----------------------------+
-| delivery_id | customer_id | order_date | customer_pref_delivery_date |
-+-------------+-------------+------------+-----------------------------+
-| 1           | 1           | 2019-08-01 | 2019-08-02                  |
-| 2           | 5           | 2019-08-02 | 2019-08-02                  |
-| 3           | 1           | 2019-08-11 | 2019-08-11                  |
-| 4           | 3           | 2019-08-24 | 2019-08-26                  |
-| 5           | 4           | 2019-08-21 | 2019-08-22                  |
-| 6           | 2           | 2019-08-11 | 2019-08-13                  |
-+-------------+-------------+------------+-----------------------------+
+Queries table:
++------------+-------------------+----------+--------+
+| query_name | result            | position | rating |
++------------+-------------------+----------+--------+
+| Dog        | Golden Retriever  | 1        | 5      |
+| Dog        | German Shepherd   | 2        | 5      |
+| Dog        | Mule              | 200      | 1      |
+| Cat        | Shirazi           | 5        | 2      |
+| Cat        | Siamese           | 3        | 3      |
+| Cat        | Sphynx            | 7        | 4      |
++------------+-------------------+----------+--------+
 
 Result table:
-+----------------------+
-| immediate_percentage |
-+----------------------+
-| 33.33                |
-+----------------------+
-The orders with delivery id 2 and 3 are immediate while the others are scheduled.
++------------+---------+-----------------------+
+| query_name | quality | poor_query_percentage |
++------------+---------+-----------------------+
+| Dog        | 2.50    | 33.33                 |
+| Cat        | 0.66    | 33.33                 |
++------------+---------+-----------------------+
 
-SELECT ROUND(IFNULL(
-(SELECT COUNT(*)
-FROM Delivery
-WHERE order_date=customer_pref_delivery_date) / 
-(SELECT COUNT(*) FROM Delivery)
-, 0) * 100, 2)
-AS immediate_percentage;
+Dog queries quality is ((5 / 1) + (5 / 2) + (1 / 200)) / 3 = 2.50
+Dog queries poor_ query_percentage is (1 / 3) * 100 = 33.33
 
-Create table If Not Exists Delivery (delivery_id int, customer_id int, order_date date, customer_pref_delivery_date date);
-insert into Delivery (delivery_id, customer_id, order_date, customer_pref_delivery_date) values ('1', '1', '2019-08-01', '2019-08-02');
-insert into Delivery (delivery_id, customer_id, order_date, customer_pref_delivery_date) values ('2', '5', '2019-08-02', '2019-08-02');
-insert into Delivery (delivery_id, customer_id, order_date, customer_pref_delivery_date) values ('3', '1', '2019-08-11', '2019-08-11');
-insert into Delivery (delivery_id, customer_id, order_date, customer_pref_delivery_date) values ('4', '3', '2019-08-24', '2019-08-26');
-insert into Delivery (delivery_id, customer_id, order_date, customer_pref_delivery_date) values ('5', '4', '2019-08-21', '2019-08-22');
-insert into Delivery (delivery_id, customer_id, order_date, customer_pref_delivery_date) values ('6', '2', '2019-08-11', '2019-08-13');
+Cat queries quality equals ((2 / 5) + (3 / 3) + (4 / 7)) / 3 = 0.66
+Cat queries poor_ query_percentage is (1 / 3) * 100 = 33.33
+
+SELECT query_name,
+ROUND(
+(AVG(rating/position)), 2) AS quality,
+ROUND(SUM(IF(rating<3, 1, 0))/COUNT(*) * 100, 2) AS poor_query_percentage
+FROM Queries
+GROUP BY query_name;
+
+
+Create table If Not Exists Queries (query_name varchar(30), result varchar(50), position int, rating int);
+insert into Queries (query_name, result, position, rating) values ('Dog', 'Golden Retriever', '1', '5');
+insert into Queries (query_name, result, position, rating) values ('Dog', 'German Shepherd', '2', '5');
+insert into Queries (query_name, result, position, rating) values ('Dog', 'Mule', '200', '1');
+insert into Queries (query_name, result, position, rating) values ('Cat', 'Shirazi', '5', '2');
+insert into Queries (query_name, result, position, rating) values ('Cat', 'Siamese', '3', '3');
+insert into Queries (query_name, result, position, rating) values ('Cat', 'Sphynx', '7', '4');
