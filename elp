@@ -4,7 +4,7 @@
 
 // 正在做的round
 [
-    [string 11-20(easy,mid)],
+    [tree 11-20(easy, mid)],
     [mysql 21-30(easy)],
 ]
 
@@ -23,6 +23,7 @@
     [mysql 11-20(easy), 2020-02-18],
     [math 11-20(easy,mid), 2020-02-21],
     [mysql 21-30(easy), 2020-02-21],
+    [string 11-20(easy,mid), 2020-02-26],
 
 ]
 
@@ -40,7 +41,7 @@
     leetcode={string:[67, 71], sql:[1179, 1211, ]}
 },
 20200226={
-    leetcode={string:[91, 93], sql:[1241, 1251]}
+    leetcode={string:[91, 93, 125], sql:[1241, 1251], tree:[106, ]}
 },
 
 
