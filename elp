@@ -5,30 +5,19 @@
 
 // 正在做的round
 [
-    [tree 11-20(easy, mid)],
-
+    [hash_table 11-20(easy, mid)],
+    [mysql 31-40(easy)],
 ]
-
 
 // 已经做完的round
 [
-    [tree 1-10(easy, mid), 2020-01-17],
-    [hash_table 1-10(easy, mid), 2020-01-19],
-    [mysql 21-30(easy), 2020-01-25],
-    [mysql 31-44(easy), 2020-01-29],
-    [mysql 31-44(easy), 2020-02-04],
-    [mysql 1-10(easy), 2020-02-08],
-    [mysql 1-10(easy), 2020-02-10],
-    [mysql 11-20(easy), 2020-02-13],
-    [dp 11-20(easy,mid), 2020-02-18],
-    [mysql 11-20(easy), 2020-02-18],
     [math 11-20(easy,mid), 2020-02-21],
     [mysql 21-30(easy), 2020-02-21],
     [string 11-20(easy,mid), 2020-02-26],
-    [mysql 31-40(easy), 2020-02-28],
+    [mysql 31-40(easy), 2020-02-27],
+    [tree 11-20(easy, mid), 2020-02-28],
 
 ]
-
 
 20200221={
     leetcode={math:[223, 231], string:[28, ], sql:[1076, 1082, 1083, 1084]}
@@ -49,7 +38,7 @@
     leetcode={tree:[107, 108, 110, 111], sql:[1280]}
 },
 20200228={
-    leetcode={tree:[112, 113, 114], sql:[]}
+    leetcode={tree:[112, 113, 114, 116, 117], sql:[1113, 1141], hash_table:[170, ]}
 }
 
 
