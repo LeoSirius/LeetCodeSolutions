@@ -41,7 +41,7 @@
     leetcode={tree:[112, 113, 114, 116, 117], sql:[1113, 1141], hash_table:[170, ]}
 },
 20200302={
-    leetcode={hash_table:[187]}
+    leetcode={hash_table:[187, 202, 204, 205, ]}
 }
 
 

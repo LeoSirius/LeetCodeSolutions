@@ -15,7 +15,7 @@ public:
         // 1 is not prime number
         for (int i = 2; i < n; i++) {
             if (is_prime(i)) {
-                cnt++;
+                ++cnt;
             }
         }
         return cnt;
