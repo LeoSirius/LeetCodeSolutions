@@ -44,7 +44,7 @@
     leetcode={hash_table:[187, 202, 204, 205, ]}
 },
 20200303={
-    leetcode={hash_table:[217, ]}
+    leetcode={hash_table:[217, 219, 242], sql:[1142, 1148, 1173, ]}
 }
 
 
