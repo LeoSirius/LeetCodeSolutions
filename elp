@@ -5,7 +5,6 @@
 
 // 正在做的round
 [
-    [hash_table 11-20(easy, mid)],
     [mysql 31-40(easy)],
 ]
 
@@ -16,6 +15,7 @@
     [string 11-20(easy,mid), 2020-02-26],
     [mysql 31-40(easy), 2020-02-27],
     [tree 11-20(easy, mid), 2020-02-28],
+    [hash_table 11-20(easy, mid), 2020-03-04],
 
 ]
 
@@ -47,8 +47,8 @@
     leetcode={hash_table:[217, 219, 242], sql:[1142, 1148, 1173, ]}
 },
 20200304={
-    leetcode={hash_table:[244, 246, ]}
-}
+    leetcode={hash_table:[244, 246], sql:[1179]}
+},
 
 
 need improved:(解法不符合题意或者cheat)
