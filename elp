@@ -1,10 +1,11 @@
 // 2019-06-28开始
 // leetcode 按topics来做，现阶段所有topics中不做hard, 
-// 现在的topics中从array做到hash_table
+// 现在的topics中从array做到hash_table(python, 1-20)
 // 周末集中做hard
 
 // 正在做的round
 [
+    [array 1-20(easy, mid)]
     [mysql 31-40(easy)],
 ]
 
@@ -49,6 +50,9 @@
 20200304={
     leetcode={hash_table:[244, 246], sql:[1179]}
 },
+20200305={
+    leetcode={array:[1, 11, 15, 16]}
+}
 
 
 need improved:(解法不符合题意或者cheat)
