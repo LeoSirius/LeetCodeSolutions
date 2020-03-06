@@ -1,51 +1,49 @@
-from typing import List
-
 class Solution:
-    def nextPermutation(self, nums: List[int]) -> None:
-        """
-        Do not return anything, modify nums in-place instead.
-        """
-        for i in range(len(nums) - 1, -1, -1):
-            if i == 0:
-                nums.reverse()
-                return
-            if nums[i] > nums[i-1]:
-                max_idx = i
-                break
-        
-        first_big_idx = len(nums) - 1    # first bigger than nums[max_idx-1] from right
-        for i in range(len(nums) - 1, max_idx - 1, -1):
-            if nums[max_idx-1] < nums[i]:
-                first_big_idx = i
-                break
-        nums[max_idx-1], nums[first_big_idx] = nums[first_big_idx], nums[max_idx-1]
-        tmp = nums[max_idx:]
-        tmp.reverse()
-        nums[max_idx:] = tmp
+    def combinationSum2(self, candidates: List[int], target: int) -> List[List[int]]:
 
 
-def test(test_name, nums, expected):
-    slt = Solution()
-    slt.nextPermutation(nums)
-    if nums == expected:
+def test(test_name, candidates, target, expected):
+    res = Solution().combinationSum2(candidates, target, expected)
+    [e.sort() for e in res]
+    [e.sort() for e in expected]
+    res.sort()
+    expected.sort()
+    if res == expected:
         print(test_name + ' success.')
     else:
-        print(test_name + ' failed.')
+        print(test_name)
 
 
 if __name__ == '__main__':
-    nums1 = [1,2,3]
-    expected1 = [1,3,2]
-    test("test1", nums1, expected1)
 
-    nums2 = [3,2,1]
-    expected2 = [1,2,3]
-    test("test2", nums2, expected2)
 
-    nums3 = [1,1,5]
-    expected3 = [1,5,1]
-    test("test3", nums3, expected3)
 
-    nums4 = [1,3,2]
-    expected4 = [2,1,3]
-    test("test4", nums4, expected4)
+# Given a collection of candidate numbers (candidates) and 
+# a target number (target), find all unique combinations 
+# in candidates where the candidate numbers sums to target.
+
+# Each number in candidates may only be used once in the combination.
+
+# Note:
+
+# All numbers (including target) will be positive integers.
+# The solution set must not contain duplicate combinations.
+# Example 1:
+
+# Input: candidates = [10,1,2,7,6,1,5], target = 8,
+# A solution set is:
+# [
+#   [1, 7],
+#   [1, 2, 5],
+#   [2, 6],
+#   [1, 1, 6]
+# ]
+# Example 2:
+
+# Input: candidates = [2,5,2,1,2], target = 5,
+# A solution set is:
+# [
+#   [1,2,2],
+#   [5]
+# ]
+
