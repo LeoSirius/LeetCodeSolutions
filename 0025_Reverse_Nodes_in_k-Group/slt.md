@@ -33,6 +33,7 @@ public:
             if(count == k){
                 pre = r;
                 cur = l;
+                // 下面这个while把l到r之间的node反转。
                 while(count--){
                     // 1 and 2 lines point cur->next to pre,
                     // 3 and 4 lines move pre and cur each by one node
