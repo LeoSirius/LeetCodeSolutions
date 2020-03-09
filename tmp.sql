@@ -1,87 +1,123 @@
-Table: Prices
+Table: Countries
 
 +---------------+---------+
 | Column Name   | Type    |
 +---------------+---------+
-| product_id    | int     |
-| start_date    | date    |
-| end_date      | date    |
-| price         | int     |
+| country_id    | int     |
+| country_name  | varchar |
 +---------------+---------+
-(product_id, start_date, end_date) is the primary key for this table.
-Each row of this table indicates the price of the product_id in the period from start_date to end_date.
-For each product_id there will be no two overlapping periods. That means there will be no two intersecting periods for the same product_id.
+country_id is the primary key for this table.
+Each row of this table contains the ID and the name of one country.
  
 
-Table: UnitsSold
+Table: Weather
 
 +---------------+---------+
 | Column Name   | Type    |
 +---------------+---------+
-| product_id    | int     |
-| purchase_date | date    |
-| units         | int     |
+| country_id    | int     |
+| weather_state | varchar |
+| day           | date    |
 +---------------+---------+
-There is no primary key for this table, it may contain duplicates.
-Each row of this table indicates the date, units and product_id of each product sold. 
+(country_id, day) is the primary key for this table.
+Each row of this table indicates the weather state in a country for one day.
  
 
-Write an SQL query to find the average selling price for each product.
+Write an SQL query to find the type of weather in each country for November 2019.
 
-average_price should be rounded to 2 decimal places.
+The type of weather is Cold if the average weather_state is less than or equal 15, Hot if the average weather_state is greater than or equal 25 and Warm otherwise.
+
+Return result table in any order.
 
 The query result format is in the following example:
 
-Prices table:
-+------------+------------+------------+--------+
-| product_id | start_date | end_date   | price  |
-+------------+------------+------------+--------+
-| 1          | 2019-02-17 | 2019-02-28 | 5      |
-| 1          | 2019-03-01 | 2019-03-22 | 20     |
-| 2          | 2019-02-01 | 2019-02-20 | 15     |
-| 2          | 2019-02-21 | 2019-03-31 | 30     |
-+------------+------------+------------+--------+
- 
-UnitsSold table:
-+------------+---------------+-------+
-| product_id | purchase_date | units |
-+------------+---------------+-------+
-| 1          | 2019-02-25    | 100   |
-| 1          | 2019-03-01    | 15    |
-| 2          | 2019-02-10    | 200   |
-| 2          | 2019-03-22    | 30    |
-+------------+---------------+-------+
-
+Countries table:
++------------+--------------+
+| country_id | country_name |
++------------+--------------+
+| 2          | USA          |
+| 3          | Australia    |
+| 7          | Peru         |
+| 5          | China        |
+| 8          | Morocco      |
+| 9          | Spain        |
++------------+--------------+
+Weather table:
++------------+---------------+------------+
+| country_id | weather_state | day        |
++------------+---------------+------------+
+| 2          | 15            | 2019-11-01 |
+| 2          | 12            | 2019-10-28 |
+| 2          | 12            | 2019-10-27 |
+| 3          | -2            | 2019-11-10 |
+| 3          | 0             | 2019-11-11 |
+| 3          | 3             | 2019-11-12 |
+| 5          | 16            | 2019-11-07 |
+| 5          | 18            | 2019-11-09 |
+| 5          | 21            | 2019-11-23 |
+| 7          | 25            | 2019-11-28 |
+| 7          | 22            | 2019-12-01 |
+| 7          | 20            | 2019-12-02 |
+| 8          | 25            | 2019-11-05 |
+| 8          | 27            | 2019-11-15 |
+| 8          | 31            | 2019-11-25 |
+| 9          | 7             | 2019-10-23 |
+| 9          | 3             | 2019-12-23 |
++------------+---------------+------------+
 Result table:
-+------------+---------------+
-| product_id | average_price |
-+------------+---------------+
-| 1          | 6.96          |
-| 2          | 16.96         |
-+------------+---------------+
-Average selling price = Total Price of Product / Number of products sold.
-Average selling price for product 1 = ((100 * 5) + (15 * 20)) / 115 = 6.96
-Average selling price for product 2 = ((200 * 15) + (30 * 30)) / 230 = 16.96
++--------------+--------------+
+| country_name | weather_type |
++--------------+--------------+
+| USA          | Cold         |
+| Austraila    | Cold         |
+| Peru         | Hot          |
+| China        | Warm         |
+| Morocco      | Hot          |
++--------------+--------------+
+Average weather_state in USA in November is (15) / 1 = 15 so weather type is Cold.
+Average weather_state in Austraila in November is (-2 + 0 + 3) / 3 = 0.333 so weather type is Cold.
+Average weather_state in Peru in November is (25) / 1 = 25 so weather type is Hot.
+Average weather_state in China in November is (16 + 18 + 21) / 3 = 18.333 so weather type is Warm.
+Average weather_state in Morocco in November is (25 + 27 + 31) / 3 = 27.667 so weather type is Hot.
+We know nothing about average weather_state in Spain in November so we dont include it in the result table. 
 
 
-SELECT p.product_id,
-ROUND(
-SUM(p.price * u.units) / SUM(u.units), 2) AS average_price
-FROM Prices p JOIN UnitsSold u
-ON p.product_id=u.product_id AND u.purchase_date BETWEEN p.start_date AND p.end_date
-GROUP BY p.product_id;
+SELECT c.country_name, 
+CASE
+ WHEN AVG(w.weather_state) >= 25 THEN 'Hot'
+ WHEN AVG(w.weather_state) <= 15 THEN 'Cold'
+ ELSE 'Warm'
+END AS weather_type
+FROM Countries c JOIN Weather w
+ON c.country_id=w.country_id
+WHERE MONTH(w.day)=11
+GROUP BY c.country_name;
 
 
-
-Create table If Not Exists Prices (product_id int, start_date date, end_date date, price int);
-Create table If Not Exists UnitsSold (product_id int, purchase_date date, units int);
-Truncate table Prices;
-insert into Prices (product_id, start_date, end_date, price) values ('1', '2019-02-17', '2019-02-28', '5');
-insert into Prices (product_id, start_date, end_date, price) values ('1', '2019-03-01', '2019-03-22', '20');
-insert into Prices (product_id, start_date, end_date, price) values ('2', '2019-02-01', '2019-02-20', '15');
-insert into Prices (product_id, start_date, end_date, price) values ('2', '2019-02-21', '2019-03-31', '30');
-Truncate table UnitsSold;
-insert into UnitsSold (product_id, purchase_date, units) values ('1', '2019-02-25', '100');
-insert into UnitsSold (product_id, purchase_date, units) values ('1', '2019-03-01', '15');
-insert into UnitsSold (product_id, purchase_date, units) values ('2', '2019-02-10', '200');
-insert into UnitsSold (product_id, purchase_date, units) values ('2', '2019-03-22', '30');
+Create table If Not Exists Countries (country_id int, country_name varchar(20));
+Create table If Not Exists Weather (country_id int, weather_state int, day date);
+Truncate table Countries;
+insert into Countries (country_id, country_name) values ('2', 'USA');
+insert into Countries (country_id, country_name) values ('3', 'Australia');
+insert into Countries (country_id, country_name) values ('7', 'Peru');
+insert into Countries (country_id, country_name) values ('5', 'China');
+insert into Countries (country_id, country_name) values ('8', 'Morocco');
+insert into Countries (country_id, country_name) values ('9', 'Spain');
+Truncate table Weather;
+insert into Weather (country_id, weather_state, day) values ('2', '15', '2019-11-01');
+insert into Weather (country_id, weather_state, day) values ('2', '12', '2019-10-28');
+insert into Weather (country_id, weather_state, day) values ('2', '12', '2019-10-27');
+insert into Weather (country_id, weather_state, day) values ('3', '-2', '2019-11-10');
+insert into Weather (country_id, weather_state, day) values ('3', '0', '2019-11-11');
+insert into Weather (country_id, weather_state, day) values ('3', '3', '2019-11-12');
+insert into Weather (country_id, weather_state, day) values ('5', '16', '2019-11-07');
+insert into Weather (country_id, weather_state, day) values ('5', '18', '2019-11-09');
+insert into Weather (country_id, weather_state, day) values ('5', '21', '2019-11-23');
+insert into Weather (country_id, weather_state, day) values ('7', '25', '2019-11-28');
+insert into Weather (country_id, weather_state, day) values ('7', '22', '2019-12-01');
+insert into Weather (country_id, weather_state, day) values ('7', '20', '2019-12-02');
+insert into Weather (country_id, weather_state, day) values ('8', '25', '2019-11-05');
+insert into Weather (country_id, weather_state, day) values ('8', '27', '2019-11-15');
+insert into Weather (country_id, weather_state, day) values ('8', '31', '2019-11-25');
+insert into Weather (country_id, weather_state, day) values ('9', '7', '2019-10-23');
+insert into Weather (country_id, weather_state, day) values ('9', '3', '2019-12-23');

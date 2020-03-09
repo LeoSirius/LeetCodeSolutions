@@ -1,28 +1,25 @@
 from typing import List
 
 class Solution:
-    def maxSubArray(self, nums: List[int]) -> int:
-        res = nums[0]
-        dp = []
-        dp.append(nums[0])
-        for i in range(1, len(nums)):
-            dp.append(max(0, dp[i-1]) + nums[i])
-            res = max(res, dp[i])
-        return res
+    def uniquePaths(self, m: int, n: int) -> int:
+        dp = [1 for i in range(n)]
+        for i in range(1, m):
+            for j in range(1, n):
+                dp[j] += dp[j-1]
+        return dp[n-1]
 
-def test(test_name, nums, expected):
-    res = Solution().maxSubArray(nums)
+def test(test_name, m, n, expected):
+    res = Solution().uniquePaths(m, n)
     if res == expected:
         print(test_name + ' success.')
     else:
         print(test_name + ' failed.')
 
-
 if __name__ == "__main__":
-    nums1 = [-2,1,-3,4,-1,2,1,-5,4]
-    expected1 = 6
-    test('test1', nums1, expected1)
+    m1, n1 = 3, 2
+    expected1 = 3
+    test('test1', m1, n1, expected1)
 
-    nums2 = [1]
-    expected2 = 1
-    test('test2', nums2, expected2)
+    m2, n2 = 7, 3
+    expected2 = 28
+    test('test2', m2, n2, expected2)
