@@ -1,123 +1,37 @@
-Table: Countries
+Create table If Not Exists Employee (employee_id int, team_id int);
+Truncate table Employee;
+insert into Employee (employee_id, team_id) values ('1', '8');
+insert into Employee (employee_id, team_id) values ('2', '8');
+insert into Employee (employee_id, team_id) values ('3', '8');
+insert into Employee (employee_id, team_id) values ('4', '7');
+insert into Employee (employee_id, team_id) values ('5', '9');
+insert into Employee (employee_id, team_id) values ('6', '9');
 
-+---------------+---------+
-| Column Name   | Type    |
-+---------------+---------+
-| country_id    | int     |
-| country_name  | varchar |
-+---------------+---------+
-country_id is the primary key for this table.
-Each row of this table contains the ID and the name of one country.
- 
-
-Table: Weather
-
-+---------------+---------+
-| Column Name   | Type    |
-+---------------+---------+
-| country_id    | int     |
-| weather_state | varchar |
-| day           | date    |
-+---------------+---------+
-(country_id, day) is the primary key for this table.
-Each row of this table indicates the weather state in a country for one day.
- 
-
-Write an SQL query to find the type of weather in each country for November 2019.
-
-The type of weather is Cold if the average weather_state is less than or equal 15, Hot if the average weather_state is greater than or equal 25 and Warm otherwise.
-
-Return result table in any order.
-
-The query result format is in the following example:
-
-Countries table:
-+------------+--------------+
-| country_id | country_name |
-+------------+--------------+
-| 2          | USA          |
-| 3          | Australia    |
-| 7          | Peru         |
-| 5          | China        |
-| 8          | Morocco      |
-| 9          | Spain        |
-+------------+--------------+
-Weather table:
-+------------+---------------+------------+
-| country_id | weather_state | day        |
-+------------+---------------+------------+
-| 2          | 15            | 2019-11-01 |
-| 2          | 12            | 2019-10-28 |
-| 2          | 12            | 2019-10-27 |
-| 3          | -2            | 2019-11-10 |
-| 3          | 0             | 2019-11-11 |
-| 3          | 3             | 2019-11-12 |
-| 5          | 16            | 2019-11-07 |
-| 5          | 18            | 2019-11-09 |
-| 5          | 21            | 2019-11-23 |
-| 7          | 25            | 2019-11-28 |
-| 7          | 22            | 2019-12-01 |
-| 7          | 20            | 2019-12-02 |
-| 8          | 25            | 2019-11-05 |
-| 8          | 27            | 2019-11-15 |
-| 8          | 31            | 2019-11-25 |
-| 9          | 7             | 2019-10-23 |
-| 9          | 3             | 2019-12-23 |
-+------------+---------------+------------+
+Employee Table:
++-------------+------------+
+| employee_id | team_id    |
++-------------+------------+
+|     1       |     8      |
+|     2       |     8      |
+|     3       |     8      |
+|     4       |     7      |
+|     5       |     9      |
+|     6       |     9      |
++-------------+------------+
 Result table:
-+--------------+--------------+
-| country_name | weather_type |
-+--------------+--------------+
-| USA          | Cold         |
-| Austraila    | Cold         |
-| Peru         | Hot          |
-| China        | Warm         |
-| Morocco      | Hot          |
-+--------------+--------------+
-Average weather_state in USA in November is (15) / 1 = 15 so weather type is Cold.
-Average weather_state in Austraila in November is (-2 + 0 + 3) / 3 = 0.333 so weather type is Cold.
-Average weather_state in Peru in November is (25) / 1 = 25 so weather type is Hot.
-Average weather_state in China in November is (16 + 18 + 21) / 3 = 18.333 so weather type is Warm.
-Average weather_state in Morocco in November is (25 + 27 + 31) / 3 = 27.667 so weather type is Hot.
-We know nothing about average weather_state in Spain in November so we dont include it in the result table. 
++-------------+------------+
+| employee_id | team_size  |
++-------------+------------+
+|     1       |     3      |
+|     2       |     3      |
+|     3       |     3      |
+|     4       |     1      |
+|     5       |     2      |
+|     6       |     2      |
++-------------+------------+
 
-
-SELECT c.country_name, 
-CASE
- WHEN AVG(w.weather_state) >= 25 THEN 'Hot'
- WHEN AVG(w.weather_state) <= 15 THEN 'Cold'
- ELSE 'Warm'
-END AS weather_type
-FROM Countries c JOIN Weather w
-ON c.country_id=w.country_id
-WHERE MONTH(w.day)=11
-GROUP BY c.country_name;
-
-
-Create table If Not Exists Countries (country_id int, country_name varchar(20));
-Create table If Not Exists Weather (country_id int, weather_state int, day date);
-Truncate table Countries;
-insert into Countries (country_id, country_name) values ('2', 'USA');
-insert into Countries (country_id, country_name) values ('3', 'Australia');
-insert into Countries (country_id, country_name) values ('7', 'Peru');
-insert into Countries (country_id, country_name) values ('5', 'China');
-insert into Countries (country_id, country_name) values ('8', 'Morocco');
-insert into Countries (country_id, country_name) values ('9', 'Spain');
-Truncate table Weather;
-insert into Weather (country_id, weather_state, day) values ('2', '15', '2019-11-01');
-insert into Weather (country_id, weather_state, day) values ('2', '12', '2019-10-28');
-insert into Weather (country_id, weather_state, day) values ('2', '12', '2019-10-27');
-insert into Weather (country_id, weather_state, day) values ('3', '-2', '2019-11-10');
-insert into Weather (country_id, weather_state, day) values ('3', '0', '2019-11-11');
-insert into Weather (country_id, weather_state, day) values ('3', '3', '2019-11-12');
-insert into Weather (country_id, weather_state, day) values ('5', '16', '2019-11-07');
-insert into Weather (country_id, weather_state, day) values ('5', '18', '2019-11-09');
-insert into Weather (country_id, weather_state, day) values ('5', '21', '2019-11-23');
-insert into Weather (country_id, weather_state, day) values ('7', '25', '2019-11-28');
-insert into Weather (country_id, weather_state, day) values ('7', '22', '2019-12-01');
-insert into Weather (country_id, weather_state, day) values ('7', '20', '2019-12-02');
-insert into Weather (country_id, weather_state, day) values ('8', '25', '2019-11-05');
-insert into Weather (country_id, weather_state, day) values ('8', '27', '2019-11-15');
-insert into Weather (country_id, weather_state, day) values ('8', '31', '2019-11-25');
-insert into Weather (country_id, weather_state, day) values ('9', '7', '2019-10-23');
-insert into Weather (country_id, weather_state, day) values ('9', '3', '2019-12-23');
+SELECT  e1.employee_id,
+COUNT(*) AS team_size
+FROM Employee e1 JOIN Employee e2
+ON e1.team_id=e2.team_id
+GROUP BY e1.employee_id;
