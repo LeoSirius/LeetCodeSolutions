@@ -47,5 +47,9 @@ int main()
     int expected3 = 3;
     test("test3", s3, expected3);
 
+    string s4 = "01";
+    int expected4 = 0;
+    test("test4", s4, expected4);
+
     return 0;
 }

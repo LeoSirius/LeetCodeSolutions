@@ -1,37 +1,68 @@
-Create table If Not Exists Employee (employee_id int, team_id int);
-Truncate table Employee;
-insert into Employee (employee_id, team_id) values ('1', '8');
-insert into Employee (employee_id, team_id) values ('2', '8');
-insert into Employee (employee_id, team_id) values ('3', '8');
-insert into Employee (employee_id, team_id) values ('4', '7');
-insert into Employee (employee_id, team_id) values ('5', '9');
-insert into Employee (employee_id, team_id) values ('6', '9');
+Table: Departments
 
-Employee Table:
-+-------------+------------+
-| employee_id | team_id    |
-+-------------+------------+
-|     1       |     8      |
-|     2       |     8      |
-|     3       |     8      |
-|     4       |     7      |
-|     5       |     9      |
-|     6       |     9      |
-+-------------+------------+
++---------------+---------+
+| Column Name   | Type    |
++---------------+---------+
+| id            | int     |
+| name          | varchar |
++---------------+---------+
+id is the primary key of this table.
+The table has information about the id of each department of a university.
+ 
+
+Table: Students
+
++---------------+---------+
+| Column Name   | Type    |
++---------------+---------+
+| id            | int     |
+| name          | varchar |
+| department_id | int     |
++---------------+---------+
+id is the primary key of this table.
+The table has information about the id of each student at a university and the id of the department he/she studies at.
+ 
+
+Write an SQL query to find the id and the name of all students who are enrolled in departments that no longer exists.
+
+Return the result table in any order.
+
+The query result format is in the following example:
+
+Departments table:
++------+--------------------------+
+| id   | name                     |
++------+--------------------------+
+| 1    | Electrical Engineering   |
+| 7    | Computer Engineering     |
+| 13   | Bussiness Administration |
++------+--------------------------+
+
+Students table:
++------+----------+---------------+
+| id   | name     | department_id |
++------+----------+---------------+
+| 23   | Alice    | 1             |
+| 1    | Bob      | 7             |
+| 5    | Jennifer | 13            |
+| 2    | John     | 14            |
+| 4    | Jasmine  | 77            |
+| 3    | Steve    | 74            |
+| 6    | Luis     | 1             |
+| 8    | Jonathan | 7             |
+| 7    | Daiana   | 33            |
+| 11   | Madelynn | 1             |
++------+----------+---------------+
+
 Result table:
-+-------------+------------+
-| employee_id | team_size  |
-+-------------+------------+
-|     1       |     3      |
-|     2       |     3      |
-|     3       |     3      |
-|     4       |     1      |
-|     5       |     2      |
-|     6       |     2      |
-+-------------+------------+
++------+----------+
+| id   | name     |
++------+----------+
+| 2    | John     |
+| 7    | Daiana   |
+| 4    | Jasmine  |
+| 3    | Steve    |
++------+----------+
 
-SELECT  e1.employee_id,
-COUNT(*) AS team_size
-FROM Employee e1 JOIN Employee e2
-ON e1.team_id=e2.team_id
-GROUP BY e1.employee_id;
+John, Daiana, Steve and Jasmine are enrolled in departments 14, 33, 74 and 77 respectively. department 14, 33, 74 and 77 doesn't exist in the Departments table.
+
