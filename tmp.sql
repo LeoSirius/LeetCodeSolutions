@@ -1,4 +1,4 @@
-Table: Departments
+Table: Employees
 
 +---------------+---------+
 | Column Name   | Type    |
@@ -6,87 +6,80 @@ Table: Departments
 | id            | int     |
 | name          | varchar |
 +---------------+---------+
-id is the primary key of this table.
-The table has information about the id of each department of a university.
+id is the primary key for this table.
+Each row of this table contains the id and the name of an employee in a company.
  
 
-Table: Students
+Table: EmployeeUNI
 
 +---------------+---------+
 | Column Name   | Type    |
 +---------------+---------+
 | id            | int     |
-| name          | varchar |
-| department_id | int     |
+| unique_id     | int     |
 +---------------+---------+
-id is the primary key of this table.
-The table has information about the id of each student at a university and the id of the department he/she studies at.
+(id, unique_id) is the primary key for this table.
+Each row of this table contains the id and the corresponding unique id of an employee in the company.
  
 
-Write an SQL query to find the id and the name of all students who are enrolled in departments that no longer exists.
+Write an SQL query to show the unique 
+ID of each user, If a user doesn't have a unique ID replace just show null.'
 
 Return the result table in any order.
 
 The query result format is in the following example:
 
-Departments table:
-+------+--------------------------+
-| id   | name                     |
-+------+--------------------------+
-| 1    | Electrical Engineering   |
-| 7    | Computer Engineering     |
-| 13   | Bussiness Administration |
-+------+--------------------------+
+Employees table:
++----+----------+
+| id | name     |
++----+----------+
+| 1  | Alice    |
+| 7  | Bob      |
+| 11 | Meir     |
+| 90 | Winston  |
+| 3  | Jonathan |
++----+----------+
 
-Students table:
-+------+----------+---------------+
-| id   | name     | department_id |
-+------+----------+---------------+
-| 23   | Alice    | 1             |
-| 1    | Bob      | 7             |
-| 5    | Jennifer | 13            |
-| 2    | John     | 14            |
-| 4    | Jasmine  | 77            |
-| 3    | Steve    | 74            |
-| 6    | Luis     | 1             |
-| 8    | Jonathan | 7             |
-| 7    | Daiana   | 33            |
-| 11   | Madelynn | 1             |
-+------+----------+---------------+
+EmployeeUNI table:
++----+-----------+
+| id | unique_id |
++----+-----------+
+| 3  | 1         |
+| 11 | 2         |
+| 90 | 3         |
++----+-----------+
 
-Result table:
-+------+----------+
-| id   | name     |
-+------+----------+
-| 2    | John     |
-| 7    | Daiana   |
-| 4    | Jasmine  |
-| 3    | Steve    |
-+------+----------+
+EmployeeUNI table:
++-----------+----------+
+| unique_id | name     |
++-----------+----------+
+| null      | Alice    |
+| null      | Bob      |
+| 2         | Meir     |
+| 3         | Winston  |
+| 1         | Jonathan |
++-----------+----------+
 
-John, Daiana, Steve and Jasmine are enrolled in departments 14, 33, 74 and 77 respectively. department 14, 33, 74 and 77 doesn't exist in the Departments table.'
+Alice and Bob don't have a unique 'ID, We will show null instead.
+The unique ID of Meir is 2.
+The unique ID of Winston is 3.
+The unique ID of Jonathan is 1.
 
-SELECT s.id, s.name
-FROM Students s LEFT JOIN Departments d
-ON s.department_id=d.id
-WHERE d.id IS NULL;
-
+SELECT eu.unique_id AS unique_id,
+e.name
+FROM Employees e LEFT JOIN EmployeeUNI eu
+ON e.id=eu.id;
 
 
-Create table If Not Exists Departments (id int, name varchar(30));
-Create table If Not Exists Students (id int, name varchar(30), department_id int);
-Truncate table Departments;
-insert into Departments (id, name) values ('1', 'Electrical Engineering');
-insert into Departments (id, name) values ('7', 'Computer Engineering');
-insert into Departments (id, name) values ('13', 'Bussiness Administration');
-Truncate table Students;
-insert into Students (id, name, department_id) values ('23', 'Alice', '1');
-insert into Students (id, name, department_id) values ('1', 'Bob', '7');
-insert into Students (id, name, department_id) values ('5', 'Jennifer', '13');
-insert into Students (id, name, department_id) values ('2', 'John', '14');
-insert into Students (id, name, department_id) values ('4', 'Jasmine', '77');
-insert into Students (id, name, department_id) values ('3', 'Steve', '74');
-insert into Students (id, name, department_id) values ('6', 'Luis', '1');
-insert into Students (id, name, department_id) values ('8', 'Jonathan', '7');
-insert into Students (id, name, department_id) values ('7', 'Daiana', '33');
-insert into Students (id, name, department_id) values ('11', 'Madelynn', '1');
+Create table If Not Exists Employees (id int, name varchar(20));
+Create table If Not Exists EmployeeUNI (id int, unique_id int);
+Truncate table Employees;
+insert into Employees (id, name) values ('1', 'Alice');
+insert into Employees (id, name) values ('7', 'Bob');
+insert into Employees (id, name) values ('11', 'Meir');
+insert into Employees (id, name) values ('90', 'Winston');
+insert into Employees (id, name) values ('3', 'Jonathan');
+Truncate table EmployeeUNI;
+insert into EmployeeUNI (id, unique_id) values ('3', '1');
+insert into EmployeeUNI (id, unique_id) values ('11', '2');
+insert into EmployeeUNI (id, unique_id) values ('90', '3');
