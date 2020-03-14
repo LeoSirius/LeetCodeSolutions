@@ -9,32 +9,28 @@ struct ListNode {
 };
 
 class Solution {
-    ListNode* merge_two(ListNode *l1, ListNode *l2)
+    ListNode* merge_two(ListNode* a, ListNode *b)
     {
         ListNode *head = new ListNode(0);
         ListNode *p = head;
-        while (l1 || l2) {
-            int v1, v2;
-            v1 = l1 ? l1->val : INT_MAX;
-            v2 = l2 ? l2->val : INT_MAX;
-            if (v1 < v2) {
-                p->next = l1;
-                l1 = l1->next;
+        while (a && b) {
+            if (a->val < b->val) {
+                p->next = a;
+                a = a->next;
             } else {
-                p->next = l2;
-                l2 = l2->next;
+                p->next = b;
+                b = b->next;
             }
             p = p->next;
         }
+        p->next = a ? a : b;
         return head->next;
     }
 public:
     ListNode* mergeKLists(vector<ListNode*>& lists) {
-        if (lists.empty())
-            return nullptr;
-        ListNode *res = lists[0];
-        for (int i = 1; i < lists.size(); i++) {
-            res = merge_two(res, lists[i]);
+        ListNode *res = nullptr;
+        for (auto head : lists) {
+            res = merge_two(res, head);
         }
         return res;
     }
