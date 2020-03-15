@@ -1,70 +1,57 @@
 #include <iostream>
+#include <vector>
 using namespace std;
 
-struct ListNode {
-    int val;
-    ListNode *next;
-    ListNode(int x) : val(x), next(NULL) {}
-};
-
 class Solution {
-public:
-    ListNode* reverseKGroup(ListNode* head, int k) {
-        if (!head || k == 1) return head;
 
-        ListNode *dummy_head = new ListNode(0);
-        ListNode *l, *r, *pre, *cur, *jump;
+    bool check(vector<vector<char>>& board, int row, int col ,char ch)
+    {
+        for (int i = 0; i < 9; i++) {
+            if (board[row][i] == ch || board[i][col] == ch)
+                return false;
+        }
+        // col % 3 后就是 col在左上开始后的索引，然后col再减col % 3，便回到了左上方
+        // boxrow, boxcol 是每个小正方形最左上角的索引
+        int box_row = row - row % 3;
+        int box_col = col - col % 3;
+        for (int i = 0; i < 3; i++)
+        for (int j = 0; j < 3; j++)
+            if (board[box_row + i][box_col + j] == ch)
+                return false;
+        return true;
+    }
 
-        dummy_head->next = head;
-        jump = dummy_head;
-        l = r = head;
+    bool solved(vector<vector<char>>& board, int row, int col)
+    {
+        // 以递归的方式遍历了每个方格
+        if (row == 9)
+            return true;
+        if (col == 9)
+            return solved(board, row + 1, 0);
+        if (board[row][col] != '.')
+            return solved(board, row, col + 1);
 
-        while (true) {
-            int cnt = 0;
-            while (r && cnt < k) {
-                r = r->next;
-                ++cnt;
-            }
-            if (cnt == k) {
-                pre = r;
-                cur = l;
-                while (cnt--) {
-                    ListNode *tmp = new ListNode(0);
-                    tmp = cur->next;
-                    cur->next = pre;
-                    pre = cur;
-                    cur = tmp;
-                }
-                jump->next = pre;
-                jump = l;
-                l = cur;
-            } else {
-                return dummy_head->next;
+        for (char ch = '1'; ch <= '9'; ch++) {
+            if (check(board, row, col, ch)) {
+                board[row][col] = ch;
+                if (solved(board, row, col + 1))
+                    return true;
+                board[row][col] = '.';
             }
         }
+        return false;
+    }
+public:
+    void solveSudoku(vector<vector<char>>& board) {
+        solved(board, 0, 0);
     }
 };
 
 
-void test(string test_name, ListNode* head, int k, ListNode* expected)
+void test(string test_name, vector<vector<char>> board, vector<vector<char>> &expected)
 {
-    ListNode *p1 = Solution().reverseKGroup(head, k);
-    ListNode *p2 = expected;
-    bool passed = true;
-    while (p1 || p2) {
-        if (!p1 || !p2) {
-            passed = false;
-            break;
-        }
-        if (p1->val != p2->val) {
-            passed = false;
-            break;
-        }
-        p1 = p1->next;
-        p2 = p2->next;
-    }
-
-    if (passed) {
+    Solution().solveSudoku(board);
+    if (board == expected) {
         cout << test_name << " success." << endl;
     } else {
         cout << test_name << " failed." << endl;
@@ -73,32 +60,29 @@ void test(string test_name, ListNode* head, int k, ListNode* expected)
 
 int main()
 {
-    ListNode *head1 = new ListNode(1);
-    head1->next = new ListNode(2);
-    head1->next->next = new ListNode(3);
-    head1->next->next->next = new ListNode(4);
-    head1->next->next->next->next = new ListNode(5);
-
-    int k1 = 2;
-    ListNode *expected1 = new ListNode(2);
-    expected1->next = new ListNode(1);
-    expected1->next->next = new ListNode(4);
-    expected1->next->next->next = new ListNode(3);
-    expected1->next->next->next->next = new ListNode(5);
-    test("test1", head1, k1, expected1);
-
-    ListNode *head2 = new ListNode(1);
-    head2->next = new ListNode(2);
-    head2->next->next = new ListNode(3);
-    head2->next->next->next = new ListNode(4);
-    head2->next->next->next->next = new ListNode(5);
-    int k2 = 3;
-    ListNode *expected2 = new ListNode(3);
-    expected2->next = new ListNode(2);
-    expected2->next->next = new ListNode(1);
-    expected2->next->next->next = new ListNode(4);
-    expected2->next->next->next->next = new ListNode(5);
-    test("test2", head2, k2, expected2);
+    vector<vector<char>> board1 = {
+        {'5','3','.','.','7','.','.','.','.'},
+        {'6','.','.','1','9','5','.','.','.'},
+        {'.','9','8','.','.','.','.','6','.'},
+        {'8','.','.','.','6','.','.','.','3'},
+        {'4','.','.','8','.','3','.','.','1'},
+        {'7','.','.','.','2','.','.','.','6'},
+        {'.','6','.','.','.','.','2','8','.'},
+        {'.','.','.','4','1','9','.','.','5'},
+        {'.','.','.','.','8','.','.','7','9'},
+    };
+    vector<vector<char>> expected1 = {
+        {'5','3','4','6','7','8','9','1','2'},
+        {'6','7','2','1','9','5','3','4','8'},
+        {'1','9','8','3','4','2','5','6','7'},
+        {'8','5','9','7','6','1','4','2','3'},
+        {'4','2','6','8','5','3','7','9','1'},
+        {'7','1','3','9','2','4','8','5','6'},
+        {'9','6','1','5','3','7','2','8','4'},
+        {'2','8','7','4','1','9','6','3','5'},
+        {'3','4','5','2','8','6','1','7','9'},
+    };
+    test("test1", board1, expected1);
 
     return 0;
 }

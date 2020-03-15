@@ -7,45 +7,46 @@ class Solution {
 public:
     vector<int> findSubstring(string s, vector<string>& words) {
         vector<int> res;
-        int n = s.size();
-        int num = words.size();
+        int s_len = s.size();
+        int words_len = words.size();
 
-        if (n == 0 || num == 0)
+        if (!s_len || !words_len)
             return res;
+
         int word_len = words[0].size();
 
         unordered_map<string, int> words_cnt;
-        for (auto word : words) {
+        for (auto word : words)
             ++words_cnt[word];
-        }
 
-        // words总长度 = word_len * num
-        // s = "12345"
-        // word_l * num = "12"
-        // n - num * word_l + 1 = 4，即i最后最指向4，45刚好是最后两个
-        for (int i = 0; i < n - num * word_len + 1; i++) {
+        // words总长度 = word_len * words_len
+        // 假设 s = "12345"
+        // 假设 word_l * words_len = 2
+        // s_len - words_len * word_l + 1 = 4，即i最后最指向4，45刚好是最后两个
+        for (int i = 0; i < s_len - word_len * words_len + 1; i++) {
             unordered_map<string, int> seen;
             int j = 0;
-            for (; j < num; j++) {
-                string word = s.substr(i + j * word_len, word_len);
+            for (; j < words_len; j++) {
+                string substr = s.substr(i + j * word_len, word_len);
                 // 1.当前word在words中，但是数量超过了
                 // 2.当前word不在words中
                 // 上面两种情况都不符合要求
-                if (words_cnt.find(word) != words_cnt.end()) {
-                    ++seen[word];
-                    if (seen[word] > words_cnt[word])
+                if (words_cnt.find(substr) != words_cnt.end()) {
+                    ++seen[substr];
+                    if (seen[substr] > words_cnt[substr])
                         break;
-                } else
+                } else {
                     break;
+                }
             }
             // 当所有words遍历完时，没有出现上面两种情况，则符合要求
-            if (j == num) {
+            if (j == words_len)
                 res.push_back(i);
-            }
         }
         return res;
     }
 };
+
 
 void test(string test_name, string s, vector<string>& words, vector<int> &expected)
 {

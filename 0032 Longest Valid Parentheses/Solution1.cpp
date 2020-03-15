@@ -5,34 +5,36 @@ using namespace std;
 class Solution {
 public:
     int longestValidParentheses(string s) {
-        if (s.empty())
-            return 0;
+        int res = 0;
+        if (!s.size())
+            return res;
 
-        stack<int> stk; // 存放左括号的索引
-        int one_before_start = -1;
-        int max_len = 0;
+        int start = 0;
 
-        for (int i = 0; s[i]; ++i) {
+        stack<int> left_stk;
+
+        for (int i = 0; s[i]; i++) {
             if (s[i] == '(') {
-                stk.push(i);
+                left_stk.push(i);
             } else {
-                if (stk.empty()) {         // 遇到右括号且栈空，则跳过，如))))))()
-                    one_before_start = i;
+                if (left_stk.empty()) {
+                    start = i + 1;       // 右括号，且栈空，当前的这个右括号也要跳过。
                 } else {
-                    stk.pop();
-                    // 弹完之后空，则从start开始算
-                    // 弹完之后不空，则算当前栈顶的索引
-                    if (stk.empty()) {
-                        max_len = max(max_len, i - one_before_start); // (()) i = 3, one_before = -1, res = 4
+                    left_stk.pop();
+                    if (left_stk.empty()) {
+                        // (()) i = 3, start = 0, res = 4
+                        res = max(res, i - start + 1);
                     } else {
-                        max_len = max(max_len, i - stk.top());        // (())  i = 2, stack.top() = 0, res = 2, 即中间两个的长度
+                        // (())  i = 2, stack.top() = 0, res = 2, 即中间两个的长度
+                        res = max(res, i - left_stk.top());
                     }
                 }
             }
         }
-        return max_len;
+        return res;
     }
 };
+
 
 void test(string test_name, string s, int expected)
 {

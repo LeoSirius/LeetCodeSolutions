@@ -1,7 +1,7 @@
 // 2019-06-28开始
 // leetcode 按topics来做，现阶段所有topics中不做hard, 
 现在的topics中从array做到hash_table(python, 1-20)
-周末集中做hard
+周末集中做hard-cpp
 
 // 正在做的round
 [
@@ -82,7 +82,10 @@
     leetcode={dp:[120, 121, 139, 152], sql:[1378, ]}
 },
 20200314={
-    leetcode={hard:[4, 10, 23, 25, ]}
+    leetcode={hard-cpp:[4, 10, 23, 25, ]}
+},
+20200315={
+    leetcode={hard-cpp:[30, 32, 37, ]}
 }
 
 

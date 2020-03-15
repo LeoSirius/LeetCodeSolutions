@@ -3,25 +3,27 @@
 using namespace std;
 
 class Solution {
-    bool check(vector<vector<char>> &board, int row, int col, char ch)
+
+    bool check(vector<vector<char>>& board, int row, int col ,char ch)
     {
+        for (int i = 0; i < 9; i++) {
+            if (board[row][i] == ch || board[i][col] == ch)
+                return false;
+        }
         // col % 3 后就是 col在左上开始后的索引，然后col再减col % 3，便回到了左上方
         // boxrow, boxcol 是每个小正方形最左上角的索引
         int box_row = row - row % 3;
         int box_col = col - col % 3;
-        for (int i = 0; i < 9; ++i)
-            if (board[row][i] == ch || board[i][col] == ch)
-                return false;
-        for (int i = 0; i < 3; ++i)
-        for (int j = 0; j < 3; ++j)
+        for (int i = 0; i < 3; i++)
+        for (int j = 0; j < 3; j++)
             if (board[box_row + i][box_col + j] == ch)
                 return false;
         return true;
-
     }
-    // 以递归的方式遍历了每个方格
-    bool solved(vector<vector<char>> &board, int row, int col)
+
+    bool solved(vector<vector<char>>& board, int row, int col)
     {
+        // 以递归的方式遍历了每个方格
         if (row == 9)
             return true;
         if (col == 9)
@@ -29,7 +31,7 @@ class Solution {
         if (board[row][col] != '.')
             return solved(board, row, col + 1);
 
-        for (char ch  = '1'; ch <= '9'; ++ch) {
+        for (char ch = '1'; ch <= '9'; ch++) {
             if (check(board, row, col, ch)) {
                 board[row][col] = ch;
                 if (solved(board, row, col + 1))
@@ -44,6 +46,7 @@ public:
         solved(board, 0, 0);
     }
 };
+
 
 void test(string test_name, vector<vector<char>> board, vector<vector<char>> &expected)
 {
@@ -83,5 +86,3 @@ int main()
 
     return 0;
 }
-
-
