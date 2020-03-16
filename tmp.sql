@@ -1,85 +1,94 @@
-Table: Employees
+Table: Countries
 
 +---------------+---------+
 | Column Name   | Type    |
 +---------------+---------+
-| id            | int     |
-| name          | varchar |
+| country_id    | int     |
+| country_name  | varchar |
 +---------------+---------+
-id is the primary key for this table.
-Each row of this table contains the id and the name of an employee in a company.
+country_id is the primary key for this table.
+Each row of this table contains the ID and the name of one country.
  
 
-Table: EmployeeUNI
+Table: Weather
 
 +---------------+---------+
 | Column Name   | Type    |
 +---------------+---------+
-| id            | int     |
-| unique_id     | int     |
+| country_id    | int     |
+| weather_state | varchar |
+| day           | date    |
 +---------------+---------+
-(id, unique_id) is the primary key for this table.
-Each row of this table contains the id and the corresponding unique id of an employee in the company.
+(country_id, day) is the primary key for this table.
+Each row of this table indicates the weather state in a country for one day.
  
 
-Write an SQL query to show the unique 
-ID of each user, If a user doesn't have a unique ID replace just show null.'
+Write an SQL query to find the type of weather in each country for November 2019.
 
-Return the result table in any order.
+The type of weather is Cold if the average weather_state is less than or equal 15, Hot if the average weather_state is greater than or equal 25 and Warm otherwise.
+
+Return result table in any order.
 
 The query result format is in the following example:
 
-Employees table:
-+----+----------+
-| id | name     |
-+----+----------+
-| 1  | Alice    |
-| 7  | Bob      |
-| 11 | Meir     |
-| 90 | Winston  |
-| 3  | Jonathan |
-+----+----------+
+Countries table:
++------------+--------------+
+| country_id | country_name |
++------------+--------------+
+| 2          | USA          |
+| 3          | Australia    |
+| 7          | Peru         |
+| 5          | China        |
+| 8          | Morocco      |
+| 9          | Spain        |
++------------+--------------+
+Weather table:
++------------+---------------+------------+
+| country_id | weather_state | day        |
++------------+---------------+------------+
+| 2          | 15            | 2019-11-01 |
+| 2          | 12            | 2019-10-28 |
+| 2          | 12            | 2019-10-27 |
+| 3          | -2            | 2019-11-10 |
+| 3          | 0             | 2019-11-11 |
+| 3          | 3             | 2019-11-12 |
+| 5          | 16            | 2019-11-07 |
+| 5          | 18            | 2019-11-09 |
+| 5          | 21            | 2019-11-23 |
+| 7          | 25            | 2019-11-28 |
+| 7          | 22            | 2019-12-01 |
+| 7          | 20            | 2019-12-02 |
+| 8          | 25            | 2019-11-05 |
+| 8          | 27            | 2019-11-15 |
+| 8          | 31            | 2019-11-25 |
+| 9          | 7             | 2019-10-23 |
+| 9          | 3             | 2019-12-23 |
++------------+---------------+------------+
+Result table:
++--------------+--------------+
+| country_name | weather_type |
++--------------+--------------+
+| USA          | Cold         |
+| Austraila    | Cold         |
+| Peru         | Hot          |
+| China        | Warm         |
+| Morocco      | Hot          |
++--------------+--------------+
+Average weather_state in USA in November is (15) / 1 = 15 so weather type is Cold.
+Average weather_state in Austraila in November is (-2 + 0 + 3) / 3 = 0.333 so weather type is Cold.
+Average weather_state in Peru in November is (25) / 1 = 25 so weather type is Hot.
+Average weather_state in China in November is (16 + 18 + 21) / 3 = 18.333 so weather type is Warm.
+Average weather_state in Morocco in November is (25 + 27 + 31) / 3 = 27.667 so weather type is Hot.
+We know nothing about average weather_state in Spain in November so we don't include it in the result table. '
 
-EmployeeUNI table:
-+----+-----------+
-| id | unique_id |
-+----+-----------+
-| 3  | 1         |
-| 11 | 2         |
-| 90 | 3         |
-+----+-----------+
 
-EmployeeUNI table:
-+-----------+----------+
-| unique_id | name     |
-+-----------+----------+
-| null      | Alice    |
-| null      | Bob      |
-| 2         | Meir     |
-| 3         | Winston  |
-| 1         | Jonathan |
-+-----------+----------+
-
-Alice and Bob don't have a unique 'ID, We will show null instead.
-The unique ID of Meir is 2.
-The unique ID of Winston is 3.
-The unique ID of Jonathan is 1.
-
-SELECT eu.unique_id AS unique_id,
-e.name
-FROM Employees e LEFT JOIN EmployeeUNI eu
-ON e.id=eu.id;
-
-
-Create table If Not Exists Employees (id int, name varchar(20));
-Create table If Not Exists EmployeeUNI (id int, unique_id int);
-Truncate table Employees;
-insert into Employees (id, name) values ('1', 'Alice');
-insert into Employees (id, name) values ('7', 'Bob');
-insert into Employees (id, name) values ('11', 'Meir');
-insert into Employees (id, name) values ('90', 'Winston');
-insert into Employees (id, name) values ('3', 'Jonathan');
-Truncate table EmployeeUNI;
-insert into EmployeeUNI (id, unique_id) values ('3', '1');
-insert into EmployeeUNI (id, unique_id) values ('11', '2');
-insert into EmployeeUNI (id, unique_id) values ('90', '3');
+SELECT c.country_name,
+CASE
+  WHEN AVG(w.weather_state)<=15 THEN 'Cold'
+  WHEN AVG(w.weather_state)>=25 THEN 'Hot'
+  ELSE 'Warm'
+END AS weather_type
+FROM Countries c JOIN Weather w
+ON c.country_id=w.country_id
+WHERE MONTH(w.day)=11
+GROUP BY c.country_id;
