@@ -1,57 +1,43 @@
 #include <iostream>
-#include <vector>
 using namespace std;
 
 class Solution {
-
-    bool check(vector<vector<char>>& board, int row, int col ,char ch)
+    bool match(const char *s, const char *p)
     {
-        for (int i = 0; i < 9; i++) {
-            if (board[row][i] == ch || board[i][col] == ch)
-                return false;
-        }
-        // col % 3 后就是 col在左上开始后的索引，然后col再减col % 3，便回到了左上方
-        // boxrow, boxcol 是每个小正方形最左上角的索引
-        int box_row = row - row % 3;
-        int box_col = col - col % 3;
-        for (int i = 0; i < 3; i++)
-        for (int j = 0; j < 3; j++)
-            if (board[box_row + i][box_col + j] == ch)
-                return false;
-        return true;
-    }
+        const char *ss = s;
+        const char *star = nullptr;
 
-    bool solved(vector<vector<char>>& board, int row, int col)
-    {
-        // 以递归的方式遍历了每个方格
-        if (row == 9)
-            return true;
-        if (col == 9)
-            return solved(board, row + 1, 0);
-        if (board[row][col] != '.')
-            return solved(board, row, col + 1);
-
-        for (char ch = '1'; ch <= '9'; ch++) {
-            if (check(board, row, col, ch)) {
-                board[row][col] = ch;
-                if (solved(board, row, col + 1))
-                    return true;
-                board[row][col] = '.';
+        while (*s) {
+            if (*s == *p || *p == '?') {
+                ++s; ++p;
+                continue;
             }
+            if (*p == '*') {
+                star = p++;
+                ss = s;
+                continue;
+            }
+            if (star) {
+                p = star + 1;
+                s = ++ss;
+                continue;
+            }
+            return false;
         }
-        return false;
+        while (*p == '*') p++;
+        return !*p;
     }
 public:
-    void solveSudoku(vector<vector<char>>& board) {
-        solved(board, 0, 0);
+    bool isMatch(string s, string p) {
+        return match(s.c_str(), p.c_str());
     }
 };
 
 
-void test(string test_name, vector<vector<char>> board, vector<vector<char>> &expected)
+void test(string test_name, string s, string p, bool expected)
 {
-    Solution().solveSudoku(board);
-    if (board == expected) {
+    bool res = Solution().isMatch(s, p);
+    if (res == expected) {
         cout << test_name << " success." << endl;
     } else {
         cout << test_name << " failed." << endl;
@@ -60,29 +46,30 @@ void test(string test_name, vector<vector<char>> board, vector<vector<char>> &ex
 
 int main()
 {
-    vector<vector<char>> board1 = {
-        {'5','3','.','.','7','.','.','.','.'},
-        {'6','.','.','1','9','5','.','.','.'},
-        {'.','9','8','.','.','.','.','6','.'},
-        {'8','.','.','.','6','.','.','.','3'},
-        {'4','.','.','8','.','3','.','.','1'},
-        {'7','.','.','.','2','.','.','.','6'},
-        {'.','6','.','.','.','.','2','8','.'},
-        {'.','.','.','4','1','9','.','.','5'},
-        {'.','.','.','.','8','.','.','7','9'},
-    };
-    vector<vector<char>> expected1 = {
-        {'5','3','4','6','7','8','9','1','2'},
-        {'6','7','2','1','9','5','3','4','8'},
-        {'1','9','8','3','4','2','5','6','7'},
-        {'8','5','9','7','6','1','4','2','3'},
-        {'4','2','6','8','5','3','7','9','1'},
-        {'7','1','3','9','2','4','8','5','6'},
-        {'9','6','1','5','3','7','2','8','4'},
-        {'2','8','7','4','1','9','6','3','5'},
-        {'3','4','5','2','8','6','1','7','9'},
-    };
-    test("test1", board1, expected1);
+    string s1 = "aa";
+    string p1 = "a";
+    bool expected1 = false;
+    test("test1", s1, p1, expected1);
+
+    string s2 = "aa";
+    string p2 = "*";
+    bool expected2 = true;
+    test("test2", s2, p2, expected2);
+
+    string s3 = "cb";
+    string p3 = "?a";
+    bool expected3 = false;  // Explanation: '?' matches 'c', but the second letter is 'a', which does not match 'b'.
+    test("test3", s3, p3, expected3);
+
+    string s4 = "adceb";
+    string p4 = "*a*b";
+    bool expected4 = true;  // Explanation: The first '*' matches the empty sequence, while the second '*' matches the substring "dce".
+    test("test4", s4, p4, expected4);
+
+    string s5 = "acdcb";
+    string p5 = "a*c?b";
+    bool expected5 = false;
+    test("test5", s5, p5, expected5);
 
     return 0;
 }

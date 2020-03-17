@@ -7,6 +7,12 @@ public:
     int firstMissingPositive(vector<int>& nums) {
         int n = nums.size();
         for (int i = 0; i < n; i++) {
+            // nums[i] == nums[nums[i] - 1] 时，即被放到了正确的位置上
+            // nums[3] = 4,    nums[nums[3] - 1] = nums[3]
+
+            // 若nums[3] = 7, 则nums[nums[3] - 1] = nums[6]
+            // 交换后nums[6]=7，nums[3]的值是原来nums[6]的值
+            // 这样loop。直到nums[3]正好等于4，!=的条件跳出
             while (nums[i] >= 1 && nums[i] <= n && nums[nums[i]-1] != nums[i])
                 swap(nums[nums[i]-1], nums[i]);
         }
@@ -46,6 +52,10 @@ int main()
     vector<int> nums3 = {7,8,9,11,12};
     int expected3 = 1;
     test("test3", nums3, expected3);
+
+    vector<int> nums4 = {};
+    int expected4 = 1;
+    test("test4", nums4, expected4);
 
     return 0;
 }
