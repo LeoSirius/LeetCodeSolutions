@@ -99,7 +99,10 @@
     leetcode={dp:[256, 264, 276, 279], sql:[1303], math:[2]}
 },
 20200319={
-    leetcode={hard:[45, 51, 52, ]}
+    leetcode={hard:[45, 51, 52]}
+},
+20200320={
+    leetcode={math:[7, 8]}
 }
 
 
