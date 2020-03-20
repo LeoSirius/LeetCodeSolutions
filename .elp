@@ -102,7 +102,7 @@
     leetcode={hard:[45, 51, 52]}
 },
 20200320={
-    leetcode={math:[7, 8]}
+    leetcode={math:[7, 8], sql:[1322, ]}
 }
 
 
