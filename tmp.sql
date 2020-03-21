@@ -1,67 +1,86 @@
-Table: Ads
+Table: Products
+
++------------------+---------+
+| Column Name      | Type    |
++------------------+---------+
+| product_id       | int     |
+| product_name     | varchar |
+| product_category | varchar |
++------------------+---------+
+product_id is the primary key for this table.
+This table contains data about the company's products.'
+Table: Orders
 
 +---------------+---------+
 | Column Name   | Type    |
 +---------------+---------+
-| ad_id         | int     |
-| user_id       | int     |
-| action        | enum    |
+| product_id    | int     |
+| order_date    | date    |
+| unit          | int     |
 +---------------+---------+
-(ad_id, user_id) is the primary key for this table.
-Each row of this table contains the ID of an Ad, the ID of a user and the action taken by this user regarding this Ad.
-The action column is an ENUM type of ('Clicked', 'Viewed', 'Ignored').
- 
+There is no primary key for this table. It may have duplicate rows.
+product_id is a foreign key to Products table.
+unit is the number of products ordered in order_date.
+ 
 
-A company is running Ads and wants to calculate the performance of each Ad.
+Write an SQL query to get the names
+ of products with greater than or equal to 
+ 100 units ordered in February 2020 and their amount.
 
-Performance of the Ad is measured using Click-Through Rate (CTR) where:
-
-
-
-Write an SQL query to find the ctr of each Ad.
-
-Round ctr to 2 decimal points. Order the result table by ctr in descending order and by ad_id in ascending order in case of a tie.
+Return result table in any order.
 
 The query result format is in the following example:
 
-Ads table:
-+-------+---------+---------+
-| ad_id | user_id | action  |
-+-------+---------+---------+
-| 1     | 1       | Clicked |
-| 2     | 2       | Clicked |
-| 3     | 3       | Viewed  |
-| 5     | 5       | Ignored |
-| 1     | 7       | Ignored |
-| 2     | 7       | Viewed  |
-| 3     | 5       | Clicked |
-| 1     | 4       | Viewed  |
-| 2     | 11      | Viewed  |
-| 1     | 2       | Clicked |
-+-------+---------+---------+
-Result table:
-+-------+-------+
-| ad_id | ctr   |
-+-------+-------+
-| 1     | 66.67 |
-| 3     | 50.00 |
-| 2     | 33.33 |
-| 5     | 0.00  |
-+-------+-------+
-for ad_id = 1, ctr = (2/(2+1)) * 100 = 66.67
-for ad_id = 2, ctr = (1/(1+2)) * 100 = 33.33
-for ad_id = 3, ctr = (1/(1+1)) * 100 = 50.00
-for ad_id = 5, ctr = 0.00, Note that ad_id = 5 has no clicks or views.
-Note that we don't care about Ignored Ads.
-Result table is ordered by the ctr. in case of a tie we order them by ad_id'
+ 
 
-SELECT ad_id,
-IFNULL(
-ROUND(
-SUM(action='Clicked') / (SUM(action='Clicked') + SUM(action='Viewed')) * 100, 
-2),
-0)
-AS ctr
-FROM Ads
-GROUP BY ad_id
-ORDER BY ctr DESC, ad_id;
+Products table:
++-------------+-----------------------+------------------+
+| product_id  | product_name          | product_category |
++-------------+-----------------------+------------------+
+| 1           | Leetcode Solutions    | Book             |
+| 2           | Jewels of Stringology | Book             |
+| 3           | HP                    | Laptop           |
+| 4           | Lenovo                | Laptop           |
+| 5           | Leetcode Kit          | T-shirt          |
++-------------+-----------------------+------------------+
+
+Orders table:
++--------------+--------------+----------+
+| product_id   | order_date   | unit     |
++--------------+--------------+----------+
+| 1            | 2020-02-05   | 60       |
+| 1            | 2020-02-10   | 70       |
+| 2            | 2020-01-18   | 30       |
+| 2            | 2020-02-11   | 80       |
+| 3            | 2020-02-17   | 2        |
+| 3            | 2020-02-24   | 3        |
+| 4            | 2020-03-01   | 20       |
+| 4            | 2020-03-04   | 30       |
+| 4            | 2020-03-04   | 60       |
+| 5            | 2020-02-25   | 50       |
+| 5            | 2020-02-27   | 50       |
+| 5            | 2020-03-01   | 50       |
++--------------+--------------+----------+
+
+Result table:
++--------------------+---------+
+| product_name       | unit    |
++--------------------+---------+
+| Leetcode Solutions | 130     |
+| Leetcode Kit       | 100     |
++--------------------+---------+
+
+Products with product_id = 1 is ordered in February a total of (60 + 70) = 130.
+Products with product_id = 2 is ordered in February a total of 80.
+Products with product_id = 3 is ordered in February a total of (2 + 3) = 5.
+Products with product_id = 4 was not ordered in February 2020.
+Products with product_id = 5 is ordered in February a total of (50 + 50) = 100.
+Solutions
+
+
+SELECT p.product_name, SUM(o.unit) AS unit
+FROM Products p JOIN Orders o
+ON p.product_id=o.product_id
+WHERE MONTH(o.order_date)=2
+GROUP BY p.product_name
+HAVING SUM(o.unit)>=100;
