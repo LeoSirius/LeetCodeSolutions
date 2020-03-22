@@ -1,86 +1,48 @@
-Table: Products
+Write an SQL query to find the id and the
+ name of all students who are enrolled in departments that no longer exists.
 
-+------------------+---------+
-| Column Name      | Type    |
-+------------------+---------+
-| product_id       | int     |
-| product_name     | varchar |
-| product_category | varchar |
-+------------------+---------+
-product_id is the primary key for this table.
-This table contains data about the company's products.'
-Table: Orders
-
-+---------------+---------+
-| Column Name   | Type    |
-+---------------+---------+
-| product_id    | int     |
-| order_date    | date    |
-| unit          | int     |
-+---------------+---------+
-There is no primary key for this table. It may have duplicate rows.
-product_id is a foreign key to Products table.
-unit is the number of products ordered in order_date.
- 
-
-Write an SQL query to get the names
- of products with greater than or equal to 
- 100 units ordered in February 2020 and their amount.
-
-Return result table in any order.
+Return the result table in any order.
 
 The query result format is in the following example:
 
- 
+Departments table:
++------+--------------------------+
+| id   | name                     |
++------+--------------------------+
+| 1    | Electrical Engineering   |
+| 7    | Computer Engineering     |
+| 13   | Bussiness Administration |
++------+--------------------------+
 
-Products table:
-+-------------+-----------------------+------------------+
-| product_id  | product_name          | product_category |
-+-------------+-----------------------+------------------+
-| 1           | Leetcode Solutions    | Book             |
-| 2           | Jewels of Stringology | Book             |
-| 3           | HP                    | Laptop           |
-| 4           | Lenovo                | Laptop           |
-| 5           | Leetcode Kit          | T-shirt          |
-+-------------+-----------------------+------------------+
-
-Orders table:
-+--------------+--------------+----------+
-| product_id   | order_date   | unit     |
-+--------------+--------------+----------+
-| 1            | 2020-02-05   | 60       |
-| 1            | 2020-02-10   | 70       |
-| 2            | 2020-01-18   | 30       |
-| 2            | 2020-02-11   | 80       |
-| 3            | 2020-02-17   | 2        |
-| 3            | 2020-02-24   | 3        |
-| 4            | 2020-03-01   | 20       |
-| 4            | 2020-03-04   | 30       |
-| 4            | 2020-03-04   | 60       |
-| 5            | 2020-02-25   | 50       |
-| 5            | 2020-02-27   | 50       |
-| 5            | 2020-03-01   | 50       |
-+--------------+--------------+----------+
+Students table:
++------+----------+---------------+
+| id   | name     | department_id |
++------+----------+---------------+
+| 23   | Alice    | 1             |
+| 1    | Bob      | 7             |
+| 5    | Jennifer | 13            |
+| 2    | John     | 14            |
+| 4    | Jasmine  | 77            |
+| 3    | Steve    | 74            |
+| 6    | Luis     | 1             |
+| 8    | Jonathan | 7             |
+| 7    | Daiana   | 33            |
+| 11   | Madelynn | 1             |
++------+----------+---------------+
 
 Result table:
-+--------------------+---------+
-| product_name       | unit    |
-+--------------------+---------+
-| Leetcode Solutions | 130     |
-| Leetcode Kit       | 100     |
-+--------------------+---------+
++------+----------+
+| id   | name     |
++------+----------+
+| 2    | John     |
+| 7    | Daiana   |
+| 4    | Jasmine  |
+| 3    | Steve    |
++------+----------+
 
-Products with product_id = 1 is ordered in February a total of (60 + 70) = 130.
-Products with product_id = 2 is ordered in February a total of 80.
-Products with product_id = 3 is ordered in February a total of (2 + 3) = 5.
-Products with product_id = 4 was not ordered in February 2020.
-Products with product_id = 5 is ordered in February a total of (50 + 50) = 100.
-Solutions
+John, Daiana, Steve and Jasmine are enrolled in departments 14, 33, 74 and 77 respectively. department 14, 33, 74 and 77 doesn't exist in the Departments table'
 
-
-SELECT p.product_name, SUM(o.unit) AS unit
-FROM Products p JOIN Orders o
-ON p.product_id=o.product_id
-WHERE MONTH(o.order_date)=2
-GROUP BY p.product_name
-HAVING SUM(o.unit)>=100;
+SELECT s.id, s.name
+FROM Students s LEFT JOIN Departments d
+ON s.department_id=d.id
+WHERE d.id IS NULL;

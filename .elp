@@ -108,7 +108,7 @@
     leetcode={hard-cpp:[57, ], sql:[1327, ]}
 },
 20200322={
-    leetcode={daily:[945], hard-cpp:[65, ]}
+    leetcode={daily:[945], hard-cpp:[65, 68], sql:[1350]}
 }
 
 
