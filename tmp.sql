@@ -1,48 +1,74 @@
-Write an SQL query to find the id and the
- name of all students who are enrolled in departments that no longer exists.
+Table: Employees
+
++---------------+---------+
+| Column Name   | Type    |
++---------------+---------+
+| id            | int     |
+| name          | varchar |
++---------------+---------+
+id is the primary key for this table.
+Each row of this table contains the id and the name of an employee in a company.
+ 
+
+Table: EmployeeUNI
+
++---------------+---------+
+| Column Name   | Type    |
++---------------+---------+
+| id            | int     |
+| unique_id     | int     |
++---------------+---------+
+(id, unique_id) is the primary key for this table.
+Each row of this table contains the id and the corresponding unique id of an employee in the company.
+ 
+
+Write an SQL query to show the unique ID of each user, 
+If a user doesn't' have a unique ID replace just show null.
 
 Return the result table in any order.
 
 The query result format is in the following example:
 
-Departments table:
-+------+--------------------------+
-| id   | name                     |
-+------+--------------------------+
-| 1    | Electrical Engineering   |
-| 7    | Computer Engineering     |
-| 13   | Bussiness Administration |
-+------+--------------------------+
+Employees table:
++----+----------+
+| id | name     |
++----+----------+
+| 1  | Alice    |
+| 7  | Bob      |
+| 11 | Meir     |
+| 90 | Winston  |
+| 3  | Jonathan |
++----+----------+
 
-Students table:
-+------+----------+---------------+
-| id   | name     | department_id |
-+------+----------+---------------+
-| 23   | Alice    | 1             |
-| 1    | Bob      | 7             |
-| 5    | Jennifer | 13            |
-| 2    | John     | 14            |
-| 4    | Jasmine  | 77            |
-| 3    | Steve    | 74            |
-| 6    | Luis     | 1             |
-| 8    | Jonathan | 7             |
-| 7    | Daiana   | 33            |
-| 11   | Madelynn | 1             |
-+------+----------+---------------+
+EmployeeUNI table:
++----+-----------+
+| id | unique_id |
++----+-----------+
+| 3  | 1         |
+| 11 | 2         |
+| 90 | 3         |
++----+-----------+
 
-Result table:
-+------+----------+
-| id   | name     |
-+------+----------+
-| 2    | John     |
-| 7    | Daiana   |
-| 4    | Jasmine  |
-| 3    | Steve    |
-+------+----------+
+SELECT u.unique_id, e.name
+FROM Employees e LEFT JOIN EmployeeUNI u
+ON e.id=u.id;
 
-John, Daiana, Steve and Jasmine are enrolled in departments 14, 33, 74 and 77 respectively. department 14, 33, 74 and 77 doesn't exist in the Departments table'
+EmployeeUNI table:
++-----------+----------+
+| unique_id | name     |
++-----------+----------+
+| null      | Alice    |
+| null      | Bob      |
+| 2         | Meir     |
+| 3         | Winston  |
+| 1         | Jonathan |
++-----------+----------+
 
-SELECT s.id, s.name
-FROM Students s LEFT JOIN Departments d
-ON s.department_id=d.id
-WHERE d.id IS NULL;
+Alice and Bob don't' have a unique ID, We will show null instead.
+The unique ID of Meir is 2.
+The unique ID of Winston is 3.
+The unique ID of Jonathan is 1.
+
+来源：力扣（LeetCode）
+链接：https://leetcode-cn.com/problems/replace-employee-id-with-the-unique-identifier
+著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
