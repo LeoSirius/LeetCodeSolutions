@@ -18,9 +18,10 @@ public:
         k--;    // start from 0
         for (int i = n-1; i >= 0; i--) {
             int index = k / fac[i];
+            k -= index * fac[i];
+
             res += num_char[index];
             num_char.erase(num_char.begin() + index);
-            k -= index * fac[i];
         }
         return res;
     }
