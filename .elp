@@ -7,20 +7,11 @@
 [
     [math-py 1-20(easy, mid)],
     [mysql 1-10(mid)],
-    [hard-cpp 11-20],
+    [hard-cpp 12-20],
 ]
 
 // 已经做完的round
 [
-    [math 11-20(easy,mid), 2020-02-21],
-    [mysql 21-30(easy), 2020-02-21],
-    [string 11-20(easy,mid), 2020-02-26],
-    [mysql 31-40(easy), 2020-02-27],
-    [tree 11-20(easy, mid), 2020-02-28],
-    [hash_table 11-20(easy, mid), 2020-03-04],
-    [hard-cpp 1-10, 2020-03-08],
-    [mysql 31-40(easy), 2020-03-09],
-    [array 1-20(easy, mid), 2020-03-09],
     [mysql 41-45(easy), 2020-03-13],
     [hard-cpp 1-10, 2020-03-17],
     [dp 1-20(easy, mid), 2020-03-18],
@@ -119,6 +110,9 @@
 },
 20200325={
     leetcode={daily:[892], sql:[178], math:[60, 67, 69, 166]}
+},
+20200326={
+    leetcode={daily:[999], sql:[180], hard-cpp:[72]}
 }
 
 

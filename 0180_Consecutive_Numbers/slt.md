@@ -1,14 +1,7 @@
-### 思路1 使用case和自联结
+### 思路1 三表联结
 
 ```sql
-SELECT DISTINCT Num as ConsecutiveNums
-FROM (
-    SELECT Num, 
-        CASE
-            WHEN @prev = Num THEN @count := @count + 1
-            WHEN (@prev := Num) IS NOT NULL THEN @count := 1
-        END AS CNT
-    FROM Logs, (SELECT @prev := NULL, @count := NULL) AS t
-) AS temp
-WHERE temp.CNT >= 3;
+SELECT DISTINCT l1.Num AS ConsecutiveNums
+FROM Logs l1, Logs l2, Logs l3
+WHERE l1.Num=l2.Num AND l2.Num=l3.Num AND l2.Id-1=l1.Id AND l3.Id-1=l2.Id;
 ```
