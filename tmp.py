@@ -1,11 +1,13 @@
 class Solution:
+
+
     def trailingZeroes(self, n: int) -> int:
         res = 0
         i = 5
         while n // i:
             res += n // i
             i *= 5
-        
+
         return res
 
 def test(test_name, n, expected):
