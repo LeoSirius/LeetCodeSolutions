@@ -1,18 +1,23 @@
 ### 思路1 
 
-大体上分成两部，一是内联结两个表。二是内联结的两个条件，一个自然是department的id，另一个是用GROUP BY和max求得的每个部门最大的Salary。
+利用子查询先找出每个部门的最高工资，再联结两个表查询
 
 ```sql
-SELECT 
-    d.Name AS Department, 
-    e.Name AS Employee,
-    e.Salary
-FROM
-    Employee e INNER JOIN Department d
-ON
-    e.DepartmentId=d.id
-    AND
-    (e.Salary, e.DepartmentId) IN
-        (SELECT max(Salary), DepartmentId
-        FROM Employee GROUP BY DepartmentId);
+SELECT MAX(e.Salary), e.DepartmentId
+FROM Employee e
+GROUP BY e.DepartmentId;
+```
+
+```sql
+SELECT
+d.Name AS Department,
+e.Name AS Employee,
+e.Salary
+FROM Employee e JOIN Department d
+ON e.DepartmentId=d.Id
+WHERE (e.Salary, e.DepartmentId) IN (
+    SELECT MAX(e.Salary), e.DepartmentId
+    FROM Employee e
+    GROUP BY e.DepartmentId
+);
 ```
