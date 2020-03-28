@@ -1,63 +1,30 @@
-The Employee table holds all employees. 
-Every employee has an Id, a salary, and there 
-is also a column for the department Id.
-
-+----+-------+--------+--------------+
-| Id | Name  | Salary | DepartmentId |
-+----+-------+--------+--------------+
-| 1  | Joe   | 70000  | 1            |
-| 2  | Jim   | 90000  | 1            |
-| 3  | Henry | 80000  | 2            |
-| 4  | Sam   | 60000  | 2            |
-| 5  | Max   | 90000  | 1            |
-+----+-------+--------+--------------+
-The Department table holds all departments of the company.
-
-+----+----------+
-| Id | Name     |
-+----+----------+
-| 1  | IT       |
-| 2  | Sales    |
-+----+----------+
-Write a SQL query to find employees who have the highest salary in each of the departments. For the above tables, your SQL query should return the following rows (order of rows does not matter).
-
-+------------+----------+--------+
-| Department | Employee | Salary |
-+------------+----------+--------+
-| IT         | Max      | 90000  |
-| IT         | Jim      | 90000  |
-| Sales      | Henry    | 80000  |
-+------------+----------+--------+
-
-SELECT 
-d.Name AS Department,
-e.Name AS Employee,
-e.Salary
-FROM Employee e JOIN Department d
-ON e.DepartmentId=d.Id
-WHERE (e.Salary, e.DepartmentId) IN (
-    SELECT MAX(e.Salary), e.DepartmentId
-    FROM Employee e
-    GROUP BY e.DepartmentId
-);
-
-SELECT MAX(e.Salary), e.DepartmentId
-FROM Employee e
-GROUP BY e.DepartmentId;
-
-Explanation:
-
-Max and Jim both have the highest salary in the IT department and Henry has the highest salary in the Sales department.
+Create table If Not Exists Activity (player_id int, device_id int, event_date date, games_played int);
+Truncate table Activity;
+insert into Activity (player_id, device_id, event_date, games_played) values ('1', '2', '2016-03-01', '5');
+insert into Activity (player_id, device_id, event_date, games_played) values ('1', '2', '2016-03-02', '6');
+insert into Activity (player_id, device_id, event_date, games_played) values ('2', '3', '2017-06-25', '1');
+insert into Activity (player_id, device_id, event_date, games_played) values ('3', '1', '2016-03-02', '0');
+insert into Activity (player_id, device_id, event_date, games_played) values ('3', '4', '2018-07-03', '5');
 
 
-Create table If Not Exists Employee (Id int, Name varchar(255), Salary int, DepartmentId int);
-Create table If Not Exists Department (Id int, Name varchar(255));
-Truncate table Employee;
-insert into Employee (Id, Name, Salary, DepartmentId) values ('1', 'Joe', '70000', '1');
-insert into Employee (Id, Name, Salary, DepartmentId) values ('2', 'Jim', '90000', '1');
-insert into Employee (Id, Name, Salary, DepartmentId) values ('3', 'Henry', '80000', '2');
-insert into Employee (Id, Name, Salary, DepartmentId) values ('4', 'Sam', '60000', '2');
-insert into Employee (Id, Name, Salary, DepartmentId) values ('5', 'Max', '90000', '1');
-Truncate table Department;
-insert into Department (Id, Name) values ('1', 'IT');
-insert into Department (Id, Name) values ('2', 'Sales');
+
+
+SELECT player_id, MIN(event_date) FROM Activity GROUP BY player_id;
+
+
+SELECT COUNT(DISTINCT a.player_id)
+FROM Activity a JOIN 
+(SELECT player_id, MIN(event_date) AS event_date FROM Activity GROUP BY player_id) b
+ON a.player_id=b.player_id AND DATEDIFF(a.event_date, b.event_date)=1;
+
+
+SELECT ROUND(
+(SELECT COUNT(DISTINCT a.player_id)
+FROM Activity a JOIN 
+(SELECT player_id, MIN(event_date) AS event_date FROM Activity GROUP BY player_id) b
+ON a.player_id=b.player_id AND DATEDIFF(a.event_date, b.event_date)=1
+) / 
+(
+SELECT COUNT(DISTINCT player_id)
+FROM Activity), 2
+) AS fraction;

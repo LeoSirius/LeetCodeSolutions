@@ -7,6 +7,7 @@
 [
     [math-py 1-20(easy, mid)],
     [mysql 1-10(mid)],
+    [hard-cpp 12-20],
 ]
 
 // 已经做完的round
@@ -73,7 +74,10 @@
     leetcode={daily:[999], sql:[180], hard-cpp:[72, 76, 84]}
 },
 20200327={
-    leetcode={daily:[914], sql:[184], math-py:[168, 171, 172, ]}
+    leetcode={daily:[914], sql:[184], math-py:[168, 171, 172]}
+},
+20200328={
+    leetcode={daily:[820], sql:[534, 550], hard-cpp:[]}
 }
 
 
