@@ -77,7 +77,10 @@
     leetcode={daily:[914], sql:[184], math-py:[168, 171, 172]}
 },
 20200328={
-    leetcode={daily:[820], sql:[534, 550], hard-cpp:[]}
+    leetcode={daily:[820], sql:[534, 550]}
+},
+20200329={
+    leetcode={daily:[1162], sql:[570], hard-cpp:[45]}
 }
 
 

@@ -5,20 +5,20 @@ using namespace std;
 class Solution {
 public:
     int jump(vector<int>& nums) {
-        int res = 0;
-        int start = 0;
-        int end = 1;
+        int start = 0, end = 1;
+        int step = 0;
+
         // start 和 end 左闭右开
         while (end < nums.size()) {
-            int max_reach = 0;
+            int max_reach = start;
             for (int i = start; i < end; i++) {
-                max_reach = max(max_reach, nums[i] + i);
+                max_reach = max(max_reach, i + nums[i]);
             }
-            start = end;        // 下一次起跳点范围开始的格子
-            end = max_reach + 1;    // 下一次起跳点范围结束的格子
-            ++res;
+            start = end;                // 下一次起跳点范围开始的格子
+            end = max_reach + 1;        // 下一次起跳点范围结束的格子
+            ++step;
         }
-        return res;
+        return step;
     }
 };
 

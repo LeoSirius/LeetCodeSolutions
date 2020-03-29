@@ -1,28 +1,30 @@
 #include <iostream>
 #include <vector>
-#include <unordered_set>
 using namespace std;
 
 class Solution {
 public:
-    int minimumLengthEncoding(vector<string>& words) {
-        unordered_set<string> myset(words.begin(), words.end());
-        for (auto word : words) {
-            for (int i = 1; i < word.size(); i++) {
-                myset.erase(word.substr(i));   // set.erase()如果参数没有在集合中，则什么也不做
-            }
-        }
+    int jump(vector<int>& nums) {
+        int start = 0, end = 1;
+        int step = 0;
 
-        int res = 0;
-        for (auto word : myset)
-            res += word.size() + 1;
-        return res;
+        // start 和 end 左闭右开
+        while (end < nums.size()) {
+            int max_reach = start;
+            for (int i = start; i < end; i++) {
+                max_reach = max(max_reach, i + nums[i]);
+            }
+            start = end;                // 下一次起跳点范围开始的格子
+            end = max_reach + 1;        // 下一次起跳点范围结束的格子
+            ++step;
+        }
+        return step;
     }
 };
 
-void test(string test_name, vector<string>& words, int expected)
+void test(string test_name, vector<int>& nums, int expected)
 {
-    int res = Solution().minimumLengthEncoding(words);
+    int res = Solution().jump(nums);
     if (res == expected) {
         cout << test_name << " success." << endl;
     } else {
@@ -32,9 +34,9 @@ void test(string test_name, vector<string>& words, int expected)
 
 int main()
 {
-    vector<string> words1 = {"time", "me", "bell"};
-    int expected1 = 10;
-    test("test1", words1, expected1);
+    vector<int> nums1 = {2,3,1,1,4};
+    int expected1 = 2;
+    test("test1", nums1, expected1);
 
     return 0;
 }

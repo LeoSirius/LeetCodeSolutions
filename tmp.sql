@@ -1,30 +1,40 @@
-Create table If Not Exists Activity (player_id int, device_id int, event_date date, games_played int);
-Truncate table Activity;
-insert into Activity (player_id, device_id, event_date, games_played) values ('1', '2', '2016-03-01', '5');
-insert into Activity (player_id, device_id, event_date, games_played) values ('1', '2', '2016-03-02', '6');
-insert into Activity (player_id, device_id, event_date, games_played) values ('2', '3', '2017-06-25', '1');
-insert into Activity (player_id, device_id, event_date, games_played) values ('3', '1', '2016-03-02', '0');
-insert into Activity (player_id, device_id, event_date, games_played) values ('3', '4', '2018-07-03', '5');
+Create table If Not Exists Employee (Id int, Name varchar(255), Department varchar(255), ManagerId int);
+Truncate table Employee;
+insert into Employee (Id, Name, Department, ManagerId) values ('101', 'John', 'A', NULL);
+insert into Employee (Id, Name, Department, ManagerId) values ('102', 'Dan', 'A', '101');
+insert into Employee (Id, Name, Department, ManagerId) values ('103', 'James', 'A', '101');
+insert into Employee (Id, Name, Department, ManagerId) values ('104', 'Amy', 'A', '101');
+insert into Employee (Id, Name, Department, ManagerId) values ('105', 'Anne', 'A', '101');
+insert into Employee (Id, Name, Department, ManagerId) values ('106', 'Ron', 'B', '101');
 
 
++------+----------+-----------+----------+
+|Id    |Name 	  |Department |ManagerId |
++------+----------+-----------+----------+
+|101   |John 	  |A 	      |null      |
+|102   |Dan 	  |A 	      |101       |
+|103   |James 	  |A 	      |101       |
+|104   |Amy 	  |A 	      |101       |
+|105   |Anne 	  |A 	      |101       |
+|106   |Ron 	  |B 	      |101       |
++------+----------+-----------+----------+
+Given the Employee table, write a SQL query that finds out managers with at least 5 direct report. For the above table, your SQL query should return:
 
++-------+
+| Name  |
++-------+
+| John  |
++-------+
 
-SELECT player_id, MIN(event_date) FROM Activity GROUP BY player_id;
+SELECT
+FROM Employee
+WHERE Id
 
-
-SELECT COUNT(DISTINCT a.player_id)
-FROM Activity a JOIN 
-(SELECT player_id, MIN(event_date) AS event_date FROM Activity GROUP BY player_id) b
-ON a.player_id=b.player_id AND DATEDIFF(a.event_date, b.event_date)=1;
-
-
-SELECT ROUND(
-(SELECT COUNT(DISTINCT a.player_id)
-FROM Activity a JOIN 
-(SELECT player_id, MIN(event_date) AS event_date FROM Activity GROUP BY player_id) b
-ON a.player_id=b.player_id AND DATEDIFF(a.event_date, b.event_date)=1
-) / 
+SELECT e1.Name
+FROM Employee e1 JOIN
 (
-SELECT COUNT(DISTINCT player_id)
-FROM Activity), 2
-) AS fraction;
+SELECT ManagerId
+FROM Employee
+GROUP BY ManagerId
+HAVING COUNT(ManagerId)>=5) AS t
+ON e1.Id=t.ManagerId;
