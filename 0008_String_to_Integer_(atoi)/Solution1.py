@@ -5,33 +5,24 @@ class Solution:
             return 0
 
         sign = 1
-        # skip sign
         if s[0] in ['-', '+']:
             if s[0] == '-':
                 sign = -1
             s = s[1:]
 
-        p = 0
-        res = 0
+        p, res = 0, 0
         while p < len(s) and s[p].isnumeric():
             res = res * 10 + int(s[p])
             p += 1
 
-        res = sign * res
-        if res > 2 ** 31 - 1:
-            return 2 ** 31 - 1
-        if res < -(2 ** 31):
-            return -(2 ** 31)
-        return res
+        return max(-(2**31), min(2**31-1, sign * res))
 
-
-def test(test_name, str, expected):
-    res = Solution().myAtoi(str)
+def test(test_name, s, expected):
+    res = Solution().myAtoi(s)
     if res == expected:
         print(test_name + ' success.')
     else:
         print(test_name + ' failed.')
-
 
 if __name__ == "__main__":
     test('test1', '42', 42)

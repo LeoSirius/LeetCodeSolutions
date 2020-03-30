@@ -5,7 +5,7 @@
 
 // 正在做的round
 [
-    [math-py 1-20(easy, mid)],
+    [string-py 1-20(easy, mid)],
     [mysql 1-10(mid)],
     [hard-cpp 12-20],
 ]
@@ -16,7 +16,8 @@
     [hard-cpp 1-10, 2020-03-17],
     [dp 1-20(easy, mid), 2020-03-18],
     [mysql 41-45(easy), 2020-03-23],
-    [hard-cpp 12-20, 2020-03-26]
+    [hard-cpp 12-20, 2020-03-26],
+    [math-py 1-20(easy, mid), 2020-03-30],
 ]
 
 20200309={
@@ -83,7 +84,7 @@
     leetcode={daily:[1162], sql:[570], hard-cpp:[45]}
 },
 20200330={
-    leetcode={daily:[面试题62], sql:[574], math-py:[202, 204, ]}
+    leetcode={daily:[面试题62], sql:[574], math-py:[202, 204, 223, 231], string-py:[3, 5, 6, 8]}
 }
 
 

@@ -33,5 +33,9 @@ int main()
     int expected1 = 3;
     test("test1", s1, expected1);
 
+    string s2 = " ";
+    int expected2 = 1;
+    test("test2", s2, expected2);
+
     return 0;
 }
