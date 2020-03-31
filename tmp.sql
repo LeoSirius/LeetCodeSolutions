@@ -1,76 +1,22 @@
-Table: Candidate
+SELECT 
+    question_id AS 'survey_log'
+FROM
+    survey_log
+GROUP BY question_id
+ORDER BY COUNT(answer_id) / COUNT(IF(action = 'show', 1, 0)) DESC
+LIMIT 1;
 
-+-----+---------+
-| id  | Name    |
-+-----+---------+
-| 1   | A       |
-| 2   | B       |
-| 3   | C       |
-| 4   | D       |
-| 5   | E       |
-+-----+---------+  
-Table: Vote
-
-+-----+--------------+
-| id  | CandidateId  |
-+-----+--------------+
-| 1   |     2        |
-| 2   |     4        |
-| 3   |     3        |
-| 4   |     2        |
-| 5   |     5        |
-+-----+--------------+
-id is the auto-increment primary key,
-CandidateId is the id appeared in Candidate table.
-Write a sql to find the name of the winning candidate, the above example will return the winner B.
-
-+------+
-| Name |
-+------+
-| B    |
-+------+
-Notes:
-
-You may assume there is no tie, in other words there will be only one winning candidate.
-
-SELECT COUNT(DISTINCT v.CandidateId)
-FROM Candidate c JOIN Vote v
-ON c.id=v.CandidateId;
-
-获胜者是 Vote 表中出现最多次的 CandidateId。因此可以先按照 CandidateId 分组，
-然后按照每个分组的计数给分组排序，使用 limit 1 取第一名即可。获得第一名的 CandidateId 之后，
-与 Candidate 表连接即可取得获胜者的名字。
+Create table If Not Exists survey_log (id int, action varchar(255), question_id int, answer_id int, q_num int, timestamp int);
+Truncate table survey_log;
+insert into survey_log (id, action, question_id, answer_id, q_num, timestamp) values ('5', 'show', '285', NULL, '1', '123');
+insert into survey_log (id, action, question_id, answer_id, q_num, timestamp) values ('5', 'answer', '285', '124124', '1', '124');
+insert into survey_log (id, action, question_id, answer_id, q_num, timestamp) values ('5', 'show', '369', NULL, '2', '125');
+insert into survey_log (id, action, question_id, answer_id, q_num, timestamp) values ('5', 'skip', '369', NULL, '2', '126');
 
 
-
-SELECT CandidateId
-FROM Vote
-GROUP BY CandidateId
-ORDER BY COUNT(*) DESC LIMIT 1;
-
-SELECT c.Name
-FROM Candidate c JOIN
-(
-    SELECT CandidateId
-    FROM Vote
-    GROUP BY CandidateId
-    ORDER BY COUNT(*) DESC LIMIT 1
-) AS t ON c.id=t.CandidateId;
-
-
-
-Create table If Not Exists Candidate (id int, Name varchar(255));
-Create table If Not Exists Vote (id int, CandidateId int);
-Truncate table Candidate;
-insert into Candidate (id, Name) values ('1', 'A');
-insert into Candidate (id, Name) values ('2', 'B');
-insert into Candidate (id, Name) values ('3', 'C');
-insert into Candidate (id, Name) values ('4', 'D');
-insert into Candidate (id, Name) values ('5', 'E');
-Truncate table Vote;
-insert into Vote (id, CandidateId) values ('1', '2');
-insert into Vote (id, CandidateId) values ('2', '4');
-insert into Vote (id, CandidateId) values ('3', '3');
-insert into Vote (id, CandidateId) values ('4', '2');
-insert into Vote (id, CandidateId) values ('5', '5');
+SELECT question_id AS survey_log
+FROM survey_log
+GROUP BY question_id
+ORDER BY COUNT(answer_id) / COUNT(IF(action="show", 1, 0)) DESC
+LIMIT 1;
 
