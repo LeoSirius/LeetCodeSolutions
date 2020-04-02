@@ -1,22 +1,41 @@
-SELECT 
-    question_id AS 'survey_log'
-FROM
-    survey_log
-GROUP BY question_id
-ORDER BY COUNT(answer_id) / COUNT(IF(action = 'show', 1, 0)) DESC
-LIMIT 1;
+CREATE TABLE IF NOT EXISTS student (student_id INT,student_name VARCHAR(45), gender VARCHAR(6), dept_id INT);
+CREATE TABLE IF NOT EXISTS department (dept_id INT, dept_name VARCHAR(255));
+Truncate table student;
+insert into student (student_id, student_name, gender, dept_id) values ('1', 'Jack', 'M', '1');
+insert into student (student_id, student_name, gender, dept_id) values ('2', 'Jane', 'F', '1');
+insert into student (student_id, student_name, gender, dept_id) values ('3', 'Mark', 'M', '2');
+Truncate table department;
+insert into department (dept_id, dept_name) values ('1', 'Engineering');
+insert into department (dept_id, dept_name) values ('2', 'Science');
+insert into department (dept_id, dept_name) values ('3', 'Law');
 
-Create table If Not Exists survey_log (id int, action varchar(255), question_id int, answer_id int, q_num int, timestamp int);
-Truncate table survey_log;
-insert into survey_log (id, action, question_id, answer_id, q_num, timestamp) values ('5', 'show', '285', NULL, '1', '123');
-insert into survey_log (id, action, question_id, answer_id, q_num, timestamp) values ('5', 'answer', '285', '124124', '1', '124');
-insert into survey_log (id, action, question_id, answer_id, q_num, timestamp) values ('5', 'show', '369', NULL, '2', '125');
-insert into survey_log (id, action, question_id, answer_id, q_num, timestamp) values ('5', 'skip', '369', NULL, '2', '126');
+Here is an example input:
+student table:
+
+| student_id | student_name | gender | dept_id |
+|------------|--------------|--------|---------|
+| 1          | Jack         | M      | 1       |
+| 2          | Jane         | F      | 1       |
+| 3          | Mark         | M      | 2       |
+department table:
+
+| dept_id | dept_name   |
+|---------|-------------|
+| 1       | Engineering |
+| 2       | Science     |
+| 3       | Law         |
+The Output should be:
+
+| dept_name   | student_number |
+|-------------|----------------|
+| Engineering | 2              |
+| Science     | 1              |
+| Law         | 0              |
 
 
-SELECT question_id AS survey_log
-FROM survey_log
-GROUP BY question_id
-ORDER BY COUNT(answer_id) / COUNT(IF(action="show", 1, 0)) DESC
-LIMIT 1;
-
+left join + group by
+SELECT d.dept_name, COUNT(s.student_id) AS student_number
+FROM department d LEFT JOIN student s
+ON d.dept_id=s.dept_id
+GROUP BY d.dept_id
+ORDER BY student_number DESC, d.dept_name;
