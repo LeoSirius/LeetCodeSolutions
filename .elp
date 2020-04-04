@@ -99,6 +99,9 @@
 20200403={
     leetcode={daily:[8], sql:[177]}
 },
+20200404={
+    leetcode={daily:[42], sql:[178], hard-new:[]}
+}
 
 
 

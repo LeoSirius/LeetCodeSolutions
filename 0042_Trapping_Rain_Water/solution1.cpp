@@ -5,23 +5,24 @@ using namespace std;
 class Solution {
 public:
     int trap(vector<int>& height) {
+        if (height.empty())
+            return 0;
+        int max_l = height[0], max_r = height.back();
         int l = 0, r = height.size() - 1;
-        int max_l = 0, max_r = 0;
         int res = 0;
-
-        while (l <= r) {
+        while (l < r) {
             if (height[l] <= height[r]) {
+                ++l;
                 if (max_l < height[l])
-                    max_l = height[l];
+                     max_l = height[l];
                 else
                     res += max_l - height[l];
-                ++l;
             } else {
+                --r;
                 if (max_r < height[r])
                     max_r = height[r];
                 else
                     res += max_r - height[r];
-                --r;
             }
         }
         return res;
@@ -31,6 +32,7 @@ public:
 void test(string test_name, vector<int> &height, int expected)
 {
     int res = Solution().trap(height);
+    cout << "res = " << res << endl;
     if (res == expected) {
         cout << test_name << " success." << endl;
     } else {
