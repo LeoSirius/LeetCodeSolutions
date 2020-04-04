@@ -3,33 +3,31 @@ using namespace std;
 
 class Solution {
 public:
-    bool isScramble(string s1, string s2) {
-        if (s1 == s2)
-            return true;
-        
-        char char_cnt[26] = {0};
-        for (int i = 0; s1[i]; ++i) {
-            char_cnt[s1[i] - 'a']++;
-            char_cnt[s2[i] - 'a']--;
-        }
-        for (int i = 0; i < 26; i++)
-            if (char_cnt[i] != 0)
-                return false;
-        
-        int len = s1.size();
-        for (int i = 1; s1[i]; ++i) {
-            if (isScramble(s1.substr(0, i), s2.substr(0, i)) && isScramble(s1.substr(i), s2.substr(i)))
-                return true;
-            if (isScramble(s1.substr(0, i), s2.substr(len-i)) && isScramble(s1.substr(i), s2.substr(0, len-i)))
-                return true;
-        }
-        return false;
+    bool isInterleave(string s1, string s2, string s3) {
+        if (s3.size() != s1.size() + s2.size())
+            return false;
+
+        bool dp[s1.size() + 1][s2.size() + 1];
+
+        // 注意这里的ij对s1s2来说是第ith，即从1开始的。0意味着空串
+        for (int i = 0; i <= s1.size(); ++i)
+            for (int j = 0; j <= s2.size(); ++j) {
+                if (i == 0 && j == 0)
+                    dp[i][j] = true;
+                else if (i == 0)
+                    dp[i][j] = dp[i][j-1] && s2[j-1] == s3[i + j - 1];
+                else if (j == 0)
+                    dp[i][j] = dp[i-1][j] && s1[i-1] == s3[i+j-1];
+                else
+                    dp[i][j] = (dp[i-1][j] && s1[i-1] == s3[i+j-1]) || (dp[i][j-1] && s2[j-1] == s3[i+j-1]);
+            }
+        return dp[s1.size()][s2.size()];
     }
 };
 
-void test(string test_name, string s1, string s2, bool expected)
+void test(string test_name, string s1, string s2, string s3, bool expected)
 {
-    bool res = Solution().isScramble(s1, s2);
+    bool res = Solution().isInterleave(s1, s2, s3);
     if (res == expected) {
         cout << test_name << " success." << endl;
     } else {
@@ -39,13 +37,13 @@ void test(string test_name, string s1, string s2, bool expected)
 
 int main()
 {
-    string s11 = "great", s21 = "rgeat";
+    string s11 = "aabcc", s21 = "dbbca", s31 = "aadbbcbcac";
     bool expected1 = true;
-    test("test1", s11, s21, expected1);
+    test("test1", s11, s21, s31, expected1);
 
-    string s12 = "abcde", s22 = "caebd";
+    string s12 = "aabcc", s22 = "dbbca", s32 = "aadbbbaccc";
     bool expected2 = false;
-    test("test2", s12, s22, expected2);
+    test("test2", s12, s22, s32, expected2);
 
     return 0;
 }
