@@ -1,44 +1,45 @@
-Write a SQL query to rank scores. If there is a tie between two scores, 
-both should have the same ranking. Note that after a tie, the next 
-ranking number should be the next consecutive integer value. In other words, 
-there should be no "holes" between ranks.
+Create table If Not Exists Logs (Id int, Num int)
+Truncate table Logs
+insert into Logs (Id, Num) values ('1', '1')
+insert into Logs (Id, Num) values ('2', '1')
+insert into Logs (Id, Num) values ('3', '1')
+insert into Logs (Id, Num) values ('4', '2')
+insert into Logs (Id, Num) values ('5', '1')
+insert into Logs (Id, Num) values ('6', '2')
+insert into Logs (Id, Num) values ('7', '2')
 
-+----+-------+
-| Id | Score |
-+----+-------+
-| 1  | 3.50  |
-| 2  | 3.65  |
-| 3  | 4.00  |
-| 4  | 3.85  |
-| 5  | 4.00  |
-| 6  | 3.65  |
-+----+-------+
-For example, given the above Scores table, your query should generate the 
-following report (order by highest score):
+Write a SQL query to find all numbers that appear at least three times consecutively.
 
-SELECT s1.Score, COUNT(DISTINCT s2.Score) AS Rank
-FROM Scores s1 JOIN Scores s2
-ON s1.Score<=s2.Score
-GROUP BY s1.Id
-ORDER BY Rank;
++----+-----+
+| Id | Num |
++----+-----+
+| 1  |  1  |
+| 2  |  1  |
+| 3  |  1  |
+| 4  |  2  |
+| 5  |  1  |
+| 6  |  2  |
+| 7  |  2  |
++----+-----+
+For example, given the above Logs table, 1 is the only number that appears consecutively for at least three times.
 
-+-------+------+
-| Score | Rank |
-+-------+------+
-| 4.00  | 1    |
-| 4.00  | 1    |
-| 3.85  | 2    |
-| 3.65  | 3    |
-| 3.65  | 3    |
-| 3.50  | 4    |
-+-------+------+
++-----------------+
+| ConsecutiveNums |
++-----------------+
+| 1               |
++-----------------+
+
+SELECT DISTINCT l1.Num AS ConsecutiveNums
+FROM Logs l1 JOIN Logs l2 JOIN Logs l3
+ON l1.Num=l2.Num AND l2.Num=l3.Num AND (l3.Id-l2.Id)=1 AND (l2.Id-l1.Id)=1;
 
 
-Create table If Not Exists Scores (Id int, Score DECIMAL(3,2));
-Truncate table Scores;
-insert into Scores (Id, Score) values ('1', '3.5');
-insert into Scores (Id, Score) values ('2', '3.65');
-insert into Scores (Id, Score) values ('3', '4.0');
-insert into Scores (Id, Score) values ('4', '3.85');
-insert into Scores (Id, Score) values ('5', '4.0');
-insert into Scores (Id, Score) values ('6', '3.65');
+Create table If Not Exists Logs (Id int, Num int);
+Truncate table Logs;
+insert into Logs (Id, Num) values ('1', '1');
+insert into Logs (Id, Num) values ('2', '1');
+insert into Logs (Id, Num) values ('3', '1');
+insert into Logs (Id, Num) values ('4', '2');
+insert into Logs (Id, Num) values ('5', '1');
+insert into Logs (Id, Num) values ('6', '2');
+insert into Logs (Id, Num) values ('7', '2');
