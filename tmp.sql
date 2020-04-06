@@ -1,45 +1,68 @@
-Create table If Not Exists Logs (Id int, Num int)
-Truncate table Logs
-insert into Logs (Id, Num) values ('1', '1')
-insert into Logs (Id, Num) values ('2', '1')
-insert into Logs (Id, Num) values ('3', '1')
-insert into Logs (Id, Num) values ('4', '2')
-insert into Logs (Id, Num) values ('5', '1')
-insert into Logs (Id, Num) values ('6', '2')
-insert into Logs (Id, Num) values ('7', '2')
+The Employee table holds all employees. Every employee has an Id, a salary, 
+and there is also a column for the department Id.
 
-Write a SQL query to find all numbers that appear at least three times consecutively.
++----+-------+--------+--------------+
+| Id | Name  | Salary | DepartmentId |
++----+-------+--------+--------------+
+| 1  | Joe   | 70000  | 1            |
+| 2  | Jim   | 90000  | 1            |
+| 3  | Henry | 80000  | 2            |
+| 4  | Sam   | 60000  | 2            |
+| 5  | Max   | 90000  | 1            |
++----+-------+--------+--------------+
+The Department table holds all departments of the company.
 
-+----+-----+
-| Id | Num |
-+----+-----+
-| 1  |  1  |
-| 2  |  1  |
-| 3  |  1  |
-| 4  |  2  |
-| 5  |  1  |
-| 6  |  2  |
-| 7  |  2  |
-+----+-----+
-For example, given the above Logs table, 1 is the only number that appears consecutively for at least three times.
++----+----------+
+| Id | Name     |
++----+----------+
+| 1  | IT       |
+| 2  | Sales    |
++----+----------+
+Write a SQL query to find employees who have the highest salary in 
+each of the departments. For the above tables, your SQL query should 
+return the following rows (order of rows does not matter).
 
-+-----------------+
-| ConsecutiveNums |
-+-----------------+
-| 1               |
-+-----------------+
++------------+----------+--------+
+| Department | Employee | Salary |
++------------+----------+--------+
+| IT         | Max      | 90000  |
+| IT         | Jim      | 90000  |
+| Sales      | Henry    | 80000  |
++------------+----------+--------+
 
-SELECT DISTINCT l1.Num AS ConsecutiveNums
-FROM Logs l1 JOIN Logs l2 JOIN Logs l3
-ON l1.Num=l2.Num AND l2.Num=l3.Num AND (l3.Id-l2.Id)=1 AND (l2.Id-l1.Id)=1;
+SELECT *
+FROM Employee e JOIN
+
+(
+SELECT d.Id MAX(e.Salary) AS Salary
+FROM Employee e JOIN Department d
+ON e.DepartmentId=d.Id
+GROUP BY d.Id) AS t
+ON e.DepartmentId=t.Id;
+
+SELECT d.Name AS Department, e.Name AS Employee, e.Salary
+FROM Employee e JOIN Department d
+ON e.DepartmentId=d.Id
+WHERE (e.Salary, e.DepartmentId) IN
+(
+SELECT MAX(Salary) AS Salary, DepartmentId
+FROM Employee
+GROUP BY DepartmentId);
+
+Explanation:
+
+Max and Jim both have the highest salary in the IT department and 
+Henry has the highest salary in the Sales department.
 
 
-Create table If Not Exists Logs (Id int, Num int);
-Truncate table Logs;
-insert into Logs (Id, Num) values ('1', '1');
-insert into Logs (Id, Num) values ('2', '1');
-insert into Logs (Id, Num) values ('3', '1');
-insert into Logs (Id, Num) values ('4', '2');
-insert into Logs (Id, Num) values ('5', '1');
-insert into Logs (Id, Num) values ('6', '2');
-insert into Logs (Id, Num) values ('7', '2');
+Create table If Not Exists Employee (Id int, Name varchar(255), Salary int, DepartmentId int);
+Create table If Not Exists Department (Id int, Name varchar(255));
+
+insert into Employee (Id, Name, Salary, DepartmentId) values ('1', 'Joe', '70000', '1');
+insert into Employee (Id, Name, Salary, DepartmentId) values ('2', 'Jim', '90000', '1');
+insert into Employee (Id, Name, Salary, DepartmentId) values ('3', 'Henry', '80000', '2');
+insert into Employee (Id, Name, Salary, DepartmentId) values ('4', 'Sam', '60000', '2');
+insert into Employee (Id, Name, Salary, DepartmentId) values ('5', 'Max', '90000', '1');
+
+insert into Department (Id, Name) values ('1', 'IT');
+insert into Department (Id, Name) values ('2', 'Sales');
