@@ -1,68 +1,50 @@
-The Employee table holds all employees. Every employee has an Id, a salary, 
-and there is also a column for the department Id.
+Create table If Not Exists Activity (player_id int, device_id int, event_date date, games_played int);
+Truncate table Activity;
+insert into Activity (player_id, device_id, event_date, games_played) values ('1', '2', '2016-03-01', '5');
+insert into Activity (player_id, device_id, event_date, games_played) values ('1', '2', '2016-03-02', '6');
+insert into Activity (player_id, device_id, event_date, games_played) values ('2', '3', '2017-06-25', '1');
+insert into Activity (player_id, device_id, event_date, games_played) values ('3', '1', '2016-03-02', '0');
+insert into Activity (player_id, device_id, event_date, games_played) values ('3', '4', '2018-07-03', '5');
 
-+----+-------+--------+--------------+
-| Id | Name  | Salary | DepartmentId |
-+----+-------+--------+--------------+
-| 1  | Joe   | 70000  | 1            |
-| 2  | Jim   | 90000  | 1            |
-| 3  | Henry | 80000  | 2            |
-| 4  | Sam   | 60000  | 2            |
-| 5  | Max   | 90000  | 1            |
-+----+-------+--------+--------------+
-The Department table holds all departments of the company.
+Write an SQL query that reports the fraction of 
+players that logged in again on the day after the 
+day they first logged in, rounded to 2 decimal places. 
+In other words, you need to count the number of players 
+that logged in for at least two consecutive days starting from 
+their first login date, then divide that number by the total number of players.
 
-+----+----------+
-| Id | Name     |
-+----+----------+
-| 1  | IT       |
-| 2  | Sales    |
-+----+----------+
-Write a SQL query to find employees who have the highest salary in 
-each of the departments. For the above tables, your SQL query should 
-return the following rows (order of rows does not matter).
+The query result format is in the following example:
 
-+------------+----------+--------+
-| Department | Employee | Salary |
-+------------+----------+--------+
-| IT         | Max      | 90000  |
-| IT         | Jim      | 90000  |
-| Sales      | Henry    | 80000  |
-+------------+----------+--------+
+Activity table:
++-----------+-----------+------------+--------------+
+| player_id | device_id | event_date | games_played |
++-----------+-----------+------------+--------------+
+| 1         | 2         | 2016-03-01 | 5            |
+| 1         | 2         | 2016-03-02 | 6            |
+| 2         | 3         | 2017-06-25 | 1            |
+| 3         | 1         | 2016-03-02 | 0            |
+| 3         | 4         | 2018-07-03 | 5            |
++-----------+-----------+------------+--------------+
 
-SELECT *
-FROM Employee e JOIN
+Result table:
++-----------+
+| fraction  |
++-----------+
+| 0.33      |
++-----------+
+Only the player with id 1 logged back in after the first day he had logged in so the answer is 1/3 = 0.33
 
-(
-SELECT d.Id MAX(e.Salary) AS Salary
-FROM Employee e JOIN Department d
-ON e.DepartmentId=d.Id
-GROUP BY d.Id) AS t
-ON e.DepartmentId=t.Id;
-
-SELECT d.Name AS Department, e.Name AS Employee, e.Salary
-FROM Employee e JOIN Department d
-ON e.DepartmentId=d.Id
-WHERE (e.Salary, e.DepartmentId) IN
-(
-SELECT MAX(Salary) AS Salary, DepartmentId
-FROM Employee
-GROUP BY DepartmentId);
-
-Explanation:
-
-Max and Jim both have the highest salary in the IT department and 
-Henry has the highest salary in the Sales department.
+SELECT COUNT(DISTINCT t.player_id)
+FROM 
+(SELECT player_id, MIN(event_date) AS event_date
+FROM Activity GROUP BY player_id) t JOIN Activity a
+ON t.player_id=a.player_id AND DATEDIFF(a.event_date,t.event_date)=1
 
 
-Create table If Not Exists Employee (Id int, Name varchar(255), Salary int, DepartmentId int);
-Create table If Not Exists Department (Id int, Name varchar(255));
-
-insert into Employee (Id, Name, Salary, DepartmentId) values ('1', 'Joe', '70000', '1');
-insert into Employee (Id, Name, Salary, DepartmentId) values ('2', 'Jim', '90000', '1');
-insert into Employee (Id, Name, Salary, DepartmentId) values ('3', 'Henry', '80000', '2');
-insert into Employee (Id, Name, Salary, DepartmentId) values ('4', 'Sam', '60000', '2');
-insert into Employee (Id, Name, Salary, DepartmentId) values ('5', 'Max', '90000', '1');
-
-insert into Department (Id, Name) values ('1', 'IT');
-insert into Department (Id, Name) values ('2', 'Sales');
+SELECT ROUND(
+(SELECT COUNT(DISTINCT t.player_id)
+FROM 
+(SELECT player_id, MIN(event_date) AS event_date
+FROM Activity GROUP BY player_id) t JOIN Activity a
+ON t.player_id=a.player_id AND DATEDIFF(a.event_date,t.event_date)=1
+) / (SELECT COUNT(DISTINCT player_id) FROM Activity), 2) AS fraction;

@@ -24,7 +24,6 @@ public:
 void test(string test_name, vector<int>& prices, int expected)
 {
     int res = Solution().maxProfit(prices);
-    cout << "res = " << res << endl;
     if (res == expected)
         cout << test_name << " success." << endl;
     else
