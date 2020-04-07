@@ -107,6 +107,9 @@
 },
 20200406={
     leetcode={daily:[72], sql:[184], hard-new:[99, 115]}
+},
+20200407={
+    leetcode={daily:[金典01.07], sql:[]}
 }
 
 
