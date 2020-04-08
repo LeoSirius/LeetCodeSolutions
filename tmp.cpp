@@ -3,47 +3,102 @@
 using namespace std;
 
 class Solution {
-public:
-    int maxProfit(vector<int>& prices) {
-        if (prices.size() == 0)
-            return 0;
-        int K = 2;
-        vector<vector<int>> dp(K + 1, vector<int>(prices.size(), 0));
-        for (int k = 1; k <= 2; ++k) {
-            int cur_min = prices[0];
-            // 把思路中的j压缩到了cur_min，减少了一重循环，否则会超时
-            for (int i = 1; i < prices.size(); ++i) {
-                cur_min = min(cur_min, (prices[i] - dp[k-1][i-1]));
-                dp[k][i] = max(dp[k][i-1], prices[i] - cur_min);
-            }
+    vector<vector<string>> res;
+
+    bool is_valid(vector<string>& board, int row, int col)
+    {
+        for (int i = row - 1; i >= 0; --i)
+            if (board[i][col] == 'Q')
+                return false;
+        for (int i = row - 1, j = col - 1; i >= 0; --i, --j)
+            if (board[i][j] == 'Q')
+                return false;
+        for (int i = row - 1, j = col + 1; i >= 0; --i, ++j)
+            if (board[i][j] == 'Q')
+                return false;
+        return true;
+    }
+
+    void backtrack(vector<string>& board, int row)
+    {
+        int n = board.size();
+        if (row == n) {
+            res.push_back(board);
+            return;
         }
-        return dp.back().back();
+        for (int col = 0; col < n; ++col) {
+            if (!is_valid(board, row, col))
+                continue;
+            board[row][col] = 'Q';
+            backtrack(board, row + 1);
+            board[row][col] = '.';
+        }
+    }
+public:
+    vector<vector<string>> solveNQueens(int n) {
+        vector<string> board(n, string(n, '.'));
+        backtrack(board, 0);
+        return res;
     }
 };
 
-void test(string test_name, vector<int>& prices, int expected)
+
+void test(string test_name, int n, vector<vector<string>>& expected)
 {
-    int res = Solution().maxProfit(prices);
-    cout << "res = " << res << endl;
-    if (res == expected)
+    vector<vector<string>> res = Solution().solveNQueens(n);
+    if (res == expected) {
         cout << test_name << " success." << endl;
-    else
+    } else {
         cout << test_name << " failed." << endl;
+    }
 }
 
 int main()
 {
-    vector<int> prices1 = {3,3,5,0,0,3,1,4};
-    int expected1 = 6;
-    test("test1", prices1, expected1);
-
-    vector<int> prices2 = {1,2,3,4,5};
-    int expected2 = 4;
-    test("test2", prices2, expected2);
-
-    vector<int> prices3 = {7,6,4,3,1};
-    int expected3 = 0;
-    test("test3", prices3, expected3);
+    int n1 = 4;
+    vector<vector<string>> expected1 = {
+        {
+            ".Q..",
+            "...Q",
+            "Q...",
+            "..Q."
+        },
+        {
+            "..Q.",
+            "Q...",
+            "...Q",
+            ".Q.."
+        }
+    };
+    test("test1", n1, expected1);
 
     return 0;
 }
+
+
+// The n-queens puzzle is the problem of placing n queens on an
+//  n×n chessboard such that no two queens attack each other.
+
+
+
+// Given an integer n, return all distinct solutions to the n-queens puzzle.
+
+// Each solution contains a distinct board configuration of the n-queens'' placement, 
+// where 'Q' and '.' both indicate a queen and an empty space respectively.
+
+// Example:
+
+// Input: 4
+// Output: [
+//  [".Q..",  // Solution 1
+//   "...Q",
+//   "Q...",
+//   "..Q."],
+
+//  ["..Q.",  // Solution 2
+//   "Q...",
+//   "...Q",
+//   ".Q.."]
+// ]
+// Explanation: There exist two distinct solutions to the 4-queens puzzle as shown above.
+

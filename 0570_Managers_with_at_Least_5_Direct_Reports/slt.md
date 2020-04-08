@@ -9,7 +9,19 @@ GROUP BY ManagerId
 HAVING COUNT(ManagerId)>=5;
 ```
 
-再联结原表，找出经理的名字
+用WHERE IN子查询，找出经理的名字
+
+```sql
+SELECT Name
+FROM Employee
+WHERE Id IN (
+SELECT ManagerId
+FROM Employee
+GROUP BY ManagerId
+HAVING COUNT(DISTINCT Id)>=5);
+```
+
+或联结原表，找出经理的名字
 
 ```sql
 SELECT e1.Name

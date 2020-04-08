@@ -1,50 +1,53 @@
-Create table If Not Exists Activity (player_id int, device_id int, event_date date, games_played int);
-Truncate table Activity;
-insert into Activity (player_id, device_id, event_date, games_played) values ('1', '2', '2016-03-01', '5');
-insert into Activity (player_id, device_id, event_date, games_played) values ('1', '2', '2016-03-02', '6');
-insert into Activity (player_id, device_id, event_date, games_played) values ('2', '3', '2017-06-25', '1');
-insert into Activity (player_id, device_id, event_date, games_played) values ('3', '1', '2016-03-02', '0');
-insert into Activity (player_id, device_id, event_date, games_played) values ('3', '4', '2018-07-03', '5');
+The Employee table holds all employees including their managers. 
+Every employee has an Id, and there is also a column for the manager Id.
 
-Write an SQL query that reports the fraction of 
-players that logged in again on the day after the 
-day they first logged in, rounded to 2 decimal places. 
-In other words, you need to count the number of players 
-that logged in for at least two consecutive days starting from 
-their first login date, then divide that number by the total number of players.
++------+----------+-----------+----------+
+|Id    |Name 	  |Department |ManagerId |
++------+----------+-----------+----------+
+|101   |John 	  |A 	      |null      |
+|102   |Dan 	  |A 	      |101       |
+|103   |James 	  |A 	      |101       |
+|104   |Amy 	  |A 	      |101       |
+|105   |Anne 	  |A 	      |101       |
+|106   |Ron 	  |B 	      |101       |
++------+----------+-----------+----------+
+Given the Employee table, write a SQL query that finds out managers
+ with at least 5 direct report. For the above table, your SQL query 
+ should return:
 
-The query result format is in the following example:
+SELECT 
+FROM Employee e JOIN 
+(
+SELECT Id
+FROM Employee
+WHERE ManagerId IS NULL) AS t
+ON e.ManagerId=t.Id
+GROUP BY e.ManagerId
+HAVING COUNT(DISTINCT e.Id) >= 5;
 
-Activity table:
-+-----------+-----------+------------+--------------+
-| player_id | device_id | event_date | games_played |
-+-----------+-----------+------------+--------------+
-| 1         | 2         | 2016-03-01 | 5            |
-| 1         | 2         | 2016-03-02 | 6            |
-| 2         | 3         | 2017-06-25 | 1            |
-| 3         | 1         | 2016-03-02 | 0            |
-| 3         | 4         | 2018-07-03 | 5            |
-+-----------+-----------+------------+--------------+
+SELECT Name
+FROM Employee
+WHERE Id IN (
+SELECT ManagerId
+FROM Employee
+GROUP BY ManagerId
+HAVING COUNT(DISTINCT Id)>=5)
 
-Result table:
-+-----------+
-| fraction  |
-+-----------+
-| 0.33      |
-+-----------+
-Only the player with id 1 logged back in after the first day he had logged in so the answer is 1/3 = 0.33
-
-SELECT COUNT(DISTINCT t.player_id)
-FROM 
-(SELECT player_id, MIN(event_date) AS event_date
-FROM Activity GROUP BY player_id) t JOIN Activity a
-ON t.player_id=a.player_id AND DATEDIFF(a.event_date,t.event_date)=1
++-------+
+| Name  |
++-------+
+| John  |
++-------+
+Note:
+No one would report to himself.
 
 
-SELECT ROUND(
-(SELECT COUNT(DISTINCT t.player_id)
-FROM 
-(SELECT player_id, MIN(event_date) AS event_date
-FROM Activity GROUP BY player_id) t JOIN Activity a
-ON t.player_id=a.player_id AND DATEDIFF(a.event_date,t.event_date)=1
-) / (SELECT COUNT(DISTINCT player_id) FROM Activity), 2) AS fraction;
+Create table If Not Exists Employee (Id int, Name varchar(255), Department varchar(255), ManagerId int);
+Truncate table Employee;
+insert into Employee (Id, Name, Department, ManagerId) values ('101', 'John', 'A', NULL);
+insert into Employee (Id, Name, Department, ManagerId) values ('102', 'Dan', 'A', '101');
+insert into Employee (Id, Name, Department, ManagerId) values ('103', 'James', 'A', '101');
+insert into Employee (Id, Name, Department, ManagerId) values ('104', 'Amy', 'A', '101');
+insert into Employee (Id, Name, Department, ManagerId) values ('105', 'Anne', 'A', '101');
+insert into Employee (Id, Name, Department, ManagerId) values ('106', 'Ron', 'B', '101');
+

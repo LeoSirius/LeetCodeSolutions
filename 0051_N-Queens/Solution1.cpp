@@ -7,6 +7,7 @@ class Solution {
 
     bool is_valid(vector<string>& board, int row, int col)
     {
+        // 只用检查上面三个方向，因为下面的都是'.'，这一行只有一个Q
         // 检查上方
         for (int i = 0; i < row; i++) {
             if (board[i][col] == 'Q')
@@ -36,7 +37,7 @@ class Solution {
             if (!is_valid(board, row, col))
                 continue;
             board[row][col] = 'Q';
-            backtrack(board, row + 1);
+            backtrack(board, row + 1);   // 一行必然只能有一个Q，所以这里直接跳到下一行了
             board[row][col] = '.';
         }
     }
