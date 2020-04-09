@@ -1,104 +1,90 @@
 #include <iostream>
 #include <vector>
+#include <queue>
+#include <unordered_set>
 using namespace std;
 
 class Solution {
-    vector<vector<string>> res;
-
-    bool is_valid(vector<string>& board, int row, int col)
-    {
-        for (int i = row - 1; i >= 0; --i)
-            if (board[i][col] == 'Q')
-                return false;
-        for (int i = row - 1, j = col - 1; i >= 0; --i, --j)
-            if (board[i][j] == 'Q')
-                return false;
-        for (int i = row - 1, j = col + 1; i >= 0; --i, ++j)
-            if (board[i][j] == 'Q')
-                return false;
-        return true;
-    }
-
-    void backtrack(vector<string>& board, int row)
-    {
-        int n = board.size();
-        if (row == n) {
-            res.push_back(board);
-            return;
-        }
-        for (int col = 0; col < n; ++col) {
-            if (!is_valid(board, row, col))
-                continue;
-            board[row][col] = 'Q';
-            backtrack(board, row + 1);
-            board[row][col] = '.';
-        }
-    }
 public:
-    vector<vector<string>> solveNQueens(int n) {
-        vector<string> board(n, string(n, '.'));
-        backtrack(board, 0);
+    vector<vector<string>> findLadders(string beginWord, string endWord, vector<string>& wordList) {
+        vector<vector<string>> res;
+        queue<vector<string>> Q;  // store paths
+        Q.push({beginWord});
+
+        unordered_set<string> word_set;
+        for (auto word : wordList)
+            word_set.insert(word);
+
+        int level = 1, min_level = INT_MAX;  // initially path.size() == level == 1
+
+        unordered_set<string> visited;    // 用来标记使用过的单词。
+        while (!Q.empty()) {
+            vector<string> path = Q.front(); Q.pop();
+
+            // level即是一条路径的上单词数量
+            // 如果path.size() > level，说明有新的单词加进来了。
+            // 且必然是path.size() = level + 1，因为每次每条路径只会加一个新单词
+            if (path.size() > level) {
+                // 把上一轮中使用过的单词在word_set里删掉
+                for (string word : visited)
+                    word_set.erase(word);
+                visited.clear();
+                if (path.size() > min_level)
+                    break;
+                level = path.size();
+            }
+
+            // 下面这个双重循环遍历新词的各个形态
+            string last_word = path.back();
+            for (int i = 0; last_word[i]; ++i) {
+                string new_word = last_word;
+                for (char ch = 'a'; ch <= 'z'; ++ch) {
+                    new_word[i] = ch;
+                    if (word_set.find(new_word) == word_set.end())
+                        continue;
+
+                    vector<string> new_path = path;
+                    new_path.push_back(new_word);
+                    visited.insert(new_word);
+                    if (new_word == endWord) {
+                        min_level = level;
+                        res.push_back(new_path);
+                    }
+                    Q.push(new_path);
+                }
+            }
+        }
         return res;
     }
 };
 
-
-void test(string test_name, int n, vector<vector<string>>& expected)
+void test(string test_name, string beginWord, string endWord, vector<string>& wordList, vector<vector<string>>& expected)
 {
-    vector<vector<string>> res = Solution().solveNQueens(n);
-    if (res == expected) {
+    vector<vector<string>> res = Solution().findLadders(beginWord, endWord, wordList);
+    sort(res.begin(), res.end());
+    sort(expected.begin(), expected.end());
+    if (res == expected)
         cout << test_name << " success." << endl;
-    } else {
+    else
         cout << test_name << " failed." << endl;
-    }
 }
 
 int main()
 {
-    int n1 = 4;
+    string beginWord1 = "hit";
+    string endWord1 = "cog";
+    vector<string> wordList1 = {"hot","dot","dog","lot","log","cog"};
     vector<vector<string>> expected1 = {
-        {
-            ".Q..",
-            "...Q",
-            "Q...",
-            "..Q."
-        },
-        {
-            "..Q.",
-            "Q...",
-            "...Q",
-            ".Q.."
-        }
+        {"hit","hot","dot","dog","cog"},
+        {"hit","hot","lot","log","cog"}
     };
-    test("test1", n1, expected1);
+    test("test1", beginWord1, endWord1, wordList1, expected1);
+
+    string beginWord2 = "hit";
+    string endWord2 = "cog";
+    vector<string> wordList2 = {"hot","dot","dog","lot","log"};
+    vector<vector<string>> expected2 = {};
+    test("test2", beginWord2, endWord2, wordList2, expected2);
 
     return 0;
 }
-
-
-// The n-queens puzzle is the problem of placing n queens on an
-//  n×n chessboard such that no two queens attack each other.
-
-
-
-// Given an integer n, return all distinct solutions to the n-queens puzzle.
-
-// Each solution contains a distinct board configuration of the n-queens'' placement, 
-// where 'Q' and '.' both indicate a queen and an empty space respectively.
-
-// Example:
-
-// Input: 4
-// Output: [
-//  [".Q..",  // Solution 1
-//   "...Q",
-//   "Q...",
-//   "..Q."],
-
-//  ["..Q.",  // Solution 2
-//   "Q...",
-//   "...Q",
-//   ".Q.."]
-// ]
-// Explanation: There exist two distinct solutions to the 4-queens puzzle as shown above.
-

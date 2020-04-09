@@ -3,22 +3,21 @@
 using namespace std;
 
 class Solution {
-    void dfs(int l, int r, vector<string> &res, string str)
+    vector<string> res;
+    void back_track(string str, int l, int r)
     {
-        if (l == 0 && r == 0) {
+        if (!l && !r) {
             res.push_back(str);
             return;
         }
-        if (l) dfs(l-1, r+1, res, str+"(");
-        if (r) dfs(l, r-1, res, str+")");
+        if (l) back_track(str + "(", l-1, r+1);
+        if (r) back_track(str + ")", l, r-1);
     }
 public:
     vector<string> generateParenthesis(int n) {
-        vector<string> res;
-        if (n == 0) {
+        if (!n)
             return res;
-        }
-        dfs(n, 0, res, "");
+        back_track("", n, 0);
         return res;
     }
 };

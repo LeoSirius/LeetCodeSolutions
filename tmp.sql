@@ -1,53 +1,27 @@
-The Employee table holds all employees including their managers. 
-Every employee has an Id, and there is also a column for the manager Id.
+Create table If Not Exists survey_log (id int, action varchar(255), question_id int, answer_id int, q_num int, timestamp int);
+Truncate table survey_log;
+insert into survey_log (id, action, question_id, answer_id, q_num, timestamp) values ('5', 'show', '285', NULL, '1', '123');
+insert into survey_log (id, action, question_id, answer_id, q_num, timestamp) values ('5', 'answer', '285', '124124', '1', '124');
+insert into survey_log (id, action, question_id, answer_id, q_num, timestamp) values ('5', 'show', '369', NULL, '2', '125');
+insert into survey_log (id, action, question_id, answer_id, q_num, timestamp) values ('5', 'skip', '369', NULL, '2', '126');
 
-+------+----------+-----------+----------+
-|Id    |Name 	  |Department |ManagerId |
-+------+----------+-----------+----------+
-|101   |John 	  |A 	      |null      |
-|102   |Dan 	  |A 	      |101       |
-|103   |James 	  |A 	      |101       |
-|104   |Amy 	  |A 	      |101       |
-|105   |Anne 	  |A 	      |101       |
-|106   |Ron 	  |B 	      |101       |
-+------+----------+-----------+----------+
-Given the Employee table, write a SQL query that finds out managers
- with at least 5 direct report. For the above table, your SQL query 
- should return:
++------+-----------+--------------+------------+-----------+------------+
+| id   | action    | question_id  | answer_id  | q_num     | timestamp  |
++------+-----------+--------------+------------+-----------+------------+
+| 5    | show      | 285          | null       | 1         | 123        |
+| 5    | answer    | 285          | 124124     | 1         | 124        |
+| 5    | show      | 369          | null       | 2         | 125        |
+| 5    | skip      | 369          | null       | 2         | 126        |
++------+-----------+--------------+------------+-----------+------------+
+Output:
++-------------+
+| survey_log  |
++-------------+
+|    285      |
++-------------+
 
-SELECT 
-FROM Employee e JOIN 
-(
-SELECT Id
-FROM Employee
-WHERE ManagerId IS NULL) AS t
-ON e.ManagerId=t.Id
-GROUP BY e.ManagerId
-HAVING COUNT(DISTINCT e.Id) >= 5;
-
-SELECT Name
-FROM Employee
-WHERE Id IN (
-SELECT ManagerId
-FROM Employee
-GROUP BY ManagerId
-HAVING COUNT(DISTINCT Id)>=5)
-
-+-------+
-| Name  |
-+-------+
-| John  |
-+-------+
-Note:
-No one would report to himself.
-
-
-Create table If Not Exists Employee (Id int, Name varchar(255), Department varchar(255), ManagerId int);
-Truncate table Employee;
-insert into Employee (Id, Name, Department, ManagerId) values ('101', 'John', 'A', NULL);
-insert into Employee (Id, Name, Department, ManagerId) values ('102', 'Dan', 'A', '101');
-insert into Employee (Id, Name, Department, ManagerId) values ('103', 'James', 'A', '101');
-insert into Employee (Id, Name, Department, ManagerId) values ('104', 'Amy', 'A', '101');
-insert into Employee (Id, Name, Department, ManagerId) values ('105', 'Anne', 'A', '101');
-insert into Employee (Id, Name, Department, ManagerId) values ('106', 'Ron', 'B', '101');
-
+SELECT question_id AS survey_log
+FROM survey_log
+GROUP BY question_id
+ORDER BY COUNT(answer_id) / COUNT(IF(action='show', 1, 0)) DESC
+LIMIT 1;

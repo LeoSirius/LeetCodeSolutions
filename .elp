@@ -113,6 +113,9 @@
 },
 20200408={
     leetcode={daily:[offer13], sql:[570], hard-cpp:[51], string-py:[12, 13, 14]}
+},
+20200409={
+    leetcode={daily:[22], sql:[574, 578], hard-new:[124, 126]}
 }
 
 

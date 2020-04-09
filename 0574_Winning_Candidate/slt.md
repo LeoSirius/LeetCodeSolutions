@@ -1,4 +1,15 @@
-### 思路1 
+### 思路1
+
+```sql
+SELECT c.Name
+FROM Candidate c JOIN Vote v
+ON c.id=v.CandidateId
+GROUP BY v.CandidateId
+ORDER BY COUNT(v.CandidateId) DESC
+LIMIT 1;
+```
+
+### 思路2
 
 首先在Vote表中用GROUP BY选出最多的人的ID
 
