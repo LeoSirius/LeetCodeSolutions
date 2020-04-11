@@ -6,7 +6,7 @@
 // 正在做的round
 [
     [string-py 1-20(easy, mid)],
-    [mysql 1-10(mid)],
+    [mysql 11-20(mid)],
     [hard-cpp 12-20],（hard新题不计在内）
 ]
 
@@ -18,7 +18,8 @@
     [mysql 41-45(easy), 2020-03-23],
     [hard-cpp 12-20, 2020-03-26],
     [math-py 1-20(easy, mid), 2020-03-30],
-    [mysql 1-10(mid), 2020-04-02]
+    [mysql 1-10(mid), 2020-04-02],
+    [mysql 1-10(mid), 2020-04-11]
 ]
 
 20200309={
@@ -119,6 +120,9 @@
 },
 20200410={
     leetcode={daily:[151], sql:[580]}
+},
+20200411={
+    leetcode={daily:[887], sql:[585, 602], }
 }
 
 

@@ -1,83 +1,57 @@
-A university uses 2 data tables, student and department,
- to store data about its students and the departments associated 
- with each major.
-
-Write a query to print the respective department name 
-and number of students majoring in each department for 
-all departments in the department table (even ones with no current students).
-
-Sort your results by descending number of students; if two or
- more departments have the same number of students, then sort
-  those departments alphabetically by department name.
-
-The student is described as follow:
-
-| Column Name  | Type      |
-|--------------|-----------|
-| student_id   | Integer   |
-| student_name | String    |
-| gender       | Character |
-| dept_id      | Integer   |
+Create table If Not Exists request_accepted ( requester_id INT NOT NULL, accepter_id INT NULL, accept_date DATE NULL);
+Truncate table request_accepted;
+insert into request_accepted (requester_id, accepter_id, accept_date) values ('1', '2', '2016/06/03');
+insert into request_accepted (requester_id, accepter_id, accept_date) values ('1', '3', '2016/06/08');
+insert into request_accepted (requester_id, accepter_id, accept_date) values ('2', '3', '2016/06/08');
+insert into request_accepted (requester_id, accepter_id, accept_date) values ('3', '4', '2016/06/09');
 
 
-where student_id is the student's ID number, student_name is
- the student's name, gender is their gender, and dept_id is
-  the department ID associated with their declared major.
+Table request_accepted
 
-And the department table is described as below:
++--------------+-------------+------------+
+| requester_id | accepter_id | accept_date|
+|--------------|-------------|------------|
+| 1            | 2           | 2016_06-03 |
+| 1            | 3           | 2016-06-08 |
+| 2            | 3           | 2016-06-08 |
+| 3            | 4           | 2016-06-09 |
++--------------+-------------+------------+
+This table holds the data of friend acceptance, while requester_id and accepter_id both are the id of a person.
+ 
 
-| Column Name | Type    |
-|-------------|---------|
-| dept_id     | Integer |
-| dept_name   | String  |
+Write a query to find the the people who has most friends and the most friends number under the following rules:
 
+It is guaranteed there is only 1 people having the most friends.
+The friend request could only been accepted once, which mean there is no multiple records with the same requester_id and accepter_id value.
+For the sample data above, the result is:
 
-where dept_id is the department's' ID number and dept_name is 
-the department name.
+SELECT
+FROM request_accepted t1 JOIN request_accepted t2
+ON t1.requester_id=t2.requester_id;
 
-Here is an example input:
-student table:
+select requester_id as ids from request_accepted
+union ALL
+select accepter_id from request_accepted;
 
-| student_id | student_name | gender | dept_id |
-|------------|--------------|--------|---------|
-| 1          | Jack         | M      | 1       |
-| 2          | Jane         | F      | 1       |
-| 3          | Mark         | M      | 2       |
-
-department table:
-
-| dept_id | dept_name   |
-|---------|-------------|
-| 1       | Engineering |
-| 2       | Science     |
-| 3       | Law         |
-
-SELECT d.dept_name, COUNT(s.student_id) AS student_number
-FROM Department d LEFT JOIN student s
-ON d.dept_id=s.dept_id
-GROUP BY d.dept_id
-ORDER BY student_number DESC, d.dept_name;
-
-The Output should be:
-
-| dept_name   | student_number |
-|-------------|----------------|
-| Engineering | 2              |
-| Science     | 1              |
-| Law         | 0              |
+注意UNION会去掉重复的值，UNION ALL会保留重复的值
 
 
-{"headers": ["dept_name", "student_number"], "values": [["Architecture", 0], ["Art", 0], ["Biotechnology", 1], ["East Asian Studies", 2], ["Engineering", 1], ["Law", 1], ["Politics", 1]]}
-{"headers":["dept_name","student_number"],"values":[["East Asian Studies",2],["Biotechnology",1],["Engineering",1],["Law",1],["Politics",1],["Architecture",0],["Art",0]]}
+SELECT id, COUNT(*) AS num
+FROM (
+  SELECT requester_id AS id FROM request_accepted
+  UNION ALL
+  SELECT accepter_id AS id FROM request_accepted
+) as t
+GROUP BY id
+ORDER BY COUNT(id) DESC
+LIMIT 1;
 
 
-CREATE TABLE IF NOT EXISTS student (student_id INT,student_name VARCHAR(45), gender VARCHAR(6), dept_id INT);
-CREATE TABLE IF NOT EXISTS Department (dept_id INT, dept_name VARCHAR(255));
-Truncate table student;
-insert into student (student_id, student_name, gender, dept_id) values ('1', 'Jack', 'M', '1');
-insert into student (student_id, student_name, gender, dept_id) values ('2', 'Jane', 'F', '1');
-insert into student (student_id, student_name, gender, dept_id) values ('3', 'Mark', 'M', '2');
-Truncate table Department;
-insert into Department (dept_id, dept_name) values ('1', 'Engineering');
-insert into Department (dept_id, dept_name) values ('2', 'Science');
-insert into Department (dept_id, dept_name) values ('3', 'Law');
+Result table:
++------+------+
+| id   | num  |
+|------|------|
+| 3    | 3    |
++------+------+
+The person with id '3' is a friend of people '1', '2' and '4', so he has 3 friends in total, which is the most number than any others.
+
