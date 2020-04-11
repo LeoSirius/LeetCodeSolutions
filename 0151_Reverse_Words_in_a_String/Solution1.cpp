@@ -67,7 +67,7 @@ int main()
 {
     string s1 = "the sky is blue";
     string expected1 = "blue is sky the";
-    // test("test1", s1, expected1);
+    test("test1", s1, expected1);
 
     string s2 = "  hello world!  ";
     string expected2 = "world! hello";
