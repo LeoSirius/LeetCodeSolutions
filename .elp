@@ -1,13 +1,12 @@
 // 2019-06-28开始
 // leetcode 按topics来做，现阶段所有topics中不做hard, 
 现在的topics中从array做到hash_table(python, 1-20)
-周末集中做hard新题(包括sql, 计数时不考虑daily)
 
 // 正在做的round
 [
     [string-py 1-20(easy, mid)],
     [mysql 11-20(mid)],
-    [hard-cpp 12-20],（hard新题不计在内）
+    [hard-cpp 21-30]
 ]
 
 // 已经做完的round
@@ -125,7 +124,7 @@
     leetcode={daily:[887], sql:[585, 602], }
 },
 20200412={
-    leetcode={daily:[skip], sql:[]}
+    leetcode={daily:[skip], sql:[608, 612]}
 }
 
 

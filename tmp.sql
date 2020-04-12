@@ -1,57 +1,36 @@
-Create table If Not Exists request_accepted ( requester_id INT NOT NULL, accepter_id INT NULL, accept_date DATE NULL);
-Truncate table request_accepted;
-insert into request_accepted (requester_id, accepter_id, accept_date) values ('1', '2', '2016/06/03');
-insert into request_accepted (requester_id, accepter_id, accept_date) values ('1', '3', '2016/06/08');
-insert into request_accepted (requester_id, accepter_id, accept_date) values ('2', '3', '2016/06/08');
-insert into request_accepted (requester_id, accepter_id, accept_date) values ('3', '4', '2016/06/09');
+CREATE TABLE If Not Exists point_2d (x INT NOT NULL, y INT NOT NULL);
+Truncate table point_2d;
+insert into point_2d (x, y) values ('-1', '-1');
+insert into point_2d (x, y) values ('0', '0');
+insert into point_2d (x, y) values ('-1', '-2');
 
 
-Table request_accepted
-
-+--------------+-------------+------------+
-| requester_id | accepter_id | accept_date|
-|--------------|-------------|------------|
-| 1            | 2           | 2016_06-03 |
-| 1            | 3           | 2016-06-08 |
-| 2            | 3           | 2016-06-08 |
-| 3            | 4           | 2016-06-09 |
-+--------------+-------------+------------+
-This table holds the data of friend acceptance, while requester_id and accepter_id both are the id of a person.
+Table point_2d holds the coordinates (x,y) of some unique points (more than two) in a plane.
  
 
-Write a query to find the the people who has most friends and the most friends number under the following rules:
+Write a query to find the shortest distance between these points rounded to 2 decimals.
+ 
 
-It is guaranteed there is only 1 people having the most friends.
-The friend request could only been accepted once, which mean there is no multiple records with the same requester_id and accepter_id value.
-For the sample data above, the result is:
+| x  | y  |
+|----|----|
+| -1 | -1 |
+| 0  | 0  |
+| -1 | -2 |
 
-SELECT
-FROM request_accepted t1 JOIN request_accepted t2
-ON t1.requester_id=t2.requester_id;
+注意这里的不等联结，一定要把多列括起来，不然判断的就是单列的不等
 
-select requester_id as ids from request_accepted
-union ALL
-select accepter_id from request_accepted;
+SELECT ROUND(
+  MIN(SQRT(ABS(p2.y-p1.y)*ABS(p2.y-p1.y) + ABS(p2.x-p1.x)*ABS(p2.x-p1.x)))
+  , 2)
+AS shortest
+FROM point_2d p1 JOIN point_2d p2
+ON (p1.x, p1.y)!=(p2.x, p2.y);
+ 
 
-注意UNION会去掉重复的值，UNION ALL会保留重复的值
+The shortest distance is 1.00 from point (-1,-1) to (-1,2). So the output should be:
+ 
 
-
-SELECT id, COUNT(*) AS num
-FROM (
-  SELECT requester_id AS id FROM request_accepted
-  UNION ALL
-  SELECT accepter_id AS id FROM request_accepted
-) as t
-GROUP BY id
-ORDER BY COUNT(id) DESC
-LIMIT 1;
-
-
-Result table:
-+------+------+
-| id   | num  |
-|------|------|
-| 3    | 3    |
-+------+------+
-The person with id '3' is a friend of people '1', '2' and '4', so he has 3 friends in total, which is the most number than any others.
+| shortest |
+|----------|
+| 1.00     |
 
