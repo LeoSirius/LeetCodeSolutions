@@ -123,9 +123,13 @@
 },
 20200411={
     leetcode={daily:[887], sql:[585, 602], }
+},
+20200412={
+    leetcode={daily:[skip], sql:[]}
 }
 
 
+// 计算几何相关的题目先不做，直接跳过
 
 need improved:(解法不符合题意或者cheat)
 leetcode={
