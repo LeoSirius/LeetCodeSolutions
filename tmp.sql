@@ -1,36 +1,77 @@
-CREATE TABLE If Not Exists point_2d (x INT NOT NULL, y INT NOT NULL);
-Truncate table point_2d;
-insert into point_2d (x, y) values ('-1', '-1');
-insert into point_2d (x, y) values ('0', '0');
-insert into point_2d (x, y) values ('-1', '-2');
+In facebook, there is a follow table with two columns: followee, follower.
+
+Please write a sql query to get the amount of each follower’s follower if he/she has one.
+
+For example:
+
++-------------+------------+
+| followee    | follower   |
++-------------+------------+
+|     A       |     B      |
+|     B       |     C      |
+|     B       |     D      |
+|     D       |     E      |
++-------------+------------+
 
 
-Table point_2d holds the coordinates (x,y) of some unique points (more than two) in a plane.
+select followee as follower, count(distinct follower) as num
+from
+follow
+where followee in (select distinct follower from follow)
+group by followee;
+
+select 
+f1.follower,count(distinct(f2.follower)) num
+from
+follow f1,follow f2
+where
+f1.follower=f2.followee
+group by
+f1.follower
+
+
+这道题要找出follower的follower数量
+
+先联结两表，这样f2的followee是f1中的follower，
+
+SELECT *
+FROM follow f1 JOIN follow f2
+ON f1.follower=f2.followee;
+
+然后再找出f2的followee有多少follower就可以了。
+
+SELECT f1.follower, COUNT(DISTINCT f2.follower) AS num
+FROM follow f1 JOIN follow f2
+ON f1.follower=f2.followee
+GROUP BY f2.followee;
+
+
+
+should output:
++-------------+------------+
+| follower    | num        |
++-------------+------------+
+|     B       |  2         |
+|     D       |  1         |
++-------------+------------+
+
+
+Explaination:
+Both B and D exist in the follower list, when as a followee, B's follower is C and D, and D's follower is 
+E. A does not exist in follower list.
+
+
+Create table If Not Exists follow (followee varchar(255), follower varchar(255));
+Truncate table follow;
+insert into follow (followee, follower) values ('A', 'B');
+insert into follow (followee, follower) values ('B', 'C');
+insert into follow (followee, follower) values ('B', 'D');
+insert into follow (followee, follower) values ('D', 'E');
  
 
-Write a query to find the shortest distance between these points rounded to 2 decimals.
  
 
-| x  | y  |
-|----|----|
-| -1 | -1 |
-| 0  | 0  |
-| -1 | -2 |
-
-注意这里的不等联结，一定要把多列括起来，不然判断的就是单列的不等
-
-SELECT ROUND(
-  MIN(SQRT(ABS(p2.y-p1.y)*ABS(p2.y-p1.y) + ABS(p2.x-p1.x)*ABS(p2.x-p1.x)))
-  , 2)
-AS shortest
-FROM point_2d p1 JOIN point_2d p2
-ON (p1.x, p1.y)!=(p2.x, p2.y);
+Note:
+Followee would not follow himself/herself in all cases.
+Please display the result in follower's alphabet order.
  
-
-The shortest distance is 1.00 from point (-1,-1) to (-1,2). So the output should be:
- 
-
-| shortest |
-|----------|
-| 1.00     |
-
