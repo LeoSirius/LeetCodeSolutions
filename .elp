@@ -133,7 +133,7 @@
     leetcode={daily:[445], sql:[626, 1045], string-py:[17]}
 },
 20200415={
-    leetcode={daily:[542], sql:[1070, 1077], string-py:[]}
+    leetcode={daily:[542], sql:[1070, 1077], string-py:[20, ]}
 }
 
 
