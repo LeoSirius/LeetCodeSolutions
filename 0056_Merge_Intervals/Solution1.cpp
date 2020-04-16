@@ -1,37 +1,36 @@
-#include<iostream>
-#include<vector>
+#include <iostream>
+#include <vector>
 using namespace std;
 
 class Solution {
-    static bool compare_first_element(vector<int> a, vector<int> b)
-    {
-        return a[0] < b[0];
-    }
 public:
     vector<vector<int>> merge(vector<vector<int>>& intervals) {
+        
         vector<vector<int>> res;
-        if (intervals.empty()) return res;
-        sort(intervals.begin(), intervals.end(), compare_first_element);
+        if (intervals.empty())
+            return res;
+
+        sort(intervals.begin(), intervals.end());
         res.push_back(intervals[0]);
-        for (int i = 1; i < intervals.size(); i++) {
-            if (res.back()[1] < intervals[i][0]) {
-                res.push_back(intervals[i]);
-            } else {
+        for (int i = 1; i < intervals.size(); ++i) {
+            // 如果新区间的起点都在后面，（即没有交集）则直接push_back
+            // 如果新区间和现有区间有交集，则现有区间最后取两者最大值
+            if (intervals[i][0] <= res.back()[1])
                 res.back()[1] = max(res.back()[1], intervals[i][1]);
-            }
+            else
+                res.push_back(intervals[i]);
         }
         return res;
     }
 };
 
-void test(string test_name, vector<vector<int>> &intervals, vector<vector<int>> &expected)
+void test(string test_name, vector<vector<int>>& intervals, vector<vector<int>> &expected)
 {
-    Solution s;
-    if (s.merge(intervals) == expected) {
+    vector<vector<int>> res = Solution().merge(intervals);
+    if (res == expected)
         cout << test_name << " success." << endl;
-    } else {
+    else
         cout << test_name << " failed." << endl;
-    }
 }
 
 int main()
@@ -57,6 +56,24 @@ int main()
         {1,5},
     };
     test("test2", intervals2, expected2);
+
+    vector<vector<int>> intervals3 = {
+        {1,4},
+        {0,4}
+    };
+    vector<vector<int>> expected3 = {
+        {0,4}
+    };
+    test("test3", intervals3, expected3);
+
+    vector<vector<int>> intervals4 = {
+        {1,4},
+        {2,3}
+    };
+    vector<vector<int>> expected4 = {
+        {1,4}
+    };
+    test("test4", intervals4, expected4);
 
     return 0;
 }

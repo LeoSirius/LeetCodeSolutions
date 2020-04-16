@@ -4,39 +4,29 @@ using namespace std;
 
 class Solution {
 public:
-    vector<vector<int>> updateMatrix(vector<vector<int>>& matrix) {
-        int m = matrix.size();
-        if (m == 0)
-            return matrix;
-        int n = matrix[0].size();
-        vector<vector<int>> dp(m, vector<int>(n, 0));
-        int area = m * n;
-        for (int i = 0; i < m; ++i)
-            for (int j = 0; j < n; ++j)
-                if (matrix[i][j] == 0)
-                    dp[i][j] = 0;
-                else {
-                    int up = i > 0 ? dp[i-1][j] : area;
-                    int left = j > 0 ? dp[i][j-1] : area;
-                    dp[i][j] = min(up, left) + 1;
-                }
+    vector<vector<int>> merge(vector<vector<int>>& intervals) {
+        
+        vector<vector<int>> res;
+        if (intervals.empty())
+            return res;
 
-        for (int i = m - 1; i >= 0; --i)
-            for (int j = n - 1; j >= 0; --j)
-                if (matrix[i][j] == 0)
-                    dp[i][j] = 0;
-                else {
-                    int down = i < m - 1 ? dp[i+1][j] : area;
-                    int right = j < n - 1 ? dp[i][j+1] : area;
-                    dp[i][j] = min(min(down, right) + 1, dp[i][j]);
-                }
-        return dp;
+        sort(intervals.begin(), intervals.end());
+        res.push_back(intervals[0]);
+        for (int i = 1; i < intervals.size(); ++i) {
+            // 如果新区间的起点都在后面，（即没有交集）则直接push_back
+            // 如果新区间和现有区间有交集，则现有区间最后取两者最大值
+            if (intervals[i][0] <= res.back()[1])
+                res.back()[1] = max(res.back()[1], intervals[i][1]);
+            else
+                res.push_back(intervals[i]);
+        }
+        return res;
     }
 };
 
-void test(string test_name, vector<vector<int>>& matrix, vector<vector<int>>& expected)
+void test(string test_name, vector<vector<int>>& intervals, vector<vector<int>> &expected)
 {
-    vector<vector<int>> res = Solution().updateMatrix(matrix);
+    vector<vector<int>> res = Solution().merge(intervals);
     if (res == expected)
         cout << test_name << " success." << endl;
     else
@@ -45,55 +35,45 @@ void test(string test_name, vector<vector<int>>& matrix, vector<vector<int>>& ex
 
 int main()
 {
-    vector<vector<int>> matrix1 = {
-        {0,0,0},
-        {0,1,0},
-        {0,0,0}
+    vector<vector<int>> intervals1 = {
+        {1,3},
+        {2,6},
+        {8,10},
+        {15,18}
     };
     vector<vector<int>> expected1 = {
-        {0,0,0},
-        {0,1,0},
-        {0,0,0}
+        {1,6},
+        {8,10},
+        {15,18}
     };
-    test("test1", matrix1, expected1);
+    test("test1", intervals1, expected1);
 
-    vector<vector<int>> matrix2 = {
-        {0,0,0},
-        {0,1,0},
-        {1,1,1}
+    vector<vector<int>> intervals2 = {
+        {1,4},
+        {4,5}
     };
     vector<vector<int>> expected2 = {
-        {0,0,0},
-        {0,1,0},
-        {1,2,1}
+        {1,5},
     };
-    test("test2", matrix2, expected2);
+    test("test2", intervals2, expected2);
 
-    vector<vector<int>> matrix3 = {
-        {1,0,1,1,0,0,1,0,0,1},
-        {0,1,1,0,1,0,1,0,1,1},
-        {0,0,1,0,1,0,0,1,0,0},
-        {1,0,1,0,1,1,1,1,1,1},
-        {0,1,0,1,1,0,0,0,0,1},
-        {0,0,1,0,1,1,1,0,1,0},
-        {0,1,0,1,0,1,0,0,1,1},
-        {1,0,0,0,1,1,1,1,0,1},
-        {1,1,1,1,1,1,1,0,1,0},
-        {1,1,1,1,0,1,0,0,1,1}
+    vector<vector<int>> intervals3 = {
+        {1,4},
+        {0,4}
     };
     vector<vector<int>> expected3 = {
-        {1,0,1,1,0,0,1,0,0,1},
-        {0,1,1,0,1,0,1,0,1,1},
-        {0,0,1,0,1,0,0,1,0,0},
-        {1,0,1,0,1,1,1,1,1,1},
-        {0,1,0,1,1,0,0,0,0,1},
-        {0,0,1,0,1,1,1,0,1,0},
-        {0,1,0,1,0,1,0,0,1,1},
-        {1,0,0,0,1,2,1,1,0,1},
-        {2,1,1,1,1,2,1,0,1,0},
-        {3,2,2,1,0,1,0,0,1,1}
+        {0,4}
     };
-    test("test3", matrix3, expected3);
+    test("test3", intervals3, expected3);
+
+    vector<vector<int>> intervals4 = {
+        {1,4},
+        {2,3}
+    };
+    vector<vector<int>> expected4 = {
+        {1,4}
+    };
+    test("test4", intervals4, expected4);
 
     return 0;
 }
