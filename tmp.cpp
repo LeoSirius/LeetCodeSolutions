@@ -1,21 +1,24 @@
 #include <iostream>
-#include <vector>
 using namespace std;
 
 class Solution {
 public:
-    bool canJump(vector<int>& nums) {
-        int reach = 0, i = 0;
-        for (; i < nums.size() && i <= reach; ++i)
-            reach = max(reach, i + nums[i]);
-        return i == nums.size();
+    int strStr(string haystack, string needle) {
+        if (haystack == needle) return 0;
+        int n = needle.size();
+        for (int i = 0; haystack[i]; i++) {
+            string sub_str = haystack.substr(i, n);
+            if (sub_str == needle)
+                return i;
+        }
+        return -1;
     }
 };
 
-void test(string test_name, vector<int> &nums, bool expected)
+void test(string test_name, string haystack, string needle, int expected)
 {
-    bool res = Solution().canJump(nums);
-    if (res == expected) {
+    Solution s;
+    if (s.strStr(haystack, needle) == expected) {
         cout << test_name << " success." << endl;
     } else {
         cout << test_name << " failed." << endl;
@@ -24,18 +27,20 @@ void test(string test_name, vector<int> &nums, bool expected)
 
 int main()
 {
-    vector<int> nums1 = {2,3,1,1,4};
-    bool expected1 = true;
-    test("test1", nums1, expected1);
+    string haystack1 = "hello";
+    string needle1 = "ll";
+    int expected1 = 2;
+    test("test1", haystack1, needle1, expected1);
 
-    vector<int> nums2 = {3,2,1,0,4};
-    bool expected2 = false;
-    test("test2", nums2, expected2);
+    string haystack2 = "aaaaa";
+    string needle2 = "bba";
+    int expected2 = -1;
+    test("test2", haystack2, needle2, expected2);
 
-    vector<int> nums3 = {0};
-    bool expected3 = true;
-    test("test3", nums3, expected3);
+    string haystack3 = "";
+    string needle3 = "";
+    int expected3 = 0;
+    test("test3", haystack3, needle3, 0);
 
     return 0;
 }
-
