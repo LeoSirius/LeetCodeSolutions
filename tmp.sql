@@ -1,153 +1,84 @@
-Write a query to print the sum of all total investment values in 2016 (TIV_2016), to a scale of 2 decimal places, for all policy holders who meet the following criteria:
+Given a table tree, id is identifier of the tree node and p_id is its parent node's' id.
 
-Have the same TIV_2015 value as one or more other policyholders.
++----+------+
+| id | p_id |
++----+------+
+| 1  | null |
+| 2  | 1    |
+| 3  | 1    |
+| 4  | 2    |
+| 5  | 2    |
++----+------+
+Each node in the tree can be one of three types:
+Leaf: if the node is a leaf node.
+Root: if the node is the root of the tree.
+Inner: If the node is neither a leaf node nor a root node.
+ 
 
-Are not located in the same city as any other policyholder
- (i.e.: the (latitude, longitude) attribute pairs must be unique).
-Input Format:
-The insurance table is described as follows:
+Write a query to print the node id and the type of the node. 
+Sort your output by the node id. The result for the above sample is:
 
-| Column Name | Type          |
-|-------------|---------------|
-| PID         | INTEGER(11)   |
-| TIV_2015    | NUMERIC(15,2) |
-| TIV_2016    | NUMERIC(15,2) |
-| LAT         | NUMERIC(5,2)  |
-| LON         | NUMERIC(5,2)  |
-where PID is the policyholder's' policy ID, TIV_2015 is the total investment value in 2015, TIV_2016 is the total investment value in 2016, LAT is the latitude of the policy holder's city, and LON is the longitude of the policy holder's city.
-
-Sample Input
-
-| PID | TIV_2015 | TIV_2016 | LAT | LON |
-|-----|----------|----------|-----|-----|
-| 1   | 10       | 5        | 10  | 10  |
-| 2   | 20       | 20       | 20  | 20  |
-| 3   | 10       | 30       | 20  | 20  |
-| 4   | 10       | 40       | 40  | 40  |
-
-criteria1: 15年的有多个
-
-SELECT TIV_2015 
-FROM insurance
-GROUP BY TIV_2015
-HAVING COUNT(*)>1;
-
-criteria2: 地理位置重复
-
-SELECT LAT, LON
-FROM insurance
-GROUP BY LAT, LON
-HAVING COUNT(*)=1;
-
-同时满足上面两个criteria即可
-
-SELECT ROUND(SUM(TIV_2016), 2) AS TIV_2016
-FROM insurance
-WHERE TIV_2015 IN (
-    SELECT TIV_2015
-    FROM insurance
-    GROUP BY TIV_2015
-    HAVING COUNT(*)>1
-) AND (LAT, LON) IN (
-    SELECT LAT, LON
-    FROM insurance
-    GROUP BY LAT, LON
-    HAVING COUNT(*)=1
-);
-
-SELECT ROUND(SUM(TIV_2016), 2) AS TIV_2016
-FROM insurance
-WHERE PID IN (
-    SELECT TIV_2015
-    FROM insurance
-    GROUP BY TIV_2015
-    HAVING COUNT(*)>1
-) AND (LAT, LON) NOT IN (
-    SELECT LAT, LON
-    FROM insurance
-    GROUP BY LAT, LON
-    HAVING COUNT(*)>1
-);
+SELECT t1.id,
+CASE 
+    WHEN t1.p_id IS NULL THEN "Root"
+    WHEN t2.p_id IS NULL THEN "Leaf"
+    ELSE "Inner"
+END AS Type
+FROM tree t1 LEFT JOIN tree t2
+ON t1.id=t2.p_id
+GROUP BY t1.id;
 
 
-    SELECT PID
-    FROM insurance
-    GROUP BY LAT, LON
-    HAVING COUNT(*)>1;
+SELECT t1.id,
+CASE
+  WHEN t1.p_id IS NULL THEN "Root"
+  WHEN t2.p_id IS NULL THEN "Leaf"
+  ELSE "Inner"
+END AS Type
+FROM tree t1 LEFT JOIN tree t2
+ON t1.id=t2.p_id
+GROUP BY t1.id;
 
+SELECT *
+FROM tree t1 LEFT JOIN tree t2
+ON t1.id=t2.p_id;
+ 
 
++----+------+
+| id | Type |
++----+------+
+| 1  | Root |
+| 2  | Inner|
+| 3  | Leaf |
+| 4  | Leaf |
+| 5  | Leaf |
++----+------+
+ 
 
-+------+----------+----------+-------+-------+
-| PID  | TIV_2015 | TIV_2016 | LAT   | LON   |
-+------+----------+----------+-------+-------+
-|    1 |   224.17 |   952.73 | 32.40 | 20.20 |
-|    2 |   224.17 |   900.66 | 52.40 | 32.70 |
-|    3 |   824.61 |   645.13 | 72.40 | 45.20 |
-|    4 |   424.32 |   323.66 | 12.40 |  7.70 |
-|    5 |   424.32 |   282.90 | 12.40 |  7.70 |
-|    6 |   625.05 |   243.53 | 52.50 | 32.80 |
-|    7 |   424.32 |   968.94 | 72.50 | 45.30 |
-|    8 |   624.46 |   714.13 | 12.50 |  7.80 |
-|    9 |   425.49 |   463.85 | 32.50 | 20.30 |
-|   10 |   624.46 |   776.85 | 12.40 |  7.70 |
-|   11 |   624.46 |   692.71 | 72.50 | 45.30 |
-|   12 |   225.93 |   933.00 | 12.50 |  7.80 |
-|   13 |   824.61 |   786.86 | 32.60 | 20.30 |
-|   14 |   824.61 |   935.34 | 52.60 | 32.80 |
-+------+----------+----------+-------+-------+
-1: 1348
+Explanation
 
-+------+
-|    1 |
-|    9 |
-|   13 |
-|    2 |
-|    6 |
-|   14 |
-|    3 |
-+------+
+ 
 
-Sample Output
+Node '1' is root node, because its parent node is NULL and it has child node '2' and '3'.
+Node '2' is inner node, because it has parent node '1' and child node '4' and '5'.
+Node '3', '4' and '5' is Leaf node, because they have parent node and they don't' have child node.
 
-| TIV_2016 |
-|----------|
-| 45.00    |
+And here is the image of the sample tree as below:
+ 
 
+			  1
+			/   \
+                      2       3
+                    /   \
+                  4       5
+Note
 
-CREATE TABLE IF NOT EXISTS insurance (PID INTEGER(11), TIV_2015 NUMERIC(15,2), TIV_2016 NUMERIC(15,2), LAT NUMERIC(5,2), LON NUMERIC(5,2) );
-Truncate table insurance;
-insert into insurance (PID, TIV_2015, TIV_2016, LAT, LON) values ('1', '10', '5', '10', '10');
-insert into insurance (PID, TIV_2015, TIV_2016, LAT, LON) values ('2', '20', '20', '20', '20');
-insert into insurance (PID, TIV_2015, TIV_2016, LAT, LON) values ('3', '10', '30', '20', '20');
-insert into insurance (PID, TIV_2015, TIV_2016, LAT, LON) values ('4', '10', '40', '40', '40');
+If there is only one node on the tree, you only need to output its root attributes.
 
-insert into insurance values (1,224.17,952.73,32.4,20.2);
-insert into insurance values (2,224.17,900.66,52.4,32.7);
-insert into insurance values (1,224.17,952.73,32.4,20.2);
-insert into insurance values (1,224.17,952.73,32.4,20.2);
-insert into insurance values (1,224.17,952.73,32.4,20.2);
-insert into insurance values (1,224.17,952.73,32.4,20.2);
-insert into insurance values (1,224.17,952.73,32.4,20.2);
-insert into insurance values (1,224.17,952.73,32.4,20.2);
-insert into insurance values (1,224.17,952.73,32.4,20.2);
-insert into insurance values (1,224.17,952.73,32.4,20.2);
-insert into insurance values (1,224.17,952.73,32.4,20.2);
-insert into insurance values (1,224.17,952.73,32.4,20.2);
-
-
-{"headers":{"insurance":["PID","TIV_2015","TIV_2016","LAT","LON"]},
-
-insert into insurance values (1,224.17,952.73,32.4,20.2);
-insert into insurance values (2,224.17,900.66,52.4,32.7);
-insert into insurance values (3,824.61,645.13,72.4,45.2);
-insert into insurance values (4,424.32,323.66,12.4,7.7);
-insert into insurance values (5,424.32,282.9,12.4,7.7);
-insert into insurance values (6,625.05,243.53,52.5,32.8);
-insert into insurance values (7,424.32,968.94,72.5,45.3);
-insert into insurance values (8,624.46,714.13,12.5,7.8);
-insert into insurance values (9,425.49,463.85,32.5,20.3);
-insert into insurance values (10,624.46,776.85,12.4,7.7);
-insert into insurance values (11,624.46,692.71,72.5,45.3);
-insert into insurance values (12,225.93,933,12.5,7.8);
-insert into insurance values (13,824.61,786.86,32.6,20.3);
-insert into insurance values (14,824.61,935.34,52.6,32.8);
+Create table If Not Exists tree (id int, p_id int)
+Truncate table tree
+insert into tree (id, p_id) values ('1', 'None')
+insert into tree (id, p_id) values ('2', '1')
+insert into tree (id, p_id) values ('3', '1')
+insert into tree (id, p_id) values ('4', '2')
+insert into tree (id, p_id) values ('5', '2')
