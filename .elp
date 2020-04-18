@@ -143,7 +143,7 @@
     leetcode={daily:[55], sql:[602, 608], string-py:[28]}
 },
 20200418={
-    leetcode={sql:[612, 614], hard-cpp:[128]}
+    leetcode={sql:[612, 614], hard-cpp:[128, 132]}
 }
 
 
