@@ -1,46 +1,54 @@
 #include <iostream>
+#include <vector>
+#include <unordered_map>
 using namespace std;
 
 class Solution {
 public:
-    int strStr(string haystack, string needle) {
-        if (haystack == needle) return 0;
-        int n = needle.size();
-        for (int i = 0; haystack[i]; i++) {
-            string sub_str = haystack.substr(i, n);
-            if (sub_str == needle)
-                return i;
+    int longestConsecutive(vector<int>& nums) {
+        int res = 0;
+        unordered_map<int, int> mp; // key是nums中的数，value是数所在的streak的长度
+        for (auto n : nums) {
+            if (mp.find(n) != mp.end())
+                continue;
+            // 如果左右两侧在dict中，则获取左右两侧区间的长度
+            int left_len = mp.find(n-1) != mp.end() ? mp[n-1] : 0;
+            int right_len = mp.find(n+1) != mp.end() ? mp[n+1] : 0;
+
+            int cur_len = left_len + right_len + 1;
+            res = max(res, cur_len);
+            // 更新左右端点，和当前的n为这个区间的长度
+            mp[n] = cur_len;
+            mp[n-left_len] = cur_len;
+            mp[n+right_len] = cur_len;
         }
-        return -1;
+        return res;
     }
 };
 
-void test(string test_name, string haystack, string needle, int expected)
+void test(string test_name, vector<int>& nums, int expected)
 {
-    Solution s;
-    if (s.strStr(haystack, needle) == expected) {
+    int res = Solution().longestConsecutive(nums);
+    if (res == expected)
         cout << test_name << " success." << endl;
-    } else {
+    else
         cout << test_name << " failed." << endl;
-    }
 }
 
 int main()
 {
-    string haystack1 = "hello";
-    string needle1 = "ll";
-    int expected1 = 2;
-    test("test1", haystack1, needle1, expected1);
+    vector<int> nums1 = {100, 4, 200, 1, 3, 2};
+    int expected1 = 4;
+    test("test1", nums1, expected1);
 
-    string haystack2 = "aaaaa";
-    string needle2 = "bba";
-    int expected2 = -1;
-    test("test2", haystack2, needle2, expected2);
+    vector<int> nums2 = {0,3,7,2,5,8,4,6,0,1};
+    int expected2 = 9;
+    test("test2", nums2, expected2);
 
-    string haystack3 = "";
-    string needle3 = "";
-    int expected3 = 0;
-    test("test3", haystack3, needle3, 0);
+
+    vector<int> nums3 = {4,0,-4,-2,2,5,2,0,-8,-8,-8,-8,-1,7,4,5,5,-4,6,6,-3};
+    int expected3 = 5;
+    test("test3", nums3, expected3);
 
     return 0;
 }
