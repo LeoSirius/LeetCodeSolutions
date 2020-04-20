@@ -1,47 +1,68 @@
-Mary is a teacher in a middle school and she has a table seat storing students'' names and their corresponding seat ids.
+Table: Sales
 
-The column id is continuous increment.
++-------------+-------+
+| Column Name | Type  |
++-------------+-------+
+| sale_id     | int   |
+| product_id  | int   |
+| year        | int   |
+| quantity    | int   |
+| price       | int   |
++-------------+-------+
+sale_id is the primary key of this table.
+product_id is a foreign key to Product table.
+Note that the price is per unit.
+Table: Product
+
++--------------+---------+
+| Column Name  | Type    |
++--------------+---------+
+| product_id   | int     |
+| product_name | varchar |
++--------------+---------+
+product_id is the primary key of this table.
  
 
-Mary wants to change seats for the adjacent students.
- 
+Write an SQL query that selects the product id, year, quantity, 
+and price for the first year of every product sold.
 
-Can you write a SQL query to output the result for Mary?
- 
+The query result format is in the following example:
 
-+---------+---------+
-|    id   | student |
-+---------+---------+
-|    1    | Abbot   |
-|    2    | Doris   |
-|    3    | Emerson |
-|    4    | Green   |
-|    5    | Jeames  |
-+---------+---------+
+Sales table:
++---------+------------+------+----------+-------+
+| sale_id | product_id | year | quantity | price |
++---------+------------+------+----------+-------+ 
+| 1       | 100        | 2008 | 10       | 5000  |
+| 2       | 100        | 2009 | 12       | 5000  |
+| 7       | 200        | 2011 | 15       | 9000  |
++---------+------------+------+----------+-------+
+
+Product table:
++------------+--------------+
+| product_id | product_name |
++------------+--------------+
+| 100        | Nokia        |
+| 200        | Apple        |
+| 300        | Samsung      |
++------------+--------------+
+
+SELECT product_id, year AS first_year, quantity, price
+FROM Sales
+WHERE (product_id, year) IN
+(SELECT product_id, MIN(year) AS year
+FROM Sales
+GROUP BY product_id);
 
 
-SELECT
-    CASE
-        WHEN MOD(id,2)!=0 AND id!=cnt THEN id+1
-        WHEN MOD(id,2)!=0 AND id=cnt THEN id
-        ELSE id-1
-    END AS id
-, student
-FROM seat s JOIN (SELECT COUNT(*) AS cnt FROM seat) AS t
-ORDER BY id;
-
-For the sample input, the output is:
 
 
- 
 
-+---------+---------+
-|    id   | student |
-+---------+---------+
-|    1    | Doris   |
-|    2    | Abbot   |
-|    3    | Green   |
-|    4    | Emerson |
-|    5    | Jeames  |
-+---------+---------+
+
+Result table:
++------------+------------+----------+-------+
+| product_id | first_year | quantity | price |
++------------+------------+----------+-------+ 
+| 100        | 2008       | 10       | 5000  |
+| 200        | 2011       | 15       | 9000  |
++------------+------------+----------+-------+
 

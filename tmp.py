@@ -1,24 +1,40 @@
-# import ssl
-# import OpenSSL
-# import requests
-# resp = requests.get('https://market.seatable.cn/', verify=False)
-# cert = ssl.get_server_certificate(('market.seatable.cn', 443))
+class Solution:
+    def multiply(self, num1: str, num2: str) -> str:
+        res = 0
+        for i in range(1, len(num1)+1):
+            for j in range(1, len(num2)+1):
+                res += int(num1[-i]) * int(num2[-j]) * 10 ** (i+j-2)
+        return str(res)
 
-# print(cert)
 
-# x509 = OpenSSL.crypto.load_certificate(OpenSSL.crypto.FILETYPE_PEM, cert)
-# print(x509.get_subject())
-# res = x509.get_subject().get_components()
-# print(res)
+def test(test_name, num1, num2, expected):
+    res = Solution().multiply(num1, num2)
+    if res == expected:
+        print(test_name + ' success.')
+    else:
+        print(test_name + ' failed.')
 
-import urllib3
-import requests
-import traceback
-# res = requests.get('https://dev.seafile.com/seahub/')
-try:
-    res = requests.get('https://market.seatable.io/')
-except Exception as e:
-    traceback.print_exc()
-    print('E = {}'.format(e))
-# res = requests.get('https://market.seatable.io/api/plugins/timeline/')
-# print(res.content)
+if __name__ == "__main__":
+    test("test1", '2', '3', '6')
+    test('test2', '123', '456', '56088')
+
+
+
+# Given two non-negative integers num1 and num2 represented as strings,
+#  return the product of num1 and num2, also represented as a string.
+
+# Example 1:
+
+# Input: num1 = "2", num2 = "3"
+# Output: "6"
+# Example 2:
+
+# Input: num1 = "123", num2 = "456"
+# Output: "56088"
+# Note:
+
+# The length of both num1 and num2 is < 110.
+# Both num1 and num2 contain only digits 0-9.
+# Both num1 and num2 do not contain any leading zero, except the number 0 itself.
+# You must not use any built-in BigInteger library or convert the inputs to integer directly.
+
