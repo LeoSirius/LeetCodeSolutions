@@ -1,40 +1,34 @@
 class Solution:
-    def multiply(self, num1: str, num2: str) -> str:
-        res = 0
-        for i in range(1, len(num1)+1):
-            for j in range(1, len(num2)+1):
-                res += int(num1[-i]) * int(num2[-j]) * 10 ** (i+j-2)
-        return str(res)
+    def addBinary(self, a: str, b: str) -> str:
+        carry = 0
+        p1, p2 = len(a) - 1, len(b) - 1
+        res = ''
+        while carry or p1 >= 0 or p2 >= 0:
+            v1, v2 = 0, 0
+            if p1 >= 0:
+                v1 = int(a[p1])
+                p1 -= 1
+            if p2 >= 0:
+                v2 = int(b[p2])
+                p2 -= 1
+            s = v1 + v2 + carry
+            res = str(s%2) + res
+            carry = s // 2
+        return res
 
 
-def test(test_name, num1, num2, expected):
-    res = Solution().multiply(num1, num2)
+def test(test_name, a, b, expected):
+    res = Solution().addBinary(a, b)
     if res == expected:
         print(test_name + ' success.')
     else:
         print(test_name + ' failed.')
 
 if __name__ == "__main__":
-    test("test1", '2', '3', '6')
-    test('test2', '123', '456', '56088')
+    a1, b1 = '11', '1'
+    expected1 = '100'
+    test("test1", a1, b1, expected1)
 
-
-
-# Given two non-negative integers num1 and num2 represented as strings,
-#  return the product of num1 and num2, also represented as a string.
-
-# Example 1:
-
-# Input: num1 = "2", num2 = "3"
-# Output: "6"
-# Example 2:
-
-# Input: num1 = "123", num2 = "456"
-# Output: "56088"
-# Note:
-
-# The length of both num1 and num2 is < 110.
-# Both num1 and num2 contain only digits 0-9.
-# Both num1 and num2 do not contain any leading zero, except the number 0 itself.
-# You must not use any built-in BigInteger library or convert the inputs to integer directly.
-
+    a2, b2 = '1010', '1011'
+    expected2 = '10101'
+    test('test2', a2, b2, expected2)

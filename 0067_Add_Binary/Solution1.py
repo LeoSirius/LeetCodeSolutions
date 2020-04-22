@@ -1,9 +1,9 @@
 class Solution:
     def addBinary(self, a: str, b: str) -> str:
-        p1, p2 = len(a) - 1, len(b) - 1
-        res_int_list = []
         carry = 0
-        while p1 >= 0 or p2 >= 0 or carry:
+        p1, p2 = len(a) - 1, len(b) - 1
+        res = ''
+        while carry or p1 >= 0 or p2 >= 0:
             v1, v2 = 0, 0
             if p1 >= 0:
                 v1 = int(a[p1])
@@ -11,12 +11,10 @@ class Solution:
             if p2 >= 0:
                 v2 = int(b[p2])
                 p2 -= 1
-
-            cur_sum = carry + v1 + v2
-            res_int_list.insert(0, cur_sum % 2)
-            carry = cur_sum // 2
-
-        return ''.join([str(num) for num in res_int_list])
+            s = v1 + v2 + carry
+            res = str(s%2) + res
+            carry = s // 2
+        return res
 
 
 def test(test_name, a, b, expected):
