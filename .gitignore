@@ -2,3 +2,4 @@
 *a.out
 .DS_Store
 .idea/*
+*.pyc

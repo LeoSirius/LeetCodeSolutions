@@ -1,11 +1,12 @@
 // 2019-06-28开始
 // leetcode 按topics来做，现阶段所有topics中不做hard, 
-现在的topics中从array做到hash_table(python, 1-20)
+现在的topics中从array做到heap(python, 1-20, hash_table之后是cpp)
 
 // 正在做的round
 [
-    [string-py 1-20(easy, mid)],
-    [hard-cpp 21-30]
+    [tree-py 1-20(easy, mid)],
+    [hard-cpp 21-30],
+    [mysql 21-30(mid), 2020-04-22],
 ]
 
 // 已经做完的round
@@ -159,8 +160,8 @@
     leetcode={sql:[1107, 1112], string-py:[71, 91]}
 },
 20200424={
-    leetcode={sql:[1126, 1132], string-py:[93, 125]}
-}
+    leetcode={sql:[1126, 1132], string-py:[93, 125], tree-py:[94, 95]}
+},
 
 
 // 计算几何相关的题目先不做，直接跳过
