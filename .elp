@@ -163,7 +163,7 @@
     leetcode={sql:[1126, 1132], string-py:[93, 125], tree-py:[94, 95]}
 },
 20200426={
-    leetcode={sql:[96, 98, 100, ]}
+    leetcode={sql:[96, 98, 100]}
 }
 
 
