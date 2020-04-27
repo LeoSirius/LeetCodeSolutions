@@ -1,26 +1,26 @@
+#include "utils_cpp/tree.h"
 #include <iostream>
 using namespace std;
 
-struct TreeNode {
-    int val;
-    TreeNode *left;
-    TreeNode *right;
-    TreeNode(int x) : val(x), left(NULL), right(NULL) {}
-};
-
 class Solution {
-    bool is_sym(TreeNode* l, TreeNode *r) {
-        if (!l && !r) return true;
-        if (!l || !r) return false;
-        if (l->val != r->val) return false;
-        return is_sym(l->left, r->right) && is_sym(l->right, r->left);
+    bool is_mirror(TreeNode* l, TreeNode* r)
+    {
+        if (!l && !r)
+            return true;
+        if (!l || !r)
+            return false;
+        if (l->val != r->val)
+            return false;
+        return is_mirror(l->left, r->right) && is_mirror(l->right, r->left);
     }
 public:
     bool isSymmetric(TreeNode* root) {
-        if (!root) return true;
-        return is_sym(root->left, root->right);
+        if (!root)
+            return true;
+        return is_mirror(root->left, root->right);
     }
 };
+
 
 void test(string test_name, TreeNode *root, bool expected)
 {

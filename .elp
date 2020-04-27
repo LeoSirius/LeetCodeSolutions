@@ -20,6 +20,7 @@
     [mysql 1-10(mid), 2020-04-02],
     [mysql 1-10(mid), 2020-04-11],
     [mysql 11-20(mid), 2020-04-16],
+    [hard-cpp 21-30, 2020-04-18],
     [mysql 11-20(mid), 2020-04-22],
     [string-py 1-20(easy, mid), 2020-04-24],
 ]
@@ -163,7 +164,10 @@
     leetcode={sql:[1126, 1132], string-py:[93, 125], tree-py:[94, 95]}
 },
 20200426={
-    leetcode={sql:[96, 98, 100]}
+    leetcode={tree-py:[96, 98, 100]}
+},
+20200427={
+    leetcode={hard-cpp:[85], tree-py:[101, 102, 103, ]}
 }
 
 

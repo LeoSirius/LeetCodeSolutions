@@ -1,7 +1,7 @@
 ### 思路1 dp
 
-
-
+dp的状态方程是最左边、最右边和高
+从最左边、最右边和高来找面积
 
 If you think this algorithm is not easy to understand, you can try this example:
 

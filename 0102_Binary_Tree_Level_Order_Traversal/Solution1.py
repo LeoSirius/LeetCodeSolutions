@@ -1,14 +1,14 @@
 from typing import List
 from utils_py.tree import *
-
+import queue
 
 class Solution:
-    def zigzagLevelOrder(self, root: TreeNode) -> List[List[int]]:
-        res = []
+    def levelOrder(self, root: TreeNode) -> List[List[int]]:
+        que = []
         if not root:
-            return res
-        que = [root]
-        left2right = True
+            return que
+        que.append(root)
+        res = []
 
         while que:
             cnt = len(que)
@@ -21,18 +21,11 @@ class Solution:
                     que.append(p.left)
                 if p.right:
                     que.append(p.right)
-            if left2right:
-                res.append(row)
-                left2right = False
-            else:
-                res.append(list(reversed(row)))
-                left2right = True
-                
+            res.append(row)
         return res
 
-
 def test(test_name, root, expected):
-    res = Solution().zigzagLevelOrder(root)
+    res = Solution().levelOrder(root)
     if res == expected:
         print(test_name + ' success.')
     else:
@@ -45,13 +38,16 @@ if __name__ == "__main__":
     t1.right.left = TreeNode(15);
     t1.right.right = TreeNode(7);
     expected1 = [
-        [3],
-        [20, 9],
-        [15, 7]
-    ];
+        [3], [9, 20], [15, 7]
+    ]
     #      3
     #     / \
     #    9  20
     #      /  \
     #     15   7
     test("test1", t1, expected1);
+
+    t2 = None
+    expected2 = []
+    test("test2", t2, expected2);
+
