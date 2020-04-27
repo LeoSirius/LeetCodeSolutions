@@ -167,7 +167,7 @@
     leetcode={tree-py:[96, 98, 100]}
 },
 20200427={
-    leetcode={hard-cpp:[85], tree-py:[101, 102, 103, ]}
+    leetcode={hard-cpp:[85], tree-py:[101, 102, 103, 104, 105, ]}
 }
 
 
