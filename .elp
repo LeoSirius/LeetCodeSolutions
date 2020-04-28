@@ -167,8 +167,12 @@
     leetcode={tree-py:[96, 98, 100]}
 },
 20200427={
-    leetcode={hard-cpp:[85], tree-py:[101, 102, 103, 104, 105, ]}
+    leetcode={hard-cpp:[85], tree-py:[101, 102, 103, 104, 105]}
+},
+20200428={
+    leetcode={tree-py:[106]}
 }
+
 
 
 // 计算几何相关的题目先不做，直接跳过
