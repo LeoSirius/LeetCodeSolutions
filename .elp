@@ -6,7 +6,7 @@
 [
     [tree-py 1-20(easy, mid)],
     [hard-cpp 21-30],
-    [mysql 21-30(mid), 2020-04-22],
+    [binary-search-new-cpp 1-20 (easy, mid)],
 ]
 
 // 已经做完的round
@@ -25,147 +25,7 @@
     [string-py 1-20(easy, mid), 2020-04-24],
 ]
 
-20200309={
-    leetcode={array:[54, 55, 56, 59, 62], sql:[1280, 1294, ]}
-},
-20200310={
-    leetcode={dp:[5], sql:[1303]}
-},
-20200311={
-    leetcode={dp:[53, 62, 63, 64, 70, 91, 95], sql:[1322, 1327]}
-},
-20200312={
-    leetcode={dp:[96], sql:[1350]}
-},
-20200313={
-    leetcode={dp:[120, 121, 139, 152], sql:[1378, ]}
-},
-20200314={
-    leetcode={hard-cpp:[4, 10, 23, 25, ]}
-},
-20200315={
-    leetcode={hard-cpp:[30, 32, 37, ]}
-},
-20200316={
-    leetcode={dp:[198, 213, 221], sql:[1294]}
-},
-20200317={
-    leetcode={hard-cpp:[41, 42, 44]}
-},
-20200318={
-    leetcode={dp:[256, 264, 276, 279], sql:[1303], math:[2]}
-},
-20200319={
-    leetcode={hard-cpp:[45, 51, 52]}
-},
-20200320={
-    leetcode={math:[7, 8], sql:[1322, ]}
-},
-20200321={
-    leetcode={hard-cpp:[57, ], sql:[1327, ]}
-},
-20200322={
-    leetcode={daily:[945], hard-cpp:[65, 68], sql:[1350]}
-},
-20200323={
-    leetcode={daily:[876], sql:[1378], math:[9, 12, 13, 29, 43, 50]}
-},
-20200324={
-    leetcode={daily:[面试经典17.16], sql:[177, ]}
-},
-20200325={
-    leetcode={daily:[892], sql:[178], math:[60, 67, 69, 166]}
-},
-20200326={
-    leetcode={daily:[999], sql:[180], hard-cpp:[72, 76, 84]}
-},
-20200327={
-    leetcode={daily:[914], sql:[184], math-py:[168, 171, 172]}
-},
-20200328={
-    leetcode={daily:[820], sql:[534, 550]}
-},
-20200329={
-    leetcode={daily:[1162], sql:[570], hard-cpp:[45]}
-},
-20200330={
-    leetcode={daily:[面试题62], sql:[574], math-py:[202, 204, 223, 231], string-py:[3, 5, 6, 8]}
-},
-20200331={
-    leetcode={daily:[912], sql:[578]}
-},
-20200401={
-    leetcode={daily:[1111]}
-}，
-20200402={
-    leetcode={daily:[289], sql:[580], hard-new-cpp:[85]}
-},
-20200403={
-    leetcode={daily:[8], sql:[177]}
-},
-20200404={
-    leetcode={daily:[42], sql:[178], hard-new:[87, 97]}
-},
-20200405={
-    leetcode={daily:[460], sql:[180]}
-},
-20200406={
-    leetcode={daily:[72], sql:[184], hard-new:[99, 115]}
-},
-20200407={
-    leetcode={daily:[金典01.07], sql:[534, 550], hard-new:[123]}
-},
-20200408={
-    leetcode={daily:[offer13], sql:[570], hard-cpp:[51], string-py:[12, 13, 14]}
-},
-20200409={
-    leetcode={daily:[22], sql:[574, 578], hard-new:[124, 126]}
-},
-20200410={
-    leetcode={daily:[151], sql:[580]}
-},
-20200411={
-    leetcode={daily:[887], sql:[585, 602], }
-},
-20200412={
-    leetcode={daily:[skip], sql:[608, 612]}
-},
-20200413={
-    leetcode={daily:[355], sql:[614], }
-},
-20200414={
-    leetcode={daily:[445], sql:[626, 1045], string-py:[17]}
-},
-20200415={
-    leetcode={daily:[542], sql:[1070, 1077], string-py:[20, ]}
-},
-20200416={
-    leetcode={daily:[56]， sql:[1098, 585], string-py:[22]}
-},
-20200417={
-    leetcode={daily:[55], sql:[602, 608], string-py:[28]}
-},
-20200418={
-    leetcode={sql:[612, 614], hard-cpp:[128, 132]}
-},
-20200419={
-    leetcode={sql:[626]}
-},
-20200420={
-    leetcode={sql:[1045, 1070], string-py:[38, 43]}
-},
-20200422={
-  leetcode={sql:[1077, 1098], string-py:[49, 58, 67]}
-},
-20200423={
-    leetcode={sql:[1107, 1112], string-py:[71, 91]}
-},
-20200424={
-    leetcode={sql:[1126, 1132], string-py:[93, 125], tree-py:[94, 95]}
-},
-20200426={
-    leetcode={tree-py:[96, 98, 100]}
-},
+
 20200427={
     leetcode={hard-cpp:[85], tree-py:[101, 102, 103, 104, 105]}
 },
@@ -173,7 +33,7 @@
     leetcode={tree-py:[106]}
 },
 20200429={
-    leetcode={tree-py:[107, 108, 110, ]}
+    leetcode={tree-py:[107, 108, 110], binary-search-new-cpp:[29, ]}
 }
 
 

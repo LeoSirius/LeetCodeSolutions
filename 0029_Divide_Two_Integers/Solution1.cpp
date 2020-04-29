@@ -27,6 +27,8 @@ public:
             // dvd >= (dvs << x << 1), 如果dvd=MAX，不成立的条件是MAX < ...，右边会溢出
             // 所以写成：(dvd >> 1) >= (dvs << x)
             // after for loop:  dvs*2^x <= dvd < dvs*2^(x+1)
+            // 可以理解为dvd / 2 >= dvs * 2 ^x
+            // 最后跳出时 dvs * 2^x <= dvd/2 < dvs * 2^(x+1)
             for (x = 0; (dvd >> 1) - (dvs << x) >= 0; x++);
             // 我们把2^x记为A
             res += 1 << x;     // res += A
