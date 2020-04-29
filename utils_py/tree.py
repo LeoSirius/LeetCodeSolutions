@@ -5,6 +5,19 @@ class TreeNode:
         self.right = None
 
 
+def in_order(node, in_list):
+    if not node:
+        return
+    in_order(node.left, in_list)
+    in_list.append(node.val)
+    in_order(node.right, in_list)
+
+def get_inorder_list(tree):
+    in_list = []
+    in_order(tree, in_list)
+    return in_list
+
+
 def is_same_tree(t1, t2):
     if not t1 and not t2:
         return True
