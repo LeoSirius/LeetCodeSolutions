@@ -34,6 +34,9 @@
 },
 20200429={
     leetcode={tree-py:[107, 108, 110], binary-search-new-cpp:[29, ]}
+},
+20200430={
+    leetcode={hard-cpp:[87, ]}
 }
 
 
