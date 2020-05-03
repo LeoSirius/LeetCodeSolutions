@@ -40,6 +40,9 @@
 },
 20200501={
     leetcode={hard-cpp:[97, ]}
+},
+20200502={
+    leetcode=[hard-cpp:[99, 115]]
 }
 
 
