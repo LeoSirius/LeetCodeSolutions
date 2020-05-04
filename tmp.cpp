@@ -4,28 +4,25 @@ using namespace std;
 
 class Solution {
 public:
-    int numDistinct(string s, string t) {
-        vector<vector<long>> dp(s.size()+1, vector<long>(t.size()+1, 0));
-        for (int i = 0; i <= s.size(); ++i) {
-            for (int j = 0; j <= t.size(); ++j) {
-                if (j == 0)
-                    dp[i][0]= 1;
-                else if (i && j) {
-                    if (s[i-1] != t[j-1])
-                        dp[i][j] = dp[i-1][j];
-                    else
-                        dp[i][j] = dp[i-1][j-1] + dp[i-1][j];
-                }
+    int maxProfit(vector<int>& prices) {
+        if (prices.size() == 0)
+            return 0;
+        int K = 2;
+        vector<vector<int>> dp(K + 1, vector<int>(prices.size(), 0));
+        for (int k = 1; k <= 2; ++k) {
+            int cur_min = prices[0];
+            for (int i = 1; i < prices.size(); ++i) {
+                cur_min = min(cur_min, (prices[i] - dp[k-1][i-1]));
+                dp[k][i] = max(dp[k][i-1], prices[i] - cur_min);
             }
         }
         return dp.back().back();
     }
 };
 
-
-void test(string test_name, string s, string t, int expected)
+void test(string test_name, vector<int>& prices, int expected)
 {
-    int res = Solution().numDistinct(s, t);
+    int res = Solution().maxProfit(prices);
     if (res == expected)
         cout << test_name << " success." << endl;
     else
@@ -34,13 +31,17 @@ void test(string test_name, string s, string t, int expected)
 
 int main()
 {
-    string s1 = "rabbbit", t1 = "rabbit";
-    int expected1 = 3;
-    test("test1", s1, t1, expected1);
+    vector<int> prices1 = {3,3,5,0,0,3,1,4};
+    int expected1 = 6;
+    test("test1", prices1, expected1);
 
-    string s2 = "babgbag", t2 = "bag";
-    int expected2 = 5;
-    test("test2", s2, t2, expected2);
+    vector<int> prices2 = {1,2,3,4,5};
+    int expected2 = 4;
+    test("test2", prices2, expected2);
+
+    vector<int> prices3 = {7,6,4,3,1};
+    int expected3 = 0;
+    test("test3", prices3, expected3);
 
     return 0;
 }
