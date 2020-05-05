@@ -2,6 +2,8 @@
 
 class Solution {
     int res = INT_MIN;
+    // 注意函数返回值，只能是左右子树其中的一个，+当前节点
+    // 而res是和，需要左右子树都加起来
     int max_down(TreeNode* node)
     {
         if (!node)

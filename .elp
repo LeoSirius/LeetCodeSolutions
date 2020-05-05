@@ -6,7 +6,7 @@
 [
     [tree-py 1-20(easy, mid)],
     [hard-cpp 21-30],
-    [binary-search-new-cpp 1-20 (easy, mid)],
+    [binary-search-new-cpp 1-10 (easy, mid)],
 ]
 
 // 已经做完的round
@@ -46,6 +46,9 @@
 },
 20200504={
     leetcode={hard-cpp:[123, ]}
+},
+20200505={
+    leetcode={hard-cpp:[124, 126]}
 }
 
 
