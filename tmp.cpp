@@ -1,44 +1,46 @@
 #include <iostream>
-#include <vector>
 using namespace std;
 
 class Solution {
 public:
-    int searchInsert(vector<int>& nums, int target) {
+    double myPow(double x, int n) {
         
     }
 };
 
-void test(string test_name, vector<int> &nums, int target, int expected)
+
+void test(string test_name, double x, int n, double expected)
 {
     Solution s;
-    if (s.searchInsert(nums, target) == expected) {
+    double res = s.myPow(x, n);
+    if (-0.00001 < res - expected && res - expected < 0.00001) {
         cout << test_name << " success." << endl;
     } else {
         cout << test_name << " failed." << endl;
     }
-
 }
 
 int main()
 {
-    vector<int> nums1 = {1, 3, 5, 6};
-    int target1 = 2;
-    int expected1 = 1;
-    test("test1", nums1, target1, expected1);
+    double x1 = 2;
+    int n1 = 10;
+    double expected1 = 1024;
+    test("test1", x1, n1, expected1);
 
-    vector<int> nums2 = {1,3,5,6};
-    int target2 = 7;
-    int expected2 = 4;
-    test("test2", nums2, target2, expected2);
+    double x2 = 2.1;
+    int n2 = 3;
+    double expected2 = 9.261;
+    test("test2", x2, n2, expected2);
+
+    double x3 = 2;
+    int n3 = -2;
+    double expected3 = 0.25;
+    test("test3", x3, n3, expected3);
+
+    double x4 = 2;
+    int n4 = INT_MIN;
+    double expected4 = 0;
+    test("test4", x4, n4, expected4);
 
     return 0;
 }
-
-
-// Given a sorted array and a target value, return the index if 
-// the target is found. If not, return the index where it would be 
-// if it were inserted in order.
-
-// You may assume no duplicates in the array.
-
