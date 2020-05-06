@@ -1,87 +1,52 @@
 #include <iostream>
 #include <vector>
-#include <queue>
-#include <unordered_set>
 using namespace std;
 
 class Solution {
 public:
-    vector<vector<string>> findLadders(string beginWord, string endWord, vector<string>& wordList) {
-        vector<vector<string>> res;
-        queue<vector<string>> paths;
-
-        paths.push({beginWord});
-
-        unordered_set<string> word_set;
-        for (auto word : wordList)
-            word_set.insert(word);
-
-        int level = 1, min_level = INT_MAX;
-        unordered_set<string> visited;
-        while (!paths.empty()) {
-            vector<string> path = paths.front(); paths.pop();
-
-            if (path.size() > level) {
-                for (auto word : visited)
-                    word_set.erase(word);
-                visited.clear();
-                if (path.size() > min_level)
-                    break;
-                level = path.size();
-                    
-            }
-            string last_word = path.back();
-            for (int i = 0; last_word[i]; ++i) {
-                string new_word = last_word;
-                for (char ch = 'a'; ch <= 'z'; ++ch) {
-                    new_word[i] = ch;
-                    if (word_set.find(new_word) == word_set.end())
-                        continue;
-
-                    vector<string> new_path = path;
-                    new_path.push_back(new_word);
-                    visited.insert(new_word);
-                    if (new_word == endWord) {
-                        min_level = level;
-                        res.push_back(new_path);
-                    }
-                    paths.push(new_path);
-                }
+    int search(vector<int>& nums, int target) {
+        int l = 0, r = nums.size() - 1;
+        while (l <= r) {
+            int mid = l + (r - l) / 2;
+            if (nums[mid] == target)
+                return mid;
+            else if (nums[l] <= nums[mid]) {
+                if (nums[l] <= target && target < nums[mid])
+                    r = mid - 1;
+                else
+                    l = mid + 1;
+            } else {
+                if (nums[mid] < target && target <= nums[r])
+                    l = mid + 1;
+                else
+                    r = mid - 1;
             }
         }
-
-        return res;
+        return -1;
     }
 };
 
-
-void test(string test_name, string beginWord, string endWord, vector<string>& wordList, vector<vector<string>>& expected)
+void test(string test_name, vector<int> &nums, int target, int expected)
 {
-    vector<vector<string>> res = Solution().findLadders(beginWord, endWord, wordList);
-    sort(res.begin(), res.end());
-    sort(expected.begin(), expected.end());
-    if (res == expected)
+    Solution s;
+    if (s.search(nums, target) == expected) {
         cout << test_name << " success." << endl;
-    else
+    } else {
         cout << test_name << " failed." << endl;
+    }
 }
 
 int main()
 {
-    string beginWord1 = "hit";
-    string endWord1 = "cog";
-    vector<string> wordList1 = {"hot","dot","dog","lot","log","cog"};
-    vector<vector<string>> expected1 = {
-        {"hit","hot","dot","dog","cog"},
-        {"hit","hot","lot","log","cog"}
-    };
-    test("test1", beginWord1, endWord1, wordList1, expected1);
+    vector<int> nums1 = {4,5,6,7,0,1,2};
+    int target1 = 0;
+    int expected1 = 4;
+    test("test1", nums1, target1, expected1);
 
-    string beginWord2 = "hit";
-    string endWord2 = "cog";
-    vector<string> wordList2 = {"hot","dot","dog","lot","log"};
-    vector<vector<string>> expected2 = {};
-    test("test2", beginWord2, endWord2, wordList2, expected2);
+    vector<int> nums2 = {4,5,6,7,0,1,2};
+    int target2 = 3;
+    int expected2 = -1;
+    test("test2", nums2, target2, expected2);
 
     return 0;
 }

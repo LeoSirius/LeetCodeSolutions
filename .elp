@@ -49,6 +49,9 @@
 },
 20200505={
     leetcode={hard-cpp:[124, 126]}
+},
+20200506={
+    leetcode={tree-py:[111, 112], binary-search-new-cpp:[33, ]}
 }
 
 

@@ -42,7 +42,7 @@ int main()
     int expected1 = 4;
     test("test1", nums1, target1, expected1);
 
-    vector<int> nums2 = nums1;
+    vector<int> nums2 = {4,5,6,7,0,1,2};
     int target2 = 3;
     int expected2 = -1;
     test("test2", nums2, target2, expected2);
