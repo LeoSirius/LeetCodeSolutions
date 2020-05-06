@@ -7,11 +7,11 @@
 
 1. target < A[mid]，左边界索引一定小于mid，right = mid - 1
 2. target = A[mid]，左边界就是mid或小于mid，right = mid
-3. target > A[mid]，左边界大于mid，left = mid + 1
+3. A[mid] < target，左边界大于mid，left = mid + 1
 
 很多解答都把1和2写在了一起，即（综合1和2，当`target <= A[mid]`时，right = mid;）其实这样不好理解，
 
-注意找右边的时候mid要加1，因为默认是向左对齐的。
+注意找右边的时候mid要加1，因为默认是向左对齐的。(向下取整)
 
 
 

@@ -12,13 +12,13 @@ public:
         int mid;
         while (left < right) {
             mid = left + (right - left) / 2;
-            if (target > nums[mid]) left = mid + 1;
-            else right = mid;
+            if (nums[mid] < target) left = mid + 1;    //   1,2,3,4,4    nums[mid](=3)  <  target=4 
+            else right = mid;                          //   1,2,3,3,3,4,5   target=3 <= nums[mid] (= 3),
         }
         if (nums[left] != target) return res;       // target不在nums中
         else res[0] = left;
 
-        right = nums.size() - 1;                    // left不用重置
+        right = nums.size() - 1;           // left不用重置
         while (left < right) {
             mid = left + (right - left) / 2 + 1;    // +1 make mid biased to right
             if (target < nums[mid]) right = mid - 1;
