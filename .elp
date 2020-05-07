@@ -4,7 +4,6 @@
 
 // 正在做的round
 [
-    [tree-py 1-20(easy, mid)],
     [hard-cpp 21-30],
     [binary-search-new-cpp 1-10 (easy, mid)],
 ]
@@ -23,6 +22,7 @@
     [hard-cpp 21-30, 2020-04-18],
     [mysql 11-20(mid), 2020-04-22],
     [string-py 1-20(easy, mid), 2020-04-24],
+    [tree-py 1-20(easy, mid), 2020-05-07],
 ]
 
 
@@ -52,6 +52,9 @@
 },
 20200506={
     leetcode={tree-py:[111, 112], binary-search-new-cpp:[33, 34, 35, 50, 69, ]}
+},
+20200507={
+    leetcode={tree-py:[113, 114, 116, 117], }
 }
 
 

@@ -14,6 +14,8 @@ class Solution {
         if (!root) return;
         int remain = sum - root->val;
         path.push_back(root->val);
+
+        // 到底时，刚好==0，则是需要的结果
         if (!root->left && !root->right) {
             if (remain == 0) {
                 res.push_back(path);

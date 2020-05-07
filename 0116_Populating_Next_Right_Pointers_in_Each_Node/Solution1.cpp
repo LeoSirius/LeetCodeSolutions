@@ -21,7 +21,9 @@ public:
     Node* connect(Node* root) {
         if (!root || !root->left) // 叶子节点直接返回。完全二叉树，不用考虑右子树了
             return root;
+        // 自己的左右子树连接
         root->left->next = root->right;
+        // 自己的右子树和，右边一个的左子树连接
         if (root->next) {
             root->right->next = root->next->left;
         }
