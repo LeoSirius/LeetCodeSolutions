@@ -5,7 +5,7 @@
 // 正在做的round
 [
     [hard-cpp 21-30],
-    [binary-search-new-cpp 1-10 (easy, mid)],
+    
 ]
 
 // 已经做完的round
@@ -23,6 +23,7 @@
     [mysql 11-20(mid), 2020-04-22],
     [string-py 1-20(easy, mid), 2020-04-24],
     [tree-py 1-20(easy, mid), 2020-05-07],
+    [binary-search-new-cpp 1-10 (easy, mid), 2020-05-07],
 ]
 
 
@@ -54,7 +55,7 @@
     leetcode={tree-py:[111, 112], binary-search-new-cpp:[33, 34, 35, 50, 69, ]}
 },
 20200507={
-    leetcode={tree-py:[113, 114, 116, 117], binary-search-new-cpp:[74, 81]}
+    leetcode={tree-py:[113, 114, 116, 117], binary-search-new-cpp:[74, 81, 153, 162]}
 }
 
 
