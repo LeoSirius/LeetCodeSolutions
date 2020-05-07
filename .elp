@@ -54,7 +54,7 @@
     leetcode={tree-py:[111, 112], binary-search-new-cpp:[33, 34, 35, 50, 69, ]}
 },
 20200507={
-    leetcode={tree-py:[113, 114, 116, 117], }
+    leetcode={tree-py:[113, 114, 116, 117], binary-search-new-cpp:[74, 81]}
 }
 
 

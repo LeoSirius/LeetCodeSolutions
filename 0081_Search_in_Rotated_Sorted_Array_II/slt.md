@@ -1,6 +1,9 @@
 ### 思路1 只对有序的那一半进行二分查找
 
-与Search in Rotated Sorted Array I不同，这道题可能包含重复的元素
+与33 Search in Rotated Sorted Array I不同，这道题可能包含重复的元素
+
+必须跳过重复的元素。不然像{1,3,1,1,1}这种过不了
+
 
 
 C++最简洁的二分法分类讨论

@@ -1,24 +1,25 @@
-#include<iostream>
-#include<vector>
+#include <iostream>
+#include <vector>
 using namespace std;
 
 class Solution {
 public:
     bool searchMatrix(vector<vector<int>>& matrix, int target) {
-        if (matrix.size() == 0) return false;
+        if (matrix.size() == 0)
+            return false;
         int m = 0, n = matrix[0].size() - 1;
-        while (m < matrix.size() && n >= 0) {
-            if (target == matrix[m][n]) {
+        while (m < matrix.size() && 0 <= n) {
+            if (target == matrix[m][n])
                 return true;
-            } else if (target < matrix[m][n]) {
-                n--;
-            } else {
-                m++;
-            }
+            else if (target < matrix[m][n])
+                --n;
+            else
+                ++m;
         }
         return false;
     }
 };
+
 
 void test(string test_name, vector<vector<int>> &matrix, int target, bool expected)
 {
@@ -45,6 +46,16 @@ int main()
     int target2 = 13;
     bool expected2 = false;
     test("test2", matrix2, target2, expected2);
+
+    vector<vector<int>> matrix3 = {{1}};
+    int target3 = 2;
+    bool expected3 = false;
+    test("test3", matrix3, target3, expected3);
+
+    vector<vector<int>> matrix4 = {{1}};
+    int target4 = 1;
+    bool expected4 = true;
+    test("test4", matrix4, target4, expected4);
 
     return 0;
 }
