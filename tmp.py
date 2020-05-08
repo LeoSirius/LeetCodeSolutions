@@ -1,28 +1,32 @@
-
-# Definition for a Node.
-class Node:
-    def __init__(self, val: int = 0, left: Node = None, right: Node = None, next: Node = None):
-        self.val = val
-        self.left = left
-        self.right = right
-        self.next = next
-
+from utils_py.tree import *
 
 class Solution:
-    def connect(self, root: 'Node') -> 'Node':
-        old_root = root
-        first_before_level = Node()
+    def maxDepth(self, root: TreeNode) -> int:
+        if not root:
+            return 0
+        l = self.maxDepth(root.left)
+        r = self.maxDepth(root.right)
+        return max(l, r) + 1
 
-        while root:
-            p = first_before_level
-            while root:
-                if root.left:
-                    p.next = root.left
-                    p = p.next
-                if root.right:
-                    p.next = root.right
-                    p = p.next
-                root = root.next
-            root = first_before_level.next
-            first_before_level.next = None
-        return old_root
+
+def test(test_name, root, expected):
+    res = Solution().maxDepth(root)
+    if res == expected:
+        print(test_name + ' success.')
+    else:
+        print(test_name + ' failed.')
+
+
+if __name__ == "__main__":
+    t1 = TreeNode(3);
+    t1.left = TreeNode(9);
+    t1.right = TreeNode(20);
+    t1.right.left = TreeNode(15);
+    t1.right.right = TreeNode(7);
+    expected1 = 3;
+    #      3
+    #     / \
+    #    9  20
+    #      /  \
+    #     15   7
+    test("test1", t1, expected1);

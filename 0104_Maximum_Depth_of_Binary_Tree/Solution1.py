@@ -1,13 +1,12 @@
 from utils_py.tree import *
 
 class Solution:
-
-    def get_depth(self, root):
+    def maxDepth(self, root: TreeNode) -> int:
         if not root:
             return 0
-        return max(self.get_depth(root.left), self.get_depth(root.right)) + 1
-    def maxDepth(self, root: TreeNode) -> int:
-        return self.get_depth(root)
+        l = self.maxDepth(root.left)
+        r = self.maxDepth(root.right)
+        return max(l, r) + 1
 
 
 def test(test_name, root, expected):
