@@ -59,7 +59,7 @@
     leetcode={tree-py:[113, 114, 116, 117], binary-search-new-cpp:[74, 81, 153, 162]}
 },
 20200508={
-    leetcode={dfs-py:[98, 100, 101, 104]}
+    leetcode={dfs-py:[98, 100, 101, 104], greedy-cpp:[55, 122]}
 }
 
 
