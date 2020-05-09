@@ -1,29 +1,18 @@
 #include <iostream>
 #include <vector>
-#include <algorithm>
 using namespace std;
 
 class Solution {
 public:
-    int findRepeatNumber(vector<int>& nums) {
-        for (int i=0;i<nums.size();i++) {
-            while(nums[i] != i){
-                // 如果有重复的数，返回
-                if(nums[nums[i]] == nums[i])
-                    return nums[i];
-                // 把nums[i]的值(k)放到值所在索引(k)的位置上
-                swap(nums[nums[i]], nums[i]);
-            }
-        }
-        return -1;
+    bool findNumberIn2DArray(vector<vector<int>>& matrix, int target) {
+
     }
 };
 
-void test(string test_name, vector<int>& nums, vector<int> expected)
+void test(string test_name, vector<vector<int>>& matrix, int target, bool expected)
 {
-    int res = Solution().findRepeatNumber(nums);
-    cout << "res = " << res << endl;
-    if (find(expected.begin(), expected.end(), res) != expected.end())
+    bool res = Solution().findNumberIn2DArray(matrix, target);
+    if (res == expected)
         cout << test_name << " success." << endl;
     else
         cout << test_name << " failed." << endl;
@@ -31,11 +20,31 @@ void test(string test_name, vector<int>& nums, vector<int> expected)
 
 int main()
 {
-    vector<int> nums1 = {2, 3, 1, 0, 2, 5, 3};
-    vector<int> expected1 = {2, 3};
-    test("test1", nums1, expected1);
+    vector<vector<int>> matrix1 = {
+        {1,   4,  7, 11, 15},
+        {2,   5,  8, 12, 19},
+        {3,   6,  9, 16, 22},
+        {10, 13, 14, 17, 24},
+        {18, 21, 23, 26, 30},
+    };
+    int target1 = 5;
+    bool expected1 = true;
+    test("test1", matrix1, target1, expected1);
 
-    vector<int> nums2 = {0, 1, 2, 3, 4, 11, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15};
-    vector<int> expected2 = {11};
-    test("test2", nums2, expected2);
+    vector<vector<int>> matrix2 = matrix1;
+    int target2 = 20;
+    bool expected2 = false;
+    test("test2", matrix2, target2, expected2);
 }
+
+// [
+//   [1,   4,  7, 11, 15],
+//   [2,   5,  8, 12, 19],
+//   [3,   6,  9, 16, 22],
+//   [10, 13, 14, 17, 24],
+//   [18, 21, 23, 26, 30]
+// ]
+// 给定 target = 5，返回 true。
+
+// 给定 target = 20，返回 false。
+
