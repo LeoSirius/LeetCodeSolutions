@@ -64,7 +64,7 @@
     leetcode={dfs-py:[98, 100, 101, 104], greedy-cpp:[55, 122]}
 },
 20200509={
-    leetcode={dfs-py:[105, 106], greedy-cpp:[134], }
+    leetcode={dfs-py:[105, 106], greedy-cpp:[134], of:[3]}
 }
 
 
