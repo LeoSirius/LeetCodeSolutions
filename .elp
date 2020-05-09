@@ -5,8 +5,10 @@
 // 正在做的round
 [
     [hard-cpp 21-30],
-    [dfs-py: 1-20],
-    
+    [dfs-py: 1-10],
+    [greedy-cpp: 1-10],
+    [offer: 1-20],
+
 ]
 
 // 已经做完的round
@@ -60,6 +62,9 @@
 },
 20200508={
     leetcode={dfs-py:[98, 100, 101, 104], greedy-cpp:[55, 122]}
+},
+20200509={
+    leetcode={dfs-py:[105, 106], greedy-cpp:[134], }
 }
 
 

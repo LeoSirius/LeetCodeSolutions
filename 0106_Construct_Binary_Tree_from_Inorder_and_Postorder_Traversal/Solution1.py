@@ -2,35 +2,40 @@ from typing import List
 
 from utils_py.tree import *
 
+
 class Solution:
-    def __init__(self):
-        inorder = []
-        postorder = []
+
+    inorder = []
+    postorder = []
 
     def build(self, s1, e1, s2, e2):
-        rootval = self.postorder[e2]
+        root_val = self.postorder[e2]
         root_idx = s1
         for i in range(s1, e1+1):
-            if self.inorder[i] == rootval:
+            if self.inorder[i] == root_val:
                 root_idx = i
                 break
-        new_node = TreeNode(rootval)
+
+        new_node = TreeNode(root_val)
         
         left_cnt = root_idx - s1
         right_cnt = e1 - root_idx
 
-        if left_cnt:
-            new_node.left = self.build(s1, root_idx - 1, s2, s2+left_cnt-1)
-        if right_cnt:
-            new_node.right = self.build(root_idx + 1, e1, s2+left_cnt, e2-1)
+        if left_cnt > 0:
+            new_node.left = self.build(s1, root_idx - 1, s2, s2 + left_cnt - 1)
+        if right_cnt > 0:
+            new_node.right = self.build(root_idx + 1, e1, s2 + left_cnt, e2 - 1)
         return new_node
 
+
     def buildTree(self, inorder: List[int], postorder: List[int]) -> TreeNode:
-        if not inorder:
+        if not inorder or not postorder:
             return None
         self.inorder = inorder
         self.postorder = postorder
-        return self.build(0, len(inorder)-1, 0, len(postorder)-1)
+        size = len(inorder)
+        return self.build(0, size-1, 0, size-1)
+
 
 def test(test_name, inorder, postorder, expected):
     res = Solution().buildTree(inorder, postorder)
