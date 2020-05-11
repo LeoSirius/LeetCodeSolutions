@@ -1,35 +1,30 @@
 from typing import List
-
 from utils_py.tree import *
 
 class Solution:
-    def build_tree(self, nums, start, end):
-        # if start > end:
-        #     return None
-        # elif start == end:
-        #     return TreeNode(nums[start])
+    nums = []
+    def build_tree(self, l, r):
+        if l > r:
+            return
+        mid = l + ((r - l) >> 1)
+        new_node = TreeNode(self.nums[mid])
+        if l < mid:
+            new_node.left = self.build_tree(l, mid - 1)
+        if mid < r:
+            new_node.right = self.build_tree(mid + 1, r)
+        return new_node
 
-        mid = start + (end - start) // 2
-        # print("end - start = {}, (end - start) // 2 = {}, start + (end - start) // 2 = {}".format(
-        #     end - start,
-        #     (end - start) // 2,
-        #     start + (end - start) // 2
-        # ))
-        node = TreeNode(nums[mid])
-        if mid - start > 0:
-            node.left = self.build_tree(nums, start, mid - 1)
-        if end - mid > 0:
-            node.right = self.build_tree(nums, mid + 1, end)
-        return node
 
     def sortedArrayToBST(self, nums: List[int]) -> TreeNode:
-        if not nums:
-            return None
-        return self.build_tree(nums, 0, len(nums)-1)
+        if not len(nums):
+            return
+        self.nums = nums
+        return self.build_tree(0, len(nums) - 1)
+
 
 
 def test(test_name, nums):
-    # 这道题不要用is_same_tree来测试，答案不唯一
+    # 这道题不要用is_same_tree来测试，答案不唯一。但是他们的中序遍历的结果一定是唯一的
     res = Solution().sortedArrayToBST(nums)
     in_list = get_inorder_list(res)
     if in_list == nums:
