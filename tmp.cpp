@@ -1,60 +1,29 @@
 #include <iostream>
-#include <vector>
 using namespace std;
 
 class Solution {
-    
-    string word;
-    bool dfs(vector<vector<char>>& board, string word, int x, int y, int p)
-    {
-        if (x < 0 || board.size() <= x || y < 0 || board[0].size() <= y || board[x][y] != word[p])
-            return false;
-        if (p == word.size() - 1)
-            return true;
-        char tmp = board[x][y];   // 标记当前元素，word中的单词肯定不等于'/'。避免重复
-        board[x][y] = '/';
-        bool res = dfs(board, word, x + 1, y, p + 1) || 
-            dfs(board, word, x - 1, y, p + 1) ||
-            dfs(board, word, x, y + 1, p + 1) ||
-            dfs(board, word, x, y - 1, p + 1);
-        board[x][y] = tmp;
-        return res;
-    }
 public:
-    bool exist(vector<vector<char>>& board, string word) {
-        for (int i = 0; i < board.size(); i++)
-        for (int j = 0; j < board[0].size(); j++)
-            if (dfs(board, word, i, j, 0))
-                return true;
-        return false;
+    int cuttingRope(int n) {
+
     }
 };
 
-void test(string test_name, vector<vector<char>>& board, string word, bool expected)
-{
-    bool res = Solution().exist(board, word);
-    if (res == expected)
-        cout << test_name << " success." << endl;
-    else
-        cout << test_name << " failed." << endl;
-}
-
 int main()
-{
-    vector<vector<char>> board1 = {
-        {'A','B','C','E'},
-        {'S','F','C','S'},
-        {'A','D','E','E'}
-    };
-    string word1 = "ABCCED";
-    bool expected1 = true;
-    test("test1", board1, word1, expected1);
 
-    vector<vector<char>> board2 = {
-        {'a','b'},
-        {'c','d'}
-    };
-    string word2 = "abcd";
-    bool expected2 = false;
-    test("test2", board2, word2, expected2);
-}
+
+
+// 给你一根长度为 n 的绳子，请把绳子剪成整数长度的 m 段（m、n都是整数，n>1并且m>1），
+// 每段绳子的长度记为 k[0],k[1]...k[m] 。请问 k[0]*k[1]*...*k[m] 
+// 可能的最大乘积是多少？例如，当绳子的长度是8时，我们把它剪成长度分别为2、3、3的三段，
+// 此时得到的最大乘积是18。
+
+// 示例 1：
+
+// 输入: 2
+// 输出: 1
+// 解释: 2 = 1 + 1, 1 × 1 = 1
+// 示例 2:
+
+// 输入: 10
+// 输出: 36
+// 解释: 10 = 3 + 3 + 4, 3 × 3 × 4 = 36
