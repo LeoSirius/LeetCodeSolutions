@@ -1,45 +1,39 @@
-from utils_py.tree import *
-from utils_py.list import *
+import os
 
-class Solution:
-    def build_tree(self, head, tail):
-        if head == tail:
-            return
-        slow = head
-        fast = head
-        while fast != tail and fast.next != tail:
-            slow = slow.next
-            fast = fast.next.next
-        new_node = TreeNode(slow.val)
-        new_node.left = self.build_tree(head, slow)
-        new_node.right = self.build_tree(slow.next, tail)
-        return new_node
+with open("test.sh", "r") as f:
+    stream = f.read()
+    # print(type(stream))
+    upper_cnt = 0
+    for ch in stream:
+        if ch.isupper():
+            upper_cnt += 1
+    print("upper_cnt = {}".format(upper_cnt))
 
-    def sortedListToBST(self, head: ListNode) -> TreeNode:
-        # 左闭右开
-        return self.build_tree(head, None)
+ls = [11,12,13,12,15,16,13]
+ls = list(set(ls))
+print("ls = {}".format(ls))
 
+l1 = [1,5,7,9]
+l2 = [2,2,6,8]
+[1, 2, 2, 5, 6, 7, 9]
+# res = [1,2,2,3,6,7,8,9]
 
-def test(test_name, head, expected_arr):
-    # 这道题不要用is_same_tree来测试，答案不唯一。但是他们的中序遍历的结果一定是唯一的
-    res = Solution().sortedListToBST(head)
-    in_list = get_inorder_list(res)
-    if in_list == expected_arr:
-        print(test_name + ' success.')
+p1, p2 = 0, 0
+e1, e2 = len(l1) - 1, len(l2) - 1
+
+res = []
+while p1 != e1 and p2 != e2:
+    if l1[p1] < l2[p2]:
+        res.append(l1[p1])
+        p1 += 1
     else:
-        print(test_name + ' failed.')
+        res.append(l2[p2])
+        p2 += 1
+    
+if p1 != e1:
+    res += l1[p1:]
+if p2 != e2:
+    res += l2[p2:]
 
+print('res = {}'.format(res))
 
-if __name__ == "__main__":
-    head1 = ListNode(-10)
-    head1.next = ListNode(-3)
-    head1.next.next = ListNode(0)
-    head1.next.next.next = ListNode(5)
-    head1.next.next.next.next = ListNode(9)
-    expected_arr1 = [-10,-3,0,5,9]
-    #       0
-    #      / \
-    #    -3   9
-    #    /   /
-    #  -10  5
-    test('test1', head1, expected_arr1)
