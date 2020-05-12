@@ -1,22 +1,21 @@
-#include<iostream>
-#include<vector>
-#include<unordered_map>
-#include<algorithm>
+#include <iostream>
+#include <vector>
+#include <unordered_map>
 using namespace std;
 
 class Solution {
 public:
     vector<int> twoSum(vector<int>& nums, int target) {
-        vector<int> res;
-        unordered_map<int, int> my_map;
+        vector<int> res = {-1, -1};
+        unordered_map<int, int> mp;    // val to idx
         for (int i = 0; i < nums.size(); i++) {
-            int num_to_find = target - nums[i];
-            if (my_map.find(num_to_find) != my_map.end()) {
-                res = {i, my_map[num_to_find]};
-                break;
-            } else {
-                my_map[nums[i]] = i;
+            int num2find = target - nums[i];
+            res[0] = i;
+            if (mp.find(num2find) != mp.end()) {
+                res[1] = mp[num2find];
+                return res;
             }
+            mp[nums[i]] = i;
         }
         return res;
     }
@@ -24,12 +23,10 @@ public:
 
 void test(string test_name, vector<int> &nums, int target, vector<int> expected)
 {
-    Solution s;
-    vector<int> a = s.twoSum(nums, target);
-    vector<int> b = expected;
-    sort(a.begin(), a.end());
-    sort(b.begin(), b.end());
-    if (a == b) {
+    vector<int> res = Solution().twoSum(nums, target);
+    sort(res.begin(), res.end());
+    sort(expected.begin(), expected.end());
+    if (res == expected) {
         cout << test_name << " success." << endl;
     } else {
         cout << test_name << " failed." << endl;
@@ -45,3 +42,10 @@ int main()
     test("test1", nums1, target1, expected1);
     return 0;
 }
+
+// Given an array of integers, return indices of the two numbers 
+// such that they add up to a specific target.
+
+// You may assume that each input would have exactly one solution,
+//  and you may not use the same element twice.
+
