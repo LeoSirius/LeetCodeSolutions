@@ -72,7 +72,7 @@
     leetcode={dfs-py:[108, 109], of:[12, 13, 14-1]}
 },
 20200512={
-    leetcode={dfs-cpp:[110, 111], hash_table:[1], of:[]}
+    leetcode={dfs-cpp:[110, 111], hash_table:[1], of:[14-2, 15]}
 }
 
 

@@ -1,13 +1,6 @@
-### 思路1 dp
+### 思路1
 
-dp[i] = max(dp[i], max(j * (i-j), j * dp[i-j]))
-
-max 第一个参数 dp[i] 表示不剪，
-j * (i-j)   表示 从j处剪一下，剩下i-j不剪了
-j * dp[i-j] 表示 从j处剪一下，剩下i-j继续剪
-
-### 思路2 贪心
-
+这道题由于要取余，不能像上一题用dp max的方法
 贪心算法，取3，具体见。
 
 https://leetcode-cn.com/problems/jian-sheng-zi-ii-lcof/solution/mian-shi-ti-14-ii-jian-sheng-zi-iitan-xin-er-fen-f/
