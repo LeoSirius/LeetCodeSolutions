@@ -1,51 +1,59 @@
 #include <iostream>
-#include <vector>
-#include <cmath>
 using namespace std;
 
 class Solution {
+    bool is_match(const char *s, const char *p)
+    {
+        if (*p == 0) return *s == 0;
+        bool first_match = *s && (*s == *p || *p == '.');
+        if (*(p+1) == '*')
+            return is_match(s, p+2) || (first_match && is_match(s+1, p));
+        else
+            return first_match && is_match(++s, ++p);
+    }
 public:
-    vector<int> printNumbers(int n) {
-        int upper_bound = pow(10, n) - 1;
-        vector<int> res;
-        int cnt = 1;
-        while (cnt <= upper_bound) {
-            res.push_back(cnt++);
-        }
-        return res;
+    bool isMatch(string s, string p) {
+        return is_match(s.c_str(), p.c_str());
     }
 };
 
-void test(string test_name, int n, vector<int>& expected)
+
+void test(string test_name, string s, string p, bool expected)
 {
-    vector<int> res = Solution().printNumbers(n);
-    if (res == expected)
+    bool res = Solution().isMatch(s, p);
+    if (res == expected) {
         cout << test_name << " success." << endl;
-    else
+    } else {
         cout << test_name << " failed." << endl;
+    }
 }
 
 int main()
 {
-    int n1 = 1;
-    vector<int> expected1 = {1,2,3,4,5,6,7,8,9};
-    test("test1", n1, expected1);
+    string s1 = "aa";
+    string p1 = "a";
+    bool expected1 = false;
+    test("test1", s1, p1, expected1);
+
+    string s2 = "aa";
+    string p2 = "a*";
+    bool expected2 = true;
+    test("test2", s2, p2, expected2);
+
+    string s3 = "ab";
+    string p3 = ".*";  // ".*" means "zero or more (*) of any character (.)".
+    bool expected3 = true;
+    test("test3", s3, p3, expected3);
+
+    string s4 = "aab";
+    string p4 = "c*a*b";
+    bool expected4 = true;
+    test("test4", s4, p4, expected4);
+
+    string s5 = "mississippi";
+    string p5 = "mis*is*p*.";
+    bool expected5 = false;
+    test("test5", s5, p5, expected5);
 
     return 0;
 }
-
-
-// 输入数字 n，按顺序打印出从 1 到最大的 n 位十进制数。
-// 比如输入 3，则打印出 1、2、3 一直到最大的 3 位数 999。
-
-// 示例 1:
-
-// 输入: n = 1
-// 输出: [1,2,3,4,5,6,7,8,9]
-//  
-
-// 说明：
-
-// 用返回一个整数列表来代替打印
-// n 为正整数
-

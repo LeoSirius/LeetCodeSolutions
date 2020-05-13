@@ -4,11 +4,13 @@ using namespace std;
 class Solution {
     bool is_match(const char *s, const char *p)
     {
-        if (*p == 0) return *s == 0;
+        if (*p == 0) return *s == 0;      //  必须是p先为空，再检查s。意思是模式串完了，输入串刚好匹配完
         bool first_match = *s && (*s == *p || *p == '.');
         if (*(p+1) == '*') {
-            // 第一种情况是s中没有p中*的preceding char
+            // 第一种情况是s中没有p中*的preceding char。即把p中*前面的字符跳过
+            // s=abc, p=d*abc
             // 第二种情况是s中有p中*的preceding char，*匹配了preceding char
+            // s=aaac, p=a*c
             return is_match(s, p+2) || (first_match && is_match(++s, p));
         } else {
             return first_match && is_match(++s, ++p);
