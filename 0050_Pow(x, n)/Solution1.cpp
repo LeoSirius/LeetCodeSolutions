@@ -10,7 +10,7 @@ public:
             n /= 2;
         }
         if (n < 0) {
-            n = -n;
+            n = -n;     // 如果这里n=INT_MIN的话会溢出
             x = 1 / x;
         }
         return (n % 2 == 0) ? myPow(x * x, n / 2) : x * myPow(x * x, n / 2);

@@ -73,6 +73,9 @@
 },
 20200512={
     leetcode={dfs-cpp:[110, 111], hash_table:[1], of:[14-2, 15]}
+},
+20200513={
+    leetcode={hash_table:[3, 18], of:[16]}
 }
 
 

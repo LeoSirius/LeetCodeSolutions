@@ -1,31 +1,31 @@
-#include<iostream>
-#include<vector>
-#include<algorithm>
+#include <iostream>
+#include <vector>
 using namespace std;
 
 class Solution {
 public:
     vector<vector<int>> fourSum(vector<int>& nums, int target) {
         vector<vector<int>> res;
-        if (nums.size() < 4) return res;
         sort(nums.begin(), nums.end());
-        for (int i = 0; i < nums.size() - 3; i++) {
-            if (i > 0 && nums[i-1] == nums[i]) continue;
-            for (int j = i + 1; j < nums.size() - 2; j++) {
-                if (j > i + 1 && nums[j-1] == nums[j]) continue;
-                int left = j + 1, right = nums.size() - 1;
-                while (left < right) {
-                    int sum = nums[i] + nums[j] + nums[left] + nums[right];
+        for (int i = 0; i < nums.size(); i++) {
+            if (0 < i && nums[i] == nums[i-1])
+                continue;
+            for (int j = i + 1; j < nums.size(); j++) {
+                if (i + 1 < j && nums[j] == nums[j-1])
+                    continue;
+                int l = j + 1;
+                int r = nums.size() - 1;
+                while (l < r) {
+                    int sum = nums[i] + nums[j] + nums[l] + nums[r];
                     if (sum == target) {
-                        res.push_back(vector<int>{nums[i], nums[j], nums[left], nums[right]});
-                        while (left < right && nums[left+1] == nums[left]) left++;
-                        while (left < right && nums[right-1] == nums[right]) right--;
-                        left++; right--;
-                    } else if (sum < target) {
-                        left++;
-                    } else {
-                        right--;
-                    }
+                        res.push_back(vector<int>{nums[i], nums[j], nums[l], nums[r]});
+                        while (l < r && nums[l+1] == nums[l]) l++;
+                        while (l < r && nums[r-1] == nums[r]) r--;
+                        l++; r--;
+                    } else if (sum < target)
+                        l++;
+                    else
+                        r--;
                 }
             }
         }
@@ -63,5 +63,20 @@ int main()
         {-2,  0, 0, 2}
     };
     test("test1", nums1, target1, expected1);
+
+    vector<int> nums2 = {-3,-2,-1,0,0,1,2,3};
+    int target2 = 0;
+    vector<vector<int>> expected2 = {
+        {-3,-2,2,3},
+        {-3,-1,1,3},
+        {-3,0,0,3},
+        {-3,0,1,2},
+        {-2,-1,0,3},
+        {-2,-1,1,2},
+        {-2,0,0,2},
+        {-1,0,0,1}
+    };
+    test("test2", nums2, target2, expected2);
+
     return 0;
 }
