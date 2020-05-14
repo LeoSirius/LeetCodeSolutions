@@ -6,12 +6,11 @@ using namespace std;
 class Solution {
 public:
     int findRepeatNumber(vector<int>& nums) {
+        unordered_map<int, int> mp;
         for (int i = 0; i < nums.size(); i++) {
-            while (nums[i] != i) {
-                if (nums[nums[i]] == nums[i])
-                    return nums[i];
-                swap(nums[i], nums[nums[i]]);
-            }
+            if (mp.find(nums[i]) != mp.end())
+                return nums[i];
+            mp[nums[i]]++;
         }
         return -1;
     }
@@ -45,4 +44,3 @@ int main()
 // 限制：
 
 // 2 <= n <= 100000
-

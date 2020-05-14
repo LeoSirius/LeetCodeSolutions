@@ -5,17 +5,21 @@ class Solution {
 public:
     bool isNumber(string s) {
         int state = 0;
-        while (s[0] == ' ') s.erase(0, 1);                 // 开头的空格
-        while (s.back() == ' ') s.erase(s.size() - 1, 1);  // 结尾的空格
+        if (s.empty())
+            return false;
+        while (s[0] == ' ') s.erase(0, 1);                              // 开头的空格
+        while (s.size() && s.back() == ' ') s.erase(s.size()-1, 1);     // 结尾的空格
 
-        for (int i = 0; s[i]; ++i) {
+        for (size_t i = 0; i < s.size(); i++) {
             if ('0' <= s[i] && s[i] <= '9') {
                 if (state == 0 || state == 1 || state == 6)
                     state = 6;
                 else if (state == 2 || state == 3)
                     state = 3;
-                else
+                else if (state == 4 || state == 7 || state == 5)
                     state = 5;
+                else
+                    return false;
             } else if (s[i] == '.') {
                 if (state == 0 || state == 1)
                     state = 2;
@@ -23,9 +27,9 @@ public:
                     state = 3;
                 else
                     return false;
-            } else if (s[i] == '+' || s[i] == '-') {
+            } else if (s[i] == '-' || s[i] == '+') {
                 if (state == 0)
-                    ++state;
+                    state = 1;
                 else if (state == 4)
                     state = 7;
                 else
@@ -35,12 +39,14 @@ public:
                     state = 4;
                 else
                     return false;
-            } else
+            } else {
                 return false;
+            }
         }
-        return state == 6 || state == 3 || state == 5;
+        return state == 3 || state == 5 || state == 6;
     }
 };
+
 
 void test(string test_name, string s, bool expected)
 {
@@ -144,4 +150,3 @@ int main()
 
     return 0;
 }
-

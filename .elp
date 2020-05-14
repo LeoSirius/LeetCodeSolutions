@@ -26,6 +26,7 @@
     [tree-py 1-20(easy, mid), 2020-05-07],
     [binary-search-new-cpp 1-10 (easy, mid), 2020-05-07],
     [dfs-cpp 1-10(easy, mid), 2020-05-12],
+    [offer-cpp: 1-20, 2020-05-14],
 ]
 
 
@@ -78,7 +79,7 @@
     leetcode={hash_table:[3, 18], of:[16, 17, 18, 19, ]}
 },
 20200514={
-    leetcode={hash_table:[36, 49], of:[]}
+    leetcode={hash_table:[36, 49], of:[20, 21, 3]}
 }
 
 
