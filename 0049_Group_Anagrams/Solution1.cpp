@@ -10,6 +10,7 @@ public:
         for (string str : strs) {
             string tmp = str;
             sort(tmp.begin(), tmp.end());
+            // 这里不用find来判断key是否存在，如果不存在，会默认初始化为空vector
             mp[tmp].push_back(str);
         }
         vector<vector<string>> res;

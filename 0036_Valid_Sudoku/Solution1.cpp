@@ -5,23 +5,23 @@ using namespace std;
 class Solution {
 public:
     bool isValidSudoku(vector<vector<char>>& board) {
-        int used_row[9][9] = {0};
-        int used_col[9][9] = {0};
-        int used_square[9][9] = {0};
-        for (int i = 0; i < board.size(); i++) {
-            for (int j = 0; j < board[0].size(); j++) {
-                if (board[i][j] != '.') {
-                    int k = i / 3 * 3 + j / 3;
-                    int num = board[i][j] - '0' - 1;
-                    if (used_row[i][num] || used_col[j][num] || used_square[k][num])
-                        return false;
-                    used_row[i][num] = used_col[j][num] = used_square[k][num] = 1;
-                }
+        int used_rows[9][9] = {0};
+        int used_cols[9][9] = {0};
+        int used_squares[9][9] = {0};
+        for (int i = 0; i < board.size(); i++)
+        for (int j = 0; j < board[0].size(); j++) {
+            if (board[i][j] != '.') {
+                int k = i / 3 * 3 + j / 3;
+                int num = board[i][j] - '0' - 1;
+                if (used_rows[i][num] || used_cols[j][num] || used_squares[k][num])
+                    return false;
+                used_rows[i][num] = used_cols[j][num] = used_squares[k][num] = 1;
             }
         }
         return true;
     }
 };
+
 
 void test(string test_name, vector<vector<char>> &board, bool expected)
 {
@@ -47,7 +47,7 @@ int main()
         {'.','.','.','.','8','.','.','7','9'},
     };
     bool expected1 = true;
-    test("test2", board1, expected1);
+    test("test1", board1, expected1);
 
     vector<vector<char>> board2 = {
         {'8','3','.','.','7','.','.','.','.'},

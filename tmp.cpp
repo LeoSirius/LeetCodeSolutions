@@ -1,26 +1,37 @@
 #include <iostream>
+#include <vector>
+#include <unordered_map>
+#include <algorithm>
 using namespace std;
 
 class Solution {
-    bool is_match(const char *s, const char *p)
-    {
-        if (*p == 0) return *s == 0;
-        bool first_match = *s && (*s == *p || *p == '.');
-        if (*(p+1) == '*')
-            return is_match(s, p+2) || (first_match && is_match(s+1, p));
-        else
-            return first_match && is_match(++s, ++p);
-    }
 public:
-    bool isMatch(string s, string p) {
-        return is_match(s.c_str(), p.c_str());
+    vector<vector<string>> groupAnagrams(vector<string>& strs) {
+        unordered_map<string, vector<string>> mp;
+        for (string word : strs) {
+            string sorted_word = word;
+            sort(sorted_word.begin(), sorted_word.end());
+            mp[sorted_word].push_back(word);
+        }
+        vector<vector<string>> res;
+        for (auto pair : mp)
+            res.push_back(pair.second);
+        return res;
     }
 };
 
 
-void test(string test_name, string s, string p, bool expected)
+void test(string test_name, vector<string> &strs, vector<vector<string>> &expected)
 {
-    bool res = Solution().isMatch(s, p);
+    vector<vector<string>> res = Solution().groupAnagrams(strs);
+    for (int i = 0; i < res.size(); i++) {
+        sort(res[i].begin(), res[i].end());
+    }
+    sort(res.begin(), res.end());
+    for (int i = 0; i < expected.size(); i++) {
+        sort(expected[i].begin(), expected[i].end());
+    }
+    sort(expected.begin(), expected.end());
     if (res == expected) {
         cout << test_name << " success." << endl;
     } else {
@@ -30,30 +41,13 @@ void test(string test_name, string s, string p, bool expected)
 
 int main()
 {
-    string s1 = "aa";
-    string p1 = "a";
-    bool expected1 = false;
-    test("test1", s1, p1, expected1);
-
-    string s2 = "aa";
-    string p2 = "a*";
-    bool expected2 = true;
-    test("test2", s2, p2, expected2);
-
-    string s3 = "ab";
-    string p3 = ".*";  // ".*" means "zero or more (*) of any character (.)".
-    bool expected3 = true;
-    test("test3", s3, p3, expected3);
-
-    string s4 = "aab";
-    string p4 = "c*a*b";
-    bool expected4 = true;
-    test("test4", s4, p4, expected4);
-
-    string s5 = "mississippi";
-    string p5 = "mis*is*p*.";
-    bool expected5 = false;
-    test("test5", s5, p5, expected5);
+    vector<string> strs1 = {"eat", "tea", "tan", "ate", "nat", "bat"};
+    vector<vector<string>> expected1 = {
+        {"ate","eat","tea"},
+        {"nat","tan"},
+        {"bat"},
+    };
+    test("test1", strs1, expected1);
 
     return 0;
 }

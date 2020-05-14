@@ -76,6 +76,9 @@
 },
 20200513={
     leetcode={hash_table:[3, 18], of:[16, 17, 18, 19, ]}
+},
+20200514={
+    leetcode={hash_table:[36, 49], of:[]}
 }
 
 
