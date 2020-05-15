@@ -6,6 +6,7 @@
 [
     [hash_table(easy, mid) 1-10],
     [offer-cpp: 1-20],
+    [offer-cpp: page4 reversed],
 
 ]
 
@@ -82,7 +83,7 @@
     leetcode={hash_table:[36, 49], of:[20, 21, 3]}
 },
 20200514={
-    leetcode={hash_table:[94, 136]}
+    leetcode={hash_table:[94, 136], of-page4:[68]}
 }
 
 

@@ -1,35 +1,76 @@
 #include <iostream>
-#include <vector>
+#include "utils_cpp/tree.h"
 using namespace std;
+
 
 class Solution {
 public:
-    int singleNumber(vector<int>& nums) {
-        int res = 0;
-        for (auto i : nums)
-            res ^= i;
-        return res;
+    TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
+        if (!root || p == root || q == root)
+            return root;
+        TreeNode* left = lowestCommonAncestor(root->left, p, q);
+        TreeNode* right = lowestCommonAncestor(root->right, p, q);
+
+        
+        if (!left)
+            return right;   // 左边返回null，pq同在右边
+        if (!right)
+            return left;    // 右边返回null，pq同在左边
+        // pq分别在左右
+        return root;
     }
 };
 
-void test(string test_name, vector<int> &nums, int expected)
+void test(string test_name, TreeNode* root, TreeNode* p, TreeNode* q, TreeNode* expected)
 {
-    if (Solution().singleNumber(nums) == expected) {
+    TreeNode* res = Solution().lowestCommonAncestor(root, p, q);
+    if (res == expected)
         cout << test_name << " success." << endl;
-    } else {
+    else
         cout << test_name << " failed." << endl;
-    }
 }
 
 int main()
 {
-    vector<int> nums1 = {2,2,1};
-    int expected1 = 1;
-    test("test1", nums1, expected1);
+    //      3
+    //    /   \
+    //   5     1
+    //  / \   / \
+    // 6   2 0   8
+    //    / \
+    //   7   4
+    TreeNode* root1 = new TreeNode(3);
+    root1->left = new TreeNode(5);
+    root1->left->left = new TreeNode(6);
+    root1->left->right = new TreeNode(2);
+    root1->left->right->left = new TreeNode(7);
+    root1->left->right->right = new TreeNode(4);
 
-    vector<int> nums2 = {4,1,2,1,2};
-    int expected2 = 4;
-    test("test2", nums2, expected2);
+    root1->right = new TreeNode(1);
+    root1->right->left = new TreeNode(0);
+    root1->right->right = new TreeNode(8);
+
+    TreeNode* p1 = root1->left;
+    TreeNode* q1 = root1->right;
+
+    TreeNode* expected1 = root1;
+    // p1 = 5, q1 = 1, expected1 = 3
+    test("test1", root1, p1, q1, expected1);
+
+    TreeNode* root2 = root1;
+    TreeNode* p2 = root2->left;
+    TreeNode* q2 = root2->left->right->right;
+    TreeNode* expected2 = root2->left;
+    // p2 = 5, q2 = 4, expected2 = 5
+    test("test2", root2, p2, q2, expected2);
 
     return 0;
 }
+
+
+
+
+// 给定一个二叉树, 找到该树中两个指定节点的最近公共祖先。
+
+// 百度百科中最近公共祖先的定义为：“对于有根树 T 的两个结点 p、q，最近公共祖先表示为一个结点 x，
+// 满足 x 是 p、q 的祖先且 x 的深度尽可能大（x本身尽可能的深）（一个节点也可以是它自己的祖先）。”
