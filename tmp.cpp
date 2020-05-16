@@ -1,66 +1,53 @@
 #include <iostream>
-#include <string>
+#include <vector>
 using namespace std;
 
 class Solution {
 public:
-    int strToInt(string str) {
-        int res = 0;
-        int i = 0;
-        while (str[i] == ' ') i++;
+    bool findNumberIn2DArray(vector<vector<int>>& matrix, int target) {
+        int m = matrix.size();
+        if (!m) return false;
+        int n = matrix[0].size();
 
-        if (i == str.size()) return res;
-
-        int sign = 1;
-        if (str[i] == '-' || str[i] == '+') {
-            if (str[i] == '-')
-                sign = -1;
-            i++;
+        int x = 0, y = n - 1;
+        while (x < m && 0 <= y) {
+            if (matrix[x][y] == target)
+                return true;
+            else if (matrix[x][y] < target)
+                x++;
+            else
+                y--;
         }
-
-        // 2147483648
-        while (i < str.size() && isdigit(str[i])) {
-            int tmp = str[i++] - '0';
-            if (((INT_MAX / 10) < res) || ((INT_MAX / 10) == res && 8 <= tmp))
-                return sign == 1 ? INT_MAX : INT_MIN;
-            res = res * 10 + tmp;
-        }
-        return sign * res;
+        return false;
     }
 };
 
 
-void test(string test_name, string str, int expected)
+void test(string test_name, vector<vector<int>>& matrix, int target, bool expected)
 {
-    int res = Solution().strToInt(str);
-    if (res == expected) {
+    bool res = Solution().findNumberIn2DArray(matrix, target);
+    if (res == expected)
         cout << test_name << " success." << endl;
-    } else {
+    else
         cout << test_name << " failed." << endl;
-    }
 }
 
 int main()
 {
-    string str1 = "42";
-    int expected1 = 42;
-    test("test1", str1, expected1);
+    vector<vector<int>> matrix1 = {
+        {1,   4,  7, 11, 15},
+        {2,   5,  8, 12, 19},
+        {3,   6,  9, 16, 22},
+        {10, 13, 14, 17, 24},
+        {18, 21, 23, 26, 30},
+    };
+    int target1 = 5;
+    bool expected1 = true;
+    test("test1", matrix1, target1, expected1);
 
-    string str2 = "   -42";
-    int expected2 = -42;
-    test("test2", str2, expected2);
-
-    string str3 = "4193 with words";
-    int expected3 = 4193;
-    test("test3", str3, expected3);
-
-    string str4 = "words and 987";
-    int expected4 = 0;
-    test("test4", str4, expected4);
-
-    string str5 = "-2147483648";
-    int expected5 = -2147483648;
-    test("test5", str5, expected5);
-
-    return 0;
+    vector<vector<int>> matrix2 = matrix1;
+    int target2 = 20;
+    bool expected2 = false;
+    test("test2", matrix2, target2, expected2);
 }
+
