@@ -16,7 +16,9 @@ public:
     Node* copyRandomList(Node* head) {
         if (!head) return nullptr;
         Node *p = head;
-        while (p) {         // 用next连接   // copy node without random
+        // copy node without random
+        // 用next连接p和copy出来的新节点。
+        while (p) {
             Node *node = new Node(p->val, p->next, nullptr);
             Node *p_next = p->next;
             p->next = node;
@@ -65,6 +67,12 @@ void test(string test_name, Node *head)
 
 int main()
 {
+    // 7 -> 13 -> 11 -> 10 -> 1
+    // random
+    // 31 -> 7
+    // 11 -> 1
+    // 10 -> 11
+    // 1 -> 7
     Node* a0 = new Node(7);
     Node* a1 = new Node(13);
     Node* a2 = new Node(11);
