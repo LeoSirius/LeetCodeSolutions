@@ -5,24 +5,25 @@ using namespace std;
 class Solution {
 public:
     string fractionToDecimal(int numerator, int denominator) {
-        if (!numerator) return "0";
+        if (!numerator)
+            return "0";
         string res = "";
-
-        if (numerator > 0 ^ denominator > 0) {
+        if (numerator > 0 ^ denominator > 0)
             res += "-";
-        }
-        // 防止溢出
+        
         long long n = abs((long long)numerator), d = abs((long long)denominator), r = n % d;
         res += to_string(n / d);
-        if (!r) return res;
-
+        if (!r) {
+            return res;
+        }
         res += ".";
+
         unordered_map<long long, int> mp;
         while (r) {
             if (mp.find(r) != mp.end()) {
                 res.insert(mp[r], "(");
-                res += ")";
-                break;
+                res += ')';
+                return res;
             }
             mp[r] = res.size();
             r *= 10;
@@ -33,9 +34,11 @@ public:
     }
 };
 
+
 void test(string test_name, int numerator, int denominator, string expected)
 {
-    if (Solution().fractionToDecimal(numerator, denominator) == expected) {
+    string res = Solution().fractionToDecimal(numerator, denominator);
+    if (res == expected) {
         cout << test_name << " success." << endl;
     } else {
         cout << test_name << " failed." << endl;

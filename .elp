@@ -1,10 +1,9 @@
 // 2019-06-28开始
 // leetcode 按topics来做，现阶段所有topics中不做hard, 
-现在的topics中从array做到heap
+现在的topics中从滑动窗口
 
 // 正在做的round
 [
-    [hash_table(easy, mid) 1-10],
     [offer-cpp: 1-20],
     [offer-cpp: page4 reversed],
 
@@ -28,6 +27,7 @@
     [binary-search-new-cpp 1-10 (easy, mid), 2020-05-07],
     [dfs-cpp 1-10(easy, mid), 2020-05-12],
     [offer-cpp: 1-20, 2020-05-14],
+    [hash_table(easy, mid) 1-10, 2020-05-17],
 ]
 
 
@@ -87,6 +87,9 @@
 },
 20200515={
     hash_table:[138, 159], of4:[68-1, 67], of1:[4]
+},
+20200516={
+    hash_table:[166]
 }
 
 

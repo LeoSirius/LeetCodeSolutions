@@ -1,53 +1,71 @@
 #include <iostream>
-#include <vector>
+#include <unordered_map>
 using namespace std;
 
 class Solution {
 public:
-    bool findNumberIn2DArray(vector<vector<int>>& matrix, int target) {
-        int m = matrix.size();
-        if (!m) return false;
-        int n = matrix[0].size();
-
-        int x = 0, y = n - 1;
-        while (x < m && 0 <= y) {
-            if (matrix[x][y] == target)
-                return true;
-            else if (matrix[x][y] < target)
-                x++;
-            else
-                y--;
+    string fractionToDecimal(int numerator, int denominator) {
+        if (!numerator)
+            return "0";
+        string res = "";
+        if (numerator > 0 ^ denominator > 0)
+            res += "-";
+        
+        long long n = abs((long long)numerator), d = abs((long long)denominator), r = n % d;
+        res += to_string(n / d);
+        if (!r) {
+            return res;
         }
-        return false;
+        res += ".";
+
+        unordered_map<long long, int> mp;
+        while (r) {
+            if (mp.find(r) != mp.end()) {
+                res.insert(mp[r], "(");
+                res += ')';
+                return res;
+            }
+            mp[r] = res.size();
+            r *= 10;
+            res += to_string(r / d);
+            r %= d;
+        }
+        return res;
     }
 };
 
 
-void test(string test_name, vector<vector<int>>& matrix, int target, bool expected)
+void test(string test_name, int numerator, int denominator, string expected)
 {
-    bool res = Solution().findNumberIn2DArray(matrix, target);
-    if (res == expected)
+    string res = Solution().fractionToDecimal(numerator, denominator);
+    if (res == expected) {
         cout << test_name << " success." << endl;
-    else
+    } else {
         cout << test_name << " failed." << endl;
+    }
 }
 
 int main()
 {
-    vector<vector<int>> matrix1 = {
-        {1,   4,  7, 11, 15},
-        {2,   5,  8, 12, 19},
-        {3,   6,  9, 16, 22},
-        {10, 13, 14, 17, 24},
-        {18, 21, 23, 26, 30},
-    };
-    int target1 = 5;
-    bool expected1 = true;
-    test("test1", matrix1, target1, expected1);
+    int numerator1 = 1;
+    int denominator1 = 2;
+    string expected1 = "0.5";
+    test("test1", numerator1, denominator1, expected1);
 
-    vector<vector<int>> matrix2 = matrix1;
-    int target2 = 20;
-    bool expected2 = false;
-    test("test2", matrix2, target2, expected2);
+    int numerator2 = 2;
+    int denominator2 = 1;
+    string expected2 = "2";
+    test("test2", numerator2, denominator2, expected2);
+
+    int numerator3 = 2;
+    int denominator3 = 3;
+    string expected3 = "0.(6)";
+    test("test3", numerator3, denominator3, expected3);
+
+    int numerator4 = 4;
+    int denominator4 = 333;
+    string expected4 = "0.(012)";
+    test("test4", numerator4, denominator4, expected4);
+
+    return 0;
 }
-
