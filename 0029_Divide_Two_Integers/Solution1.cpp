@@ -38,6 +38,7 @@ public:
     }
 };
 
+
 void test(string test_name, int dividend, int divisor, int expected)
 {
     Solution s;
@@ -69,6 +70,11 @@ int main()
     int divisor4 = 1;
     int expected4 = 2147483647;
     test("test4", dividend4, divisor4, expected4);
+
+    int dividend5 = -2147483648;
+    int divisor5 = 2;
+    int expected5 = -1073741824;
+    test("test5", dividend5, divisor5, expected5);
 
     return 0;
 }

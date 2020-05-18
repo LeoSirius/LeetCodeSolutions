@@ -6,6 +6,7 @@
 [
     [offer-cpp: 1-20],
     [offer-cpp: page4 reversed],
+    [binary-search: 1-10]
 
 ]
 
@@ -90,6 +91,9 @@
 },
 20200516={
     hash_table:[166]
+},
+20200517={
+    binary-search:[29, ]
 }
 
 

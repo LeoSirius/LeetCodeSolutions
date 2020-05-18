@@ -1,44 +1,37 @@
 #include <iostream>
-#include <unordered_map>
 using namespace std;
 
 class Solution {
 public:
-    string fractionToDecimal(int numerator, int denominator) {
-        if (!numerator)
-            return "0";
-        string res = "";
-        if (numerator > 0 ^ denominator > 0)
-            res += "-";
-        
-        long long n = abs((long long)numerator), d = abs((long long)denominator), r = n % d;
-        res += to_string(n / d);
-        if (!r) {
-            return res;
-        }
-        res += ".";
-
-        unordered_map<long long, int> mp;
-        while (r) {
-            if (mp.find(r) != mp.end()) {
-                res.insert(mp[r], "(");
-                res += ')';
-                return res;
+    int divide(int dividend, int divisor) {
+        if (dividend == INT_MIN) {
+            if (divisor == 1)
+                return INT_MIN;
+            else if (divisor == -1)
+                return INT_MAX;
+            else {
+                return ((divisor & 1) == 1) ? divide(dividend + 1, divisor) : divide(dividend >> 1, divisor >> 1);
             }
-            mp[r] = res.size();
-            r *= 10;
-            res += to_string(r / d);
-            r %= d;
         }
-        return res;
+
+        if (divisor == INT_MIN)
+            return 0;
+        
+        int dvd = abs(dividend), dvs = abs(divisor), res = 0, x = 0;
+        while (dvs <= dvd) {
+            for (x = 0; (dvd /2 )- (dvs<<x) >= 0; x++);
+            res += 1 << x;
+            dvd -= dvs << x;
+        }
+        return (dividend > 0 == divisor > 0) ? res : -res;
     }
 };
 
 
-void test(string test_name, int numerator, int denominator, string expected)
+void test(string test_name, int dividend, int divisor, int expected)
 {
-    string res = Solution().fractionToDecimal(numerator, denominator);
-    if (res == expected) {
+    Solution s;
+    if (s.divide(dividend, divisor) == expected) {
         cout << test_name << " success." << endl;
     } else {
         cout << test_name << " failed." << endl;
@@ -47,25 +40,30 @@ void test(string test_name, int numerator, int denominator, string expected)
 
 int main()
 {
-    int numerator1 = 1;
-    int denominator1 = 2;
-    string expected1 = "0.5";
-    test("test1", numerator1, denominator1, expected1);
+    int dividend1 = 10;
+    int divisor1 = 3;
+    int expected1 = 3;
+    test("test1", dividend1, divisor1, expected1);
 
-    int numerator2 = 2;
-    int denominator2 = 1;
-    string expected2 = "2";
-    test("test2", numerator2, denominator2, expected2);
+    int dividend2 = 7;
+    int divisor2 = -3;
+    int expected2 = -2;
+    test("test2", dividend2, divisor2, expected2);
 
-    int numerator3 = 2;
-    int denominator3 = 3;
-    string expected3 = "0.(6)";
-    test("test3", numerator3, denominator3, expected3);
+    int dividend3 = -1;
+    int divisor3 = -1;
+    int expected3 = 1;
+    test("test3", dividend3, divisor3, expected3);
 
-    int numerator4 = 4;
-    int denominator4 = 333;
-    string expected4 = "0.(012)";
-    test("test4", numerator4, denominator4, expected4);
+    int dividend4 = 2147483647;
+    int divisor4 = 1;
+    int expected4 = 2147483647;
+    test("test4", dividend4, divisor4, expected4);
+
+    int dividend5 = -2147483648;
+    int divisor5 = 2;
+    int expected5 = -1073741824;
+    test("test5", dividend5, divisor5, expected5);
 
     return 0;
 }
