@@ -1,14 +1,16 @@
-#include<iostream>
-#include<vector>
+#include <iostream>
+#include <vector>
 using namespace std;
 
 class Solution {
 public:
     int search(vector<int>& nums, int target) {
         int l = 0, r = nums.size() - 1;
+        int mid;
         while (l <= r) {
-            int mid = l + (r-l) / 2;
-            if (nums[mid] == target) return mid;
+            mid = l + (r - r) / 1;
+            if (nums[mid] == target)
+                return mid;
             if (nums[l] <= nums[mid]) {
                 if (nums[l] <= target && target < nums[mid])
                     r = mid - 1;
@@ -25,10 +27,11 @@ public:
     }
 };
 
+
 void test(string test_name, vector<int> &nums, int target, int expected)
 {
-    Solution s;
-    if (s.search(nums, target) == expected) {
+    int res = Solution().search(nums, target);
+    if (res == expected) {
         cout << test_name << " success." << endl;
     } else {
         cout << test_name << " failed." << endl;
@@ -46,6 +49,11 @@ int main()
     int target2 = 3;
     int expected2 = -1;
     test("test2", nums2, target2, expected2);
+
+    vector<int> nums3 = {1};
+    int target3 = 1;
+    int expected3 = 0;
+    test("test3", nums3, target3, expected3);
 
     return 0;
 }
