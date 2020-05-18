@@ -31,69 +31,8 @@
     [hash_table(easy, mid) 1-10, 2020-05-17],
 ]
 
-
-20200427={
-    leetcode={hard-cpp:[85], tree-py:[101, 102, 103, 104, 105]}
-},
-20200428={
-    leetcode={tree-py:[106]}
-},
-20200429={
-    leetcode={tree-py:[107, 108, 110], binary-search-new-cpp:[29, ]}
-},
-20200430={
-    leetcode={hard-cpp:[87, ]}
-},
-20200501={
-    leetcode={hard-cpp:[97, ]}
-},
-20200503={
-    leetcode=[hard-cpp:[99, 115]]
-},
-20200504={
-    leetcode={hard-cpp:[123, ]}
-},
-20200505={
-    leetcode={hard-cpp:[124, 126]}
-},
-20200506={
-    leetcode={tree-py:[111, 112], binary-search-new-cpp:[33, 34, 35, 50, 69, ]}
-},
-20200507={
-    leetcode={tree-py:[113, 114, 116, 117], binary-search-new-cpp:[74, 81, 153, 162]}
-},
-20200508={
-    leetcode={dfs-py:[98, 100, 101, 104], greedy-cpp:[55, 122]}
-},
-20200509={
-    leetcode={dfs-py:[105, 106], greedy-cpp:[134], of:[3]}
-},
-20200510={
-    leetcode={of:[4, 5, 6, 7, 9, 10-1, 10-2, 11]}
-},
-20200511={
-    leetcode={dfs-py:[108, 109], of:[12, 13, 14-1]}
-},
-20200512={
-    leetcode={dfs-cpp:[110, 111], hash_table:[1], of:[14-2, 15]}
-},
-20200513={
-    leetcode={hash_table:[3, 18], of:[16, 17, 18, 19, ]}
-},
-20200514={
-    leetcode={hash_table:[36, 49], of1:[20, 21, 3]}
-},
-20200514={
-    leetcode={hash_table:[94, 136], of-page4:[68-2]}
-},
-20200515={
-    hash_table:[138, 159], of4:[68-1, 67], of1:[4]
-},
-20200516={
-    hash_table:[166]
-},
 20200517={
-    binary-search:[29, 33], of1:[5], of4:[66, ]
+    binary-search:[29, 33], of1:[5], of4:[66, 65]
 }
 
 
