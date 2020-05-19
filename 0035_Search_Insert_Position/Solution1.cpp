@@ -1,27 +1,31 @@
-#include<iostream>
-#include<vector>
+#include <iostream>
+#include <vector>
 using namespace std;
 
 class Solution {
 public:
     int searchInsert(vector<int>& nums, int target) {
-        if (nums.size() == 0) return -1;
-        int left = 0, right = nums.size() - 1;
+        if (nums.size() == 0)
+            return 0;
+        int l = 0, r = nums.size() - 1;
         int mid;
-        while(left <= right){
-            mid = left + (right - left) / 2;
-            if(nums[mid] == target) return mid;
-            else if(target > nums[mid]) left = mid + 1;
-            else right = mid - 1;
+        while (l <= r) {
+            mid = l + (r - l) / 2;
+            if (nums[mid] == target)
+                return mid;
+            else if (target < nums[mid])
+                r = mid - 1;
+            else
+                l = mid + 1;
         }
-        return left;
+        return l;
     }
 };
 
 void test(string test_name, vector<int> &nums, int target, int expected)
 {
-    Solution s;
-    if (s.searchInsert(nums, target) == expected) {
+    int res = Solution().searchInsert(nums, target);
+    if (res == expected) {
         cout << test_name << " success." << endl;
     } else {
         cout << test_name << " failed." << endl;
