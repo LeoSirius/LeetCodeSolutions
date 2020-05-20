@@ -1,6 +1,2 @@
+a = [1,2,3,4,5]
 
-def ff():
-    a = 1
-
-res = ff()
-print('res = {}'.format(res))

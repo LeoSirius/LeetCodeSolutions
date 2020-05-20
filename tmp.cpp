@@ -1,67 +1,81 @@
 #include <iostream>
 #include <vector>
-#include <unordered_set>
+#include "utils_cpp/tree.h"
 using namespace std;
 
 class Solution {
-public:
-    bool isStraight(vector<int>& nums) {
-        unordered_set<int> st;
-        int ma = -1, mi = 14;
-        for (int n : nums) {
-            if (n == 0)
-                continue;
-            else if (st.find(n) != st.end())
-                return false;
-            ma = max(ma, n);
-            mi = min(mi, n);
-            st.insert(n);
+    vector<int> pre;
+    vector<int> in;
+    TreeNode* build(int s1, int e1, int s2, int e2)
+    {
+        int root_val = pre[s1];
+        int root_idx = s2;
+        for (int i = s2; i <= e2; i++) {
+            if (in[i] == root_val) {
+                root_idx = i;
+                break;
+            }
         }
-        return ma - mi < 5;
+        TreeNode *node = new TreeNode(root_val);
+
+        int left_cnt = root_idx - s2;
+        int right_cnt = e2 - root_idx;
+        if (0 < left_cnt) {
+            node->left = build(s1 + 1, s1 + left_cnt, s2, root_idx - 1);
+        }
+        if (0 < right_cnt) {
+            node->right = build(s1 + left_cnt + 1, e1, root_idx + 1, e2);
+        }
+        return node;
+    }
+public:
+    TreeNode* buildTree(vector<int>& preorder, vector<int>& inorder) {
+        int len = preorder.size();
+        if (!len)
+            return nullptr;
+        pre = preorder;
+        in = inorder;
+        return build(0, len - 1, 0, len - 1);
     }
 };
 
-void test(string test_name, vector<int> nums, bool expected)
+
+void test(string test_name, vector<int> &preorder, vector<int> &inorder, TreeNode *expected)
 {
-    bool res = Solution().isStraight(nums);
-    if (res == expected)
+    Solution s;
+    vector<int> postorder;
+    TreeNode *res = s.buildTree(preorder, inorder);
+    
+    if (is_same_tree(res, expected)) {
         cout << test_name << " success." << endl;
-    else
+    } else {
         cout << test_name << " failed." << endl;
+    }
 }
 
 int main()
 {
-    vector<int> nums1 = {1,2,3,4,5};
-    bool expected1 = true;
-    test("test1", nums1, expected1);
+    // preorder = [3,9,20,15,7]
+    // inorder = [9,3,15,20,7]
+    // Return the following binary tree:
+    //     3
+    //    / \
+    //   9  20
+    //     /  \
+    //    15   7
+    vector<int> pre1 = {3,9,20,15,7};
+    vector<int> in1 = {9,3,15,20,7};
+    TreeNode* expected1 = new TreeNode(3);
+    expected1->left = new TreeNode(9);
+    expected1->right = new TreeNode(20);
+    expected1->right->left = new TreeNode(15);
+    expected1->right->right = new TreeNode(7);
+    test("test1", pre1, in1, expected1);
 
-    vector<int> nums2 = {0,0,1,2,5};
-    bool expected2 = true;
-    test("test2", nums2, expected2);
-
-    vector<int> nums3 = {0,0,2,2,5};
-    bool expected3 = false;
-    test("test3", nums3, expected3);
+    vector<int> pre2 = {};
+    vector<int> in2 = {};
+    TreeNode *expected2 = nullptr;
+    test("test2", pre2, in2, expected2);
 
     return 0;
 }
-
-// 从扑克牌中随机抽5张牌，判断是不是一个顺子，即这5张牌是不是连续的。
-// 2～10为数字本身，A为1，J为11，Q为12，K为13，而大、小王为 0 ，可以看成任意数字。
-// A 不能视为 14。
-
-// 示例 1:
-
-// 输入: [1,2,3,4,5]
-// 输出: True
-
-// 示例 2:
-
-// 输入: [0,0,1,2,5]
-// 输出: True
-//  
-
-// 限制：
-// 数组长度为 5 
-// 数组的数取值为 [0, 13] .
