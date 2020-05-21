@@ -5,16 +5,19 @@ using namespace std;
 class Solution {
 public:
     bool searchMatrix(vector<vector<int>>& matrix, int target) {
-        if (matrix.size() == 0)
+        int m = matrix.size();
+        if (!m)
             return false;
-        int m = 0, n = matrix[0].size() - 1;
-        while (m < matrix.size() && 0 <= n) {
-            if (target == matrix[m][n])
+        int n = matrix[0].size();
+
+        int x = 0, y = n - 1;
+        while (x < m && 0 <= y) {
+            if (matrix[x][y] == target)
                 return true;
-            else if (target < matrix[m][n])
-                --n;
+            else if (matrix[x][y] < target)
+                x++;
             else
-                ++m;
+                y--;
         }
         return false;
     }
@@ -59,3 +62,10 @@ int main()
 
     return 0;
 }
+
+// Write an efficient algorithm that searches for a value in an m x n matrix.
+//  This matrix has the following properties:
+
+// Integers in each row are sorted from left to right.
+// The first integer of each row is greater than the last integer of the previous row.
+

@@ -3,35 +3,40 @@
 using namespace std;
 
 class CQueue {
-    stack<int> s_in, s_out;
+    stack<int> s_i, s_o;
 public:
     CQueue() {
-        while (!this->s_in.empty()) this->s_in.pop();
-        while (!this->s_out.empty()) this->s_out.pop();
+        while (!s_i.empty()) s_i.pop();
+        while (!s_o.empty()) s_o.pop();
     }
     
     void appendTail(int value) {
-        this->s_in.push(value);
+        s_i.push(value);
     }
     
     int deleteHead() {
-        if (!this->s_out.empty()) {
-            int res = this->s_out.top();
-            this->s_out.pop();
-            return res;
-        } else {
-            if (this->s_in.empty())
-                return -1;
-            while (!this->s_in.empty()) {
-                int tmp = this->s_in.top(); this->s_in.pop();
-                this->s_out.push(tmp);
-            }
-            int res = this->s_out.top();
-            this->s_out.pop();
+        if (!s_o.empty()) {
+            int res = s_o.top(); s_o.pop();
             return res;
         }
+        if (!s_i.empty()) {
+            while (!s_i.empty()) {
+                int tmp = s_i.top(); s_i.pop();
+                s_o.push(tmp);
+            }
+            int res = s_o.top(); s_o.pop();
+            return res;
+        }
+        return -1;
     }
 };
+
+/**
+ * Your CQueue object will be instantiated and called as such:
+ * CQueue* obj = new CQueue();
+ * obj->appendTail(value);
+ * int param_2 = obj->deleteHead();
+ */
 
 void test1()
 {

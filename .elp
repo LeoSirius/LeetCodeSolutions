@@ -38,7 +38,10 @@
     binary-search:[34, 35], of1:[6], of4:[64, 63, 62, 61]
 },
 2020520={
-    binary-search:[50, 69], of1:[7], of4:[]
+    binary-search:[50, 69], of1:[7]
+},
+20200521={
+    binary-search:[74, 81], of1:[9, ], of4:[60]
 }
 
 
