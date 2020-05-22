@@ -6,18 +6,13 @@ public:
     int fib(int n) {
         if (n == 0)
             return 0;
-        else if (n == 1)
-            return 1;
-        n -= 1;
-        int last2 = 0, last1 = 1;
-        int res;
+        int v1 = 0, v2 = 1;
         while (n--) {
-            res = (last2 + last1) % 1000000007;
-            last2 = last1;
-            last1 = res;
-            
+            int tmp = v2;
+            v2 = (v1 + v2) % 1000000007;
+            v1 = tmp;
         }
-        return res;
+        return v1;
     }
 };
 

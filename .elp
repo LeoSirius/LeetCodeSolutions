@@ -1,6 +1,6 @@
 // 2019-06-28开始
 // leetcode 按topics来做，现阶段所有topics中不做hard, 
-现在的topics中从滑动窗口
+现在的topics中从recursion
 
 // 正在做的round
 [
@@ -42,11 +42,14 @@
 },
 20200521={
     binary-search:[74, 81], of1:[9], of4:[60]
+},
+20200522={
+    binary-search:[153, 162], of1:[10-1], of4:[59]
 }
 
 
 // 需要反复理解
-leetcode:[33, 34, 35, 81]
+leetcode:[33, 34, 35, 81, 162]
 
 // skip的题
 mst:[60]
