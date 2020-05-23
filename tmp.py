@@ -1,11 +1,13 @@
-def gg():
-    i = 0
-    while True:
-        yield i
-        i += 1
+import asyncio
+import datetime
 
-g = gg()
-for i in g:
-    print(i)
-    if i == 10:
-        g.close()
+async def display_date():
+    loop = asyncio.get_running_loop()
+    end_time = loop.time() + 5.0
+    while True:
+        print(datetime.datetime.now())
+        if (loop.time() + 1.0) >= end_time:
+            break
+        await asyncio.sleep(1)
+
+asyncio.run(display_date())
