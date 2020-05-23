@@ -1,30 +1,25 @@
 #include <iostream>
-#include <vector>
 using namespace std;
 
 class Solution {
 public:
     int numWays(int n) {
-        if (n == 0)
-            return 1;
-        else if (n == 1)
-            return 1;
-        else if (n == 2)
-            return 2;
-
-        vector<int> dp(n + 1, 0);
-        dp[1] = 1; dp[2] = 2;
-        for (int i = 3; i <= n; i++) {
-            dp[i] = (dp[i] + dp[i-1] + dp[i-2]) % 1000000007;
+        int last2 = 1, last1 = 1;
+        if (n == 0 || n == 1)
+            return last1;
+        for (int i = 2; i <= n; i++) {
+            int tmp = last1;
+            last1 = (last1 + last2) % 1000000007;
+            last2 = tmp;
         }
-        return dp.back();
+        return last1;
     }
 };
+// 1000000007
 
 void test(string test_name, int n, int expected)
 {
     int res = Solution().numWays(n);
-    cout << res << endl;
     if (res == expected)
         cout << test_name << " success." << endl;
     else

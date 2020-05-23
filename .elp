@@ -6,7 +6,7 @@
 [
     [offer-cpp: 1-20],
     [offer-cpp: page4 reversed],
-    [binary-search: 1-10]
+    [greedy(easy, mid) 1-10],
 
 ]
 
@@ -29,6 +29,7 @@
     [dfs-cpp 1-10(easy, mid), 2020-05-12],
     [offer-cpp: 1-20, 2020-05-14],
     [hash_table(easy, mid) 1-10, 2020-05-17],
+    [binary-search(easy, mid): 1-10, 2020-05-23],
 ]
 
 20200518={
@@ -44,7 +45,10 @@
     binary-search:[74, 81], of1:[9], of4:[60]
 },
 20200522={
-    binary-search:[153, 162], of1:[10-1], of4:[59]
+    binary-search:[153, 162], of1:[10-1], of4:[59-2]
+},
+20200523={
+    greedy:[55, 122], of1:[10-2], of4:[59-1, ]
 }
 
 
