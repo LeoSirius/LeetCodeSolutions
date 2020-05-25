@@ -9,19 +9,20 @@ public:
         int mid;
         while (l < r) {
             mid = l + (r - l) / 2;
-            // 必然右边有序，mid为右边最小的数
+            // 最小数pivot <= mid
             if (numbers[mid] < numbers[r])
                 r = mid;
-            // 必然左边有序，且mid是一个很大的数，还有更小的数在mid右边
+            // 最小数pivot > mid
             else if (numbers[r] < numbers[mid])
                 l = mid + 1;
-            // 去重
+            // 去重[mid, r]都是相等的
             else
                 r--;
         }
         return numbers[l];
     }
 };
+
 
 void test(string test_name, vector<int> numbers, int expected)
 {
@@ -42,4 +43,11 @@ int main()
     int expected2 = 0;
     test("test2", numbers2, expected2);
 
+    return 0;
 }
+
+
+// 把一个数组最开始的若干个元素搬到数组的末尾，我们称之为数组的旋转。
+// 输入一个递增排序的数组的一个旋转，输出旋转数组的最小元素。
+// 例如，数组 [3,4,5,1,2] 为 [1,2,3,4,5] 的一个旋转，该数组的最小值为1。  
+
