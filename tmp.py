@@ -1,9 +1,3 @@
-import asyncio
-import datetime
-
-async def display_date():
-    loop = asyncio.get_running_loop()
-    end_time = loop.time() + 5.0
-    while True:
-        print(datetime.datetime.now())
-        if (loop.time() + 1.0) >= end_time:
+o1 = {'a': 1}
+o1.setdefault('a', 2)
+print(o1)
