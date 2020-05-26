@@ -38,7 +38,6 @@ public:
 void test(string test_name, string s, string expected)
 {
     string res = Solution().reverseWords(s);
-    // cout << "res = " << res << endl;
     if (res == expected)
         cout << test_name << " success." << endl;
     else

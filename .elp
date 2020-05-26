@@ -1,6 +1,6 @@
 // 2019-06-28开始
 // leetcode 按topics来做，现阶段所有topics中不做hard, 
-现在的topics中从recursion
+现在的topics到recursion
 
 // 正在做的round
 [
@@ -55,6 +55,9 @@
 },
 20200525={
     greedy:[253, 376], of1:[11], of4:[58-2]
+},
+20200526={
+    greedy:[392, 402], of1:[12], of4:[58-1]
 }
 
 
