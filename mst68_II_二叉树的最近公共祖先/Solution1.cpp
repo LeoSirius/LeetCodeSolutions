@@ -1,25 +1,25 @@
 #include <iostream>
-#include "utils_cpp/tree.h"
+#include "./utils_cpp/tree.h"
 using namespace std;
-
 
 class Solution {
 public:
     TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
         if (!root || p == root || q == root)
             return root;
-        TreeNode* left = lowestCommonAncestor(root->left, p, q);
-        TreeNode* right = lowestCommonAncestor(root->right, p, q);
+        TreeNode *left = lowestCommonAncestor(root->left, p, q);
+        TreeNode *right = lowestCommonAncestor(root->right, p, q);
 
-        
-        if (!left)
-            return right;   // 左边返回null，pq同在右边
-        if (!right)
-            return left;    // 右边返回null，pq同在左边
-        // pq分别在左右
-        return root;
+        // 左右都不是null, pq分别在左右
+        if (left && right)
+            return root;
+        else if (left)    // right == null, pq都在左边
+            return left;
+        else              // left == null, pq都在右边
+            return right;
     }
 };
+
 
 void test(string test_name, TreeNode* root, TreeNode* p, TreeNode* q, TreeNode* expected)
 {
@@ -66,9 +66,6 @@ int main()
 
     return 0;
 }
-
-
-
 
 // 给定一个二叉树, 找到该树中两个指定节点的最近公共祖先。
 
