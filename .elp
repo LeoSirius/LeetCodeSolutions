@@ -6,7 +6,7 @@
 [
     [of1],
     [of4, reversed],
-    [greedy(easy, mid) 1-10],
+    
 
 ]
 
@@ -31,6 +31,7 @@
     [hash_table(easy, mid) 1-10, 2020-05-17],
     [binary-search(easy, mid): 1-10, 2020-05-23],
     [offer-cpp: page4 reversed, 2020-05-27],
+    [greedy(easy, mid) 1-10, 2020-05-28],
 ]
 
 20200518={
@@ -65,6 +66,9 @@
 },
 20200528={
   greedy:[435, 452], of1:[14-1], of4:[68-2]
+},
+20200529={
+  bfs:[101, 102], of1:[14-2], of4:[68-1]
 }
 
 

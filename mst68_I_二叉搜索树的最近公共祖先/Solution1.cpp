@@ -51,7 +51,7 @@ int main()
     TreeNode* q1 = root1;
 
     TreeNode* expected1 = root1;
-    // p1 = 5, q1 = 1, expected1 = 3
+    // p1 = 6, q1 = 2, expected1 = 6
     test("test1", root1, p1, q1, expected1);
 
     return 0;
