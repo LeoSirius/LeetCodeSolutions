@@ -23,7 +23,7 @@ class Solution:
 
 def test(test_name, preorder, inorder, expected):
     res = Solution().buildTree(preorder, inorder)
-    if is_same_tree(res, expected):
+    if is_equal_tree(res, expected):
         print(test_name + ' success.')
     else:
         print(test_name + ' failed.')

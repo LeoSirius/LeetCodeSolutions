@@ -21,7 +21,7 @@ class Solution:
 
 
 def test(test_name, head, expected_arr):
-    # 这道题不要用is_same_tree来测试，答案不唯一。但是他们的中序遍历的结果一定是唯一的
+    # 这道题不要用is_equal_tree来测试，答案不唯一。但是他们的中序遍历的结果一定是唯一的
     res = Solution().sortedListToBST(head)
     in_list = get_inorder_list(res)
     if in_list == expected_arr:

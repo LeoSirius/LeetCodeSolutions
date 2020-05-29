@@ -37,7 +37,7 @@ public:
 void test(string test_name, TreeNode* root, TreeNode* expected)
 {
     Solution().recoverTree(root);
-    if (is_same_tree(root, expected))
+    if (is_equal_tree(root, expected))
         cout << test_name << " success." << endl;
     else
         cout << test_name << " failed." << endl;

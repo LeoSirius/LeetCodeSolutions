@@ -44,7 +44,7 @@ public:
 void test(string test_name, vector<int>& preorder, vector<int>& inorder, TreeNode* expected)
 {
     TreeNode* res = Solution().buildTree(preorder, inorder);
-    if (is_same_tree(res, expected))
+    if (is_equal_tree(res, expected))
         cout << test_name << " success." << endl;
     else
         cout << test_name << " failed." << endl;

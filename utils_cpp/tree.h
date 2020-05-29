@@ -10,6 +10,6 @@ struct TreeNode {
     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
 };
 
-bool is_same_tree(TreeNode* t1, TreeNode* t2);
+bool is_equal_tree(TreeNode* t1, TreeNode* t2);
 
 #endif

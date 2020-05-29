@@ -16,7 +16,7 @@ class Solution:
 
 def test(test_name, root, expected):
     Solution().flatten(root)
-    if is_same_tree(root, expected):
+    if is_equal_tree(root, expected):
         print(test_name + ' success.')
     else:
         print(test_name + ' failed.')

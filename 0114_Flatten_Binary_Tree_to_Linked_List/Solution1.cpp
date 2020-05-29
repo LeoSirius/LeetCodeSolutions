@@ -23,7 +23,7 @@ public:
     }
 };
 
-bool is_same_tree(TreeNode *t1, TreeNode *t2)
+bool is_equal_tree(TreeNode *t1, TreeNode *t2)
 {
     if (!t1 && !t2) {
         return true;
@@ -31,7 +31,7 @@ bool is_same_tree(TreeNode *t1, TreeNode *t2)
     if (!t1 || !t2) {
         return false;
     }
-    if (t1->val == t2->val && is_same_tree(t1->left, t2->left) && is_same_tree(t1->right, t2->right)) {
+    if (t1->val == t2->val && is_equal_tree(t1->left, t2->left) && is_equal_tree(t1->right, t2->right)) {
         return true;
     }
     return false;
@@ -40,7 +40,7 @@ bool is_same_tree(TreeNode *t1, TreeNode *t2)
 void test(string test_name, TreeNode *root, TreeNode *expected)
 {
     Solution().flatten(root);
-    if (is_same_tree(root, expected)) {
+    if (is_equal_tree(root, expected)) {
         cout << test_name << " success." << endl;
     } else {
         cout << test_name << " failed." << endl;

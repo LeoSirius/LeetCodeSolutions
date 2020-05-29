@@ -10,6 +10,6 @@ struct ListNode {
     ListNode(int x) : val(x), next(NULL) {}
 };
 
-bool is_same_list(ListNode* l1, ListNode* l2);
+bool is_equal_list(ListNode* l1, ListNode* l2);
 
 #endif

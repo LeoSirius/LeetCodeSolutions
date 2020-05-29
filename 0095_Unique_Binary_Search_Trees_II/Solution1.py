@@ -31,7 +31,7 @@ def test(test_name, n, expected):
     same_cnt = 0
     for i in res:
         for j in expected:
-            if is_same_tree(i, j):
+            if is_equal_tree(i, j):
                 same_cnt += 1
     if same_cnt == len(res):
         print(test_name + ' success.')

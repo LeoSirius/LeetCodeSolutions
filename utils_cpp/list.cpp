@@ -1,6 +1,6 @@
 #include "list.h"
 
-bool is_same_list(ListNode *l1, ListNode *l2)
+bool is_equal_list(ListNode *l1, ListNode *l2)
 {
     while (true) {
         if (!l1 && !l2)
