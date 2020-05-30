@@ -1,44 +1,40 @@
 #include <iostream>
 #include <vector>
-#include <deque>
+#include <queue>
+#include "utils_cpp/tree.h"
 using namespace std;
 
-struct TreeNode {
-    int val;
-    TreeNode *left;
-    TreeNode *right;
-    TreeNode(int x) : val(x), left(NULL), right(NULL) {}
-};
+
 class Solution {
 public:
     vector<vector<int>> zigzagLevelOrder(TreeNode* root) {
         vector<vector<int>> res;
-        if (root == nullptr) return res;
-        deque<TreeNode*> my_dq;
-        my_dq.push_back(root);
-        bool left2right = true;
-        while (!my_dq.empty()) {
-            int count = my_dq.size();
+        if (!root)
+            return res;
+
+        queue<TreeNode*> que;
+        que.push(root);
+        int depth = 0;
+        while (!que.empty()) {
+            int cur_row_cnt = que.size();
             vector<int> row;
-            while (count--) {
-                TreeNode *cur_node = my_dq.front(); my_dq.pop_front();
-                row.push_back(cur_node->val);
-                if (cur_node->left) {
-                    my_dq.push_back(cur_node->left);
-                }
-                if (cur_node->right) {
-                    my_dq.push_back(cur_node->right);
-                }
+            while (cur_row_cnt--) {
+                TreeNode *p = que.front(); que.pop();
+                row.push_back(p->val);
+                if (p->left)
+                    que.push(p->left);
+                if (p->right)
+                    que.push(p->right);
             }
-            if (!left2right) {
+            depth++;
+            if ((depth & 1) == 0)   // 偶数深度，反转
                 reverse(row.begin(), row.end());
-            }
-            left2right = !left2right;
             res.push_back(row);
         }
         return res;
     }
 };
+
 
 void test(string test_name, TreeNode *root, vector<vector<int>> expected)
 {

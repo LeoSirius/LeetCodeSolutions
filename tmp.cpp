@@ -1,56 +1,69 @@
 #include <iostream>
-#include "utils_cpp/list.h"
+#include <vector>
+#include <queue>
+#include "utils_cpp/tree.h"
 using namespace std;
 
 
 class Solution {
 public:
-    ListNode* reverseList(ListNode* head) {
-        ListNode *pre = nullptr, *cur = head, *next = nullptr;
-        while (cur) {
-            next = cur->next;
-            cur->next = pre;
-            pre = cur;
-            cur = next;
+    vector<vector<int>> zigzagLevelOrder(TreeNode* root) {
+        vector<vector<int>> res;
+        if (!root)
+            return res;
+
+        queue<TreeNode*> que;
+        que.push(root);
+        int depth = 0;
+        while (!que.empty()) {
+            int cur_row_cnt = que.size();
+            vector<int> row;
+            while (cur_row_cnt--) {
+                TreeNode *p = que.front(); que.pop();
+                row.push_back(p->val);
+                if (p->left)
+                    que.push(p->left);
+                if (p->right)
+                    que.push(p->right);
+            }
+            depth++;
+            if ((depth & 1) == 0)   // 偶数深度，反转
+                reverse(row.begin(), row.end());
+            res.push_back(row);
         }
-        return pre;
+        return res;
     }
 };
 
 
-void test(string test_name, ListNode* head, ListNode* expected)
+void test(string test_name, TreeNode *root, vector<vector<int>> expected)
 {
-    ListNode *res = Solution().reverseList(head);
-    if (is_equal_list(res, expected))
+    Solution s;
+    if (s.zigzagLevelOrder(root) == expected) {
         cout << test_name << " success." << endl;
-    else
+    } else {
         cout << test_name << " failed." << endl;
+    }
 }
 
 int main()
 {
-    ListNode *head1 = new ListNode(1);
-    head1->next = new ListNode(2);
-    head1->next->next = new ListNode(3);
-    head1->next->next->next = new ListNode(4);
-    head1->next->next->next->next = new ListNode(5);
-
-    ListNode *expected1 = new ListNode(5);
-    expected1->next = new ListNode(4);
-    expected1->next->next = new ListNode(3);
-    expected1->next->next->next = new ListNode(2);
-    expected1->next->next->next->next = new ListNode(1);
-    test("test1", head1, expected1);
+    TreeNode *t1 = new TreeNode(3);
+    t1->left = new TreeNode(9);
+    t1->right = new TreeNode(20);
+    t1->right->left = new TreeNode(15);
+    t1->right->right = new TreeNode(7);
+    vector<vector<int>> expected1 = {
+        {3},
+        {20, 9},
+        {15, 7}
+    };
+    //     3
+    //    / \
+    //   9  20
+    //     /  \
+    //    15   7
+    test("test1", t1, expected1);
 
     return 0;
 }
-
-// 定义一个函数，输入一个链表的头节点，反转该链表并输出反转后链表的头节点。
-
-// 示例:
-// 输入: 1->2->3->4->5->NULL
-// 输出: 5->4->3->2->1->NULL
-//  
-
-// 限制：
-// 0 <= 节点个数 <= 5000
