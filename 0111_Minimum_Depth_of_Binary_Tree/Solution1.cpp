@@ -1,21 +1,15 @@
 #include <iostream>
+#include "utils_cpp/tree.h"
 using namespace std;
-
-struct TreeNode {
-    int val;
-    TreeNode *left;
-    TreeNode *right;
-    TreeNode(int x) : val(x), left(NULL), right(NULL) {}
-};
 
 class Solution {
 public:
     int minDepth(TreeNode* root) {
         if (!root)
             return 0;
-        int l = minDepth(root->left);
-        int r = minDepth(root->right);
-        return (l && r) ? min(l, r) + 1 : l + r + 1;
+        int left = minDepth(root->left);
+        int right = minDepth(root->right);
+        return (left && right) ? min(left, right) + 1 : left + right + 1;
     }
 };
 
@@ -44,6 +38,14 @@ int main()
     root1->right->right = new TreeNode(7);
     int expected1 = 2;
     test("test1", root1, expected1);
+
+    //   1
+    //  /
+    // 2
+    TreeNode *root2 = new TreeNode(1);
+    root2->left = new TreeNode(2);
+    int expected2 = 2;
+    test("test2", root2, expected2);
 
     return 0;
 }
