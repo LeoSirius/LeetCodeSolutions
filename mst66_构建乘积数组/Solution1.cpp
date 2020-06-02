@@ -6,23 +6,26 @@ class Solution {
 public:
     vector<int> constructArr(vector<int>& a) {
         vector<int> b(a.size(), 1);
-        int tmp = 1;
+        int cur_multiply = 1;
         for (int i = 0; i < a.size(); i++) {
-            b[i] = tmp;
-            tmp *= a[i];
+            b[i] = cur_multiply;
+            cur_multiply *= a[i];
         }
-        tmp = 1;
+        cur_multiply = 1;
         for (int i = a.size() - 1; 0 <= i; i--) {
-            b[i] *= tmp;
-            tmp *= a[i];
+            b[i] *= cur_multiply;
+            cur_multiply *= a[i];
         }
         return b;
     }
 };
 
+
 void test(string test_name, vector<int> a, vector<int> expected)
 {
     vector<int> res = Solution().constructArr(a);
+    for (auto item : res) cout << item << " ";
+    cout << endl;
     if (res == expected)
         cout << test_name << " success." << endl;
     else

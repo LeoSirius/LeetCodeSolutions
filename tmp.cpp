@@ -1,34 +1,32 @@
 #include <iostream>
-#include "utils_cpp/list.h"
+#include <vector>
 using namespace std;
-
 
 class Solution {
 public:
-    ListNode* mergeTwoLists(ListNode* l1, ListNode* l2) {
-        ListNode *dummy_head = new ListNode(-1);
-        ListNode *p = dummy_head;
-        while (l1 || l2) {
-            int v1, v2;
-            v1 = l1 ? l1->val : INT_MAX;
-            v2 = l2 ? l2->val : INT_MAX;
-            if (v1 < v2) {
-                p->next = l1;
-                l1 = l1->next;
-            } else {
-                p->next = l2;
-                l2 = l2->next;
-            }
-            p = p->next;
+    vector<int> constructArr(vector<int>& a) {
+        vector<int> b(a.size(), 1);
+        int cur_multiply = 1;
+        for (int i = 0; i < a.size(); i++) {
+            b[i] = cur_multiply;
+            cur_multiply *= a[i];
         }
-        return dummy_head->next;
+        cur_multiply = 1;
+        for (int i = a.size() - 1; 0 <= i; i--) {
+            b[i] *= cur_multiply;
+            cur_multiply *= a[i];
+        }
+        return b;
     }
 };
 
-void test(string test_name, ListNode* l1, ListNode* l2, ListNode* expected)
+
+void test(string test_name, vector<int> a, vector<int> expected)
 {
-    ListNode* res = Solution().mergeTwoLists(l1, l2);
-    if (is_equal_list(res, expected))
+    vector<int> res = Solution().constructArr(a);
+    for (auto item : res) cout << item << " ";
+    cout << endl;
+    if (res == expected)
         cout << test_name << " success." << endl;
     else
         cout << test_name << " failed." << endl;
@@ -36,34 +34,26 @@ void test(string test_name, ListNode* l1, ListNode* l2, ListNode* expected)
 
 int main()
 {
-    ListNode *l11 = new ListNode(1);
-    l11->next = new ListNode(2);
-    l11->next->next = new ListNode(4);
-
-    ListNode *l21 = new ListNode(1);
-    l21->next = new ListNode(3);
-    l21->next->next = new ListNode(4);
-
-    ListNode *expected1 = new ListNode(1);
-    expected1->next = new ListNode(1);
-    expected1->next->next = new ListNode(2);
-    expected1->next->next->next = new ListNode(3);
-    expected1->next->next->next->next = new ListNode(4);
-    expected1->next->next->next->next->next = new ListNode(4);
-
-    // 输入：1->2->4, 1->3->4
-    // 输出：1->1->2->3->4->4
-    test("test1", l11, l21, expected1);
+    vector<int> a1{1,2,3,4,5};
+    vector<int> expected1{120,60,40,30,24};
+    test("test1", a1, expected1);
 
     return 0;
 }
 
-// 输入两个递增排序的链表，合并这两个链表并使新链表中的节点仍然是递增排序的。
+// 给定一个数组 A[0,1,…,n-1]，请构建一个数组 B[0,1,…,n-1]，
+// 其中 B 中的元素 B[i]=A[0]×A[1]×…×A[i-1]×A[i+1]×…×A[n-1]。不能使用除法。
 
-// 示例1：
-// 输入：1->2->4, 1->3->4
-// 输出：1->1->2->3->4->4
+//  
 
-// 限制：
-// 0 <= 链表长度 <= 1000
+// 示例:
+
+// 输入: [1,2,3,4,5]
+// 输出: [120,60,40,30,24]
+//  
+
+// 提示：
+
+// 所有元素乘积之和不会溢出 32 位整数
+// a.length <= 100000
 
