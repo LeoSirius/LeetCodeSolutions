@@ -6,15 +6,14 @@ using namespace std;
 class Solution {
 public:
     vector<int> printNumbers(int n) {
-        int upper_bound = pow(10, n) - 1;
         vector<int> res;
-        int cnt = 1;
-        while (cnt <= upper_bound) {
-            res.push_back(cnt++);
-        }
+        int max = pow(10, n) - 1;
+        for (int i = 1; i <= max; i++)
+            res.push_back(i);
         return res;
     }
 };
+
 
 void test(string test_name, int n, vector<int>& expected)
 {
@@ -48,4 +47,3 @@ int main()
 
 // 用返回一个整数列表来代替打印
 // n 为正整数
-
