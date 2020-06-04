@@ -2,29 +2,29 @@
 #include "utils_cpp/list.h"
 using namespace std;
 
-
 class Solution {
 public:
     ListNode* deleteNode(ListNode* head, int val) {
-        ListNode *p = head;
-        if (head->val == val)
-            return head->next;
+        ListNode *dummy_head = new ListNode(-1);
+        dummy_head->next = head;
+        ListNode *p = dummy_head;
 
-        while (p && p->next) {
+        while (p->next) {
             if (p->next->val == val) {
                 p->next = p->next->next;
                 break;
             }
             p = p->next;
         }
-        return head;
+        return dummy_head->next;
     }
 };
+
 
 void test(string test_name, ListNode* head, int val, ListNode* expected)
 {
     ListNode *res = Solution().deleteNode(head, val);
-    if (is_same_list(res, expected))
+    if (is_equal_list(res, expected))
         cout << test_name << " success." << endl;
     else
         cout << test_name << " failed." << endl;
@@ -66,4 +66,3 @@ int main()
 
 // 题目保证链表中节点的值互不相同
 // 若使用 C 或 C++ 语言，你不需要 free 或 delete 被删除的节点
-
