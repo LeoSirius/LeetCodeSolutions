@@ -6,32 +6,30 @@ using namespace std;
 
 class Solution {
 public:
-    vector<vector<int>> levelOrder(TreeNode* root) {
-        vector<vector<int>> res;
+    vector<int> levelOrder(TreeNode* root) {
+        vector<int> res;
         if (!root) return res;
 
+        TreeNode *p;
         queue<TreeNode*> que;
         que.push(root);
-        TreeNode *p;
 
         while (!que.empty()) {
-            vector<int> row;
             int cur_border_cnt = que.size();
             while (cur_border_cnt--) {
                 p = que.front(); que.pop();
-                row.push_back(p->val);
+                res.push_back(p->val);
                 if (p->left) que.push(p->left);
                 if (p->right) que.push(p->right);
             }
-            res.push_back(row);
         }
         return res;
     }
 };
 
-void test(string test_name, TreeNode* root, vector<vector<int>> expected)
+void test(string test_name, TreeNode* root, vector<int> expected)
 {
-    vector<vector<int>> res = Solution().levelOrder(root);
+    vector<int> res = Solution().levelOrder(root);
     if (res == expected)
         cout << test_name << " success." << endl;
     else
@@ -40,7 +38,6 @@ void test(string test_name, TreeNode* root, vector<vector<int>> expected)
 
 int main()
 {
-
     //     3
     //    / \
     //   9  20
@@ -51,12 +48,23 @@ int main()
     root1->right = new TreeNode(20);
     root1->right->left = new TreeNode(15);
     root1->right->right = new TreeNode(7);
-    vector<vector<int>> expected1 = {
-        {3},
-        {9,20},
-        {15,7}
-    };
+    vector<int> expected1 = {3, 9, 20, 15, 7};
     test("test1", root1, expected1);
 
     return 0;
 }
+
+
+// 从上到下打印出二叉树的每个节点，同一层的节点按照从左到右的顺序打印。
+
+
+// 例如:
+
+//     3
+//    / \
+//   9  20
+//     /  \
+//    15   7
+// 返回：
+
+// [3,9,20,15,7]
