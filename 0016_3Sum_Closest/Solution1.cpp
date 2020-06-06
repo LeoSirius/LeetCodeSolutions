@@ -1,35 +1,35 @@
-#include<iostream>
-#include<vector>
+#include <iostream>
+#include <vector>
 using namespace std;
 
 class Solution {
 public:
     int threeSumClosest(vector<int>& nums, int target) {
         sort(nums.begin(), nums.end());
-        int closest = nums[0] + nums[1] + nums[2];
-        for (int i = 0; i < nums.size() - 2; i++) {
-            int left = i + 1, right = nums.size() - 1;
-            while (left < right) {
-                int sum = nums[i] + nums[left] + nums[right];
-                if (sum == target) {
-                    return sum;
-                } else if (sum > target) {
-                    right--;
-                } else {
-                    left++;
-                }
-                if (abs(sum - target) < abs(closest - target))
-                    closest = sum;
+        int res = nums[0] + nums[1] + nums[2];
+        for (int i = 1; i < nums.size() - 2; i++) {
+            int l = i + 1, r = nums.size() - 1;
+            while (l < r) {
+                int sum = nums[i] + nums[l] + nums[r];
+                if (sum == target)
+                    return target;
+                res = abs(target-sum) < abs(target-res) ? sum : res;
+                if (sum < target)
+                    l++;
+                else
+                    r--;
             }
         }
-        return closest;
+        return res;
     }
 };
 
+
 void test(string test_name, vector<int> &nums, int target, int expected)
 {
-    Solution s;
-    if (s.threeSumClosest(nums, target) == expected) {
+    int res = Solution().threeSumClosest(nums, target);
+    cout << "res = " << res << endl;
+    if (res == expected) {
         cout << test_name << " success." << endl;
     } else {
         cout << test_name << " failed." << endl;

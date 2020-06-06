@@ -1,62 +1,58 @@
 #include <iostream>
 #include <vector>
-#include <queue>
-#include "utils_cpp/tree.h"
 using namespace std;
 
 class Solution {
 public:
-    vector<vector<int>> levelOrder(TreeNode* root) {
-        vector<vector<int>> res;
-        if (!root) return res;
-
-        queue<TreeNode*> que;
-        que.push(root);
-        TreeNode *p;
-
-        while (!que.empty()) {
-            vector<int> row;
-            int cur_border_cnt = que.size();
-            while (cur_border_cnt--) {
-                p = que.front(); que.pop();
-                row.push_back(p->val);
-                if (p->left) que.push(p->left);
-                if (p->right) que.push(p->right);
+    int threeSumClosest(vector<int>& nums, int target) {
+        sort(nums.begin(), nums.end());
+        int res = nums[0] + nums[1] + nums[2];
+        for (int i = 1; i < nums.size() - 2; i++) {
+            int l = i + 1, r = nums.size() - 1;
+            while (l < r) {
+                int sum = nums[i] + nums[l] + nums[r];
+                if (sum == target)
+                    return target;
+                res = abs(target-sum) < abs(target-res) ? sum : res;
+                if (sum < target)
+                    l++;
+                else
+                    r--;
             }
-            res.push_back(row);
         }
         return res;
     }
 };
 
-void test(string test_name, TreeNode* root, vector<vector<int>> expected)
+
+void test(string test_name, vector<int> &nums, int target, int expected)
 {
-    vector<vector<int>> res = Solution().levelOrder(root);
-    if (res == expected)
+    int res = Solution().threeSumClosest(nums, target);
+    cout << "res = " << res << endl;
+    if (res == expected) {
         cout << test_name << " success." << endl;
-    else
+    } else {
         cout << test_name << " failed." << endl;
+    }
 }
 
 int main()
 {
+    vector<int> nums1 = {-1, 2, 1, -4};
+    int target1 = 1;
+    int expected1 = 2;
+    test("test1", nums1, target1, expected1);
 
-    //     3
-    //    / \
-    //   9  20
-    //     /  \
-    //    15   7
-    TreeNode *root1 = new TreeNode(3);
-    root1->left = new TreeNode(9);
-    root1->right = new TreeNode(20);
-    root1->right->left = new TreeNode(15);
-    root1->right->right = new TreeNode(7);
-    vector<vector<int>> expected1 = {
-        {3},
-        {9,20},
-        {15,7}
-    };
-    test("test1", root1, expected1);
+
+    vector<int> nums2 = {1,1,1,0};
+    int target2 = -100;
+    int expected2 = 2;
+    test("test2", nums2, target2, expected2);
+
+    vector<int> nums3 = {-3,-2,-5,3,-4};
+    int target3 = -1;
+    int expected3 = -2;
+    test("test3", nums3, target3, expected3);
 
     return 0;
 }
