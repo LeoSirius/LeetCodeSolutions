@@ -78,5 +78,10 @@ int main()
     };
     test("test2", nums2, target2, expected2);
 
+    vector<int> nums3 = {0,0,0,0};
+    int target3 = 0;
+    vector<vector<int>> expected3 = {{0,0,0,0}};
+    test("test3", nums3, target3, expected3);
+
     return 0;
 }

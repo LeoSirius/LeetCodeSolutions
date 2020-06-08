@@ -4,20 +4,26 @@ using namespace std;
 class Solution {
 public:
     bool isNumber(string s) {
-        int state = 0;
-        if (s.empty())
-            return false;
-        while (s[0] == ' ') s.erase(0, 1);                              // 开头的空格
-        while (s.size() && s.back() == ' ') s.erase(s.size()-1, 1);     // 结尾的空格
+        int start = 0, end = s.size() - 1;
+        while (start < s.size() && s[start] == ' ') start++;
+        while (0 <= end && s[end] == ' ') end--;
 
-        for (size_t i = 0; i < s.size(); i++) {
-            if ('0' <= s[i] && s[i] <= '9') {
+        int state = 0;
+        for (int i = start; i <= end; i++) {
+            if (isdigit(s[i])) {
                 if (state == 0 || state == 1 || state == 6)
                     state = 6;
                 else if (state == 2 || state == 3)
                     state = 3;
-                else if (state == 4 || state == 7 || state == 5)
+                else if (state == 4 || state == 5 || state == 7)
                     state = 5;
+                else
+                    return false;
+            } else if (s[i] == '+' || s[i] == '-') {
+                if (state == 0)
+                    state = 1;
+                else if (state == 4)
+                    state = 7;
                 else
                     return false;
             } else if (s[i] == '.') {
@@ -27,26 +33,17 @@ public:
                     state = 3;
                 else
                     return false;
-            } else if (s[i] == '-' || s[i] == '+') {
-                if (state == 0)
-                    state = 1;
-                else if (state == 4)
-                    state = 7;
-                else
-                    return false;
-            } else if (s[i] == 'e') {
-                if (state == 3 || state == 6)
+            } else if (s[i] == 'E' || s[i] == 'e') {
+                if (state == 6 || state == 3)
                     state = 4;
                 else
                     return false;
-            } else {
+            } else
                 return false;
-            }
         }
         return state == 3 || state == 5 || state == 6;
     }
 };
-
 
 void test(string test_name, string s, bool expected)
 {
