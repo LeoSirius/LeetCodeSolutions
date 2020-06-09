@@ -6,20 +6,20 @@ using namespace std;
 class Solution {
 public:
     bool isStraight(vector<int>& nums) {
-        unordered_set<int> st;
-        int ma = -1, mi = 14;
+        unordered_set<int> mset;
+        int mi = 15, ma = -1;
         for (int n : nums) {
-            if (n == 0)
-                continue;
-            else if (st.find(n) != st.end())
-                return false;
-            ma = max(ma, n);
+            if (n == 0) continue;
+            if (mset.find(n) != mset.end()) return false;
+
             mi = min(mi, n);
-            st.insert(n);
+            ma = max(ma, n);
+            mset.insert(n);
         }
         return ma - mi < 5;
     }
 };
+
 
 void test(string test_name, vector<int> nums, bool expected)
 {

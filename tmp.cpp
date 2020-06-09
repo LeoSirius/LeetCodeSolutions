@@ -1,60 +1,80 @@
 #include <iostream>
+#include <vector>
 using namespace std;
 
 class Solution {
 public:
-    int lastRemaining(int n, int m) {
-        if (n == 1)
-            return 0;
-        int x = lastRemaining(n-1, m);
-        return (m + x) % n;
+    bool verifyPostorder(vector<int>& postorder) {
+
     }
 };
 
+// class Solution {
+// public:
+//     bool verifyPostorder(vector<int>& postorder) {
+//         if(postorder.empty()){
+//             return true;
+//         }
+//         return VerifySquenceOfBST(postorder, 0, postorder.size()-1);
+//     }
+//     bool VerifySquenceOfBST(const vector<int>& nums, int start, int end){
+//         if(start>=end){
+//             return true;
+//         }
+//         int left = start;
+//         while(left<end && nums[left]<nums[end]){
+//             ++ left;
+//         }
+//         for(int i=left; i<end; ++i){
+//             if(nums[i]<=nums[end]){
+//                 return false;
+//             }
+//         }
 
-void test(string test_name, int n, int m, int expected)
+//         return VerifySquenceOfBST(nums, start, left-1) &&
+//                VerifySquenceOfBST(nums, left, end-1);
+//     }  
+// };
+
+void test(string test_name, vector<int>& postorder, bool expected)
 {
-    int res = Solution().lastRemaining(n, m);
+    bool res = Solution().verifyPostorder(postorder);
     if (res == expected) {
         cout << test_name << " success." << endl;
     } else {
-        cout << test_name << " failed." << endl;
+        cout << test_name << " failed";
     }
 }
 
 int main()
 {
-    int n1 = 5, m1 = 3;
-    int expected1 = 3;
-    test("test1", n1, m1, expected1);
+    vector<int> postorder1 = {1,6,3,2,5};
+    bool expected1 = false;
 
-    int n2 = 10, m2 = 17;
-    int expected2 = 2;
-    test("test2", n2, m2, expected2);
-
+    vector<int> postorder2 = {1,3,2,6,5};
+    bool expected2 = true;
     return 0;
 }
 
 
-// 0,1,,n-1这n个数字排成一个圆圈，从数字0开始，每次从这个圆圈里删除第m个数字。
-// 求出这个圆圈里剩下的最后一个数字。
+// 输入一个整数数组，判断该数组是不是某二叉搜索树的后序遍历结果。
+// 如果是则返回 true，否则返回 false。假设输入的数组的任意两个数字都互不相同。
 
-// 例如，0、1、2、3、4这5个数字组成一个圆圈，从数字0开始每次删除第3个数字，
-// 则删除的前4个数字依次是2、0、4、1，因此最后剩下的数字是3。
-
-//  
-
+// 参考以下这颗二叉搜索树：
+//      5
+//     / \
+//    2   6
+//   / \
+//  1   3
 // 示例 1：
+// 输入: [1,6,3,2,5]
+// 输出: false
 
-// 输入: n = 5, m = 3
-// 输出: 3
+
 // 示例 2：
+// 输入: [1,3,2,6,5]
+// 输出: true
+ 
 
-// 输入: n = 10, m = 17
-// 输出: 2
-//  
-
-// 限制：
-
-// 1 <= n <= 10^5
-// 1 <= m <= 10^6
+// 提示：
+// 数组长度 <= 1000

@@ -4,7 +4,6 @@
 
 // 正在做的round
 [
-    [of1],
     [of4 reversed],
     [of2]
     [tow-pointers 1-10(easy, mid)]
@@ -34,6 +33,7 @@
     [offer-cpp: page4 reversed, 2020-05-27],
     [greedy(easy, mid) 1-10, 2020-05-28],
     [bfs 1-20(easy, mid), 1-10, 2020-06-04],
+    [of1, 2020-06-09],
 ]
 
 20200601={
@@ -56,6 +56,9 @@
 },
 20200608={
   two-pointers:[18, 19], of1:[20], of4:[62]
+},
+20200609={
+  two-pointers:[26, 27], of1:[21], of4:[61], of2:[32-3, ]
 }
 
 
