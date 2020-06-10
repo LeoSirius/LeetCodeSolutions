@@ -8,8 +8,8 @@ public:
     vector<double> twoSum(int n) {
         int dp[15][70];      // 根据n的范围1-11，70是够用的。j最大是n * 6，表示n次都是6
         memset(dp, 0, sizeof(dp));
-        for (int i = 1; i <= 6; i ++) {
-            dp[1][i] = 1;
+        for (int j = 1; j <= 6; j++) {
+            dp[1][j] = 1;
         }
         for (int i = 2; i <= n; i ++) {
             for (int j = i; j <= 6*i; j ++) {
@@ -21,8 +21,9 @@ public:
                 }
             }
         }
-        int all = pow(6, n);    // 所有可能情况的总数
+        int all = pow(6, n);    // 所有可能情况的总数（包含重复的情况）
         vector<double> ret;
+        // n个骰子，最小值是n，最大值是6 * n，一共 （6*n）- n + 1中可能的值（去掉重复）
         for (int i = n; i <= 6 * n; i ++) {
             ret.push_back((double)dp[n][i] / all);
         }

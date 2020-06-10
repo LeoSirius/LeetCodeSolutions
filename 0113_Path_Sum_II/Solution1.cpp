@@ -1,38 +1,36 @@
 #include <iostream>
 #include <vector>
+#include "utils_cpp/tree.h"
 using namespace std;
 
-struct TreeNode {
-    int val;
-    TreeNode *left;
-    TreeNode *right;
-    TreeNode(int x) : val(x), left(NULL), right(NULL) {}
-};
-
 class Solution {
-    void dfs(TreeNode *root, int sum, vector<vector<int>> &res, vector<int> path) {
-        if (!root) return;
-        int remain = sum - root->val;
-        path.push_back(root->val);
+    // 注意path是传值，且没有pop
+    void dfs(TreeNode *node, int sum, vector<vector<int>> &res, vector<int> path)
+    {
+        if (!node) return;
+        int remain = sum - node->val;
+        path.push_back(node->val);
 
         // 到底时，刚好==0，则是需要的结果
-        if (!root->left && !root->right) {
-            if (remain == 0) {
-                res.push_back(path);
-            }
+        if (!node->left && !node->right) {
+            if (remain == 0) res.push_back(path);
             return;
         }
-        dfs(root->left, remain, res, path);
-        dfs(root->right, remain, res, path);
+
+        dfs(node->left, remain, res, path);
+        dfs(node->right, remain, res, path);
     }
 public:
     vector<vector<int>> pathSum(TreeNode* root, int sum) {
         vector<vector<int>> res;
+        if (!root) return res;
+
         vector<int> path;
         dfs(root, sum, res, path);
         return res;
     }
 };
+
 
 void test(string test_name, TreeNode *root, int sum, vector<vector<int>> expected)
 {
@@ -74,3 +72,7 @@ int main()
 
     return 0;
 }
+
+// 输入一棵二叉树和一个整数，打印出二叉树中节点值的和为输入整数的所有路径。
+// 从树的根节点开始往下一直到叶节点所经过的节点形成一条路径。
+
