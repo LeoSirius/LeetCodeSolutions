@@ -4,13 +4,21 @@ using namespace std;
 class Solution {
 public:
     int strStr(string haystack, string needle) {
+        if (needle == "") return 0;
         if (haystack == needle) return 0;
-        int needle_size = needle.size();
-        for (int i = 0; i < haystack.size(); i++) {
-            string sub_str = haystack.substr(i, needle_size);
-            if (sub_str == needle)
-                return i;
+        if (haystack.size() < needle.size()) return -1;
+
+        int p1 = 0, p2 = 0;
+        while (p1 < haystack.size() && p2 < needle.size()) {
+            if (haystack[p1] == needle[p2]) {
+                p1++; p2++;
+            } else {
+                p1 = p1 - p2 + 1;
+                p2 = 0;
+            }
         }
+        if (p2 == needle.size())
+            return p1 - needle.size();
         return -1;
     }
 };
