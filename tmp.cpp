@@ -1,78 +1,88 @@
 #include <iostream>
 #include <vector>
-#include "utils_cpp/tree.h"
 using namespace std;
 
-class Solution {
-    // 注意path是传值，且没有pop
-    void dfs(TreeNode *node, int sum, vector<vector<int>> &res, vector<int> path)
-    {
-        if (!node) return;
-        int remain = sum - node->val;
-        path.push_back(node->val);
+class Node {
+public:
+    int val;
+    Node* next;
+    Node* random;
 
-        // 到底时，刚好==0，则是需要的结果
-        if (!node->left && !node->right) {
-            if (remain == 0) res.push_back(path);
-            return;
+    Node(int x, Node* next=nullptr, Node* random=nullptr) : val(x), next(next), random(random) {}
+};
+
+class Solution {
+public:
+    Node* copyRandomList(Node* head) {
+        if (!head) return nullptr;
+        Node *p = head;
+        // copy node without random
+        // 用next连接p和copy出来的新节点。
+        while (p) {
+            Node *node = new Node(p->val, p->next, nullptr);
+            p->next = node;
+            p = node->next;
         }
 
-        dfs(node->left, remain, res, path);
-        dfs(node->right, remain, res, path);
-    }
-public:
-    vector<vector<int>> pathSum(TreeNode* root, int sum) {
-        vector<vector<int>> res;
-        if (!root) return res;
+        p = head;
+        while (p) {         // 连接random
+            if (p->random) p->next->random = p->random->next;
+            p = p->next->next;
+        }
 
-        vector<int> path;
-        dfs(root, sum, res, path);
+        Node* res = head->next;
+        p = head;
+        while (p->next) {   // 有丝分裂(大雾)
+            Node *tmp = p->next;
+            p->next = p->next->next;
+            p = tmp;
+        }
         return res;
     }
 };
 
-
-void test(string test_name, TreeNode *root, int sum, vector<vector<int>> expected)
+void test(string test_name, Node *head)
 {
-    vector<vector<int>> res = Solution().pathSum(root, sum);
-    sort(res.begin(), res.end());
-    sort(expected.begin(), expected.end());
-    if (res == expected) {
+    Solution s;
+    Node *res = s.copyRandomList(head);
+    vector<int> res_nums, expected_nums;
+    Node *p = res;
+    while (p) {
+        res_nums.push_back(p->val);
+        p = p->next;
+    }
+    p = head;
+    while (p) {
+        expected_nums.push_back(p->val);
+        p = p->next;
+    }
+
+    if (res_nums == expected_nums) {
         cout << test_name << " success." << endl;
     } else {
         cout << test_name << " failed." << endl;
     }
 }
 
-
 int main()
 {
-    //       5
-    //      / \
-    //     4   8
-    //    /   / \
-    //   11  13  4
-    //  /  \    / \
-    // 7    2  5   1
-    TreeNode* root1 = new TreeNode(5);
-    root1->left = new TreeNode(4);
-    root1->right = new TreeNode(8);
-    root1->left->left = new TreeNode(11);
-    root1->left->left->left = new TreeNode(7);
-    root1->left->left->right = new TreeNode(2);
-    root1->right->left = new TreeNode(13);
-    root1->right->right = new TreeNode(4);
-    root1->right->right->left = new TreeNode(5);
-    root1->right->right->right = new TreeNode(1);
-    int sum1 = 22;
-    vector<vector<int>> expected1 = {
-        {5,4,11,2}, {5,8,4,5}
-    };
-    test("test1", root1, sum1, expected1);
+    // 7 -> 13 -> 11 -> 10 -> 1
+    // random
+    // 31 -> 7
+    // 11 -> 1
+    // 10 -> 11
+    // 1 -> 7
+    Node* a0 = new Node(7);
+    Node* a1 = new Node(13);
+    Node* a2 = new Node(11);
+    Node* a3 = new Node(10);
+    Node* a4 = new Node(1);
+    a0->next = a1; a1->next = a2; a2->next = a3; a3->next = a4;
+    a1->random = a0;
+    a2->random = a4;
+    a3->random = a2;
+    a4->random = a0;
+    test("test1", a0);
 
-    return 0;
 }
-
-// 输入一棵二叉树和一个整数，打印出二叉树中节点值的和为输入整数的所有路径。
-// 从树的根节点开始往下一直到叶节点所经过的节点形成一条路径。
 

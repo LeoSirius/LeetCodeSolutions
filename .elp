@@ -6,7 +6,7 @@
 [
     [of4 reversed],
     [of2]
-    [tow-pointers 1-10(easy, mid)]
+    [stack 1-10(easy, mid)],
 
 ]
 
@@ -34,6 +34,7 @@
     [greedy(easy, mid) 1-10, 2020-05-28],
     [bfs 1-20(easy, mid), 1-10, 2020-06-04],
     [of1, 2020-06-09],
+    [tow-pointers 1-10(easy, mid), 2020-06-10],
 ]
 
 20200601={
@@ -62,6 +63,9 @@
 },
 20200610={
   two-pointers:[28, 61], of4:[60], of2:[34]，
+},
+20200611={
+  stack:[20, 71], of4:[59-2], of2:[35]
 }
 
 

@@ -22,7 +22,6 @@ public:
     void push_back(int value) {
         que.push(value);
 
-
         if (deq.empty())
             deq.push_back(value);
         else {

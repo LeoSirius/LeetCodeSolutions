@@ -1,39 +1,9 @@
-## 思路1 直接把当前左括号对应的右括号入栈
+## 思路1 stack 直接把当前左括号对应的右括号入栈
 
 注意括号交错要返回False
 
 一种映射方法是只把右括号push入栈
 
-```cpp
-class Solution {
-public:
-    bool isValid(string s) {
-        stack<char> stk;
-        for(char &c : s){
-            switch(c){
-                case '[': stk.push(']'); break;
-                case '(': stk.push(')'); break;
-                case '{': stk.push('}'); break;
-                default:
-                    if(stk.size() == 0 || c != stk.top()) return false;
-                    else stk.pop();
-            }
-        }
-        return stk.empty();
-    }
-};
-```
+## 思路2 stack 把左括号入栈，遇到对应的右括号则弹出
 
-```python
-class Solution:
-    def isValid(self, s: str) -> bool:
-        stack = []
-        for c in s:
-            if c == '{': stack.append('}')
-            elif c == '[': stack.append(']')
-            elif c == '(': stack.append(')')
-            else:
-                if stack == [] or c != stack.pop():
-                    return False
-        return stack == []
-```
+这是最容易想到的方法

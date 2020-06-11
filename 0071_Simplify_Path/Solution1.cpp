@@ -8,34 +8,31 @@ public:
         vector<string> stk;
         size_t pos = 0;
         string token;
-        path += '/';   // in order to let while loop handle last dir
+        path += '/';       // in order to let while loop handle last dir
+
         while ((pos = path.find('/')) != string::npos) {
-            token = path.substr(0, pos);   // substr before /
+            token = path.substr(0, pos);  // substr before /
             if (token != "") {
-                if (token == ".") {}
+                if (token == ".");
                 else if (token == "..") {
-                    if (stk.size() > 0) {
-                        stk.pop_back();
-                    }
-                } else {
+                    if (!stk.empty()) stk.pop_back();
+                } else
                     stk.push_back(token);
-                }
-                
             }
-            path.erase(0, pos + 1);
+            path.erase(0, pos + 1);       // pos没有包括/，这里加1，把'/'也去掉
         }
+
         string res = "";
-        for (auto item : stk) {
-            res += "/" + item;
-        }
+        for (string dir : stk)
+            res += "/" + dir;
         return res == "" ? "/" : res;
     }
 };
 
 void test(string test_name, string path, string expected)
 {
-    Solution s;
-    if (s.simplifyPath(path) == expected) {
+    string res = Solution().simplifyPath(path);
+    if (res == expected) {
         cout << test_name << " success." << endl;
     } else {
         cout << test_name << " failed." << endl;

@@ -20,9 +20,8 @@ public:
         // 用next连接p和copy出来的新节点。
         while (p) {
             Node *node = new Node(p->val, p->next, nullptr);
-            Node *p_next = p->next;
             p->next = node;
-            p = p_next;
+            p = node->next;
         }
 
         p = head;
