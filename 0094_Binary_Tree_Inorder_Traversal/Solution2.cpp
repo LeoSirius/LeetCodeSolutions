@@ -1,40 +1,36 @@
 #include <iostream>
 #include <vector>
 #include <stack>
+#include "utils_cpp/tree.h"
 using namespace std;
-
-struct TreeNode {
-    int val;
-    TreeNode *left;
-    TreeNode *right;
-    TreeNode(int x) : val(x), left(NULL), right(NULL) {}
-};
 
 class Solution {
 public:
     vector<int> inorderTraversal(TreeNode* root) {
         vector<int> res;
+        if (!root) return res;
+
         stack<TreeNode*> stk;
-        TreeNode *cur_node = root;
-        while (cur_node != nullptr || !stk.empty()) {
-            if (cur_node != nullptr) {
-                stk.push(cur_node);
-                cur_node = cur_node->left;
-            } else {
-                cur_node = stk.top(); 
-                stk.pop();
-                res.push_back(cur_node->val);
-                cur_node = cur_node->right;
+        TreeNode *p = root;
+        while (!stk.empty() || p != nullptr) {
+            while (p) {
+                stk.push(p);
+                p = p->left;
             }
+
+            p = stk.top(); stk.pop();
+            res.push_back(p->val);
+            p = p->right;
         }
         return res;
     }
 };
 
+
 void test(string test_name, TreeNode *tree, vector<int> expected)
 {
-    Solution s;
-    if (s.inorderTraversal(tree) == expected) {
+    vector<int> res = Solution().inorderTraversal(tree);
+    if (res == expected) {
         cout << test_name << " success." << endl;
     } else {
         cout << test_name << " failed." << endl;
@@ -43,6 +39,11 @@ void test(string test_name, TreeNode *tree, vector<int> expected)
 
 int main()
 {
+    //    1
+    //     \
+    //      2
+    //     /
+    //    3
     TreeNode *root1 = new TreeNode(1);
     root1->right = new TreeNode(2);
     root1->right->left = new TreeNode(3);
