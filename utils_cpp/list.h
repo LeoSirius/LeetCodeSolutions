@@ -12,4 +12,6 @@ struct ListNode {
 
 bool is_equal_list(ListNode* l1, ListNode* l2);
 
+void print_list(ListNode *list);
+
 #endif

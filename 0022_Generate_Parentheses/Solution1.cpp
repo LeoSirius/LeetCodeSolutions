@@ -10,6 +10,7 @@ class Solution {
             res.push_back(str);
             return;
         }
+        // 注意这里必须判断一下，如果l或r已经是0，就不用加了
         if (l) back_track(str + "(", l-1, r+1);
         if (r) back_track(str + ")", l, r-1);
     }

@@ -1,21 +1,35 @@
 #include <iostream>
-#include <vector>
+#include "utils_cpp/list.h"
 using namespace std;
+
 
 class Solution {
 public:
-    vector<int> getLeastNumbers(vector<int>& arr, int k) {
-        sort(arr.begin(), arr.end());
-        return vector<int>(arr.begin(), arr.begin() + k);
+    ListNode* getKthFromEnd(ListNode* head, int k) {
+        if (!head || k <= 0)
+            return nullptr;
+
+        ListNode *fast, *slow;
+        fast = head, slow = head;
+        while (k-- && fast) {
+            fast = fast->next;
+        }
+
+        while (fast) {
+            fast = fast->next;
+            slow = slow->next;
+        }
+
+        return slow;
     }
 };
 
-void test(string test_name, vector<int> arr, int k, vector<int> expected)
+
+void test(string test_name, ListNode* head, int k, ListNode* expected)
 {
-    vector<int> res = Solution().getLeastNumbers(arr, k);
-    sort(res.begin(), res.end());
-    sort(expected.begin(), expected.end());
-    if (res == expected)
+    ListNode* res = Solution().getKthFromEnd(head, k);
+    print_list(res);
+    if (is_equal_list(res, expected))
         cout << test_name << " success." << endl;
     else
         cout << test_name << " failed." << endl;
@@ -23,33 +37,25 @@ void test(string test_name, vector<int> arr, int k, vector<int> expected)
 
 int main()
 {
-    vector<int> arr1 = {3,2,1};
+    ListNode* head1 = new ListNode(1);
+    head1->next = new ListNode(2);
+    head1->next->next = new ListNode(3);
+    head1->next->next->next = new ListNode(4);
+    head1->next->next->next->next = new ListNode(5);
     int k1 = 2;
-    vector<int> expected1 = {1,2};
-    test("test1", arr1, k1, expected1);
-
-    vector<int> arr2 = {0,1,2,1};
-    int k2 = 1;
-    vector<int> expected2 = {0};
-    test("test2", arr2, k2, expected2);
+    ListNode* expected1 = new ListNode(4);
+    expected1->next = new ListNode(5);
+    test("test1", head1, k1, expected1);
 
     return 0;
 }
 
-// 输入整数数组 arr ，找出其中最小的 k 个数。例如，
-// 输入4、5、1、6、2、7、3、8这8个数字，则最小的4个数字是1、2、3、4。
+// 输入一个链表，输出该链表中倒数第k个节点。为了符合大多数人的习惯，本题从1开始计数，
+// 即链表的尾节点是倒数第1个节点。例如，一个链表有6个节点，从头节点开始，
+// 它们的值依次是1、2、3、4、5、6。这个链表的倒数第3个节点是值为4的节点。
 
+// 示例：
 
-// 示例 1：
-// 输入：arr = [3,2,1], k = 2
-// 输出：[1,2] 或者 [2,1]
-
-// 示例 2：
-// 输入：arr = [0,1,2,1], k = 1
-// 输出：[0]
-//  
-
-// 限制：
-// 0 <= k <= arr.length <= 10000
-// 0 <= arr[i] <= 10000
+// 给定一个链表: 1->2->3->4->5, 和 k = 2.
+// 返回链表 4->5.
 

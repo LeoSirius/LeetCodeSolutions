@@ -13,3 +13,12 @@ bool is_equal_list(ListNode *l1, ListNode *l2)
         l2 = l2 ? l2->next : l2;
     }
 }
+
+void print_list(ListNode *list)
+{
+    while(list) {
+        std::cout << list->val << " ";
+        list = list->next;
+    }
+    std::cout << std::endl;
+}

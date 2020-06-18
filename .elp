@@ -5,6 +5,7 @@
 // 正在做的round
 [
     [of2]
+    [of3]
     [backtracking 1-10(easy, mid)],
 ]
 
@@ -35,6 +36,7 @@
     [tow-pointers 1-10(easy, mid), 2020-06-10],
     [stack 1-10(easy, mid), 2020-06-17],
     [of4 reversed, 2020-06-17],
+    [of2, 2020-06-17],
 ]
 
 20200601={
@@ -81,6 +83,9 @@
 },
 20200617={
   stack:[232], backtracking:[17], of4:[57-2], of2:[40]
+},
+20200618={
+  backtracking:[22, 39], of3:[41], of2:[22]
 }
 
 

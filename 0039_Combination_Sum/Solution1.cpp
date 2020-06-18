@@ -3,27 +3,31 @@
 using namespace std;
 
 class Solution {
-    void dfs(vector<int> &candidates, int target, int begin, vector<int> &path, vector<vector<int>> &res)
+    vector<vector<int>> res;
+    void dfs(int sum, int start, vector<int>& candidates, vector<int> path)
     {
-        if (target == 0) {
+        if (sum < 0) return;
+        if (sum == 0) {
             res.push_back(path);
             return;
         }
-        for (int i = begin; i < candidates.size() && target >= candidates[i]; i++) {
+
+        for (int i = start; i < candidates.size(); i++) {
             path.push_back(candidates[i]);
-            dfs(candidates, target - candidates[i], i, path, res);
+            dfs(sum - candidates[i], i, candidates, path);
             path.pop_back();
         }
     }
+
 public:
     vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
-        vector<vector<int>> res;
-        vector<int> path;
         sort(candidates.begin(), candidates.end());
-        dfs(candidates, target, 0, path, res);
+        vector<int> path;
+        dfs(target, 0, candidates, path);
         return res;
     }
 };
+
 
 void test(string test_name, vector<int> &candidates, int target, vector<vector<int>> &expected)
 {
