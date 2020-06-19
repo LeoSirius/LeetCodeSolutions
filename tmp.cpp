@@ -1,37 +1,28 @@
 #include <iostream>
-#include <vector>
+#include "utils_cpp/list.h"
 using namespace std;
 
+
 class Solution {
-    void dfs(vector<vector<int>>& res, vector<int>& nums, int start, int size)
-    {
-        if (start == size) {
-            res.push_back(nums);
-            return;
-        }
-
-        for (int i = start; i < size; i++) {
-            swap(nums[start], nums[i]);
-            dfs(res, nums, start + 1, size);   // 注意这里是start + 1
-            swap(nums[start], nums[i]);
-        }
-    }
-
 public:
-    
-    vector<vector<int>> permute(vector<int>& nums) {
-        vector<vector<int>> res;
-        dfs(res, nums, 0, nums.size());
-        return res;
+    ListNode* reverseList(ListNode* head) {
+        ListNode *pre = nullptr, *cur = head, *next = nullptr;
+        while (cur) {
+            next = cur->next;
+            cur->next = pre;
+            pre = cur;
+            cur = next;
+        }
+        return pre;
     }
 };
 
-void test(string test_name, vector<int> nums, vector<vector<int>> expected)
+
+
+void test(string test_name, ListNode* head, ListNode* expected)
 {
-    vector<vector<int>> res = Solution().permute(nums);
-    sort(expected.begin(), expected.end());
-    sort(res.begin(), res.end());
-    if (res == expected)
+    ListNode *res = Solution().reverseList(head);
+    if (is_equal_list(res, expected))
         cout << test_name << " success." << endl;
     else
         cout << test_name << " failed." << endl;
@@ -39,31 +30,33 @@ void test(string test_name, vector<int> nums, vector<vector<int>> expected)
 
 int main()
 {
-    vector<int> nums1 = {1,2,3};
-    vector<vector<int>> expected1 = {
-        {1,2,3},
-        {1,3,2},
-        {2,1,3},
-        {2,3,1},
-        {3,2,1},
-        {3,1,2},
-    };
-    test("test1", nums1, expected1);
+    ListNode *head1 = new ListNode(1);
+    head1->next = new ListNode(2);
+    head1->next->next = new ListNode(3);
+    head1->next->next->next = new ListNode(4);
+    head1->next->next->next->next = new ListNode(5);
+
+    ListNode *expected1 = new ListNode(5);
+    expected1->next = new ListNode(4);
+    expected1->next->next = new ListNode(3);
+    expected1->next->next->next = new ListNode(2);
+    expected1->next->next->next->next = new ListNode(1);
+    test("test1", head1, expected1);
+
+    ListNode *head2 = nullptr;
+    ListNode *expected2 = nullptr;
+    test("test2", head2, expected2);
 
     return 0;
 }
 
-// Given a collection of distinct integers, return all possible permutations.
+// 定义一个函数，输入一个链表的头节点，反转该链表并输出反转后链表的头节点。
 
-// Example:
+// 示例:
+// 输入: 1->2->3->4->5->NULL
+// 输出: 5->4->3->2->1->NULL
+//  
 
-// Input: [1,2,3]
-// Output:
-// [
-//   [1,2,3],
-//   [1,3,2],
-//   [2,1,3],
-//   [2,3,1],
-//   [3,1,2],
-//   [3,2,1]
-// ]
+// 限制：
+// 0 <= 节点个数 <= 5000
+

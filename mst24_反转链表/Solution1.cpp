@@ -17,7 +17,6 @@ public:
     }
 };
 
-
 void test(string test_name, ListNode* head, ListNode* expected)
 {
     ListNode *res = Solution().reverseList(head);
@@ -42,6 +41,10 @@ int main()
     expected1->next->next->next->next = new ListNode(1);
     test("test1", head1, expected1);
 
+    ListNode *head2 = nullptr;
+    ListNode *expected2 = nullptr;
+    test("test2", head2, expected2);
+
     return 0;
 }
 
@@ -54,3 +57,4 @@ int main()
 
 // 限制：
 // 0 <= 节点个数 <= 5000
+
