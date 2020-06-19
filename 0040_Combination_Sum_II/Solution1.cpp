@@ -1,31 +1,31 @@
-#include<iostream>
-#include<vector>
-#include<algorithm>
+#include <iostream>
+#include <vector>
 using namespace std;
 
 class Solution {
-    void dfs(vector<int> &candidates, int target, int begin, vector<int> &path, vector<vector<int>> &res)
+    void dfs(vector<int>& candidates, int start, vector<int>& path, int target)
     {
-        if (target <= 0) {
+        if (target == 0) {
             res.push_back(path);
             return;
         }
-        for (int i = begin; i < candidates.size() && candidates[i] <= target; i++) {
-            if (i > begin && candidates[i-1] == candidates[i]) continue;
+        for (int i = start; i < candidates.size() && candidates[i] <= target; i++) {
+            if (start < i && candidates[i] == candidates[i-1]) continue;
             path.push_back(candidates[i]);
-            dfs(candidates, target - candidates[i], i + 1, path, res);
+            dfs(candidates, i + 1, path, target - path.back());
             path.pop_back();
         }
     }
 public:
+    vector<vector<int>> res;
     vector<vector<int>> combinationSum2(vector<int>& candidates, int target) {
-        vector<vector<int>> res;
-        vector<int> path;
         sort(candidates.begin(), candidates.end());
-        dfs(candidates, target, 0, path, res);
+        vector<int> path;
+        dfs(candidates, 0, path, target);
         return res;
     }
 };
+
 
 void test(string test_name, vector<int> &candidates, int target, vector<vector<int>> &expected)
 {
