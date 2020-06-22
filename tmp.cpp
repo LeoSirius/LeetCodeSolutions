@@ -1,75 +1,78 @@
 #include <iostream>
-#include <vector>
+#include <cmath>
 using namespace std;
 
 class Solution {
 public:
-    string getPermutation(int n, int k) {
-        vector<int> fac(n+1, 1);
-        for (int i = 1; i <= n; i++)
-            fac[i] = i * fac[i-1];        // fac[i] store i!
+    int countDigitOne(int n) {
+        int res = 0;
+        long digit = 1;   // 指向遍历的位数，如i=1即个位，i=10即十位，...，因为n可以有31位，所以10^31用long存储
 
-        vector<char> num_char(n, '0');
-        for (int i = 0; i < n; i++)
-            num_char[i] = i + 1 + '0';    // from 1 to n 的字符，存在0-n-1的索引中
-
-        string res = "";
-        k--;            // // start from 0
-        for (int i = n - 1; 0 <= i; i--) {
-            int idx = k / fac[i];
-            k -= idx * fac[i];
-
-            res += num_char[idx];
-            num_char.erase(num_char.begin() + idx);
+        while (n / digit != 0) {
+            
         }
-        return res;
     }
 };
 
-void test(string test_name, int n, int k, string expected)
+// class Solution {
+// public:
+//     int countDigitOne(int n) {
+//        int count = 0;
+//        long i = 1;//指向遍历的位数，如i=1即个位，i=10即十位，...，因为n可以有31位，所以10^31用long存储
+//        while(n/i!=0){
+//            //n/i控制遍历的次数，将所有的位数都遍历完毕
+//             long high = n/(10*i);//将当前位之前的所有高位都存在high中
+//             long cur = (n/i)%10;//将当前位记录在cur中，即我们每次都需要统计当前位上1出现的次数
+//             long low = n-(n/i)*i;
+//             if(cur == 0){
+//                 count += high * i;
+//             } else if(cur == 1){
+//                 count += high * i + low + 1;
+//             } else {
+//                 count += high * i + i;
+//             }
+//             i = i * 10;//准备遍历下一位
+//        }
+//        return count;
+//     }
+// };
+
+
+void test(string test_name, int n, int expected)
 {
-    string res = Solution().getPermutation(n, k);
-    if (res == expected) {
+    int res = Solution().countDigitOne(n);
+    if (res == expected)
         cout << test_name << " success." << endl;
-    } else {
+    else
         cout << test_name << " failed." << endl;
-    }
 }
 
 int main()
 {
-    int n1 = 3;
-    int k1 = 3;
-    string expected1 = "213";
-    test("test1", n1, k1, expected1);
+    int n1 = 12;
+    int expected1 = 5;
+    test("test1", n1, expected1);
 
-    int n2 = 4;
-    int k2 = 9;
-    string expected2 = "2314";
-    test("test2", n2, k2, expected2);
-
-    int n3 = 4;
-    int k3 = 15;
-    string expected3 = "3214";
-    test("test3", n3, k3, expected3);
+    int n2 = 13;
+    int expected2 = 6;
+    test("test2", n2, expected2);
 
     return 0;
 }
 
-// 给出集合 [1,2,3,…,n]，其所有元素共有 n! 种排列。
+// 输入一个整数 n ，求1～n这n个整数的十进制表示中1出现的次数。
 
-// 按大小顺序列出所有排列情况，并一一标记，当 n = 3 时, 所有排列如下：
+// 例如，输入12，1～12这些整数中包含1 的数字有1、10、11和12，1一共出现了5次。
 
-// "123"
-// "132"
-// "213"
-// "231"
-// "312"
-// "321"
-// 给定 n 和 k，返回第 k 个排列。
+// 示例 1：
+// 输入：n = 12
+// 输出：5
 
-// 说明：
+// 示例 2：
+// 输入：n = 13
+// 输出：6
+//  
 
-// 给定 n 的范围是 [1, 9]。
-// 给定 k 的范围是[1,  n!]。
+// 限制：
+// 1 <= n < 2^31
 
