@@ -1,31 +1,30 @@
-#include<iostream>
-#include<vector>
-#include<algorithm>
+#include <iostream>
+#include <vector>
 using namespace std;
 
 class Solution {
-    void subsets(vector<int> &nums, int i, vector<int> &sub, vector<vector<int>> &subs)
+    void dfs(vector<int> path, int start, vector<int>& nums)
     {
-        subs.push_back(sub);
-        for (int j = i; j < nums.size(); j++) {
-            sub.push_back(nums[j]);
-            subsets(nums, j + 1, sub, subs);
-            sub.pop_back();
+        res.push_back(path);
+        for (int i = start; i < nums.size(); i++) {
+            path.push_back(nums[i]);
+            dfs(path, i + 1, nums);
+            path.pop_back();
         }
     }
 public:
+    vector<vector<int>> res;
     vector<vector<int>> subsets(vector<int>& nums) {
-        vector<vector<int>> subs;
-        vector<int> sub;
-        subsets(nums, 0, sub, subs);
-        return subs;
+        vector<int> path;
+        dfs(path, 0, nums);
+        return res;
     }
 };
 
+
 void test(string test_name, vector<int> &nums, vector<vector<int>> &expected)
 {
-    Solution s;
-    vector<vector<int>> res = s.subsets(nums);
+    vector<vector<int>> res = Solution().subsets(nums);
     for (int i = 0; i < res.size(); i++) {
         sort(res[i].begin(), res[i].end());
     }
@@ -53,3 +52,23 @@ int main()
 
     return 0;
 }
+
+// Given a set of distinct integers, nums, return all possible subsets (the power set).
+
+// Note: The solution set must not contain duplicate subsets.
+
+// Example:
+
+// Input: nums = [1,2,3]
+// Output:
+// [
+//   [3],
+//   [1],
+//   [2],
+//   [1,2,3],
+//   [1,3],
+//   [2,3],
+//   [1,2],
+//   []
+// ]
+
