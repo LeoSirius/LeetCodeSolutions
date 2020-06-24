@@ -3,19 +3,19 @@
 using namespace std;
 
 class Solution {
-    bool dfs(TreeNode* t1, TreeNode* t2)
+    bool is_sub(TreeNode* t1, TreeNode* t2)
     {
         // 注意这里与is_same_tree的区别
         if (!t2) return true;    // b空，a不管空不空都是true，说明b已经遍历到底了
         if (!t1) return false;   // b不空，但是a已经耗尽，则false
         if (t1->val != t2->val) return false;
-        return dfs(t1->left, t2->left) && dfs(t1->right, t2->right);
+        return is_sub(t1->left, t2->left) && is_sub(t1->right, t2->right);
     }
 public:
     bool isSubStructure(TreeNode* A, TreeNode* B) {
         if (!A || !B)
             return false;
-        return dfs(A, B) || isSubStructure(A->left, B) || isSubStructure(A->right, B);
+        return is_sub(A, B) || isSubStructure(A->left, B) || isSubStructure(A->right, B);
     }
 };
 

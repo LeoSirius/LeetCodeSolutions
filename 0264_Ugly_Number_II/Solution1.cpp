@@ -12,6 +12,8 @@ public:
         dp[0] = 1;
         for (int i = 1; i < n; i++) {
             dp[i] = min(min(dp[p2]*2, dp[p3]*3), dp[p5]*5);
+
+            // 注意这里不能是 else if，就算上面的min不是由对应的p235生成的，p235也需要++，不然会有重复的
             if (dp[i] == dp[p2]*2) ++p2;
             if (dp[i] == dp[p3]*3) ++p3;
             if (dp[i] == dp[p5]*5) ++p5;
@@ -22,7 +24,9 @@ public:
 
 void test(string test_name, int n, int expected)
 {
-    if (Solution().nthUglyNumber(n) == expected) {
+    int res = Solution().nthUglyNumber(n);
+    cout << "res = " << res << endl;
+    if (res == expected) {
         cout << test_name << " success." << endl;
     } else {
         cout << test_name << " failed." << endl;

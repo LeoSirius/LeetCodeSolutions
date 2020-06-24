@@ -1,11 +1,12 @@
-#include<iostream>
-#include<vector>
+#include <iostream>
+#include <vector>
 using namespace std;
+
 class Solution {
     int m, n;
-    bool is_found(vector<vector<char>> &board, const char *word, int x, int y)
+    bool is_found(vector<vector<char>>& board, const char *word, int x, int y)
     {
-        if (x < 0 || x >= m || y < 0 || y >= n || board[x][y] == '\0' || *word != board[x][y])
+        if (x < 0 || y < 0 || m <= x || n <= y || board[x][y] == '\0' || *word != board[x][y])
             return false;
         if (*(word+1) == '\0')
             return true;
@@ -23,20 +24,18 @@ public:
     bool exist(vector<vector<char>>& board, string word) {
         m = board.size();
         n = board[0].size();
-        for (int i = 0; i < m; i++) {
-            for (int j = 0; j < n; j++) {
-                if (is_found(board, word.c_str(), i, j))
-                    return true;
-            }
-        }
+        for (int i = 0; i < m; i++)
+        for (int j = 0; j < n; j++)
+            if (is_found(board, word.c_str(), i, j))
+                return true;
         return false;
     }
 };
 
 void test(string test_name, vector<vector<char>> &board, string word, bool expected)
 {
-    Solution s;
-    if (s.exist(board, word) == expected) {
+    bool res = Solution().exist(board, word);
+    if (res == expected) {
         cout << test_name << " success." << endl;
     } else {
         cout << test_name << " failed." << endl;
@@ -74,3 +73,31 @@ int main()
 
     return 0;
 }
+
+
+// Given a 2D board and a word, find if the word exists in the grid.
+
+// The word can be constructed from letters of sequentially adjacent cell,
+//  where "adjacent" cells are those horizontally or vertically neighboring.
+//   The same letter cell may not be used more than once.
+
+// Example:
+
+// board =
+// [
+//   ['A','B','C','E'],
+//   ['S','F','C','S'],
+//   ['A','D','E','E']
+// ]
+
+// Given word = "ABCCED", return true.
+// Given word = "SEE", return true.
+// Given word = "ABCB", return false.
+//  
+// Constraints:
+
+// board and word consists only of lowercase and uppercase English letters.
+// 1 <= board.length <= 200
+// 1 <= board[i].length <= 200
+// 1 <= word.length <= 10^3
+

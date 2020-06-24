@@ -6,7 +6,7 @@
 [
     [of2]
     [of3]
-    [backtracking 1-10(easy, mid)],
+    [design 1-10(easy, mid)],
 ]
 
 // 已经做完的round
@@ -37,6 +37,7 @@
     [stack 1-10(easy, mid), 2020-06-17],
     [of4 reversed, 2020-06-17],
     [of2, 2020-06-17],
+    [backtracking 1-10(easy, mid), 2020-06-24],
 ]
 
 20200601={
@@ -95,6 +96,9 @@
 },
 20200623={
   backtracking:[77, 78], of3:[43, 44, 45, 46], of2:[25]
+},
+20200624={
+  backtracking:[79], design:[146], of2:[26], of3:[47, 48, 49, 50]
 }
 
 

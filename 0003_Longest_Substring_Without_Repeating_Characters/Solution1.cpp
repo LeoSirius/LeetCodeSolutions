@@ -5,18 +5,17 @@ using namespace std;
 class Solution {
 public:
     int lengthOfLongestSubstring(string s) {
-        unordered_map<char, int> my_map;
-        int max_len = 0, start = 0;
-        for (int i = 0; s[i]; i++) {
-            if (my_map.count(s[i])) {
-                // 如  axxxxbxxbxxxxa
-                // 如果start没有去max的话，遇到最后一个a时，start又跳回去了。把两个b都包括进去了
-                start = max(start, my_map[s[i]] + 1);
+        unordered_map<char, int> mp;
+        int start = 0;
+        int res = 0;
+        for (int i = 0; i < s.size(); i++) {
+            if (mp.find(s[i]) != mp.end()) {
+                start = max(start, mp[s[i]] + 1);
             }
-            my_map[s[i]] = i;
-            max_len = max(max_len, i - start + 1);
+            res = max(res, i - start + 1);
+            mp[s[i]] = i;
         }
-        return max_len;
+        return res;
     }
 };
 
@@ -45,3 +44,5 @@ int main()
 
     return 0;
 }
+
+// 请从字符串中找出一个最长的不包含重复字符的子字符串，计算该最长子字符串的长度。
