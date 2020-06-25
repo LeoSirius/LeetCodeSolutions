@@ -1,49 +1,98 @@
 #include <iostream>
-#include <unordered_map>
+#include <stack>
 using namespace std;
 
-class Solution {
+class MinStack {
+    stack<int> stk, min_stk;
 public:
-    char firstUniqChar(string s) {
-        unordered_map<char, int> mp;
-        for (char ch : s) mp[ch]++;
-        for (char ch : s) if (mp[ch] == 1) return ch;
-        return ' ';
+    /** initialize your data structure here. */
+    MinStack() {
+    }
+    
+    void push(int x) {
+        stk.push(x);
+        if (min_stk.empty() || x <= min_stk.top()) {
+            min_stk.push(x);
+        }
+    }
+    
+    void pop() {
+        if (stk.empty()) return;
+
+        int i = stk.top(); stk.pop();
+        if (!min_stk.empty() && min_stk.top() == i)
+            min_stk.pop();
+    }
+    
+    int top() {
+        if (stk.empty())
+            return -1;
+        return stk.top();
+    }
+    
+    int getMin() {
+        if (min_stk.empty())
+            return -1;
+        return min_stk.top();
     }
 };
 
-void test(string test_name, string s, char expected)
+void test1()
 {
-    char res = Solution().firstUniqChar(s);
-    if (res == expected)
-        cout << test_name << " success." << endl;
+    MinStack stk = MinStack();
+    stk.push(-2);
+    stk.push(0);
+    stk.push(-3);
+    int res1 = stk.getMin();    // -3
+    stk.pop();
+    int res2 = stk.top();    // 0
+    int res3 = stk.getMin();    // -2
+    if (res1 == -3 && res2 == 0 && res3 == -2)
+        cout << "test1 success." << endl;
     else
-        cout << test_name << " failed." << endl;
+        cout << "test1 failed." << endl;
+}
+
+void test2()
+{
+    MinStack stk = MinStack();
+    stk.push(0);
+    stk.push(1);
+    stk.push(0);
+    int res1 = stk.getMin();   // 0
+    stk.pop();
+    int res2 = stk.getMin();   // 0
+
+    if (res1 == 0 && res2 == 0)
+        cout << "test2 success." << endl;
+    else
+        cout << "test2 failed." << endl;
 }
 
 int main()
 {
-    string s1 = "abaccdeff";
-    char expected1 = 'b';
-    test("test1", s1, expected1);
-
-    string s2 = "";
-    char expected2 = ' ';
-    test("test2", s2, expected2);
-
+    test1();
+    test2();
     return 0;
 }
 
-// 在字符串 s 中找出第一个只出现一次的字符。如果没有，返回一个单空格。 s 只包含小写字母。
+// 定义栈的数据结构，请在该类型中实现一个能够得到栈的最小元素的 min 函数在该栈中，
+// 调用 min、push 及 pop 的时间复杂度都是 O(1)。
 
 // 示例:
-// s = "abaccdeff"
-// 返回 "b"
-
-// s = "" 
-// 返回 " "
+// MinStack minStack = new MinStack();
+// minStack.push(-2);
+// minStack.push(0);
+// minStack.push(-3);
+// minStack.min();   --> 返回 -3.
+// minStack.pop();
+// minStack.top();      --> 返回 0.
+// minStack.min();   --> 返回 -2.
 //  
 
-// 限制：
-// 0 <= s 的长度 <= 50000
+// 提示：
 
+// 各函数的调用总次数不超过 20000 次
+//  
+
+// 注意：本题与主站 155 题相同
