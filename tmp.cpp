@@ -1,98 +1,84 @@
 #include <iostream>
-#include <stack>
+#include <map>
 using namespace std;
 
-class MinStack {
-    stack<int> stk, min_stk;
-public:
-    /** initialize your data structure here. */
-    MinStack() {
-    }
-    
-    void push(int x) {
-        stk.push(x);
-        if (min_stk.empty() || x <= min_stk.top()) {
-            min_stk.push(x);
-        }
-    }
-    
-    void pop() {
-        if (stk.empty()) return;
 
-        int i = stk.top(); stk.pop();
-        if (!min_stk.empty() && min_stk.top() == i)
-            min_stk.pop();
+class TwoSum {
+    map<int, int> mp;
+public:
+    /** Initialize your data structure here. */
+    TwoSum() {
+
     }
     
-    int top() {
-        if (stk.empty())
-            return -1;
-        return stk.top();
+    /** Add the number to an internal data structure.. */
+    void add(int number) {
+        mp[number]++;
     }
     
-    int getMin() {
-        if (min_stk.empty())
-            return -1;
-        return min_stk.top();
+    /** Find if there exists any pair of numbers which sum is equal to the value. */
+    bool find(int value) {
+        for (auto pair : mp) {
+            int num2find = value - pair.first;
+            if (pair.first == num2find && 1 < pair.second)
+                return true;
+            if (pair.first != num2find && mp.find(num2find) != mp.end())
+                return true;
+        }
+        return false;
     }
 };
 
+/**
+ * Your TwoSum object will be instantiated and called as such:
+ * TwoSum* obj = new TwoSum();
+ * obj->add(number);
+ * bool param_2 = obj->find(value);
+ */
+
 void test1()
 {
-    MinStack stk = MinStack();
-    stk.push(-2);
-    stk.push(0);
-    stk.push(-3);
-    int res1 = stk.getMin();    // -3
-    stk.pop();
-    int res2 = stk.top();    // 0
-    int res3 = stk.getMin();    // -2
-    if (res1 == -3 && res2 == 0 && res3 == -2)
+    TwoSum ts;
+    ts.add(1);
+    ts.add(3);
+    ts.add(5);
+    if (ts.find(4) == true && ts.find(7) == false) {
         cout << "test1 success." << endl;
-    else
+    } else {
         cout << "test1 failed." << endl;
+    }
 }
 
 void test2()
 {
-    MinStack stk = MinStack();
-    stk.push(0);
-    stk.push(1);
-    stk.push(0);
-    int res1 = stk.getMin();   // 0
-    stk.pop();
-    int res2 = stk.getMin();   // 0
-
-    if (res1 == 0 && res2 == 0)
+    TwoSum ts;
+    ts.add(3);
+    ts.add(1);
+    ts.add(2);
+    // cout << "ts.find(6) = " << ts.find(6) << endl;
+    if (ts.find(3) == true && ts.find(6) == false) {
         cout << "test2 success." << endl;
-    else
+    } else {
         cout << "test2 failed." << endl;
+    }
+}
+
+void test3()
+{
+    TwoSum ts;
+    ts.add(0);
+    ts.add(0);
+    if (ts.find(0) == true) {
+        cout << "test3 success." << endl;
+    } else {
+        cout << "test3 failed." << endl;
+    }
 }
 
 int main()
 {
     test1();
     test2();
+    test3();
     return 0;
 }
-
-// 定义栈的数据结构，请在该类型中实现一个能够得到栈的最小元素的 min 函数在该栈中，
-// 调用 min、push 及 pop 的时间复杂度都是 O(1)。
-
-// 示例:
-// MinStack minStack = new MinStack();
-// minStack.push(-2);
-// minStack.push(0);
-// minStack.push(-3);
-// minStack.min();   --> 返回 -3.
-// minStack.pop();
-// minStack.top();      --> 返回 0.
-// minStack.min();   --> 返回 -2.
-//  
-
-// 提示：
-
-// 各函数的调用总次数不超过 20000 次
-//  
-
-// 注意：本题与主站 155 题相同
