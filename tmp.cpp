@@ -1,84 +1,105 @@
 #include <iostream>
-#include <map>
+#include <stack>
+#include "utils_cpp/tree.h"
 using namespace std;
 
 
-class TwoSum {
-    map<int, int> mp;
+class BSTIterator {
+    TreeNode *p;
+    stack<TreeNode*> stk;
 public:
-    /** Initialize your data structure here. */
-    TwoSum() {
-
-    }
-    
-    /** Add the number to an internal data structure.. */
-    void add(int number) {
-        mp[number]++;
-    }
-    
-    /** Find if there exists any pair of numbers which sum is equal to the value. */
-    bool find(int value) {
-        for (auto pair : mp) {
-            int num2find = value - pair.first;
-            if (pair.first == num2find && 1 < pair.second)
-                return true;
-            if (pair.first != num2find && mp.find(num2find) != mp.end())
-                return true;
+    BSTIterator(TreeNode* root) {
+        while (root) {
+            stk.push(root);
+            root = root->left;
         }
-        return false;
+    }
+    
+    /** @return the next smallest number */
+    int next() {
+        p = stk.top(); stk.pop();
+        int res = p->val;
+        p = p->right;
+        while (p) {
+            stk.push(p);
+            p = p->left;
+        }
+        return res;
+        
+    }
+    
+    /** @return whether we have a next smallest number */
+    bool hasNext() {
+        return !stk.empty();
     }
 };
 
-/**
- * Your TwoSum object will be instantiated and called as such:
- * TwoSum* obj = new TwoSum();
- * obj->add(number);
- * bool param_2 = obj->find(value);
- */
-
 void test1()
 {
-    TwoSum ts;
-    ts.add(1);
-    ts.add(3);
-    ts.add(5);
-    if (ts.find(4) == true && ts.find(7) == false) {
+    //     7
+    //    / \
+    //   3   15
+    //      /  \
+    //     9    20
+    TreeNode *root = new TreeNode(7);
+    root->left = new TreeNode(3);
+    root->right = new TreeNode(15);
+    root->right->left = new TreeNode(9);
+    root->right->right = new TreeNode(20);
+
+    BSTIterator *iter = new BSTIterator(root);
+    int res1 = iter->next();      // 3
+    int res2 = iter->next();      // 7
+    bool res3 = iter->hasNext();  // true
+    int res4 = iter->next();      // 9
+    bool res5 = iter->hasNext();  // true
+    int res6 = iter->next();      // 15
+    bool res7 = iter->hasNext();  // true
+    int res8 = iter->next();      // 20
+    bool res9 = iter->hasNext();  // false
+    if (res1 == 3 &&
+        res2 == 7 &&
+        res3 == true &&
+        res4 == 9 &&
+        res5 == true &&
+        res6 == 15 &&
+        res7 == true &&
+        res8 == 20 &&
+        res9 == false
+    )
         cout << "test1 success." << endl;
-    } else {
+    else
         cout << "test1 failed." << endl;
-    }
-}
-
-void test2()
-{
-    TwoSum ts;
-    ts.add(3);
-    ts.add(1);
-    ts.add(2);
-    // cout << "ts.find(6) = " << ts.find(6) << endl;
-    if (ts.find(3) == true && ts.find(6) == false) {
-        cout << "test2 success." << endl;
-    } else {
-        cout << "test2 failed." << endl;
-    }
-}
-
-void test3()
-{
-    TwoSum ts;
-    ts.add(0);
-    ts.add(0);
-    if (ts.find(0) == true) {
-        cout << "test3 success." << endl;
-    } else {
-        cout << "test3 failed." << endl;
-    }
 }
 
 int main()
 {
     test1();
-    test2();
-    test3();
     return 0;
 }
+
+// Implement an iterator over a binary search tree (BST). 
+// Your iterator will be initialized with the root node of a BST.
+
+// Calling next() will return the next smallest number in the BST.
+
+// Example:
+
+// BSTIterator iterator = new BSTIterator(root);
+// iterator.next();    // return 3
+// iterator.next();    // return 7
+// iterator.hasNext(); // return true
+// iterator.next();    // return 9
+// iterator.hasNext(); // return true
+// iterator.next();    // return 15
+// iterator.hasNext(); // return true
+// iterator.next();    // return 20
+// iterator.hasNext(); // return false
+//  
+
+// Note:
+
+// next() and hasNext() should run in average O(1) time and uses O(h) memory,
+// where h is the height of the tree.
+// You may assume that next() call will always be valid, that is,
+// there will be at least a next smallest number in the BST when next() is called.
