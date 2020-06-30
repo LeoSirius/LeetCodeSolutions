@@ -1,20 +1,20 @@
 from utils_py.tree import *
 
 class Solution:
-
-    def is_b(self, node):
+    def depth(self, node):
         if not node:
             return 0
-        l = self.is_b(node.left)
-        r = self.is_b(node.right)
-        if l == -1 or r == -1:
+        l, r = self.depth(node.left), self.depth(node.right)
+        if -1 in [l, r]:
             return -1
         if abs(l-r) > 1:
             return -1
         return max(l, r) + 1
 
     def isBalanced(self, root: TreeNode) -> bool:
-        return self.is_b(root) != -1
+        # 返回-1 表示不是
+        # 返回>=0 则表示层数
+        return self.depth(root) != -1
 
 
 def test(test_name, root, expected):
