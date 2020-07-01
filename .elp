@@ -6,7 +6,7 @@
 [
     [of2]
     [of3]
-    [ 1-10(easy, mid)],
+    [sort 1-10(easy, mid)],
 ]
 https://shadowsockshelp.github.io/ios/
 
@@ -100,6 +100,9 @@ https://shadowsockshelp.github.io/ios/
 },
 20200630={
   design:[244, 251], of2:[29], of3:[54, 55-1, 55-2, 56-1]
+},
+20200701={
+  sort:[56, 75], of2:[30], of3:[56-2, ]
 }
 
 
