@@ -12,3 +12,9 @@ def is_equal_list(l1: ListNode, l2: ListNode):
     if l1.val != l2.val:
         return False
     return is_equal_list(l1.next, l2.next)
+
+def print_list(lst: ListNode):
+    p = lst
+    while p:
+        print(p.val, end=', ')
+        p = p.next

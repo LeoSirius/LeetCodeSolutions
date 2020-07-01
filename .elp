@@ -20,7 +20,8 @@ https://shadowsockshelp.github.io/ios/
     [of4 reversed, 2020-06-17],
     [of2, 2020-06-17],
     [backtracking 1-10(easy, mid), 2020-06-24],
-    [design 1-10(easy, mid), 2020-06-30]
+    [design 1-10(easy, mid), 2020-06-30],
+    [of3, 2020-07-01]
 ]
 
 20200601={
@@ -102,7 +103,7 @@ https://shadowsockshelp.github.io/ios/
   design:[244, 251], of2:[29], of3:[54, 55-1, 55-2, 56-1]
 },
 20200701={
-  sort:[56, 75], of2:[30], of3:[56-2, ]
+  sort:[56, 75, 147], of2:[30], of3:[56-2, 57]
 }
 
 
