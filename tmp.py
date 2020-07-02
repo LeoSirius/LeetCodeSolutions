@@ -1,73 +1,29 @@
-from utils_py.list import *
+from typing import  List
 
 class Solution:
-    def sortList(self, head: ListNode) -> ListNode:
-        if not head:
-            return
+    def largestNumber(self, nums: List[int]) -> str:
+        pass
 
-        small, big, equal = None, None, None
-        cur = head
-        # 这里用头插法，把链表分成三段，head作为轴
-        while cur:
-            tmp = cur
-            cur = cur.next
-            if tmp.val < head.val:
-                tmp.next = small
-                small = tmp
-            elif tmp.val > head.val:
-                tmp.next = big
-                big = tmp
-            else:
-                tmp.next = equal
-                equal = tmp
-        
-        big = self.sortList(big)
-        small = self.sortList(small)
+def test(test_name, nums, expected):
+    res = Solution().largestNumber(nums)
+    if res == expected:
+        print(test_name)
 
-        res = ListNode(0)
-        p = res
+if __name__ == '__main__':
+    pass
 
-        # 把小中大三段串起来
-        for cur in [small, equal, big]:
-            while cur:
-                p.next = cur
-                p = p.next
-                cur = cur.next
-                p.next = None
-        return res.next
-                
 
-def test(test_name, head, expected):
-    res = Solution().sortList(head)
-    print_list(res)
-    if is_equal_list(res, expected):
-        print(test_name + ' success.')
-    else:
-        print(test_name + ' failed.')
+# Given a list of non negative integers, arrange them such that they
+# form the largest number.
+#
+# Example 1:
+#
+# Input: [10,2]
+# Output: "210"
 
-if __name__ == "__main__":
-    head1 = ListNode(4)
-    head1.next = ListNode(2)
-    head1.next.next = ListNode(1)
-    head1.next.next.next = ListNode(3)
+# Example 2:
+# Input: [3,30,34,5,9]
+# Output: "9534330"
 
-    expected1 = ListNode(1)
-    expected1.next = ListNode(2)
-    expected1.next.next = ListNode(3)
-    expected1.next.next.next = ListNode(4)
-
-    test('test1', head1, expected1)
-
-    head2 = ListNode(-1)
-    head2.next = ListNode(5)
-    head2.next.next = ListNode(3)
-    head2.next.next.next = ListNode(4)
-    head2.next.next.next.next = ListNode(0)
-
-    expected2 = ListNode(-1)
-    expected2.next = ListNode(0)
-    expected2.next.next = ListNode(3)
-    expected2.next.next.next = ListNode(4)
-    expected2.next.next.next.next = ListNode(5)
-
-    test('test2', head2, expected2)
+# Note: The result may be very large, so you need to return a string
+# instead of an integer.

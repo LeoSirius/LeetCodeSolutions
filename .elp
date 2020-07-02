@@ -105,6 +105,9 @@ https://shadowsockshelp.github.io/ios/
 20200701={
   sort:[56, 75, 147, 148], of2:[30], of3:[56-2, 57]
 },
+20200702={
+  of2:[31, 32-1], sort:[]
+}
 
 
 
