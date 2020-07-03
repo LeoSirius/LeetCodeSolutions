@@ -6,6 +6,8 @@ class Solution:
         while n:
             fast = fast.next
             n -= 1
+
+        # n 长度等于链表，则直接跳过第一个
         if not fast:
             return head.next
 
