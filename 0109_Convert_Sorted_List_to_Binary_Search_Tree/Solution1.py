@@ -1,19 +1,20 @@
-from utils_py.tree import *
 from utils_py.list import *
+from utils_py.tree import *
 
 class Solution:
     def build_tree(self, head, tail):
-        if head == tail:
-            return
-        slow = head
-        fast = head
+        if head == tail: return
+
+        slow, fast = head, head
+        # 这个while第一次调用后，slow指向0， fast是None
         while fast != tail and fast.next != tail:
-            slow = slow.next
             fast = fast.next.next
-        new_node = TreeNode(slow.val)
-        new_node.left = self.build_tree(head, slow)
-        new_node.right = self.build_tree(slow.next, tail)
-        return new_node
+            slow = slow.next
+        tree_node = TreeNode(slow.val)
+        tree_node.left = self.build_tree(head, slow)
+        tree_node.right = self.build_tree(slow.next, tail)
+        return tree_node
+
 
     def sortedListToBST(self, head: ListNode) -> TreeNode:
         # 左闭右开
@@ -43,3 +44,10 @@ if __name__ == "__main__":
     #    /   /
     #  -10  5
     test('test1', head1, expected_arr1)
+
+
+# Given a singly linked list where elements are sorted in ascending order,
+# convert it to a height balanced BST.
+#
+# For this problem, a height-balanced binary tree is defined as a binary
+# tree in which the depth of the two subtrees of every node never differ by more than 1.

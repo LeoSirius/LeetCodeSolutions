@@ -6,7 +6,7 @@
 [
     [of2]
     [of3]
-    [sort 1-10(easy, mid)],
+    [graph 1-10(easy, mid)],
 ]
 https://shadowsockshelp.github.io/ios/
 
@@ -23,6 +23,7 @@ https://shadowsockshelp.github.io/ios/
     [design 1-10(easy, mid), 2020-06-30],
     [of3, 2020-07-01],
     [sort, 2020-07-03],
+    [linked_list, 2020-07-03]
 ]
 
 20200601={
@@ -110,7 +111,7 @@ https://shadowsockshelp.github.io/ios/
   of2:[31, 32-1], sort:[179, 220, 242, 252, 253]
 },
 20200703={
-  of2:[32-2, 32-3], sort:[274], linked_list:[2, 19, 21, 24, 61, 82, 83, 86]
+  of2:[32-2, 32-3], sort:[274], linked_list:[2, 19, 21, 24, 61, 82, 83, 86, 92, 109]
 }
 
 
