@@ -1,47 +1,31 @@
+from utils_py.list import *
 
-class ListNode:
-    def __init__(self, x):
-        self.val = x
-        self.next = None
 
 class Solution:
     def addTwoNumbers(self, l1: ListNode, l2: ListNode) -> ListNode:
-        dummy_head = ListNode(0)
-        p = dummy_head
+        dummy = ListNode(-1)
+        p = dummy
         carry = 0
-
         while l1 or l2 or carry:
-            v1, v2 = 0, 0
+            v1 = l1.val if l1 else 0
+            v2 = l2.val if l2 else 0
+            l1 = l1.next if l1 else None
+            l2 = l2.next if l2 else None
 
-            if l1:
-                v1 = l1.val
-                l1 = l1.next
-            if l2:
-                v2 = l2.val
-                l2 = l2.next
-
-            carry, val = divmod(v1 + v2 + carry, 10)
-            p.next = ListNode(val)
+            cur_sum = v1 + v2 + carry
+            new_node = ListNode(cur_sum % 10)
+            carry = cur_sum // 10
+            p.next = new_node
             p = p.next
-        
-        return dummy_head.next
+        return dummy.next
 
-def is_same(l1, l2):
-    p1, p2 = l1, l2
-    while p1 and p2:
-        if p1.val != p2.val:
-            return False
-        p1, p2 = p1.next, p2.next
-    
-    return p1 == None and p2 == None
 
 def test(test_name, l1, l2, expected):
     res = Solution().addTwoNumbers(l1, l2)
-    if is_same(res, expected):
+    if is_equal_list(res, expected):
         print(test_name + ' success.')
     else:
         print(test_name + ' failed.')
-
 
 
 if __name__ == "__main__":
