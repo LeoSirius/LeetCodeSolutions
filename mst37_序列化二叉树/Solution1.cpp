@@ -9,7 +9,7 @@ public:
     // Encodes a tree to a single string.
     string serialize(TreeNode* root) {
         // 注意这种层序遍历的方法会在每个子节点后面都加两个null
-        // 但是只要能序列化会去，就行。题目没有直接规定序列化后的内容
+        // 但是只要能序列化回去就行。题目没有直接规定序列化后的内容
         string res = "";
         queue<TreeNode*> que;
         if (!root) return res; 
@@ -64,6 +64,13 @@ public:
 
 void test1()
 {
+    //     1
+    //    / \
+    //   2   3
+    //      / \
+    //     4   5
+
+    // 序列化为 "[1,2,3,null,null,4,5]"
     TreeNode *tree = new TreeNode(1);
     tree->left = new TreeNode(2);
     tree->right = new TreeNode(3);
