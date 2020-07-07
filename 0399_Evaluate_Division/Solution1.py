@@ -49,7 +49,6 @@ class Solution:
 
 def test(test_name, equations, values, queries, expected):
     res = Solution().calcEquation(equations, values, queries)
-    print('res = {}'.format(res))
     if res == expected:
         print(test_name + ' success.')
     else:
