@@ -2,11 +2,42 @@ from typing import *
 
 class Solution:
     def findRedundantConnection(self, edges: List[List[int]]) -> List[int]:
-        pass
+        n = len(edges)
+        parents = [i for i in range(0, n+1)]
+        
+        def find(x):
+            if parents[x] == x: return x
+            return find(parents[x])
+
+        for edge in edges:
+            a, b = find(edge[0]), find(edge[1])
+            if a == b:
+                return edge
+            parents[a] = b
+
+
+def test(test_name, edges, expected):
+    res = Solution().findRedundantConnection(edges)
+    if res == expected:
+        print(test_name + ' success.')
+    else:
+        print(test_name + ' failed.')
+
 
 if __name__ == "__main__":
-    pass
+    #   1
+    #  / \
+    # 2 - 3
+    edges1 = [[1,2], [1,3], [2,3]]
+    expected1 = [2,3]
+    test('test1', edges1, expected1)
 
+    # 5 - 1 - 2
+    #     |   |
+    #     4 - 3
+    edges2 = [[1,2], [2,3], [3,4], [1,4], [1,5]]
+    expected2 = [1,4]
+    test('test2', edges2, expected2)
 
 # In this problem, a tree is an undirected graph that is connected and has no cycles.
 
@@ -42,4 +73,3 @@ if __name__ == "__main__":
 # The size of the input 2D-array will be between 3 and 1000.
 # Every integer represented in the 2D-array will be between 1 and N, where N is 
 # the size of the input array.
-

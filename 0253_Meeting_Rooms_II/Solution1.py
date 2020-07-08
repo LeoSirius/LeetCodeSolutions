@@ -1,4 +1,4 @@
-from typing import List
+from typing import *
 import heapq
 
 class Solution:
@@ -34,6 +34,10 @@ if __name__ == '__main__':
     intervals3 = []
     expected3 = 0
     test('test3', intervals3, expected3)
+
+    intervals4 = [[2,15],[36,45],[9,29],[16,23],[4,9]]
+    expected4 = 2
+    test('test4', intervals4, expected4)
 
 
 # Given an array of meeting time intervals consisting of

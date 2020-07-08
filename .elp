@@ -4,9 +4,8 @@
 
 // 正在做的round
 [
-    [of2]
     [of3]
-    [graph 1-10(easy, mid)],
+    [heap 1-10(easy, mid)],
 ]
 https://shadowsockshelp.github.io/ios/
 
@@ -23,7 +22,9 @@ https://shadowsockshelp.github.io/ios/
     [design 1-10(easy, mid), 2020-06-30],
     [of3, 2020-07-01],
     [sort, 2020-07-03],
-    [linked_list, 2020-07-03]
+    [linked_list, 2020-07-03],
+    [of2, 2020-07-08],
+    [graph, 2020-07-08],
 ]
 
 20200601={
@@ -123,7 +124,7 @@ https://shadowsockshelp.github.io/ios/
   of2:[36, 37], graph:[261, 310, 323, 332, 399]
 },
 20200708={
-  of2:[38, 39, ]
+  of2:[38, 39, 40], graph:[444, 684], heap:[215, 253, 264, ]
 }
 
 
