@@ -10,7 +10,7 @@ public:
         for (long digits=1;digits < 11;++digits ){
             int first_num = pow(10,digits-1);   // first_num 1, 10, 100, ...
             // 9 * first_num = 9, 90, 900, 
-            // 在乘位数，就是当前的宽度
+            // 再乘位数，就是当前的宽度
             // 若当前的总宽度大于n，则可以返回结果了
 
             if (n < 9 * first_num * digits){
