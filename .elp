@@ -1,6 +1,8 @@
 // 2019-06-28开始
 // leetcode 按topics来做，现阶段所有topics中不做hard, 
-现在的topics到trie字典树
+现在的topics到heap
+
+union find到trie字典树  另外做
 
 // 正在做的round
 [
