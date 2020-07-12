@@ -1,29 +1,47 @@
-import sys
-from PyQt5.QtWidgets import QApplication, QLabel, QMainWindow
-from PyQt5.QtCore import Qt
-
-# Subclass QMainWindow to customise your application's main window
-class MainWindow(QMainWindow):
-
-    def __init__(self, *args, **kwargs):
-        super(MainWindow, self).__init__(*args, **kwargs)
-
-        self.setWindowTitle("My Awesome App")
-
-        label = QLabel("This is a PyQt5 window!")
-
-        # The `Qt` namespace has a lot of attributes to customise
-        # widgets. See: http://doc.qt.io/qt-5/qt.html
-        label.setAlignment(Qt.AlignCenter)
-
-        # Set the central widget of the Window. Widget will expand
-        # to take up all the space in the window by default.
-        self.setCentralWidget(label)
+class Solution:
+    def frequencySort(self, s: str) -> str:
+        pass
 
 
-app = QApplication(sys.argv)
 
-window = MainWindow()
-window.show()
+if __name__ == "__main__":
+    pass
 
-app.exec_()
+# Given a string, sort it in decreasing order based on the frequency of characters.
+
+# Example 1:
+
+# Input:
+# "tree"
+
+# Output:
+# "eert"
+
+# Explanation:
+# 'e' appears twice while 'r' and 't' both appear once.
+# So 'e' must appear before both 'r' and 't'. Therefore "eetr" is also a valid answer.
+
+# Example 2:
+
+# Input:
+# "cccaaa"
+
+# Output:
+# "cccaaa"
+
+# Explanation:
+# Both 'c' and 'a' appear three times, so "aaaccc" is also a valid answer.
+# Note that "cacaca" is incorrect, as the same characters must be together.
+
+
+# Example 3:
+
+# Input:
+# "Aabb"
+
+# Output:
+# "bbAa"
+
+# Explanation:
+# "bbaA" is also a valid answer, but "Aabb" is incorrect.
+# Note that 'A' and 'a' are treated as two different characters.
