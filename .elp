@@ -53,7 +53,10 @@ https://shadowsockshelp.github.io/ios/
   of3:[45, 46]
 },
 20200713={
-  of3:[47, 48], heap:[451, ]
+  of3:[47, 48], heap:[451]
+},
+20200715={
+  of3:[49, 50], heap:[659]
 }
 
 
