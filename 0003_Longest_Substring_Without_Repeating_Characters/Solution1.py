@@ -1,22 +1,25 @@
+from typing import *
+
 class Solution:
     def lengthOfLongestSubstring(self, s: str) -> int:
         ch2idx = {}
-        start, max_len = 0, 0
-        for i in range(len(s)):
-            if s[i] in ch2idx.keys():
-                # 是之前那个已经出现的过字符的索引，如abca，ch2idx[s[i]]就是第一个a的索引
-                start = max(start, ch2idx[s[i]] + 1)
-            ch2idx[s[i]] = i
-            max_len = max(max_len, i - start + 1)
-        return max_len
+        res, start = 0, 0
+        for i, ch in enumerate(s):
+            if ch in ch2idx:
+                start = max(start, ch2idx[ch] + 1)
+            ch2idx[ch] = i
+            res = max(res, i - start + 1)
+        return res
 
 
 def test(test_name, s, expected):
     res = Solution().lengthOfLongestSubstring(s)
+    print('res = {}'.format(res))
     if res == expected:
         print(test_name + ' success.')
     else:
         print(test_name + ' failed.')
+
 
 if __name__ == "__main__":
     s1, expected1 = "abcabcbb", 3
@@ -24,3 +27,7 @@ if __name__ == "__main__":
 
     s2, expected2 = " ", 1
     test('test2', s2, expected2)
+
+    s3 = "dvdf"
+    expected3 = 3
+    test('test3', s3, expected3)
