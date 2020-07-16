@@ -1,24 +1,21 @@
-from typing import List
-
+from typing import *
 
 class Solution:
     def maxArea(self, height: List[int]) -> int:
-        l = 0
-        r = len(height) - 1
-        max_area = 0
+        l, r = 0, len(height) - 1
+        water = 0
         while l < r:
-            max_area = max(max_area, (r - l) * min(height[l], height[r]))
+            water = max(water, (r - l) * min(height[l], height[r]))
             if height[l] < height[r]:
                 l += 1
             else:
                 r -= 1
-        return max_area
+        return water
 
 
 def test(test_name, height, expected):
     slt = Solution()
     res = slt.maxArea(height)
-    print('res = {}'.format(res))
     if res == expected:
         print(test_name + ' success.')
     else:

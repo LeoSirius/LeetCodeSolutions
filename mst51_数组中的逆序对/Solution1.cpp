@@ -17,6 +17,8 @@ public:
         while (pl <= mid && pr <= r) {
             if (nums[pr] < nums[pl]) {
                  // 关键点，也是归并排序添加的唯一一行代码。
+                 // 在pr比pl的小，说明是逆序。
+                 // pr的放到前面后，从pl到mid的都比mid大，说明这些逆序都消除了
                 res += (mid + 1 - pl);
                 tmp[ptmp++] = nums[pr++];
                 
@@ -39,9 +41,6 @@ public:
 void test(string test_name, vector<int>& nums, int expected)
 {
     int res = Solution().reversePairs(nums);
-    for (auto n : nums) cout << n << " ";
-    cout << endl;
-    cout << "res = " << res << endl;
     if (res == expected)
         cout << test_name << " success." << endl;
     else
