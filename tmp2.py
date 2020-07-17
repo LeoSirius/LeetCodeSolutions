@@ -12,30 +12,15 @@ fig = plt.figure()
 # create a new subplot on our figure
 ax1 = fig.add_subplot(111, projection='3d')
 
-# defining x, y, z co-ordinates for bar position
-x = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-y = [4, 3, 1, 6, 5, 3, 7, 5, 3, 7]
-z = np.zeros(10)
+# get points for a mesh grid
+u, v = np.mgrid[0:2 * np.pi:200j, 0:np.pi:100j]
 
-# size of bars
-dx = np.ones(10)  # length along x-axis
-dy = np.ones(10)  # length along y-axs
-dz = [1, 3, 4, 2, 6, 7, 5, 5, 10, 9]  # height of bar
+# setting x, y, z co-ordinates
+x = np.cos(u) * np.sin(v)
+y = np.sin(u) * np.sin(v)
+z = np.cos(v)
 
-# setting color scheme
-color = []
-for h in dz:
-    if h > 5:
-        color.append('r')
-    else:
-        color.append('b')
-
-    # plotting the bars
-ax1.bar3d(x, y, z, dx, dy, dz, color=color)
-
-# setting axes labels
-ax1.set_xlabel('x-axis')
-ax1.set_ylabel('y-axis')
-ax1.set_zlabel('z-axis')
+# plotting the curve
+ax1.plot_wireframe(x, y, z, rstride=5, cstride=5, linewidth=1)
 
 plt.show()
