@@ -1,11 +1,15 @@
-from typing import List
+from typing import *
 
 class Solution:
     def missingNumber(self, nums: List[int]) -> int:
-        for idx, val in enumerate(nums):
-            if idx != val:
-                return idx
-        return len(nums)
+        l, r = 0, len(nums) - 1
+        while l <= r:
+            mid = (l + r) // 2
+            if nums[mid] == mid:
+                l += 1
+            else:
+                r -= 1
+        return l
 
 
 def test(test_name, nums, expected):
@@ -28,6 +32,10 @@ if __name__ == "__main__":
     nums3 = [0]
     expected3 = 1
     test('test3', nums3, expected3)
+
+    nums4 = [1]
+    expected4 = 0
+    test('test4', nums4, expected4)
 
 
 # 一个长度为n-1的递增排序数组中的所有数字都是唯一的，并且每个数字都在范围0～n-1之内。

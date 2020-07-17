@@ -1,35 +1,32 @@
-from typing import List
-
+from typing import *
 
 class Solution:
     def threeSum(self, nums: List[int]) -> List[List[int]]:
         nums.sort()
         res = []
-        for i, val in enumerate(nums):
-            if i > 0 and nums[i] == nums[i-1]:
+        for start in range(len(nums)):
+            if start > 0 and nums[start] == nums[start-1]:
                 continue
-            l = i + 1
-            r = len(nums) - 1
+            l, r = start + 1, len(nums) - 1
             while l < r:
-                my_sum = nums[i] + nums[l] + nums[r]
-                if my_sum == 0:
-                    res.append([nums[i], nums[l], nums[r]])
-                    while l < r and nums[l+1] == nums[l]:
-                        l += 1
-                    while l < r and nums[r-1] == nums[r]:
-                        r -= 1
+                s = nums[start] + nums[l] + nums[r]
+                if s == 0:
+                    res.append([nums[start], nums[l], nums[r]])
                     l += 1
                     r -= 1
-                elif my_sum > 0:
-                    r -= 1
+                    while l < r and nums[l] == nums[l-1]: l += 1
+                    while l < r and nums[r] == nums[r+1]: r -= 1
+                elif s < 0:
+                    l += 1
+                    
                 else:
-                    l += 1
+                    r -= 1
+
         return res
 
 
 def test(test_name, nums, expected):
-    slt = Solution()
-    res = slt.threeSum(nums)
+    res = Solution().threeSum(nums)
     res = [item.sort() for item in res]
     expected = [item.sort() for item in expected]
     if res == expected:

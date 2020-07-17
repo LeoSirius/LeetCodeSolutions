@@ -1,14 +1,13 @@
-from typing import List
+from typing import *
 
 class Solution:
     def search(self, nums: List[int], target: int) -> int:
-        mp = {}
+        res = 0
         for i in nums:
-            if i in mp:
-                mp[i] += 1
-            else:
-                mp[i] = 1
-        return mp[target] if target in mp else 0
+            if i == target:
+                res += 1
+        return res
+
 
 def test(test_name, nums, target, expected):
     res = Solution().search(nums, target)
@@ -16,6 +15,7 @@ def test(test_name, nums, target, expected):
         print(test_name + ' success.')
     else:
         print(test_name + ' failed.')
+
 
 if __name__ == "__main__":
     nums1 = [5,7,7,8,8,10]
