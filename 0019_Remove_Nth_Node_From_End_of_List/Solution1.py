@@ -2,19 +2,19 @@ from utils_py.list import *
 
 class Solution:
     def removeNthFromEnd(self, head: ListNode, n: int) -> ListNode:
-        fast, slow = head, head
-        while n:
-            fast = fast.next
-            n -= 1
+        p1, p2 = head, head
+        for _ in range(n):
+            p1 = p1.next
 
-        # n 长度等于链表，则直接跳过第一个
-        if not fast:
+        # 唯一需要处理的特殊情况，即n == 链表长度
+        if not p1:
             return head.next
 
-        while fast and fast.next:
-            slow = slow.next
-            fast = fast.next
-        slow.next = slow.next.next
+        while p1.next:
+            p1 = p1.next
+            p2 = p2.next
+        
+        p2.next = p2.next.next
         return head
 
 
