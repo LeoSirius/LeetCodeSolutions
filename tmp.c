@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include "./utils_c/tree.h"
 
 
@@ -64,15 +65,14 @@ void push(stack stk, element_type x)
     if (is_full(stk)) {
         expand(stk);
     }
-
-    stk->array[++stk->top_of_stack] = x;
+    stk->array[++(stk->top_of_stack)] = x;
 }
 
 element_type top(stack stk)
 {
     if (is_empty(stk)) {
         // todo: log info
-        return 0;  // return a value to avoid warning
+        // return;
     }
     return stk->array[stk->top_of_stack];
 }
@@ -81,7 +81,7 @@ void pop(stack stk)
 {
     if (is_empty(stk)) {
         // todo : log
-        return 0;
+        // return 0;
     }
     --stk->top_of_stack;
 }
@@ -99,21 +99,36 @@ int is_empty(stack stk)
 void expand(stack stk)
 {
     stk->capacity *= 2;
-    realloc(stk->array, stk->capacity);
+    void *res = realloc(stk->array, stk->capacity);
 }
 
 
 int kthLargest(struct TreeNode* root, int k){
-
+    stack stk = new_stack(10);
+    struct TreeNode *p = root;
+    while (p != NULL || !is_empty(stk)) {
+        while (p != NULL) {
+            push(stk, *p);
+            p = p->right;
+        }
+        struct TreeNode tmp = top(stk); pop(stk);
+        p = &tmp;
+        k--;
+        if (k == 0) {
+            return p->val;
+        }
+        p = p->left;
+    }
+    return -1;
 }
 
 void test(char *test_name, struct TreeNode *root, int k, int expected)
 {
     int res = kthLargest(root, k);
     if (res == expected)
-        print("%s success", test_name);
+        printf("%s success\n", test_name);
     else
-        print("%s failed", test_name);
+        printf("%s failed\n", test_name);
 }
 
 int main()
@@ -130,6 +145,7 @@ int main()
     root1->right = new_tree_node(4);
     int k1 = 1;
     int expected1 = 4;
+    test("test1", root1, k1, expected1);
 
     //         5
     //        / \
@@ -138,6 +154,16 @@ int main()
     //     2   4
     //    /
     //   1
+    struct TreeNode *root2 = new_tree_node(5);
+    root2->left = new_tree_node(3);
+    root2->left->left = new_tree_node(2);
+    root2->left->left->left = new_tree_node(1);
+    root2->left->right = new_tree_node(4);
+    root2->right = new_tree_node(6);
+    int k2 = 3;
+    int expected2 = 4;
+    test("test2", root2, k2, expected2);
+
     return 0;
 }
 
