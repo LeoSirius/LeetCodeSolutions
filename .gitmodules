@@ -1,0 +1,3 @@
+[submodule "meta_c"]
+	path = meta_c
+	url = git@github.com:LeoSirius/meta_c.git
