@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include <math.h>
 #include "meta_c/tree.h"
 
 # define MAX(X, Y) ((X) < (Y) ? (Y) : (X))
