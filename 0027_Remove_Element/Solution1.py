@@ -1,18 +1,18 @@
-from typing import List
+from typing import *
 
 class Solution:
     def removeElement(self, nums: List[int], val: int) -> int:
-        tail = 0
-        for i in range(len(nums)):
-            if nums[i] != val:
-                nums[tail] = nums[i]
+        tail, p = -1, 0
+        while p < len(nums):
+            if nums[p] != val:
+                nums[tail + 1] = nums[p]
                 tail += 1
-        return tail
+            p += 1
+        return tail + 1
 
 
 def test(test_name, nums, val, expected):
-    slt = Solution()
-    res = slt.removeElement(nums, val)
+    res = Solution().removeElement(nums, val)
     if nums[:res] == expected:
         print(test_name + ' success.')
     else:

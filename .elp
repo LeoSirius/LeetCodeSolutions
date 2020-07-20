@@ -65,8 +65,11 @@ https://shadowsockshelp.github.io/ios/
 20200717={
   of3:[53-1, 53-2], two-pointers:[15, 16, 18, 19]
 },
-20200718={
-  of3:[]
+20200719={
+  of3:[54]
+},
+20200720={
+  two-pointers:[26, 27], of3:[]
 }
 
 

@@ -1,20 +1,18 @@
-from typing import List
-
+from typing import *
 
 class Solution:
     def removeDuplicates(self, nums: List[int]) -> int:
-        if not nums:
-            return 0
-        tail = 0
-        for i in range(1, len(nums)):
-            if nums[tail] != nums[i]:
+        p, tail = 0, 0
+        while p < len(nums):
+            if nums[tail] != nums[p]:
+                nums[tail+1] = nums[p]
                 tail += 1
-                nums[tail] = nums[i]
+            p += 1
         return tail + 1
 
+
 def test(test_name, nums, expected):
-    slt = Solution()
-    res = slt.removeDuplicates(nums)
+    res = Solution().removeDuplicates(nums)
     if nums[:res] == expected:
         print(test_name + ' success.')
     else:
