@@ -1,30 +1,25 @@
 from utils_py.list import *
 
-
 class Solution:
     def rotateRight(self, head: ListNode, k: int) -> ListNode:
-        if (not head) or (not k):
+        if not head or not k:
             return head
-        dummy = ListNode(0)
-        dummy.next = head
+        length = 1
+        p1, p2 = head, head
 
-        p = head
-        len = 1
-        while p.next:
-            p = p.next
-            len += 1
-        k %= len
-        last = p
-        last.next = head
+        while p1.next:
+            length += 1
+            p1 = p1.next
+        p1.next = head
 
-        step_need_move = len - k
-        new_head, pre_new_head = head, dummy
-        while step_need_move:
-            new_head = new_head.next
-            pre_new_head = pre_new_head.next
-            step_need_move -= 1
+        k %= length
+        right_len = length - k
+        while right_len - 1 > 0:   # p2移动right_len - 1个位置，即新头结点的前一个位置
+            p2 = p2.next
+            right_len -= 1
 
-        pre_new_head.next = None
+        new_head, p2.next = p2.next, None
+
         return new_head
 
 
