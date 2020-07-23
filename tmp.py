@@ -2,18 +2,23 @@ from typing import *
 
 class Solution:
     def singleNumber(self, nums: List[int]) -> int:
-        pass
-class Solution:
-    def singleNumber(self, nums: List[int]) -> int:
-        ones, twos = 0, 0  # 分别表示余数三种状态的第二位和第一位
-        for num in nums:
-            ones = ones ^ num & ~twos
-            twos = twos ^ num & ~ones
+        seen_ones, seen_twice = 0, 0
+        for n in nums:
+            seen_ones = seen_ones ^ n & ~seen_twice
+            seen_twice = seen_twice ^ n & ~seen_ones
+        return seen_ones
 
-        # 计算完之后，twos全部都是0
-        # ones就是最后的答案
-        # 因为3个1再模3就没有了，剩下的单个的1都在ones里，就是最后的结果
-        return ones
+# class Solution:
+#     def singleNumber(self, nums: List[int]) -> int:
+#         ones, twos = 0, 0  # 分别表示余数三种状态的第二位和第一位
+#         for num in nums:
+#             ones = ones ^ num & ~twos
+#             twos = twos ^ num & ~ones
+
+#         # 计算完之后，twos全部都是0
+#         # ones就是最后的答案
+#         # 因为3个1再模3就没有了，剩下的单个的1都在ones里，就是最后的结果
+#         return ones
 
 def test(test_name, nums, expected):
     res = Solution().singleNumber(nums)
