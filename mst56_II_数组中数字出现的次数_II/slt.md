@@ -12,8 +12,6 @@ x ^ 1 = ~x
 
 假设新的一个数的位是n（=1或=0）
 
-
-
 计算one
 
 if two == 0:
@@ -41,6 +39,23 @@ one = one ^ n & ~two
 
 可以看出和计算one是一样的
 
+如果one=1，
+
+则当前情况只能是01，
+
+- 如果n是0，则还是01
+- 如果n是1，则变成10
+
+如果one=0
+
+则当前10或00
+
+10 + 1 = 11 % 3 = 00
+00 + 1 = 01
+
+00 + 0 = 00
+10 + 0 = 10
+
 if one == 1:
   two = 0
 if one == 0:
@@ -52,6 +67,48 @@ if one == 0:
 有
 two = two ^ n & ~one
 
+
+另一个理解方法：
+
+为了区分出现一次的数字和出现三次的数字，使用两个位掩码：seen_once 和 seen_twice。
+位掩码 seen_once 仅保留出现一次的数字，不保留出现三次的数字。
+
+# first appearance: 
+# add num to seen_once 
+# don't add to seen_twice because of presence in seen_once
+
+# second appearance: 
+# remove num from seen_once 
+# add num to seen_twice
+
+# third appearance: 
+# don't add to seen_once because of presence in seen_twice
+# remove num from seen_twice
+
+
+seen_once = seen_twice = 0
+
+
+如x = 2,   10
+
+first:
+
+seen_once = ~seen_twice & (seen_once ^ num) = ~(00) & (00 ^ 10) = 11 & 10 = 10
+seen_twice = ~seen_once & (seen_twice ^ num) = ~(10) & (00 ^ 10) = 01 & 10 = 00
+
+second:
+
+seen_once = ~seen_twice & (seen_once ^ num) = ~(00) & (10 ^ 10) = 11 & 00 = 00
+seen_twice = ~seen_once & (seen_twice ^ num) = ~(00) & (00 ^ 10) = 11 & 10 = 10
+
+third:
+
+seen_once = ~seen_twice & (seen_once ^ num) = ~(10) & (00 ^ 10) = 01 & 10 = 00
+seen_twice = ~seen_once & (seen_twice ^ num) = ~(00) & (10 ^ 10) = 11 & 00 = 00
+
+
+
 ### 思路2 统计个位1出现的个数，再模3
 
-不同于一，思路2按常规方法统计
+思路同一，但是计算方法用常规的方法来统计
+
