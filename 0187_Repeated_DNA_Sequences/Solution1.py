@@ -39,4 +39,3 @@ if __name__ == "__main__":
 # Input: s = "AAAAACCCCCAAAAACCCCCCAAAAAGGGTTT"
 
 # Output: ["AAAAACCCCC", "CCCCCAAAAA"]
-
