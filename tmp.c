@@ -1,20 +1,28 @@
 #include <stdio.h>
-
+#include "meta_c/utils.h"
 
 char* reverseWords(char* s){
-
+    
 }
 
 void test(const char *test_name, char *s, char *expected)
 {
-    
+    char *res = reverseWords(s);
+    if (is_equal_str(res, expected))
+        printf("%s success.\n");
+    else
+        printf("%s failed.\n");
 }
 
 int main()
 {
     char *s1 = "the sky is blue";
     char *expected1 = "blue is sky the";
+    test("test1", s1, expected1);
 
+    char *s2 = "  hello world!  ";
+    char *expected2 = "world! hello";
+    test("test2", s2, expected2);
 
     return 0;
 }
