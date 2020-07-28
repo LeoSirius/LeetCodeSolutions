@@ -1,8 +1,48 @@
 #include <stdio.h>
+#include <stdbool.h>
+#include <string.h>
+#include "meta_c/darray.h"
 #include "meta_c/utils.h"
 
 char* reverseWords(char* s){
-    
+    char **words = NULL;
+    darray da = new_darray(10);
+    bool is_in_word = false;
+    int begin = 0;
+    int i;
+    for (i = 0; s[i]; i++) {
+        if (!is_in_word && s[i] == ' ') continue;
+        if (!is_in_word && s[i] != ' ') {
+            is_in_word = true;
+            begin = i;
+        }
+        printf("=-=- i = %d\n", i);
+        if (is_in_word && s[i] == ' ') {
+            is_in_word = false;
+            char *word = malloc(sizeof(char) * (i-begin)+1);
+            word = strncpy(word, s+begin, (i-begin));
+            word[i-begin+1] = '\0';
+            printf("word = %s\n", word);
+            append(da, word);
+        }
+    }
+    // last word not appended in for
+    char *word = malloc(sizeof(char) * (i-begin)+1);
+    word = strncpy(word, s+begin, (i-begin));
+    word[i-begin+1] = '\0';
+    printf("word = %s\n", word);
+    append(da, word);
+
+    for (int i = 0; i <= da->tail; i++)
+        printf("%s\n", da->array[i]);
+
+    char *res = "123";
+    for (int j = da->tail; 0 <= j; j--) {
+        printf("da->array[j] = %s\n", da->array[j]);
+        strcat(da->array[j], res);
+    }
+    printf("res = %s\n", res);
+
 }
 
 void test(const char *test_name, char *s, char *expected)
@@ -20,9 +60,9 @@ int main()
     char *expected1 = "blue is sky the";
     test("test1", s1, expected1);
 
-    char *s2 = "  hello world!  ";
-    char *expected2 = "world! hello";
-    test("test2", s2, expected2);
+    // char *s2 = "  hello world!  ";
+    // char *expected2 = "world! hello";
+    // test("test2", s2, expected2);
 
     return 0;
 }
