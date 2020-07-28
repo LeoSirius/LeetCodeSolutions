@@ -1,9 +1,22 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
+
+void delf(int **p)
+{
+    free(*p);
+    *p = NULL;
+}
 
 int main()
 {
-    char *s = (char *)"123 456 789n  ";
-    char *token = strtok(s, " ");
-    printf("token = %s\n", token);
+    int *p = malloc(sizeof(int));
+    *p = 1;
+    printf("%p\n", p);
+    delf(&p);
+
+    printf("%p\n", p);
+    if (p == NULL)
+        printf("p == NULL\n");
+
 }
