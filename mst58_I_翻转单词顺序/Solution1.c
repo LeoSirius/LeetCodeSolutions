@@ -5,6 +5,7 @@
 
 char* reverseWords(char* s){
     int len = strlen(s);
+    
     char** ret = (char*)calloc(10000, sizeof(char));
     
     char* token = NULL;
@@ -35,6 +36,8 @@ char* reverseWords(char* s){
 void test(const char *test_name, char *s, char *expected)
 {
     char *res = reverseWords(s);
+    printf("res = |%s|\n", res);
+    printf("exp = |%s|\n", expected);
     if (is_equal_str(res, expected))
         printf("%s success.\n", test_name);
     else
@@ -43,11 +46,11 @@ void test(const char *test_name, char *s, char *expected)
 
 int main()
 {
-    char s1[] = "the sky is blue";
+    char *s1 = "the sky is blue";
     char *expected1 = "blue is sky the";
     test("test1", s1, expected1);
 
-    char s2[] = "  hello world!  ";
+    char *s2 = "  hello world!  ";
     char *expected2 = "world! hello";
     test("test2", s2, expected2);
 
