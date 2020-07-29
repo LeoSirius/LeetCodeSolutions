@@ -12,7 +12,7 @@ union find到trie字典树  另外做
 // 正在做的round
 [
     [of3]
-    [bit 1-10(easy, mid)],
+    [sort 1-10(easy, mid)],
 ]
 https://shadowsockshelp.github.io/ios/
 
@@ -35,6 +35,7 @@ https://shadowsockshelp.github.io/ios/
     [heap, 2020-07-15],
     [two-pointers, 2020-07-21],
     [of3: 2020-07-22],
+    [bit: 2020-07-29],
 ]
 
 20200706={
@@ -92,7 +93,10 @@ https://shadowsockshelp.github.io/ios/
   bit:[190, 191]
 },
 20200728={
-  bit:[201, 231]
+  bit:[201, 231], of4:[58-1]
+},
+20200729={
+  bit:[260], sort:[56]
 }
 
 

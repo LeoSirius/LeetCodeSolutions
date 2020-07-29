@@ -1,44 +1,53 @@
-class Solution:
-    def isPowerOfTwo(self, n: int) -> bool:
-        return n > 0 and ((n & (n-1)) == 0)
+from typing import *
 
-def test(test_name, n, expected):
-    res = Solution().isPowerOfTwo(n)
-    if res == expected:
+class Solution:
+    def singleNumber(self, nums: List[int]) -> List[int]:
+        xor = 0
+        for i in nums:
+            xor ^= i
+
+        idx = 1
+        while xor & 1 == 0:
+            idx += 1
+            xor >>= 1
+
+        r1, r2 = 0, 0
+        for i in nums:
+            if ((i >> (idx-1)) & 1 == 0):
+                r1 ^= i
+            else:
+                r2 ^= i
+        
+        return [r1, r2]
+            
+
+
+def test(test_name, nums, expected):
+    res = Solution().singleNumber(nums)
+    if sorted(res) == sorted(expected):
         print(test_name + ' success.')
     else:
         print(test_name + ' failed.')
 
 
 if __name__ == "__main__":
-    n1, expected1 = 1, True
-    test('test1', n1, expected1)
+    nums1 = [1,2,1,3,2,5]
+    expected1 = [3,5]
+    test('test1', nums1, expected1)
 
-    n2, expected2 = 16, True
-    test('test2', n2, expected2)
 
-    n3, expected3 = 218, False
-    test('test3', n3, expected3)
 
-    n4, expected4 = 0, False
-    test('test4', n4, expected4)
+# Given an array of numbers nums, in which exactly two elements 
+# appear only once and all the other elements appear exactly twice. 
+# Find the two elements that appear only once.
 
-# Given an integer, write a function to determine if it is a power of two.
+# Example:
 
-# Example 1:
+# Input:  [1,2,1,3,2,5]
+# Output: [3,5]
+# Note:
 
-# Input: 1
-# Output: true 
-# Explanation: 20 = 1
-
-# Example 2:
-
-# Input: 16
-# Output: true
-# Explanation: 24 = 16
-
-# Example 3:
-
-# Input: 218
-# Output: false
-
+# The order of the result is not important. 
+# So in the above example, [5, 3] is also correct.
+# Your algorithm should run in linear runtime complexity.
+# Could you implement it using only constant space complexity?

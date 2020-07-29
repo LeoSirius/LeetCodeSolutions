@@ -1,14 +1,18 @@
-from typing import List
+from typing import *
 
 class Solution:
     def merge(self, intervals: List[List[int]]) -> List[List[int]]:
-        intervals.sort(key=lambda l: l[0])
-        res = intervals[:1]
-        for pair in intervals[1:]:
-            if res[-1][1] >= pair[0]:
-                res[-1][1] = max(pair[1], res[-1][1])
+        if not intervals:
+            return []
+        intervals.sort(key=lambda item: item[0])
+        
+        res = [intervals[0]]
+        for i in range(1, len(intervals)):
+            if res[-1][1] < intervals[i][0]:
+                res.append(intervals[i])
             else:
-                res.append(pair)
+                res[-1][1] = max(intervals[i][1], res[-1][1])
+        
         return res
 
 
@@ -38,6 +42,10 @@ if __name__ == "__main__":
     expected4 = [[1,4]]
     test('test4', intervals4, expected4)
 
+    intervals5 = []
+    expected5 = []
+    test('test5', intervals5, expected5)
+
 
 # Given a collection of intervals, merge all overlapping intervals.
 
@@ -52,4 +60,3 @@ if __name__ == "__main__":
 # Output: [[1,5]]
 # Explanation: Intervals [1,4] and [4,5] are considered overlapping.
 # NOTE: input types have been changed on April 15, 2019. Please reset to default code definition to get new method signature.
-
