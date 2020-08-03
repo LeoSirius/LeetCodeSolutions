@@ -24,8 +24,8 @@ class Solution:
         big = self.sortList(big)
         small = self.sortList(small)
 
-        res = ListNode(0)
-        p = res
+        dummy = ListNode(0)
+        p = dummy
 
         # 把小中大三段串起来
         for cur in [small, equal, big]:
@@ -34,8 +34,8 @@ class Solution:
                 p = p.next
                 cur = cur.next
                 p.next = None
-        return res.next
-                
+        return dummy.next
+
 
 def test(test_name, head, expected):
     res = Solution().sortList(head)

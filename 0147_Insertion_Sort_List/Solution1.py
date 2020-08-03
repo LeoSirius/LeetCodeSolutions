@@ -2,31 +2,25 @@ from utils_py.list import *
 
 class Solution:
     def insertionSortList(self, head: ListNode) -> ListNode:
-     	# 找个排头
         dummy = ListNode(-1)
-        # pre = dummy
-        # 依次拿head节点
+
         cur = head
         while cur:
-        	# 把下一次节点保持下来
             pre = dummy
-            tmp = cur.next
-            # 找到插入的位置
+
             while pre.next and pre.next.val < cur.val:
                 pre = pre.next
-            # 进行插入操作
+
+            cur_next = cur.next
             cur.next = pre.next
             pre.next = cur
 
-            # 移向下一个
-            cur = tmp
+            cur = cur_next
         return dummy.next
-
 
 
 def test(test_name, head, expected):
     res = Solution().insertionSortList(head)
-    print_list(res)
     if is_equal_list(res, expected):
         print(test_name + ' success.')
     else:
@@ -76,4 +70,3 @@ if __name__ == "__main__":
 
 # Input: -1->5->3->4->0
 # Output: -1->0->3->4->5
-
