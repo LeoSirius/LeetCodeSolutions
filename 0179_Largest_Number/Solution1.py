@@ -1,21 +1,24 @@
+from typing import *
 from functools import cmp_to_key
-from typing import  List
 
 class Solution:
-    def cmp(self, a, b):
-        # python 自定义cmp函数不是返回true false，而是返回 整数，负数和0
-        return int(b + a) - int(a + b)
-
     def largestNumber(self, nums: List[int]) -> str:
+        def cmp(a, b):
+            # 如果是整数，则b排在a后面
+            # 这里如果b+a > a+b，则b排在后面
+            # a = 30, b = 3
+            # 330 - 303 > 0
+            # b排在前面，结果就是330
+            return int(b+a) - int(a+b)
+
         nums = [str(n) for n in nums]
-        nums.sort(key=cmp_to_key(self.cmp))
-        res = ''.join(nums)
-        return '0' if res[0] == '0' else res
+        nums.sort(key=cmp_to_key(cmp))
+
+        return '0' if nums[0] == '0' else ''.join(nums)
 
 
 def test(test_name, nums, expected):
     res = Solution().largestNumber(nums)
-    print('res = {}'.format(res))
     if res == expected:
         print(test_name + ' success.')
     else:

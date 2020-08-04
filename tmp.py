@@ -1,71 +1,65 @@
-from utils_py.list import *
+from typing import *
 
 class Solution:
-    def sortList(self, head: ListNode) -> ListNode:
-        if not head:
-            return None
-
-        small, equal, big = None, None, None
-        cur = head
-
-        while cur:
-            tmp = cur
-            cur = cur.next
-            if tmp.val < head.val:
-                tmp.next = small
-                small = tmp
-            elif tmp.val > head.val:
-                tmp.next = big
-                big = tmp
-            else:
-                tmp.next = equal
-                equal = tmp
+    def containsNearbyAlmostDuplicate(self, nums: List[int], k: int, t: int) -> bool:
+        bucket = {}
+        if t < 0:
+            return False
         
-        big = self.sortList(big)
-        small = self.sortList(small)
+        for i in range(len(nums)):
+            nth = nums[i] // (t+1)
+            if nth in bucket:
+                return True
+            if nth - 1 in bucket and abs(nums[i] - bucket[nth-1]) <= t:
+                return True
+            if nth + 1 in bucket and abs(nums[i] - bucket[nth+1]) <= t:
+                return True
+            bucket[nth] = nums[i]
+            print('bucket = {}'.format(bucket))
 
-        dummy = ListNode(0)
-        p = dummy
-
-        for cur in [small, equal, big]:
-            while cur:
-                p.next = cur
-                p = p.next
-                cur = cur.next
-                p.next = None
-        return dummy.next
+            if i >= k:
+                bucket.pop(nums[i-k] // (t + 1))
+        return False
 
 
-def test(test_name, head, expected):
-    res = Solution().sortList(head)
-    if is_equal_list(res, expected):
+def test(test_name, nums, k, t, expected):
+    res = Solution().containsNearbyAlmostDuplicate(nums, k, t)
+    if res == expected:
         print(test_name + ' success.')
     else:
         print(test_name + ' failed.')
 
-if __name__ == "__main__":
-    head1 = ListNode(4)
-    head1.next = ListNode(2)
-    head1.next.next = ListNode(1)
-    head1.next.next.next = ListNode(3)
 
-    expected1 = ListNode(1)
-    expected1.next = ListNode(2)
-    expected1.next.next = ListNode(3)
-    expected1.next.next.next = ListNode(4)
+if __name__ == '__main__':
+    nums1 = [1,2,3,1]
+    k1, t1 = 3, 0
+    expected1 = True
+    test("test1", nums1, k1, t1, expected1)
 
-    test('test1', head1, expected1)
+    nums2 = [1,0,1,1]
+    k2, t2 = 1, 2
+    expected2 = True
+    test('test2', nums2, k2, t2, expected2)
 
-    head2 = ListNode(-1)
-    head2.next = ListNode(5)
-    head2.next.next = ListNode(3)
-    head2.next.next.next = ListNode(4)
-    head2.next.next.next.next = ListNode(0)
+    nums3 = [1,5,9,1,5,9]
+    k3, t3 = 2, 3
+    expected3 = False
+    test('test3', nums3, k3, t3, expected3)
 
-    expected2 = ListNode(-1)
-    expected2.next = ListNode(0)
-    expected2.next.next = ListNode(3)
-    expected2.next.next.next = ListNode(4)
-    expected2.next.next.next.next = ListNode(5)
 
-    test('test2', head2, expected2)
+# Given an array of integers, find out whether there are two
+# distinct indices i and j in the array such that the absolute
+# difference between nums[i] and nums[j] is at most t and the
+# absolute difference between i and j is at most k.
+#
+# Example 1:
+# Input: nums = [1,2,3,1], k = 3, t = 0
+# Output: true
+
+# Example 2:
+# Input: nums = [1,0,1,1], k = 1, t = 2
+# Output: true
+
+# Example 3:
+# Input: nums = [1,5,9,1,5,9], k = 2, t = 3
+# Output: false
