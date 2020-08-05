@@ -8,12 +8,14 @@ class Solution:
                 return False
         return True
 
+
 def test(test_name, intervals, expected):
     res = Solution().canAttendMeetings(intervals)
     if res == expected:
         print(test_name + ' success.')
     else:
         print(test_name + ' failed.')
+
 
 if __name__ == '__main__':
     intervals1 = [[0,30],[5,10],[15,20]]

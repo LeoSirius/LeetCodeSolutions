@@ -1,29 +1,21 @@
 from typing import *
+import heapq
 
 class Solution:
-    def containsNearbyAlmostDuplicate(self, nums: List[int], k: int, t: int) -> bool:
-        bucket = {}
-        if t < 0:
-            return False
-        
-        for i in range(len(nums)):
-            nth = nums[i] // (t+1)
-            if nth in bucket:
-                return True
-            if nth - 1 in bucket and abs(nums[i] - bucket[nth-1]) <= t:
-                return True
-            if nth + 1 in bucket and abs(nums[i] - bucket[nth+1]) <= t:
-                return True
-            bucket[nth] = nums[i]
-            print('bucket = {}'.format(bucket))
-
-            if i >= k:
-                bucket.pop(nums[i-k] // (t + 1))
-        return False
+    def minMeetingRooms(self, intervals: List[List[int]]) -> int:
+        if not intervals:
+            return 0
+        intervals.sort(key=lambda i: i[0])
+        hp = [intervals[0][1]]
+        for i in range(1, len(intervals)):
+            if hp[0] <= intervals[i][0]:
+                heapq.heappop(hp)
+            heapq.heappush(hp, intervals[i][1])
+        return len(hp)
 
 
-def test(test_name, nums, k, t, expected):
-    res = Solution().containsNearbyAlmostDuplicate(nums, k, t)
+def test(test_name, intervals, expected):
+    res = Solution().minMeetingRooms(intervals)
     if res == expected:
         print(test_name + ' success.')
     else:
@@ -31,35 +23,33 @@ def test(test_name, nums, k, t, expected):
 
 
 if __name__ == '__main__':
-    nums1 = [1,2,3,1]
-    k1, t1 = 3, 0
-    expected1 = True
-    test("test1", nums1, k1, t1, expected1)
+    intervals1 = [[0, 30],[5, 10],[15, 20]]
+    expected1 = 2
+    test('test1', intervals1, expected1)
 
-    nums2 = [1,0,1,1]
-    k2, t2 = 1, 2
-    expected2 = True
-    test('test2', nums2, k2, t2, expected2)
+    intervals2 = [[7,10],[2,4]]
+    expected2 = 1
+    test('test2', intervals2, expected2)
 
-    nums3 = [1,5,9,1,5,9]
-    k3, t3 = 2, 3
-    expected3 = False
-    test('test3', nums3, k3, t3, expected3)
+    intervals3 = []
+    expected3 = 0
+    test('test3', intervals3, expected3)
+
+    intervals4 = [[2,15],[36,45],[9,29],[16,23],[4,9]]
+    expected4 = 2
+    test('test4', intervals4, expected4)
 
 
-# Given an array of integers, find out whether there are two
-# distinct indices i and j in the array such that the absolute
-# difference between nums[i] and nums[j] is at most t and the
-# absolute difference between i and j is at most k.
+# Given an array of meeting time intervals consisting of
+# start and end times [[s1,e1],[s2,e2],...] (si < ei),
+# find the minimum number of conference rooms required.
 #
 # Example 1:
-# Input: nums = [1,2,3,1], k = 3, t = 0
-# Output: true
+#
+# Input: [[0, 30],[5, 10],[15, 20]]
+# Output: 2
 
 # Example 2:
-# Input: nums = [1,0,1,1], k = 1, t = 2
-# Output: true
-
-# Example 3:
-# Input: nums = [1,5,9,1,5,9], k = 2, t = 3
-# Output: false
+#
+# Input: [[7,10],[2,4]]
+# Output: 1
