@@ -1,19 +1,17 @@
 class Solution:
     def simplifyPath(self, path: str) -> str:
-        dirs = path.split('/')
-        res_dirs = []
-        for dirent in dirs:
-            if dirent == '..':
-                res_dirs = res_dirs[:-1]
-            elif dirent == '.' or dirent == '':
+        roots = []
+        for item in path.split('/'):
+            if item in ['.', '']:
                 continue
-            else:
-                res_dirs.append(dirent)
-        
-        res = ''
-        for dirent in res_dirs:
-            res += '/' + dirent
-        return '/' if not res else res
+            if item == '..':
+                if len(roots):
+                    roots.pop()
+                continue
+            roots.append(item)
+
+        res = '/'.join(roots)
+        return '/' + res
 
 
 def test(test_name, path, expected):

@@ -45,3 +45,7 @@ if __name__ == "__main__":
     s5 = "{[]}"
     expected5 = True
     test("test5", s5, expected5)
+
+    s6 = "(])"
+    expected6 = False
+    test("test6", s6, expected6)
