@@ -1,33 +1,31 @@
-from typing import List
+from typing import *
 from utils_py.tree import *
-
 
 class Solution:
     def zigzagLevelOrder(self, root: TreeNode) -> List[List[int]]:
-        res = []
         if not root:
-            return res
-        que = [root]
-        left2right = True
-
+            return []
+        que = []
+        res = []
+        p = root
+        level = 0
+        que.append(p)
         while que:
-            cnt = len(que)
+            cur_level_size = len(que)
             row = []
-            while cnt:
-                cnt -= 1
+            level += 1
+            while cur_level_size:
+                cur_level_size -= 1
                 p = que.pop(0)
                 row.append(p.val)
                 if p.left:
                     que.append(p.left)
                 if p.right:
                     que.append(p.right)
-            if left2right:
-                res.append(row)
-                left2right = False
-            else:
+            if level % 2 == 0:
                 res.append(list(reversed(row)))
-                left2right = True
-                
+            else:
+                res.append(row)
         return res
 
 
@@ -55,3 +53,7 @@ if __name__ == "__main__":
     #      /  \
     #     15   7
     test("test1", t1, expected1);
+
+    t2 = None
+    expected2 = []
+    test("test2", t2, expected2)

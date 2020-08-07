@@ -16,12 +16,14 @@ class Solution:
             p = p.right
         return res
 
+
 def test(test_name, root, expected):
     res = Solution().inorderTraversal(root)
     if res == expected:
         print(test_name + ' success.')
     else:
         print(test_name + ' failed.')
+
 
 if __name__ == "__main__":
     root1 = TreeNode(1)
