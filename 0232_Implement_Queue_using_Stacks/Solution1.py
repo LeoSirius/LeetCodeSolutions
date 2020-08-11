@@ -19,9 +19,11 @@ class MyQueue:
         """
         Removes the element from in front of queue and returns that element.
         """
-        if len(self.ostk) == 0:
-            while len(self.istk):
+        if not self.ostk:
+            i_size = len(self.istk)
+            for _ in range(i_size):
                 self.ostk.append(self.istk.pop())
+        
         return self.ostk.pop()
 
 
@@ -29,9 +31,11 @@ class MyQueue:
         """
         Get the front element.
         """
-        if len(self.ostk) == 0:
-            while len(self.istk):
+        if not self.ostk:
+            i_size = len(self.istk)
+            for _ in range(i_size):
                 self.ostk.append(self.istk.pop())
+        
         return self.ostk[-1]
 
 
@@ -39,7 +43,17 @@ class MyQueue:
         """
         Returns whether the queue is empty.
         """
-        return len(self.istk) == len(self.ostk) == 0
+        return self.istk == [] and self.ostk == []
+
+
+
+# Your MyQueue object will be instantiated and called as such:
+# obj = MyQueue()
+# obj.push(x)
+# param_2 = obj.pop()
+# param_3 = obj.peek()
+# param_4 = obj.empty()
+
 
 
 def test1():

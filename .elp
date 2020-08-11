@@ -24,6 +24,8 @@ https://shadowsockshelp.github.io/ios/
     [of3: 2020-07-22],
     [bit: 2020-07-29],
     [sort: 2020-08-06],
+    [stack: 2020-08-11],
+
 ]
 
 20200706={
@@ -106,6 +108,9 @@ https://shadowsockshelp.github.io/ios/
 },
 20200810={
   stack:[150, 155, 173]
+},
+20200811={
+  stack:[225, 232], backtracking:[17, ]
 }
 
 
