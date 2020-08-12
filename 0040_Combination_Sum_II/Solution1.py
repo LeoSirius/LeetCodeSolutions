@@ -1,23 +1,26 @@
-from typing import List
+from typing import *
 
 class Solution:
-    def dfs(self, nums, target, start, path, res):
-        if target < 0:
-            return
-        if target == 0:
-            res.append(path)
-            return
-        
-        for i in range(start, len(nums)):
-            if i > start and nums[i] == nums[i-1]:
-                continue
-            self.dfs(nums, target-nums[i], i+1, path+[nums[i]], res)
-
     def combinationSum2(self, candidates: List[int], target: int) -> List[List[int]]:
-        res = []
-        path = []
         candidates.sort()
-        self.dfs(candidates, target, 0, path, res)
+        size = len(candidates)
+        res = []
+
+        def dfs(target, start, path):
+            if target < 0:
+                return
+            elif target == 0:
+                res.append(path)
+                return
+            
+            for i in range(start, size):
+                if i > start and candidates[i] == candidates[i-1]:
+                    continue
+                # i==start的时候，下一个相同的元素不会跳过
+                dfs(target - candidates[i], i + 1, path + [candidates[i]])
+            
+        dfs(target, 0, [])
+        print(res)
         return res
 
 

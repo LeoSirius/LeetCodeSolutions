@@ -1,20 +1,24 @@
-from typing import List
+from typing import *
 
 class Solution:
-    def dfs(self, candidates, target, start, path, res):
-        if target < 0:
-            return
-        if target == 0:
-            res.append(path)
-            return
-        for i in range(start, len(candidates)):
-            self.dfs(candidates, target-candidates[i], i, path+[candidates[i]], res)
-        
     def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:
+        candidates.sort()
+        size = len(candidates)
         res = []
-        path = []
-        self.dfs(candidates, target, 0, path, res)
+
+        def dfs(target, start, path):
+            if target < 0:
+                return
+            elif target == 0:
+                res.append(path)
+                return
+            
+            for i in range(start, size):
+                dfs(target-candidates[i], i, path + [candidates[i]])
+        
+        dfs(target, 0, [])
         return res
+
 
 def test(test_name, candidates, target, expected):
     res = Solution().combinationSum(candidates, target)

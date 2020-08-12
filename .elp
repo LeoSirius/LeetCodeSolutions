@@ -111,6 +111,9 @@ https://shadowsockshelp.github.io/ios/
 },
 20200811={
   stack:[225, 232], backtracking:[17, ]
+},
+20200812={
+  backtracking:[22, 39, 40, ]
 }
 
 

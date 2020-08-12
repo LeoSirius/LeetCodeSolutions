@@ -1,17 +1,18 @@
-from typing import List
+from typing import *
 
 class Solution:
-    def gen(self, l, r, path, res):
-        if l == 0 and r == 0:
-            res.append(path)
-            return
-        if l: self.gen(l-1, r+1, path+'(', res)
-        if r: self.gen(l, r-1, path+')', res)
-
     def generateParenthesis(self, n: int) -> List[str]:
+
+        def gen(l, r, path, res):
+            if l == 0 and r == 0:
+                res.append(path)
+            if l: gen(l-1, r+1, path+'(', res)
+            if r: gen(l, r-1, path+')', res)
+
         res = []
-        self.gen(n, 0, '', res)
+        gen(n, 0, '', res)
         return res
+
 
 def test(test_name, n, expected):
     res = Solution().generateParenthesis(n)
