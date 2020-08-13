@@ -1,5 +1,5 @@
 #include <stdio.h>
-
+#include "meta_c/utils.h"
 
 /**
  * Note: The returned array must be malloced, assume caller calls free().
@@ -8,13 +8,22 @@ int* maxSlidingWindow(int* nums, int numsSize, int k, int* returnSize){
 
 }
 
+void test(const char *test_name, int* nums, int numsSize, int k, int *expected)
+{
+    int *return_size;
+    int *res = maxSlidingWindow(nums, numsSize, k, return_size);
+    if (is_equal_array(res, expected, return_size))
+        printf("%s success.\n", test_name);
+    else
+        printf("%s failed.\n", test_name);
+}
 
 
 int main()
 {
-    vector<int> nums1 = {1,3,-1,-3,5,3,6,7};
+    int nums1 = {1,3,-1,-3,5,3,6,7};
     int k1 = 3;
-    vector<int> expected1 = {3,3,5,5,6,7};
+    int expected1 = {3,3,5,5,6,7};
     test("test1", nums1, k1, expected1);
 
     return 0;
