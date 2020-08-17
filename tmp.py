@@ -7,19 +7,18 @@ class Solution:
         size = len(nums)
 
         def dfs(start, path):
-            if start == size:
+            if start == size - 1:
                 res.append(path)
                 return
-            
+
             for i in range(start, size):
                 if start < i and nums[start] == nums[i]:
                     continue
                 path[i], path[start] = path[start], path[i]
                 dfs(start + 1, path[:])
-                path[i], path[start] = path[start], path[i]
-        
+                # path[i], path[start] = path[start], path[i]
+
         dfs(0, nums)
-        print(res)
         return res
 
 
