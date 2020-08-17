@@ -7,7 +7,9 @@ class Solution:
         size = len(nums)
 
         def dfs(start, path):
+            print('start = {}'.format(start))
             if start == size - 1:
+                print('append path = {}'.format(path))
                 res.append(path)
                 return
 
