@@ -3,24 +3,29 @@ from typing import *
 class Solution:
     def subsets(self, nums: List[int]) -> List[List[int]]:
         res = []
-        
-        def dfs(path, start):
+        size = len(nums)
+        if not size:
+            return res
+
+        def dfs(start, path):
             res.append(path)
-            for i in range(start, len(nums)):
+            for i in range(start, size):
                 path.append(nums[i])
-                dfs(path[:], i + 1)
+                dfs(i + 1, path[:])
                 path.pop()
-        
-        dfs([], 0)
+
+        dfs(0, [])
         return res
 
 def test(test_name, nums, expected):
     res = Solution().subsets(nums)
-    print(res)
-    if sorted(res) == sorted(expected):
+    res.sort()
+    expected.sort()
+    if res == expected:
         print(test_name + ' success.')
     else:
         print(test_name + ' failed.')
+
 
 if __name__ == "__main__":
     nums1 = [1,2,3]

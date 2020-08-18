@@ -25,6 +25,7 @@ https://shadowsockshelp.github.io/ios/
     [bit: 2020-07-29],
     [sort: 2020-08-06],
     [stack: 2020-08-11],
+    [backtracking: 2020-08-18],
 
 ]
 
@@ -120,6 +121,10 @@ https://shadowsockshelp.github.io/ios/
 },
 202008017={
   backtracking:[47, 60, 77]
+},
+20200818={
+  backtracking:[78, 79],
+  design:[146, ]
 }
 
 
