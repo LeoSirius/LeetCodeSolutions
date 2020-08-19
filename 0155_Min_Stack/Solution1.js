@@ -50,6 +50,38 @@ MinStack.prototype.getMin = function() {
  * var param_4 = obj.getMin()
  */
 
+
+// 临时加入用来比较数组
+// Warn if overriding existing method
+if(Array.prototype.equals)
+    console.warn("Overriding existing Array.prototype.equals. Possible causes: New API defines the method, there's a framework conflict or you've got double inclusions in your code.");
+// attach the .equals method to Array's prototype to call it on any array
+Array.prototype.equals = function (array) {
+    // if the other array is a falsy value, return
+    if (!array)
+        return false;
+
+    // compare lengths - can save a lot of time
+    if (this.length != array.length)
+        return false;
+
+    for (var i = 0, l=this.length; i < l; i++) {
+        // Check if we have nested arrays
+        if (this[i] instanceof Array && array[i] instanceof Array) {
+            // recurse into the nested arrays
+            if (!this[i].equals(array[i]))
+                return false;       
+        }           
+        else if (this[i] != array[i]) { 
+            // Warning - two different object instances will never be equal: {x:20} != {x:20}
+            return false;   
+        }           
+    }       
+    return true;
+}
+// Hide method from for-in loops
+Object.defineProperty(Array.prototype, "equals", {enumerable: false});
+
 function test1() {
   var obj = new MinStack();
   obj.push(-2);
@@ -59,7 +91,8 @@ function test1() {
   obj.pop();
   var res2 = obj.top();      // 0
   var res3 = obj.getMin();   // -2
-  if (JSON.stringify([res1, res2, res3]) === JSON.stringify([-3, 0, -2])) {
+
+  if ([res1, res2, res3].equals([-3, 0, -2])) {
     console.log('test1 success.');
   } else {
     console.log('test1 failed.');
@@ -67,6 +100,9 @@ function test1() {
 }
 
 test1();
+
+
+
 
 
 // 定义栈的数据结构，请在该类型中实现一个能够得到栈的最小元素的 min 函数在该栈中，
