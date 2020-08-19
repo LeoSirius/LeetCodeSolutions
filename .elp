@@ -124,7 +124,10 @@ https://shadowsockshelp.github.io/ios/
 },
 20200818={
   backtracking:[78, 79],
-  design:[146, ]
+  design:[146]
+},
+20200819={
+  design:[155, ]
 }
 
 
