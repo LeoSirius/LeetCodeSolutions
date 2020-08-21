@@ -1,47 +1,36 @@
 /**
- * Initialize your data structure here.
+ * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
  */
-var TwoSum = function() {
-  this.hashmap = {};
+/**
+ * @param {TreeNode} root
+ */
+var BSTIterator = function(root) {
+
 };
 
 /**
- * Add the number to an internal data structure.. 
- * @param {number} number
- * @return {void}
+ * @return the next smallest number
+ * @return {number}
  */
-TwoSum.prototype.add = function(number) {
-  if (number in this.hashmap) 
+BSTIterator.prototype.next = function() {
+
 };
 
 /**
- * Find if there exists any pair of numbers which sum is equal to the value. 
- * @param {number} value
+ * @return whether we have a next smallest number
  * @return {boolean}
  */
-TwoSum.prototype.find = function(value) {
+BSTIterator.prototype.hasNext = function() {
 
 };
 
 /**
- * Your TwoSum object will be instantiated and called as such:
- * var obj = new TwoSum()
- * obj.add(number)
- * var param_2 = obj.find(value)
+ * Your BSTIterator object will be instantiated and called as such:
+ * var obj = new BSTIterator(root)
+ * var param_1 = obj.next()
+ * var param_2 = obj.hasNext()
  */
-
-// Design and implement a TwoSum class. It should support the following operations: add and find.
-
-// add - Add the number to an internal data structure.
-// find - Find if there exists any pair of numbers which sum is equal to the value.
-
-// Example 1:
-
-// add(1); add(3); add(5);
-// find(4) -> true
-// find(7) -> false
-// Example 2:
-
-// add(3); add(1); add(2);
-// find(3) -> true
-// find(6) -> false
