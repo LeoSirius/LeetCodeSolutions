@@ -1,11 +1,11 @@
 from utils_py.tree import *
 
+
 class BSTIterator:
 
     def __init__(self, root: TreeNode):
         self.stk = []
         self.p = root
-
 
     def next(self) -> int:
         """
@@ -14,16 +14,18 @@ class BSTIterator:
         while self.p:
             self.stk.append(self.p)
             self.p = self.p.left
-        res_node = self.stk.pop()
-        self.p = res_node.right
-        return res_node.val
+
+        res = self.stk.pop()
+        self.p = res.right
+
+        return res.val
 
 
     def hasNext(self) -> bool:
         """
         @return whether we have a next smallest number
         """
-        return bool(self.stk or self.p)
+        return bool(self.stk) or bool(self.p)
 
 
 
@@ -55,6 +57,7 @@ def test1():
     res7 = iter.hasNext();   # true
     res8 = iter.next();      # 20
     res9 = iter.hasNext();   # false
+    print((res1, res2, res3, res4, res5, res6, res7, res8, res9))
     if (res1, res2, res3, res4, res5, res6, res7, res8, res9) == (
           3, 7, True, 9, True, 15, True, 20, False):
         print('test1 success.')

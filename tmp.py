@@ -1,97 +1,88 @@
-from utils_py.tree import *
+class Trie:
 
-
-class BSTIterator:
-
-    def __init__(self, root: TreeNode):
-        self.stk = []
-        self.p = root
-
-    def next(self) -> int:
+    def __init__(self):
         """
-        @return the next smallest number
+        Initialize your data structure here.
         """
-        while self.p:
-            self.stk.append(self.p)
-            self.p = self.p.left
-
-        res = self.stk.pop()
-        self.p = res.right
-
-        return res.val
+        is_end = False
+        nexts = [None] * 26
 
 
-    def hasNext(self) -> bool:
+    def insert(self, word: str) -> None:
         """
-        @return whether we have a next smallest number
+        Inserts a word into the trie.
         """
-        return bool(self.stk) or bool(self.p)
+        node = self
+        for ch in word:
+            if not node.nexts[ord(ch)-ord('a')]:
+                node.nexts = Trie()
+            node = node.nexts
+        node.is_end = True
+
+
+    def search(self, word: str) -> bool:
+        """
+        Returns if the word is in the trie.
+        """
+        node = self
+        for ch in word:
+            node = node.nexts[ord(ch)-ord('a')]
+            if not node:
+                return False
+        return node.is_end
+
+
+    def startsWith(self, prefix: str) -> bool:
+        """
+        Returns if there is any word in the trie that starts with the given prefix.
+        """
+        node = self
+        for ch in word:
+            node = node.nexts[ord(ch)-ord('a')]
+            if not node:
+                return False
+        return True
 
 
 
-# Your BSTIterator object will be instantiated and called as such:
-# obj = BSTIterator(root)
-# param_1 = obj.next()
-# param_2 = obj.hasNext()
-
+# Your Trie object will be instantiated and called as such:
+# obj = Trie()
+# obj.insert(word)
+# param_2 = obj.search(word)
+# param_3 = obj.startsWith(prefix)
 
 def test1():
-    #      7
-    #     / \
-    #    3   15
-    #       /  \
-    #      9    20
-    root = TreeNode(7);
-    root.left = TreeNode(3);
-    root.right = TreeNode(15);
-    root.right.left = TreeNode(9);
-    root.right.right = TreeNode(20);
+    obj = Trie()
+    obj.insert('apple')
+    res1 = obj.search('apple')    # True
+    res2 = obj.search('app')      # Flase
+    res3 = obj.startsWith('app')  # True
+    obj.insert('app')
+    res4 = obj.search('app')      # True
 
-    iter = BSTIterator(root);
-    res1 = iter.next();      # 3
-    res2 = iter.next();      # 7
-    res3 = iter.hasNext();   # true
-    res4 = iter.next();      # 9
-    res5 = iter.hasNext();   # true
-    res6 = iter.next();      # 15
-    res7 = iter.hasNext();   # true
-    res8 = iter.next();      # 20
-    res9 = iter.hasNext();   # false
-    print((res1, res2, res3, res4, res5, res6, res7, res8, res9))
-    if (res1, res2, res3, res4, res5, res6, res7, res8, res9) == (
-          3, 7, True, 9, True, 15, True, 20, False):
+    if (res1, res2, res3, res4) == (True, False, True, True):
         print('test1 success.')
     else:
         print('test1 failed.')
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     test1()
 
 
-
-# Implement an iterator over a binary search tree (BST). 
-# Your iterator will be initialized with the root node of a BST.
-
-# Calling next() will return the next smallest number in the BST.
+# Implement a trie with insert, search, and startsWith methods.
 
 # Example:
 
-# BSTIterator iterator = new BSTIterator(root);
-# iterator.next();    // return 3
-# iterator.next();    // return 7
-# iterator.hasNext(); // return true
-# iterator.next();    // return 9
-# iterator.hasNext(); // return true
-# iterator.next();    // return 15
-# iterator.hasNext(); // return true
-# iterator.next();    // return 20
-# iterator.hasNext(); // return false
-#  
+# Trie trie = new Trie();
 
+# trie.insert("apple");
+# trie.search("apple");   // returns true
+# trie.search("app");     // returns false
+# trie.startsWith("app"); // returns true
+# trie.insert("app");   
+# trie.search("app");     // returns true
 # Note:
 
-# next() and hasNext() should run in average O(1) time and uses O(h) memory,
-# where h is the height of the tree.
-# You may assume that next() call will always be valid, that is,
-# there will be at least a next smallest number in the BST when next() is called.
+# You may assume that all inputs are consist of lowercase letters a-z.
+# All inputs are guaranteed to be non-empty strings.
