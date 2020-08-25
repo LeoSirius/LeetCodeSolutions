@@ -110,14 +110,6 @@ void test2()
         cout << "test2 failed." << endl;
 }
 
-// ["WordDictionary","addWord","addWord","search","search","search","search","search","search"]
-// [[],["a"],["a"],["."],["a"],["aa"],["a"],[".a"],["a."]]
-
-// 输出
-// [null,null,null,true,true,true,true,true,true]
-// 预期结果
-// [null,null,null,true,true,false,true,false,false]
-
 int main()
 {
     test1();
