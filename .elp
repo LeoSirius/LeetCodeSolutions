@@ -26,6 +26,7 @@ https://shadowsockshelp.github.io/ios/
     [sort: 2020-08-06],
     [stack: 2020-08-11],
     [backtracking: 2020-08-18],
+    [design: 2020-08-27],
 
 ]
 
@@ -136,7 +137,10 @@ https://shadowsockshelp.github.io/ios/
   design:[208, 211]
 },
 20200826={
-  design:[225, ]
+  design:[225, 232]
+},
+20200827={
+  design:[224, 251]
 }
 
 

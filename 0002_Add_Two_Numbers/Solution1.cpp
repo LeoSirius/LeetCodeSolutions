@@ -68,7 +68,7 @@ int main()
     ListNode *c3 = new ListNode(8);
     c1->next = c2;
     c2->next = c3;
-    // 2->4->3 + 5->6->3 = 7->0->8
+    // 2->4->3 + 5->6->4 = 7->0->8
     test("test1", a1, b1, c1);
 
     return 0;
