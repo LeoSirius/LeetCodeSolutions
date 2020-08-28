@@ -140,7 +140,10 @@ https://shadowsockshelp.github.io/ios/
   design:[225, 232]
 },
 20200827={
-  design:[224, 251]
+  design:[224, 251], linked-list:[2]
+},
+20200828={
+  linked-list:[19, 21]
 }
 
 
