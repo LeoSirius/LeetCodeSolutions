@@ -1,9 +1,10 @@
+
 function ListNode(val, next) {
-    this.val = (val===undefined ? 0 : val);
-    this.next = (next===undefined ? null : next);
+  this.val = (val===undefined ? 0 : val);
+  this.next = (next===undefined ? null : next);
 }
 
-function is_equal_list(l1, l2) {
+function isEqualList(l1, l2) {
   let p1 = l1;
   let p2 = l2;
   while (p1 && p2) {
@@ -17,4 +18,17 @@ function is_equal_list(l1, l2) {
   return true;
 }
 
-export { ListNode, is_equal_list };
+function printList(list) {
+  let p = list;
+  while (p) {
+    console.log(p.val);
+    p = p.next;
+  }
+}
+
+const ListUtils = {
+  isEqualList: isEqualList,
+  printList: printList,
+};
+
+export { ListUtils, ListNode };
