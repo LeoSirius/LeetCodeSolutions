@@ -4,6 +4,11 @@ function ListNode(val, next) {
   this.next = (next===undefined ? null : next);
 }
 
+/**
+ * @param {ListNode} l1
+ * @param {ListNode} l2
+ * @return {Boolean}
+ */
 function isEqualList(l1, l2) {
   let p1 = l1;
   let p2 = l2;
@@ -18,6 +23,20 @@ function isEqualList(l1, l2) {
   return true;
 }
 
+/**
+ * @param {Array} array
+ * @return {ListNode}
+ */
+function buildList(array) {
+  let dummyHead = new ListNode(0);
+  let p = dummyHead;
+  for (let i = 0; i < array.length; i++) {
+    p.next = new ListNode(array[i]);
+    p = p.next;
+  }
+  return dummyHead.next;
+}
+
 function printList(list) {
   let p = list;
   while (p) {
@@ -29,6 +48,7 @@ function printList(list) {
 const ListUtils = {
   isEqualList: isEqualList,
   printList: printList,
+  buildList: buildList,
 };
 
 export { ListUtils, ListNode };

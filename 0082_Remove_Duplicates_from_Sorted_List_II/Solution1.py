@@ -24,7 +24,6 @@ class Solution:
 
 def test(test_name, head, expected):
     res = Solution().deleteDuplicates(head)
-    print_list(res)
     if is_equal_list(res, expected):
         print(test_name + ' success.')
     else:
