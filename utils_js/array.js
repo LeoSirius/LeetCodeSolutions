@@ -1,4 +1,4 @@
-let is_equal_array = function(arr1, arr2) {
+let isEqualArray = function(arr1, arr2) {
   if (!Array.isArray(arr1) || !Array.isArray(arr2))
     return false;
 
@@ -17,5 +17,9 @@ let is_equal_array = function(arr1, arr2) {
   return true;
 }
 
+const ArrayUtils = {
+  isEqualArray: isEqualArray,
+};
 
-export {is_equal_array};
+
+export { ArrayUtils };

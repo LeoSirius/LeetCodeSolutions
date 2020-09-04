@@ -33,7 +33,6 @@ class Solution:
 
 def test(test_name, numCourses, prerequisites, expecteds):
     res = Solution().findOrder(numCourses, prerequisites)
-    print('res = {}'.format(res))
     if res in expecteds:
         print(test_name + ' success.')
     else:
