@@ -117,4 +117,3 @@ test('test2', n2, edges2, expected2);
 //  cycles is a tree.”
 // The height of a rooted tree is the number of edges on the longest
 //  downward path between the root and a leaf.
-

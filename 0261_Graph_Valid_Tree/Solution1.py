@@ -11,6 +11,9 @@ class Solution:
                 self.edges_cnt -= 1
 
     def validTree(self, n: int, edges: List[List[int]]) -> bool:
+        if len(edges) >= n:
+            return False
+
         self.graph = defaultdict(list)
         self.edges_cnt = len(edges)
 
@@ -23,8 +26,7 @@ class Solution:
         self.dfs(0)
 
         # 第一个条件保证是连通图（所有结点都被访问过）
-        # 第二个条件保证 边的数量 小于 结点的数量
-        return len(self.visited) == n and self.edges_cnt <= 0
+        return len(self.visited) == n
 
 
 def test(test_name, n, edges, expected):
