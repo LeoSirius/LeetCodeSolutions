@@ -2,7 +2,7 @@ from typing import *
 
 class Solution:
     def countComponents(self, n: int, edges: List[List[int]]) -> int:
-        parents = list(range(n))  # 值如果等于自身，则是跟，如果不是，则是父节点的索引
+        parents = list(range(n))  # 值如果等于自身，则是根，如果不是，则是父节点的索引
 
         def find(x):
             # 返回x所在连通区域的根结点
