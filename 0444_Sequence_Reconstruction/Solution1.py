@@ -20,7 +20,7 @@ class Solution:
                 if seq[i] not in successors[seq[i-1]]:
                     indegrees[seq[i]] += 1
                     successors[seq[i-1]].add(seq[i])
-        
+
         layer = [i for i in org if not indegrees[i]] # 先把入度为0的结点取出来放到layer中
         for x in range(size):
             if len(layer) != 1 or layer[0] != org[x]:
@@ -41,6 +41,7 @@ def test(test_name, org, seqs, expected):
         print(test_name + ' success.')
     else:
         print(test_name + ' failed.')
+
 
 if __name__ == "__main__":
     org1 = [1,2,3]
