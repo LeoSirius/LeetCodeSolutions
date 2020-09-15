@@ -45,13 +45,6 @@ def test(test_name, preorder, inorder, expected):
         print(test_name + ' failed.')
 
 if __name__ == "__main__":
-    # vector<int> preorder1 = {3,9,20,15,7};
-    # vector<int> inorder1 = {9,3,15,20,7};
-    # TreeNode* expected1 = new TreeNode(3);
-    # expected1->left = new TreeNode(9);
-    # expected1->right = new TreeNode(20);
-    # expected1->right->left = new TreeNode(15);
-    # expected1->right->right = new TreeNode(7);
     preorder1 = [3,9,20,15,7]
     inorder1 = [9,3,15,20,7]
     #     3
