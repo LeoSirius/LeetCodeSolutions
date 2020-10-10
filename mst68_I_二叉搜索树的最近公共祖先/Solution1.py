@@ -10,6 +10,7 @@ class Solution:
         if root.val > p.val and root.val > q.val:
             return self.lowestCommonAncestor(root.left, p, q)
 
+        # p.val <= root.val <= q.val
         return root
 
 
