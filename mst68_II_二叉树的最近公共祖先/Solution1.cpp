@@ -7,6 +7,9 @@ public:
     TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
         if (!root || p == root || q == root)
             return root;
+
+        // 这个函数返回p或q是第一个参数的子树（包括自身），如果空，则不是子树
+        // left,right都不空，说明p和q同时是root->left和root->right的子树
         TreeNode *left = lowestCommonAncestor(root->left, p, q);
         TreeNode *right = lowestCommonAncestor(root->right, p, q);
 
