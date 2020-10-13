@@ -1,6 +1,5 @@
 package main
 
-
 import (
     "fmt"
     "reflect"
@@ -12,22 +11,22 @@ func singleNumbers(nums []int) []int {
         allXor ^= v
     }
 
-    idxFromRight := 1
+    numFromRight := 1
     for allXor & 1 == 0 {
-        idxFromRight++
+        numFromRight++
         allXor >>= 1
     }
 
     r1, r2 := 0, 0
     for _, v := range(nums) {
-        if ((v >> (idxFromRight-1)) & 1 == 0) {
+        if ((v >> (numFromRight-1)) & 1 == 0) {
             r1 ^= v
         } else {
-            r2 ^=v
+            r2 ^= v
         }
     }
-    return []int{r1, r2}
 
+    return []int{r1, r2}
 }
 
 func test(testName string, nums []int, expected [][]int) {
@@ -52,7 +51,6 @@ func main() {
 }
 
 
-
 //  一个整型数组 nums 里除两个数字之外，其他数字都出现了两次。请写程序找出这两个只出现一次的数字。
 //  要求时间复杂度是O(n)，空间复杂度是O(1)。
 
@@ -66,4 +64,3 @@ func main() {
 
 //  限制：
 //  2 <= nums.length <= 10000
-
