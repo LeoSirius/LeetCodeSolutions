@@ -1,51 +1,66 @@
+from utils_py.tree import *
+
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
 class Solution:
-    def hammingWeight(self, n: int) -> int:
-        cnt = 0
-        for _ in range(32):
-            if n & 1 == 1:
-                cnt += 1
-            n >>= 1
-        return cnt
+    def mirrorTree(self, root: TreeNode) -> TreeNode:
+        pass
 
 
-def test(test_name, n, expected):
-    res = Solution().hammingWeight(n)
-    if res == expected:
-        print(test_name + ' success.')
-    else:
-        print(test_name + ' failed.')
+int main()
+{
+    //      4
+    //    /   \
+    //   2     7
+    //  / \   / \
+    // 1   3 6   9
+    TreeNode *root1 = new TreeNode(4);
+    root1->left = new TreeNode(2);
+    root1->left->left = new TreeNode(1);
+    root1->left->right = new TreeNode(3);
+    root1->right = new TreeNode(7);
+    root1->right->left = new TreeNode(6);
+    root1->right->right = new TreeNode(9);
 
+    //      4
+    //    /   \
+    //   7     2
+    //  / \   / \
+    // 9   6 3   1
+    TreeNode *expected1 = new TreeNode(4);
+    expected1->left = new TreeNode(7);
+    expected1->left->left = new TreeNode(9);
+    expected1->left->right = new TreeNode(6);
+    expected1->right = new TreeNode(2);
+    expected1->right->left = new TreeNode(3);
+    expected1->right->right = new TreeNode(1);
 
-if __name__ == '__main__':
-    n1 = 0b00000000000000000000000000001011
-    expected1 = 3
-    test('test1', n1, expected1)
+    test("test1", root1, expected1);
 
-    n2 = 0b00000000000000000000000010000000
-    expected2 = 1
-    test('test2', n2, expected2)
+    return 0;
+}
 
-    n3 = 0b11111111111111111111111111111101
-    expected3 = 31
-    test('test3', n3, expected3)
+# 请完成一个函数，输入一个二叉树，该函数输出它的镜像。
 
+# 例如输入：
 
+#      4
+#    /   \
+#   2     7
+#  / \   / \
+# 1   3 6   9
+# 镜像输出：
 
-# 请实现一个函数，输入一个整数，输出该数二进制表示中 1 的个数。例如，
-# 把 9 表示成二进制是 1001，有 2 位是 1。因此，如果输入 9，则该函数输出 2。
+#      4
+#    /   \
+#   7     2
+#  / \   / \
+# 9   6 3   1
 
-# 示例 1：
-
-# 输入：00000000000000000000000000001011
-# 输出：3
-# 解释：输入的二进制串 00000000000000000000000000001011 中，共有三位为 "1"。
-# 示例 2：
-
-# 输入：00000000000000000000000010000000
-# 输出：1
-# 解释：输入的二进制串 00000000000000000000000010000000 中，共有一位为 "1"。
-# 示例 3：
-
-# 输入：11111111111111111111111111111101
-# 输出：31
-# 解释：输入的二进制串 11111111111111111111111111111101 中，共有 31 位为 "1"。
+# 限制：
+# 0 <= 节点个数 <= 1000

@@ -4,17 +4,22 @@ import (
     "fmt"
 )
 
-func add(a int, b int) int {
-    carry := 0
-    for b != 0 {
-        carry = (a & b) << 1
-        a, b = a^b, carry
+func sumNums(n int) int {
+    res := 0
+
+    var sum func(int) bool
+    sum = func(n int) bool {
+        res += n
+        return n > 0 && sum(n-1)
     }
-    return a
+
+    sum(n)
+    return res
 }
 
-func test(testName string, a, b, expected int) {
-    res := add(a, b)
+
+func test(testName string, n, expected int) {
+    res := sumNums(n)
     if res == expected {
         fmt.Println(testName + " success.")
     } else {
@@ -23,28 +28,25 @@ func test(testName string, a, b, expected int) {
 }
 
 func main() {
-    a1, b1 := 1, 1
-    expected1 := 2
-    test("test1", a1, b1, expected1)
+    n1, expected1 := 3, 6
+    test("test1", n1, expected1)
 
-    a2, b2 := -1, 2
-    expected2 := 1
-    test("test2", a2, b2, expected2)
+    n2, expected2 := 9, 45
+    test("test2", n2, expected2)
 }
 
+// 求 1+2+...+n ，
+// 要求不能使用乘除法、for、while、if、else、switch、case等关键字及条件判断语句（A?B:C）。
 
+// 示例 1：
+// 输入: n = 3
+// 输出: 6
 
-// 写一个函数，求两个整数之和，要求在函数体内不得使用 “+”、“-”、“*”、“/” 四则运算符号。
+// 示例 2：
+// 输入: n = 9
+// 输出: 45
+ 
 
-//  
+// 限制：
 
-// 示例:
-
-// 输入: a = 1, b = 1
-// 输出: 2
-//  
-
-// 提示：
-
-// a, b 均可能是负数或 0
-// 结果不会溢出 32 位整数
+// 1 <= n <= 10000
