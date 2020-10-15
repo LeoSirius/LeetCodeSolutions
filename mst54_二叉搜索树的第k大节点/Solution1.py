@@ -16,7 +16,6 @@ class Solution:
 
 def test(test_name, root, k, expected):
     res = Solution().kthLargest(root, k)
-    print('res = {}'.format(res))
     if res == expected:
         print(test_name + ' success.')
     else:
