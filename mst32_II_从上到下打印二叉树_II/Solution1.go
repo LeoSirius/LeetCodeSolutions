@@ -1,12 +1,9 @@
 package main
 
 import (
-	"slt/util_go/tree"
 	"fmt"
 	"reflect"
 )
-
-type TreeNode = tree.TreeNode
 
 /**
  * Definition for a binary tree node.
@@ -60,11 +57,11 @@ func main() {
 	//   9  20
 	//     /  \
 	//    15   7
-	root1 := &TreeNode{Val:3}
-	root1.Left = &TreeNode{Val:9}
-	root1.Right = &TreeNode{Val:20}
-	root1.Right.Left = &TreeNode{Val:15}
-	root1.Right.Right = &TreeNode{Val:7}
+	root1 := &TreeNode{Val: 3}
+	root1.Left = &TreeNode{Val: 9}
+	root1.Right = &TreeNode{Val: 20}
+	root1.Right.Left = &TreeNode{Val: 15}
+	root1.Right.Right = &TreeNode{Val: 7}
 	expected1 := [][]int{
 		{3},
 		{9, 20},
