@@ -7,38 +7,23 @@ import (
 
 type TreeNode = tree.TreeNode
 
-/**
- * Definition for a binary tree node.
- * type TreeNode struct {
- *     Val int
- *     Left *TreeNode
- *     Right *TreeNode
- * }
- */
-
-func isSymmetric(root *TreeNode) bool {
-	if root == nil {
-		return true
+func maxInt(a, b int) int {
+	if a > b {
+		return a
+	} else {
+		return b
 	}
-	var isSym func(l, r *TreeNode) bool
-
-	isSym = func(l, r *TreeNode) bool {
-		if l == nil && r == nil {
-			return true
-		}
-		if l == nil || r == nil {
-			return false
-		}
-		if l.Val != r.Val {
-			return false
-		}
-		return isSym(l.Left, r.Right) && isSym(l.Right, r.Left)
-	}
-	return isSym(root.Left, root.Right)
 }
 
-func test(testName string, root *TreeNode, expected bool) {
-	res := isSymmetric(root)
+func maxDepth(root *TreeNode) int {
+	if root == nil {
+		return 0
+	}
+	return maxInt(maxDepth(root.Left), maxDepth(root.Right)) + 1
+}
+
+func test(testName string, root *TreeNode, expected int) {
+	res := maxDepth(root)
 	if res == expected {
 		fmt.Println(testName + " success.")
 	} else {
@@ -47,36 +32,35 @@ func test(testName string, root *TreeNode, expected bool) {
 }
 
 func main() {
-	//     1
-	//    / \
-	//   2   2
-	//  / \ / \
-	// 3  4 4  3
-	root1 := &tree.TreeNode{Val: 1}
-	root1.Left = &tree.TreeNode{Val: 2}
-	root1.Left.Left = &tree.TreeNode{Val: 3}
-	root1.Left.Right = &tree.TreeNode{Val: 4}
-	root1.Right = &tree.TreeNode{Val: 2}
-	root1.Right.Left = &tree.TreeNode{Val: 4}
-	root1.Right.Right = &tree.TreeNode{Val: 3}
-	expected1 := true
+	//     3
+	//    / \
+	//   9  20
+	//     /  \
+	//    15   7
+	root1 := &TreeNode{Val:1}
+	root1.Left = &TreeNode{Val:9}
+	root1.Right = &TreeNode{Val:20}
+	root1.Right.Left = &TreeNode{Val:15}
+	root1.Right.Right = &TreeNode{Val:7}
+	expected1 := 3
 	test("test1", root1, expected1)
-
-	//     1
-	//    / \
-	//   2   2
-	//    \   \
-	//    3    3
-	root2 := &tree.TreeNode{Val: 1}
-	root2.Left = &tree.TreeNode{Val: 2}
-	root2.Left.Right = &tree.TreeNode{Val: 3}
-	root2.Right = &tree.TreeNode{Val: 2}
-	root2.Right.Right = &tree.TreeNode{Val: 3}
-	expected2 := false
-	test("test2", root2, expected2)
-
-	// nil
-	var root3 *TreeNode
-	expected3 := true
-	test("test3", root3, expected3)
 }
+
+// 输入一棵二叉树的根节点，求该树的深度。从根节点到叶节点依次经过的节点（含根、叶节点）形成树的一条路径，最长路径的长度为树的深度。
+
+// 例如：
+
+// 给定二叉树 [3,9,20,null,null,15,7]，
+
+//     3
+//    / \
+//   9  20
+//     /  \
+//    15   7
+// 返回它的最大深度 3 。
+
+//  
+
+// 提示：
+
+// 节点总数 <= 10000

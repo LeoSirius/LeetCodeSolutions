@@ -1,29 +1,25 @@
 package main
 
 import (
-	"slt/util_go/tree"
 	"fmt"
-	"math"
+	"slt/util_go/tree"
 )
 
 type TreeNode = tree.TreeNode
 
+func maxInt(a, b int) int {
+	if a > b {
+		return a
+	} else {
+		return b
+	}
+}
 
-/**
- * Definition for a binary tree node.
- * type TreeNode struct {
- *     Val int
- *     Left *TreeNode
- *     Right *TreeNode
- * }
- */
 func maxDepth(root *TreeNode) int {
 	if root == nil {
 		return 0
 	}
-
-	lDepth, rDepth := maxDepth(root.Left), maxDepth(root.Right)
-	return int(math.Max(float64(lDepth), float64(rDepth))) + 1
+	return maxInt(maxDepth(root.Left), maxDepth(root.Right)) + 1
 }
 
 func test(testName string, root *TreeNode, expected int) {
