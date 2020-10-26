@@ -17,24 +17,23 @@ type TreeNode = tree.TreeNode
  * }
  */
 func levelOrder(root *TreeNode) []int {
-	var res []int
-	var que []*TreeNode
+	res := []int{}
 	if root == nil {
 		return res
 	}
 
-	que = append(que, root)
+	que := []*TreeNode{root}
 	for len(que) > 0 {
-		curQueSize := len(que)
-		for i := 0; i < curQueSize; i++ {
-			curNode := que[0]
+		curLevelSize := len(que)
+		for i := 0; i < curLevelSize; i++ {
+			p := que[0]
 			que = que[1:]
-			res = append(res, curNode.Val)
-			if curNode.Left != nil {
-				que = append(que, curNode.Left)
+			res = append(res, p.Val)
+			if p.Left != nil {
+				que = append(que, p.Left)
 			}
-			if curNode.Right != nil {
-				que = append(que, curNode.Right)
+			if p.Right != nil {
+				que = append(que, p.Right)
 			}
 		}
 	}

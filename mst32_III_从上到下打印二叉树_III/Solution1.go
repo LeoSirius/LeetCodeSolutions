@@ -16,23 +16,32 @@ type TreeNode = tree.TreeNode
  *     Right *TreeNode
  * }
  */
-func levelOrder(root *TreeNode) [][]int {
-	var res [][]int
-	var que []*TreeNode
 
+func reverse(row []int) []int {
+	size := len(row)
+	for i, j := 0, size-1; i < j; i, j = i+1, j-1 {
+		row[i], row[j] = row[j], row[i]
+	}
+	return row
+}
+
+func levelOrder(root *TreeNode) [][]int {
+	res := [][]int{}
 	if root == nil {
 		return res
 	}
 
-	que = append(que, root)
-	depth := 1
+	que := []*TreeNode{root}
+	depth := 0
 	for len(que) > 0 {
 		curLevelSize := len(que)
-		var row []int
+		row := []int{}
+		depth++
 		for i := 0; i < curLevelSize; i++ {
 			p := que[0]
-			row = append(row, p.Val)
 			que = que[1:]
+			row = append(row, p.Val)
+
 			if p.Left != nil {
 				que = append(que, p.Left)
 			}
@@ -40,14 +49,11 @@ func levelOrder(root *TreeNode) [][]int {
 				que = append(que, p.Right)
 			}
 		}
-
-		if depth % 2 == 0 {
-			for i, j := 0, len(row)-1; i < j; i, j = i+1, j-1 {
-				row[i], row[j] = row[j], row[i]
-			}
+		if depth % 2 == 1 {
+			res = append(res, row)
+		} else {
+			res = append(res, reverse(row))
 		}
-		depth++
-		res = append(res, row)
 	}
 	return res
 }
@@ -77,7 +83,7 @@ func main() {
 		{20, 9},
 		{15, 7}}
 	test("test1", root1, expected1)
-	
+
 	//            0
 	//        2      4
 	//      1      3  -1

@@ -3,7 +3,10 @@ package main
 import (
 	"fmt"
 	"reflect"
+	"slt/util_go/tree"
 )
+
+type TreeNode = tree.TreeNode
 
 /**
  * Definition for a binary tree node.
@@ -13,23 +16,20 @@ import (
  *     Right *TreeNode
  * }
  */
-
 func levelOrder(root *TreeNode) [][]int {
-	var res [][]int
-	var que []*TreeNode
-
+	res := [][]int{}
 	if root == nil {
 		return res
 	}
 
-	que = append(que, root)
+	que := []*TreeNode{root}
 	for len(que) > 0 {
 		curLevelSize := len(que)
-		var row []int
+		row := []int{}
 		for i := 0; i < curLevelSize; i++ {
 			p := que[0]
-			row = append(row, p.Val)
 			que = que[1:]
+			row = append(row, p.Val)
 			if p.Left != nil {
 				que = append(que, p.Left)
 			}
@@ -41,6 +41,7 @@ func levelOrder(root *TreeNode) [][]int {
 	}
 	return res
 }
+
 
 func test(testName string, root *TreeNode, expected [][]int) {
 	res := levelOrder(root)
