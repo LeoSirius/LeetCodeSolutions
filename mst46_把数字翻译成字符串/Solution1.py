@@ -3,7 +3,7 @@ class Solution:
         if num <= 9:
             return 1
 
-        res = num % 100
+        res = num % 100       # res是最后两位
         if 10 <= res <= 25:
             return self.translateNum(num // 10) + self.translateNum(num // 100)
         else:

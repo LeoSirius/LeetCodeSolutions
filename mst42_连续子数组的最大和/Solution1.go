@@ -36,7 +36,6 @@ func maxSubArray(nums []int) int {
 
 func test(testName string, nums []int, expected int) {
 	res := maxSubArray(nums)
-	fmt.Printf("res = %v\n", res)
 	if res == expected {
 		fmt.Println(testName + " success.")
 	} else {
