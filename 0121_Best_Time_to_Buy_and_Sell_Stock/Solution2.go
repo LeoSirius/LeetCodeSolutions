@@ -5,23 +5,23 @@ import (
 )
 
 func maxProfit(prices []int) int {
-	if len(prices) < 1 {
-		return 0
+	res := 0
+	if len(prices) <= 1 {
+		return res
 	}
 
-	res := 0
 	curMin := prices[0]
 	for i := 1; i < len(prices); i++ {
 		if curMin > prices[i] {
 			curMin = prices[i]
 		}
-
-		if prices[i] - curMin > res {
+		if res < prices[i] - curMin {
 			res = prices[i] - curMin
 		}
 	}
 	return res
 }
+
 
 func test(testName string, prices []int, expected int) {
 	res := maxProfit(prices)
