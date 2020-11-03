@@ -18,6 +18,8 @@ public:
             if (!deq.empty() && deq.front() < i - k + 1)
                 deq.pop_front();
             deq.push_back(i);
+
+            // 索引i遍历到满足条件时，直接每次把deq的第一个元素加到res里就好了
             if (k - 1 <= i)
                 res.push_back(nums[deq.front()]);
         }
