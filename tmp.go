@@ -2,55 +2,43 @@ package main
 
 import (
 	"fmt"
-	"reflect"
-	"slt/util_go/list"
 )
 
-type ListNode = list.ListNode
-
-/**
- * Definition for singly-linked list.
- * type ListNode struct {
- *     Val int
- *     Next *ListNode
- * }
- */
-func reversePrint(head *ListNode) []int {
-	res := []int{}
-
-	var dfs func(*ListNode)
-	dfs = func(node *ListNode) {
-		if node == nil {
-			return
-		}
-		dfs(node.Next)
-		res = append(res, node.Val)
-	}
-	dfs(head)
-
-	return res
-}
-
-func test(testName string, head *ListNode, expected []int) {
-	res := reversePrint(head)
-	if reflect.DeepEqual(res, expected) {
-		fmt.Println(testName + " success.")
-	} else {
-		fmt.Println(testName + " failed.")
-	}
-}
-
-func main() {
-	head1 := list.BuildList([]int{1,3,2})
-	expected1 := []int{2,3,1}
-	test("test1", head1, expected1)
+func maxSlidingWindow(nums []int, k int) []int {
 
 }
 
+// int main()
+// {
+//     vector<int> nums1 = {1,3,-1,-3,5,3,6,7};
+//     int k1 = 3;
+//     vector<int> expected1 = {3,3,5,5,6,7};
+//     test("test1", nums1, k1, expected1);
 
-// 输入一个链表的头节点，从尾到头反过来返回每个节点的值（用数组返回）。
+//     return 0;
+// }
 
-// 示例 1：
 
-// 输入：head = [1,3,2]
-// 输出：[2,3,1]
+
+// 给定一个数组 nums 和滑动窗口的大小 k，请找出所有滑动窗口里的最大值。
+
+// 示例:
+
+// 输入: nums = [1,3,-1,-3,5,3,6,7], 和 k = 3
+// 输出: [3,3,5,5,6,7] 
+// 解释: 
+
+//   滑动窗口的位置                最大值
+// ---------------               -----
+// [1  3  -1] -3  5  3  6  7       3
+//  1 [3  -1  -3] 5  3  6  7       3
+//  1  3 [-1  -3  5] 3  6  7       5
+//  1  3  -1 [-3  5  3] 6  7       5
+//  1  3  -1  -3 [5  3  6] 7       6
+//  1  3  -1  -3  5 [3  6  7]      7
+//  
+
+// 提示：
+
+// 你可以假设 k 总是有效的，在输入数组不为空的情况下，1 ≤ k ≤ 输入数组的大小。
+

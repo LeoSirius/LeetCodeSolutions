@@ -6,8 +6,8 @@ import (
 )
 
 type CQueue struct {
-	sI []int
-	sO []int
+	si []int
+	so []int
 }
 
 
@@ -17,28 +17,23 @@ func Constructor() CQueue {
 
 
 func (this *CQueue) AppendTail(value int)  {
-	this.sI = append(this.sI, value)
+	this.si = append(this.si, value)
 }
 
 
 func (this *CQueue) DeleteHead() int {
-	if len(this.sI) == 0 && len(this.sO) == 0 {
-		return -1
+	if len(this.so) == 0 {
+		if len(this.si) == 0 {
+			return -1
+		}
+		for len(this.si) > 0 {
+			tmp := this.si[len(this.si)-1]
+			this.si = this.si[:len(this.si)-1]
+			this.so = append(this.so, tmp)
+		}
 	}
-	if len(this.sO) > 0 {
-		res := this.sO[len(this.sO)-1]
-		this.sO = this.sO[:len(this.sO)-1]
-		return res
-	}
-
-	for len(this.sI) > 0 {
-		topAtIn := this.sI[len(this.sI)-1]
-		this.sI = this.sI[:len(this.sI)-1]
-		this.sO = append(this.sO, topAtIn)
-	}
-
-	res := this.sO[len(this.sO)-1]
-	this.sO = this.sO[:len(this.sO)-1]
+	res := this.so[len(this.so)-1]
+	this.so = this.so[:len(this.so)-1]
 	return res
 }
 

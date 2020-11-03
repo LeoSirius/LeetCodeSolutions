@@ -5,40 +5,55 @@ import (
 	"reflect"
 )
 
+
 type MinStack struct {
-	s []int
-	smin []int
+	stk []int
+	mstk []int
 }
+
 
 /** initialize your data structure here. */
 func Constructor() MinStack {
 	return MinStack{}
 }
 
+
 func (this *MinStack) Push(x int)  {
-	this.s = append(this.s, x)
-	if len(this.smin) == 0 || x <= this.smin[len(this.smin)-1] {
-		this.smin = append(this.smin, x)
+	this.stk = append(this.stk, x)
+	if len(this.mstk) == 0 || x <= this.mstk[len(this.mstk)-1] {
+		this.mstk = append(this.mstk, x)
 	}
 }
 
 
-func (this *MinStack) Pop() {
-	top := this.s[len(this.s)-1]
-	if top == this.smin[len(this.smin)-1] {
-		this.smin = this.smin[:len(this.smin)-1]
+func (this *MinStack) Pop()  {
+	if len(this.stk) == 0 {
+		return
 	}
-	this.s = this.s[:len(this.s)-1]
+	popValue := this.stk[len(this.stk)-1]
+	this.stk = this.stk[:len(this.stk)-1]
+
+	if len(this.mstk) > 0 && this.mstk[len(this.mstk)-1] == popValue {
+		this.mstk = this.mstk[:len(this.mstk)-1]
+	}
 }
+
 
 func (this *MinStack) Top() int {
-	return this.s[len(this.s)-1]
-
+	if len(this.stk) == 0 {
+		return -1
+	}
+	return this.stk[len(this.stk)-1]
 }
+
 
 func (this *MinStack) Min() int {
-	return this.smin[len(this.smin)-1]
+	if len(this.mstk) == 0 {
+		return -1
+	}
+	return this.mstk[len(this.mstk)-1]
 }
+
 
 /**
  * Your MinStack object will be instantiated and called as such:
@@ -48,6 +63,7 @@ func (this *MinStack) Min() int {
  * param_3 := obj.Top();
  * param_4 := obj.Min();
  */
+
 
 func test1() {
 	stk := Constructor()
