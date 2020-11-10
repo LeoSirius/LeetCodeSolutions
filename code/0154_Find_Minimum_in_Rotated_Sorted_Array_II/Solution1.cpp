@@ -9,13 +9,13 @@ public:
         int mid;
         while (l < r) {
             mid = l + (r - l) / 2;
-            // 最小数pivot <= mid
+            // 最小数pivot <= mid。中间的数严格小于右边，[3,2,1,5,5]，说明pivot <= mid
             if (numbers[mid] < numbers[r])
                 r = mid;
-            // 最小数pivot > mid
+            // 最小数pivot > mid。中间的数严格大于右边，[5,5,6,1,2]，说明pivot > mid
             else if (numbers[r] < numbers[mid])
                 l = mid + 1;
-            // 去重[mid, r]都是相等的
+            // 去重[mid, r]都是相等的。中间和右边是相等的[3,2,4,4,4]
             else
                 r--;
         }

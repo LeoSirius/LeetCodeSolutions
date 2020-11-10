@@ -27,31 +27,22 @@
 
 观察可以发现，再给出的数组中，2之后的数字都是降序排列的，我们把2后面第一个比2大的数字（这里是3）和2交换，然后让3后面的数字升序排列。
 
+交换和逆序两步的顺序不重要
+
+先交换，再逆序：
+
+127431
+137421
+131247
+
+先逆序，再交换
+
+127431
+121347
+131247
+
+
+
 简单思路的证明：从7开始是降序的，也就是说7 4 3 1不可能通过重新排列构成更大的数字。如果要得到next permutation，那么必须把2这个位置的数字给换掉才行，而且只能换成比2大的数字在才能使next permutation > current permutation.至于换成多大的数字，很明显的需要换成在2后面的数字中刚好比2大的数字。
 
 注意两次遍历都是从后往前哦。
-
-```python
-class Solution:
-    def nextPermutation(self, nums) -> None:
-        """
-        Do not return anything, modify nums in-place instead.
-        """
-        length = len(nums)
-        p = length - 1
-
-        # e.g. 127431 p point to 7
-        while p > 0 and nums[p-1] >= nums[p]:
-            p -= 1
-        
-        # from 127431 to 121347
-        reverse_len = length - p
-        for i in range(reverse_len // 2):
-            nums[p+i], nums[length-1-i] = nums[length-1-i], nums[p+i]
-        
-        if p > 0:
-            for i in range(p, length):
-                if nums[i] > nums[p-1]:
-                    nums[i], nums[p-1] = nums[p-1], nums[i]
-                    break
-```
