@@ -4,58 +4,31 @@ import (
 	"fmt"
 )
 
+func twoSum(nums []int, target int) []int {
 
-func majorityElement(nums []int) int {
-	count, candidate := 0, 0
-
-	for _, n := range nums {
-		if count == 0 {
-			candidate = n
-		}
-		if candidate == n {
-			count++
-		} else {
-			count--
-		}
-	}
-	return candidate
 }
-
-
-func test(testName string, nums []int, expected int) {
-	res := majorityElement(nums)
-	if res == expected {
-		fmt.Println(testName + " success.")
-	} else {
-		fmt.Println(testName + " failed.")
-	}
-}
-
 
 func main() {
-	nums1 := []int{3,2,3}
-	expected1 := 3
-	test("test1", nums1, expected1)
-
-	nums2 := []int{2,2,1,1,1,2,2}
-	expected2 := 2
-	test("test2", nums2, expected2)
-
+	
 }
 
-// Given an array of size n, find the majority element. 
-// The majority element is the element that appears more than ⌊ n/2 ⌋ times.
 
-// You may assume that the array is non-empty and the majority 
-// element always exist in the array.
+// 输入一个递增排序的数组和一个数字s，在数组中查找两个数，使得它们的和正好是s。
+// 如果有多对数字的和等于s，则输出任意一对即可。
 
-// Example 1:
+// 示例 1：
 
-// Input: [3,2,3]
-// Output: 3
+// 输入：nums = [2,7,11,15], target = 9
+// 输出：[2,7] 或者 [7,2]
 
-// Example 2:
+// 示例 2：
 
-// Input: [2,2,1,1,1,2,2]
-// Output: 2
+// 输入：nums = [10,26,30,31,47,60], target = 40
+// 输出：[10,30] 或者 [30,10]
+//  
+
+// 限制：
+
+// 1 <= nums.length <= 10^5
+// 1 <= nums[i] <= 10^6
 
