@@ -40,7 +40,6 @@ public:
 void test(string test_name, string num, int k, string expected)
 {
     string res = Solution().removeKdigits(num, k);
-    cout << "res = " << res << endl;
     if (res == expected)
         cout << test_name << " success." << endl;
     else
