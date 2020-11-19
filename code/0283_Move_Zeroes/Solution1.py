@@ -6,17 +6,32 @@ class Solution:
         """
         Do not return anything, modify nums in-place instead.
         """
-        pass
+        for i in range(len(nums)):
+            if nums[i] == 0:
+                idxnot0 = i
+                while idxnot0 < len(nums)-1 and nums[idxnot0] == 0:
+                    idxnot0 += 1
+                nums[i], nums[idxnot0] = nums[idxnot0], nums[i]
 
 
 def test(test_name, nums, expected):
     Solution().moveZeroes(nums)
+    print(f'res = {nums}')
     if nums == expected:
-        print(test_name, )
+        print(test_name + ' success.')
+    else:
+        print(test_name + ' failed.')
 
 
 if __name__ == '__main__':
-    pass
+    nums1 = [0,1,0,3,12]
+    expected1 = [1,3,12,0,0]
+    test('test1', nums1, expected1)
+
+    nums2 = [1,0]
+    expected2 = [1,0]
+    test('test2', nums2, expected2)
+
 
 # 给定一个数组 nums，编写一个函数将所有 0 移动到数组的末尾，同时保持非零元素的相对顺序。
 
