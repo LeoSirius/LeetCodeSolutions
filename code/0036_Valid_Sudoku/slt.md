@@ -7,29 +7,6 @@
 i / 3 * 3 后值为0,3,6
 j / 3后值为0,1,2
 
-```cpp
-class Solution {
-public:
-    bool isValidSudoku(vector<vector<char>>& board) {
-        int used_row[9][9] = {0};       // 第一维是索引，第二维是数字减1
-        int used_col[9][9] = {0};
-        int used_square[9][9] = {0};
-        for(int i = 0; i < board.size(); i++){
-            for(int j = 0; j < board[i].size(); j++){
-                if(board[i][j] != '.'){
-                    int num = board[i][j] - '0' - 1; // 下标是0-8
-                    int k = i / 3 * 3 + j / 3;   // 把9个小方块分别归入0-8中
-                    if(used_row[i][num] || used_col[j][num] || used_square[k][num]){
-                        return false;
-                    }
-                    used_row[i][num] = used_col[j][num] = used_square[k][num] = 1;
-                }
-            }
-        }
-        return true;
-    }
-};
-```
 
 ### 思路2 迭代分别检查行列和小正方形
 

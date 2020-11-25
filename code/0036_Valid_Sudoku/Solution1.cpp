@@ -5,14 +5,14 @@ using namespace std;
 class Solution {
 public:
     bool isValidSudoku(vector<vector<char>>& board) {
-        int used_rows[9][9] = {0};
+        int used_rows[9][9] = {0};                      // 第一维是索引，第二维是数字减1
         int used_cols[9][9] = {0};
         int used_squares[9][9] = {0};
         for (int i = 0; i < board.size(); i++)
         for (int j = 0; j < board[0].size(); j++) {
             if (board[i][j] != '.') {
-                int k = i / 3 * 3 + j / 3;
-                int num = board[i][j] - '0' - 1;
+                int k = i / 3 * 3 + j / 3;              // 把9个小方块分别归入0-8中
+                int num = board[i][j] - '0' - 1;        // 下标是0-8
                 if (used_rows[i][num] || used_cols[j][num] || used_squares[k][num])
                     return false;
                 used_rows[i][num] = used_cols[j][num] = used_squares[k][num] = 1;
