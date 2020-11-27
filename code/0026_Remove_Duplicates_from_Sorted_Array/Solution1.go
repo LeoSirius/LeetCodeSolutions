@@ -8,11 +8,10 @@ import (
 func removeDuplicates(nums []int) int {
 	tail := 0
 	for i := 1; i < len(nums); i++ {
-		if (nums[i] == nums[i-1]) {
-			continue
+		if nums[tail] != nums[i] {
+			tail++
+			nums[tail] = nums[i]
 		}
-		tail += 1
-		nums[tail] = nums[i]
 	}
 	return tail + 1
 }
