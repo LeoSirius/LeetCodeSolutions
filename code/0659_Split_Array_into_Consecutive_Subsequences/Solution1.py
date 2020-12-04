@@ -11,7 +11,7 @@ class Solution:
                 # 如果当前这个数的前一个数不在chains中，说明当前这个数就是开头，长度设置为1
                 heapq.heappush(chains[i], 1)
             else:
-                # 前一个数在chains，前一个数最短的那个列不在作为结尾，pop出。push当前数i，并作为结尾，更新长度
+                # 前一个数在chains，前一个数最短的那个列不再作为结尾，pop出。push当前数i，并作为结尾，更新长度
                 min_len = heapq.heappop(chains[i-1])
                 heapq.heappush(chains[i], min_len + 1)
         
