@@ -23,6 +23,7 @@ def test(test_name, digits, expected):
     else:
         print(test_name + ' failed.')
 
+
 if __name__ == "__main__":
     digits1 = [1,2,3]
     expected1 = [1,2,4]
