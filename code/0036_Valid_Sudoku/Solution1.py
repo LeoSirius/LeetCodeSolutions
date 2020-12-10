@@ -3,7 +3,7 @@ from typing import *
 
 class Solution:
     def isValidSudoku(self, board: List[List[str]]) -> bool:
-        used_rows = [[0] * 9 for _ in range(9)]
+        used_rows = [[0] * 9 for _ in range(9)]   # key is row idx, value is the number in that row
         used_cols = [[0] * 9 for _ in range(9)]
         used_squr = [[0] * 9 for _ in range(9)]
 
