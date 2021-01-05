@@ -1,14 +1,14 @@
 class Solution:
     def numWays(self, n: int) -> int:
-        last1, last2 = 1, 1
         if n <= 1:
             return 1
-        
-        for i in range(2, n+1):
-            tmp = last1
-            last1 = (last1 + last2) % 1000000007
-            last2 = tmp
-        
+
+        last1, last2 = 1, 1
+        for _ in range(2, n + 1):
+            tmp = (last1 + last2) % 1000000007
+            last2 = last1
+            last1 = tmp
+
         return last1
 
 

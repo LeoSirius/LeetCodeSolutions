@@ -5,31 +5,33 @@ class Solution:
         res = []
         i, j = r0, c0
         que = [[i, j]]
-        dx = [-1, 0, 1, 0]
-        dy = [0, -1, 0, 1]
+
+        dx = [0, 1, 0, -1]
+        dy = [1, 0, -1, 0]
+
         mp = [[False] * C for _ in range(R)]
-        mp[i][j] = True      # 已经走过的标记为True，避免走回头路
+        mp[i][j] = True
 
         while que:
             cur_level_size = len(que)
-            for i in range(cur_level_size):
+            while cur_level_size:
+                cur_level_size -= 1
                 cur_node = que.pop(0)
                 res.append(cur_node)
-                for j in range(4):
-                    x, y = cur_node[0] + dx[j], cur_node[1] + dy[j]
+
+                for i in range(4):
+                    x, y = cur_node[0] + dx[i], cur_node[1] + dy[i]
                     if x < 0 or y < 0 or x >= R or y >= C:
                         continue
-                    if mp[x][y] == True:
+                    if mp[x][y]:
                         continue
+                    que.append([x,y])
                     mp[x][y] = True
-                    que.append([x, y])
-
         return res
 
 
 def test(test_name, R, C, r0, c0, expected_arr):
     res = Solution().allCellsDistOrder(R, C, r0, c0)
-    print(f'res = {res}')
     if res in expected_arr:
         print(test_name + ' success.')
     else:
