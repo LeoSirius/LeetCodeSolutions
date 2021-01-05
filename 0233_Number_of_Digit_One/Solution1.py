@@ -5,18 +5,23 @@ class Solution:
         res, digit = 0, 1
 
         while n // digit:
+            # 以当前位n为中心，右边的拆分到high里，左边的拆分到low里
+            # 每一个loop数的是当前位置会出现多少个1
             high = n // (10 * digit)
             cur = (n // digit) % 10
             low = n - (n // digit) * digit
 
             if cur == 0:
+                # 当前是0，则只有在右边的高位会出现1。高位每变一次，则会有digit个1出现
                 res += high * digit
             elif cur == 1:
+                # 当前是1，则要加上右边的1
                 res += high * digit + low + 1
             else:
                 res += high * digit + digit
             digit *= 10
         return res
+
 
 def test(test_name, n, expected):
     res = Solution().countDigitOne(n)

@@ -1,4 +1,4 @@
-from utils_py.tree import *
+from util_py.tree import *
 
 # Definition for a binary tree node.
 # class TreeNode:
@@ -11,11 +11,11 @@ from utils_py.tree import *
 class Solution:
     def mirrorTree(self, root: TreeNode) -> TreeNode:
         if not root:
-            return
-        l, r = self.mirrorTree(root.left), self.mirrorTree(root.right)
-        root.left, root.right = r, l
+            return None
+        root.left = self.mirrorTree(root.left)
+        root.right = self.mirrorTree(root.right)
+        root.left, root.right = root.right, root.left
         return root
-
 
 def test(test_name, root, expected):
     res = Solution().mirrorTree(root)

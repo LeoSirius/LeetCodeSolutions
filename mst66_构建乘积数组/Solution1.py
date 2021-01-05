@@ -2,15 +2,19 @@ from typing import *
 
 class Solution:
     def constructArr(self, a: List[int]) -> List[int]:
-        res = [1] * len(a)
+        a_len = len(a)
+        res = [1 for _ in range(a_len)]
+
         cur_mul = 1
-        for i in range(len(a)):
-            res[i] = cur_mul
-            cur_mul *= a[i]
-        cur_mul = 1
-        for i in range(len(a)-1, -1, -1):
+        for i in range(a_len):
             res[i] *= cur_mul
             cur_mul *= a[i]
+
+        cur_mul = 1
+        for i in range(a_len-1, -1, -1):
+            res[i] *= cur_mul
+            cur_mul *= a[i]
+
         return res
 
 
