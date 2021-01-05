@@ -7,6 +7,7 @@ import (
 
 func reverse(x int) int {
 	res := 0
+
 	for x != 0 {
 		n := x % 10
 		x /= 10
@@ -14,17 +15,18 @@ func reverse(x int) int {
 		if res > math.MaxInt32/10 || (res == math.MaxInt32/10 && n > 7) {
 			return 0
 		}
+
 		if res < math.MinInt32/10 || (res == math.MinInt32/10 && n < -8) {
 			return 0
 		}
 		res = res * 10 + n
 	}
-
 	return res
 }
 
 func test(testName string, x, expected int) {
 	res := reverse(x)
+	fmt.Printf("res = %v\n", res)
 	if res == expected {
 		fmt.Println(testName + " success.")
 	} else {
@@ -36,7 +38,7 @@ func main() {
 	x1, expected1 := 123, 321
 	test("test1", x1, expected1)
 
-	x2, expected2 := -123, -321
+	x2, expected2 := -1234, -4321
 	test("test2", x2, expected2)
 
 	x3, expected3 := 120, 21
