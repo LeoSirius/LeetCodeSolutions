@@ -15,7 +15,7 @@ class Solution:
             A, B = find(a), find(b)
             if A != B:
                 root[A] = B
-            
+
         for a, b in pairs:
             join(a, b)
 
