@@ -1,4 +1,5 @@
-### 思路1
+### Solution 1
 
-结果只返回三角形中的一行，我们也没有必要存储全部三角形。只用一个数组，从后遍历。
+The result we need is only one line. So there is no need to store all lines of triangle, just one line will satisfy.
 
+We iterate from back to front to avoid res[j-1] be overridden.
