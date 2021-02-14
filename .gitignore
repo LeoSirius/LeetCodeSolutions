@@ -1,6 +1,9 @@
+.idea/*
 .vscode/*
+
+*.swp
+*.swo
 *a.out
 .DS_Store
-.idea/*
 *.pyc
 tmp*
