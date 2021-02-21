@@ -1,7 +1,7 @@
 // 2019-06-28开始
 
 // topics only do easy and middle
-// current topics: array-31 -> dp -> string -> math -> tree
+// current topics: array-31 -> dp-13 -> string -> math -> tree
 // from back to front
 
 
@@ -45,7 +45,7 @@
     [1004], array-31:[mst16.24]
 },
 20210220={
-    [0697]
+    [0697], array-31:[mst17.04], dp-13:[1746]
 }
 
 
