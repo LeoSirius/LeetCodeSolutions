@@ -1,27 +1,31 @@
+from typing import *
+
+
 class Solution:
-    def integerBreak(self, n: int) -> int:
-        dp = [1] * (n + 1)
-        for i in range(2, n + 1):
-            for j in range(1, i):
-                dp[i] = max(dp[i], j * (i-j), j * dp[i-j])
+    def maxSubArray(self, nums: List[int]) -> int:
+        dp = [0] * len(nums)
+        dp[0] = nums[0]
 
-        return dp[-1]
+        for i in range(1, len(nums)):
+            dp[i] = max(0, dp[i-1]) + nums[i]
+
+        return max(dp)
 
 
-def test(test_name, n, expected):
-    res = Solution().integerBreak(n)
+def test(test_name, nums, expected):
+    res = Solution().maxSubArray(nums)
     if res == expected:
         print(test_name + ' success.')
     else:
         print(test_name + ' failed.')
 
 
-if __name__ == '__main__':
-    n1 = 2
-    expected1 = 1
-    test('test1', n1, expected1)
+if __name__ == "__main__":
+    nums1 = [-2,1,-3,4,-1,2,1,-5,4]
+    expected1 = 6
+    test('test1', nums1, expected1)
 
-    n2 = 10
-    expected2 = 36
-    test('test2', n2, expected2)
+    nums2 = [1]
+    expected2 = 1
+    test('test2', nums2, expected2)
 
