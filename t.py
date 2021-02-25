@@ -2,18 +2,23 @@ from typing import *
 
 
 class Solution:
-    def maxSubArray(self, nums: List[int]) -> int:
-        dp = [0] * len(nums)
-        dp[0] = nums[0]
+    def maxValue(self, grid: List[List[int]]) -> int:
+        if not grid or not grid[0]:
+            return 0
 
-        for i in range(1, len(nums)):
-            dp[i] = max(0, dp[i-1]) + nums[i]
+        dp_row = [0] * len(grid[0])
 
-        return max(dp)
+        for i in range(len(grid)):
+            dp_row[0] += grid[i][0]
+            for j in range(1, len(grid[0])):
+                dp_row[j] = max(dp_row[j-1], dp_row[j]) + grid[i][j]
+
+        return dp_row[-1]
 
 
-def test(test_name, nums, expected):
-    res = Solution().maxSubArray(nums)
+def test(test_name, grid, expected):
+    res = Solution().maxValue(grid)
+    print(f'res = {res}')
     if res == expected:
         print(test_name + ' success.')
     else:
@@ -21,11 +26,20 @@ def test(test_name, nums, expected):
 
 
 if __name__ == "__main__":
-    nums1 = [-2,1,-3,4,-1,2,1,-5,4]
-    expected1 = 6
-    test('test1', nums1, expected1)
+    grid1 = [
+        [1,3,1],
+        [1,5,1],
+        [4,2,1]
+    ]
+    expected1 = 12
+    test('test1', grid1, expected1)
 
-    nums2 = [1]
-    expected2 = 1
-    test('test2', nums2, expected2)
+    grid2 = [
+        [1,2],
+        [5,6],
+        [1,1]
+    ]
+    expected2 = 13
+    test('test2', grid2, expected2)
+
 
