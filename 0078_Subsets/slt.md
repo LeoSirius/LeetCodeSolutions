@@ -1,4 +1,6 @@
-### 思路1
+### 思路1 Traceback
+
+Can be done with both iteration and recursion methods.
 
 使用回溯法（递归）
 
