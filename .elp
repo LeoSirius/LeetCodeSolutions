@@ -1,8 +1,14 @@
 // 2019-06-28开始
 
-// topics only do easy and middle
-// current topics: array-31 -> dp-13 -> string -> math -> tree
-// from back to front
+topics only do easy and middle
+current topics: array -> dp -> string -> math -> tree
+
+topic groups = [
+    [array, dp, string, math, tree],
+    [dfs, hash, greedy, b-search, bfs],
+    [two-pointers, sort, backtracking, design, stack],
+]
+
 
 
 20210205={
@@ -67,8 +73,10 @@
 },
 20210227={
     [395]
+},
+20210301={
+    [303], array-1:[
 }
-
 
 
 
