@@ -1,27 +1,29 @@
-from typing import List
+from typing import *
 
 class Solution:
-    def twoSum(self, nums: List[int], target: int) -> List[int]:
-        mp = {}
-        for i, n in enumerate(nums):
-            n2find = target - n
-            if n2find in mp:
-                return [i, mp[n2find]]
-            mp[n] = i
-        return []
+    def maxArea(self, height: List[int]) -> int:
+        water = 0
+        l, r = 0, len(height) - 1
+        while l < r:
+            water = max(water, min(height[l], height[r]) * (r - l))
+            if height[l] < height[r]:
+                l += 1
+            else:
+                r -= 1
+        return water
 
 
-def test(test_name, nums: List[int], target: int, expected: List[int]):
+def test(test_name, height, expected):
     slt = Solution()
-    res = slt.twoSum(nums, target)
-    if sorted(res) == sorted(expected):
-        print(test_name + ' success')
+    res = slt.maxArea(height)
+    if res == expected:
+        print(test_name + ' success.')
     else:
         print(test_name + ' failed.')
 
 
 if __name__ == '__main__':
-    nums1 = [2, 7, 11, 15]
-    target1 = 9
-    expected1 = [0,1]
-    test('test1', nums1, target1, expected1)
+    height1 = [1,8,6,2,5,4,8,3,7]
+    expected1 = 49
+    test('test1', height1, expected1)
+
