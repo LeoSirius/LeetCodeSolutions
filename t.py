@@ -1,21 +1,20 @@
 from typing import *
 
 class Solution:
-    def maxArea(self, height: List[int]) -> int:
-        water = 0
-        l, r = 0, len(height) - 1
-        while l < r:
-            water = max(water, min(height[l], height[r]) * (r - l))
-            if height[l] < height[r]:
-                l += 1
-            else:
-                r -= 1
-        return water
+    def threeSum(self, nums: List[int]) -> List[List[int]]:
+        res = []
+        nums.sort()
+
+        for i in range(len(nums)):
+            l, r = i, len(nums) - 1
+            while l < r:
+                kkkk
 
 
-def test(test_name, height, expected):
-    slt = Solution()
-    res = slt.maxArea(height)
+def test(test_name, nums, expected):
+    res = Solution().threeSum(nums)
+    res = [item.sort() for item in res]
+    expected = [item.sort() for item in expected]
     if res == expected:
         print(test_name + ' success.')
     else:
@@ -23,7 +22,9 @@ def test(test_name, height, expected):
 
 
 if __name__ == '__main__':
-    height1 = [1,8,6,2,5,4,8,3,7]
-    expected1 = 49
-    test('test1', height1, expected1)
-
+    nums1 = [-1, 0, 1, 2, -1, -4]
+    expected1 = [
+        [-1, 0, 1],
+        [-1, -1, 2]
+    ]
+    test('test1', nums1, expected1)
