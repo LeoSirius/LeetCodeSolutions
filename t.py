@@ -1,27 +1,28 @@
 class Solution:
     def calculate(self, s: str) -> int:
-        res, sign, n = 0, 1, 0
         stk = []
+        pre_op = '+'
+        n = 0
 
-        for c in s:
-            if c.isdigit():
-                n = n * 10 + int(c)
-            elif c in ['+', '-']:
-                res += sign * n
+        for i, ch in enumerate(s):
+            if ch.isdigit():
+                n = n * 10 + int(ch)
+            if i == len(s) - 1 or ch in '+-*/':
+                if pre_op == '+':
+                    stk.append(n)
+                elif pre_op == '-':
+                    stk.append(-n)
+                elif pre_op == '*':
+                    stk.append(stk.pop() * n)
+                elif pre_op == '/':
+                    top = stk.pop()
+                    if top < 0:
+                        stk.append(int(top / n))
+                    else:
+                        stk.append(top // n)
+                pre_op = ch
                 n = 0
-                sign = 1 if c == '+' else -1
-            elif c == '(':
-                stk.append(res)
-                stk.append(sign)
-                res = 0
-                sign = 1
-            elif c == ')':
-                res += sign * n
-                n = 0
-                res *= stk.pop()
-                res += stk.pop()
-        res += sign * n
-        return res
+        return sum(stk)
 
 
 def test(test_name, s, expected):
@@ -33,15 +34,16 @@ def test(test_name, s, expected):
 
 
 if __name__ == '__main__':
-    s1 = "1 + 1"
-    expected1 = 2
+    s1 = "3+2*2"
+    expected1 = 7
     test('test1', s1, expected1)
 
-    s2 = " 2-1 + 2 "
-    expected2 = 3
+    s2 = " 3/2 "
+    expected2 = 1
     test('test2', s2, expected2)
 
-    s3 = "(1+(4+5+2)-3)+(6+8)"
-    expected3 = 23
+    s3 = " 3+5 / 2 "
+    expected3 = 5
     test('test3', s3, expected3)
+
 
