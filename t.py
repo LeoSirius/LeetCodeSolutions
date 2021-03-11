@@ -1,22 +1,31 @@
-from typing import *
-
-
 class Solution:
-    def nextGreaterElements(self, nums: List[int]) -> List[int]:
-        N = len(nums)
-        res = [-1] * N
+    def calculate(self, s: str) -> int:
+        res, sign, n = 0, 1, 0
         stk = []
 
-        for i in range(2 * N):
-            while stk and nums[stk[-1]] < nums[i%N]:
-                res[stk.pop()] = nums[i%N]
-            stk.append(i%N)
+        for c in s:
+            if c.isdigit():
+                n = n * 10 + int(c)
+            elif c in ['+', '-']:
+                res += sign * n
+                n = 0
+                sign = 1 if c == '+' else -1
+            elif c == '(':
+                stk.append(res)
+                stk.append(sign)
+                res = 0
+                sign = 1
+            elif c == ')':
+                res += sign * n
+                n = 0
+                res *= stk.pop()
+                res += stk.pop()
+        res += sign * n
         return res
 
 
-def test(test_name, nums, expected):
-    res = Solution().nextGreaterElements(nums)
-    print(f'res = {res}')
+def test(test_name, s, expected):
+    res = Solution().calculate(s)
     if res == expected:
         print(test_name + ' success.')
     else:
@@ -24,7 +33,15 @@ def test(test_name, nums, expected):
 
 
 if __name__ == '__main__':
-    nums1 = [1,2,1]
-    expected1 = [2,-1,2]
-    test('test1', nums1, expected1)
+    s1 = "1 + 1"
+    expected1 = 2
+    test('test1', s1, expected1)
+
+    s2 = " 2-1 + 2 "
+    expected2 = 3
+    test('test2', s2, expected2)
+
+    s3 = "(1+(4+5+2)-3)+(6+8)"
+    expected3 = 23
+    test('test3', s3, expected3)
 
