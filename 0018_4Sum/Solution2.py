@@ -62,4 +62,3 @@ if __name__ == '__main__':
         -2,-1,1,2],
         [-1,-1,1,1]]
     test('test2', nums2, target2, expected2)
-
