@@ -1,18 +1,18 @@
-from typing import *
+from typing import List
 
 class Solution:
     def fourSum(self, nums: List[int], target: int) -> List[List[int]]:
-        def n_sum(nums, target, N, path, res):
-            if len(nums) < N or N < 2 or N * nums[-1] < target or target < N * nums[0]:
+
+        def N_sum(N, nums, target, path, res):
+            if N < 2 or len(nums) < N or N * nums[0] > target or N * nums[-1] < target:
                 return
 
-            if 2 < N:
+            if N > 2:
                 for i in range(len(nums) - N + 1):
                     if i > 0 and nums[i] == nums[i-1]: continue
-                    n_sum(nums[i+1:], target - nums[i], N - 1, path + [nums[i]], res)
+                    N_sum(N - 1, nums[i+1:], target - nums[i], path + [nums[i]], res)
                 return
 
-            # N == 2
             l, r = 0, len(nums) - 1
             while l < r:
                 s = nums[l] + nums[r]
@@ -26,19 +26,19 @@ class Solution:
                     l += 1
                 else:
                     r -= 1
-        
+
         res = []
         nums.sort()
-        n_sum(nums, target, 4, [], res)
+        N_sum(4, nums, target, [], res)
         return res
+
 
 def test(test_name, nums, target, expected):
     res = Solution().fourSum(nums, target)
     for item in res:
         item.sort()
     res.sort()
-    for item in expected:
-        item.sort()
+    expected = [sorted(item) for item in expected]
     expected.sort()
     if res == expected:
         print(test_name + ' success.')
@@ -55,3 +55,11 @@ if __name__ == '__main__':
         [-2,  0, 0, 2]
     ]
     test('test1', nums1, target1, expected1)
+
+    nums2 = [-2,-1,-1,1,1,2,2]
+    target2 = 0
+    expected2 = [[
+        -2,-1,1,2],
+        [-1,-1,1,1]]
+    test('test2', nums2, target2, expected2)
+
