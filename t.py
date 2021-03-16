@@ -2,83 +2,48 @@ from typing import *
 
 
 class Solution:
-    def spiralOrder(self, matrix: List[List[int]]) -> List[int]:
-        res = []
-        if not matrix:
-            return res
+    def generateMatrix(self, n: int) -> List[List[int]]:
+        res = [[0] * n for _ in range(n)]
+        left, right, top, bottom = 0, n-1, 0, n-1
 
-        left, right = 0, len(matrix[0]) - 1
-        top, bottom = 0, len(matrix) - 1
-
+        k = 1
         while left <= right and top <= bottom:
             for i in range(left, right+1):
-                res.append(matrix[top][i])
+                res[top][i] = k
+                k += 1
             top += 1
-
             for j in range(top, bottom+1):
-                res.append(matrix[j][right])
+                res[j][right] = k
+                k += 1
             right -= 1
-
             if left > right or top > bottom:
                 break
-
             for i in range(right, left-1, -1):
-                res.append(matrix[bottom][i])
+                res[bottom][i] = k
+                k += 1
             bottom -= 1
-
             for j in range(bottom, top-1, -1):
-                res.append(matrix[j][left])
+                res[j][left] = k
+                k += 1
             left += 1
-
         return res
 
 
-def test(test_name, matrix, expected):
-    res = Solution().spiralOrder(matrix)
-    print(f'res = {res}')
+def test(test_name, n, expected):
+    res = Solution().generateMatrix(n)
     if res == expected:
-        print(f'{test_name} success.')
+        print(test_name + ' success.')
     else:
-        print(f'{test_name} failed.')
+        print(test_name + ' failed.')
 
 
 if __name__ == "__main__":
-    matrix1 = [
+    n1 = 3
+    expected1 = [
         [ 1, 2, 3 ],
-        [ 4, 5, 6 ],
-        [ 7, 8, 9 ]
+        [ 8, 9, 4 ],
+        [ 7, 6, 5 ]
     ]
-    expected1 = [1,2,3,6,9,8,7,4,5]
-    test('test1', matrix1, expected1)
+    test('test1', n1, expected1)
 
-    matrix2 = [
-        [1, 2, 3, 4],
-        [5, 6, 7, 8],
-        [9,10,11,12]
-    ]
-    expected2 = [1,2,3,4,8,12,11,10,9,5,6,7]
-    test('test2', matrix2, expected2)
-
-
-# Given a matrix of m x n elements (m rows, n columns), return
-#  all elements of the matrix in spiral order.
-
-# Example 1:
-
-# Input:
-# [
-#  [ 1, 2, 3 ],
-#  [ 4, 5, 6 ],
-#  [ 7, 8, 9 ]
-# ]
-# Output: [1,2,3,6,9,8,7,4,5]
-# Example 2:
-
-# Input:
-# [
-#   [1, 2, 3, 4],
-#   [5, 6, 7, 8],
-#   [9,10,11,12]
-# ]
-# Output: [1,2,3,4,8,12,11,10,9,5,6,7]
 
