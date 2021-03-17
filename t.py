@@ -2,48 +2,37 @@ from typing import *
 
 
 class Solution:
-    def generateMatrix(self, n: int) -> List[List[int]]:
-        res = [[0] * n for _ in range(n)]
-        left, right, top, bottom = 0, n-1, 0, n-1
+    def removeDuplicates(self, nums: List[int]) -> int:
+        tail = 0
+        for n in nums[1:]:
+            if n != nums[tail]:
+                tail += 1
+                nums[tail] = n
 
-        k = 1
-        while left <= right and top <= bottom:
-            for i in range(left, right+1):
-                res[top][i] = k
-                k += 1
-            top += 1
-            for j in range(top, bottom+1):
-                res[j][right] = k
-                k += 1
-            right -= 1
-            if left > right or top > bottom:
-                break
-            for i in range(right, left-1, -1):
-                res[bottom][i] = k
-                k += 1
-            bottom -= 1
-            for j in range(bottom, top-1, -1):
-                res[j][left] = k
-                k += 1
-            left += 1
-        return res
+        return tail + 1
 
 
-def test(test_name, n, expected):
-    res = Solution().generateMatrix(n)
-    if res == expected:
+def test(test_name, nums, expected):
+    res = Solution().removeDuplicates(nums)
+    if nums[:res] == expected:
         print(test_name + ' success.')
     else:
         print(test_name + ' failed.')
 
 
-if __name__ == "__main__":
-    n1 = 3
-    expected1 = [
-        [ 1, 2, 3 ],
-        [ 8, 9, 4 ],
-        [ 7, 6, 5 ]
-    ]
-    test('test1', n1, expected1)
+if __name__ == '__main__':
+    nums1 = [1, 1, 2]
+    expected1 = [1,2]
+    test('test1', nums1, expected1)
 
+    nums2 = []
+    expected2 = []
+    test('test2', nums2, expected2)
 
+    nums3 = [1, 1]
+    expected3 = [1]
+    test('test3', nums3, expected3)
+
+    nums4 = [0,0,1,1,1,2,2,3,3,4]
+    expected4 = [0,1,2,3,4]
+    test('test4', nums4, expected4)
