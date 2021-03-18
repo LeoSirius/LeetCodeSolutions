@@ -1,8 +1,7 @@
-from utils_py.list import *
-
+from util_py.list import *
 
 class Solution:
-    def reverseBetween(self, head: ListNode, m: int, n: int) -> ListNode:
+    def reverseBetween(self, head: ListNode, left: int, right: int) -> ListNode:
         if not head:
             return None
 
@@ -10,29 +9,29 @@ class Solution:
         dummy.next = head
         p = dummy
 
-        for _ in range(m):
+        # after this loop, node_before is node before [left, right], p is first node in between
+        for _ in range(left):
             node_before = p
             p = p.next
 
-        pm = p
-        next = None  # after for, next is node after
-        pre = None   # after for pre is last node between
+        # after next loop, p_left is pointer to left, pre is pointer to right node_after is next node after between
+        p_left = p
+        node_after, pre = None, None
 
-        # n - m + 1 即是中间链表的节点数
-        for _ in range(n - m + 1):
-            next = p.next
+        # right - left + 1 = total nodes count in between
+        for _ in range(right - left + 1):
+            node_after = p.next
             p.next = pre
             pre = p
-            p = next
+            p = node_after
 
         node_before.next = pre
-        pm.next = next
+        p_left.next = node_after
         return dummy.next
 
 
 def test(test_name, head, m, n, expected):
     res = Solution().reverseBetween(head, m, n)
-    print_list(res, 5)
     if is_equal_list(res, expected):
         print(test_name + ' success.')
     else:
@@ -40,18 +39,10 @@ def test(test_name, head, m, n, expected):
 
 
 if __name__ == '__main__':
-    head1 = ListNode(1)
-    head1.next = ListNode(2)
-    head1.next.next = ListNode(3)
-    head1.next.next.next = ListNode(4)
-    head1.next.next.next.next = ListNode(5)
-    m1, n1 = 2, 4
-    expected1 = ListNode(1)
-    expected1.next = ListNode(4)
-    expected1.next.next = ListNode(3)
-    expected1.next.next.next = ListNode(2)
-    expected1.next.next.next.next = ListNode(5)
-    test('test1', head1, m1, n1, expected1)
+    head1 = build_list([1,2,3,4,5])
+    left1, right1 = 2, 4
+    expected1 = build_list([1,4,3,2,5])
+    test('test1', head1, left1, right1, expected1)
 
 # Reverse a linked list from position m to n. Do it in one-pass.
 #
