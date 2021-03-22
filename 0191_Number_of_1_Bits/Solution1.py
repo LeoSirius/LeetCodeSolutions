@@ -6,12 +6,14 @@ class Solution:
             n >>= 1
         return res
 
+
 def test(test_name, n, expected):
     res = Solution().hammingWeight(n)
     if res == expected:
         print(test_name + ' success.')
     else:
         print(test_name + ' failed.')
+
 
 if __name__ == "__main__":
     n1 = int('00000000000000000000000000001011', 2)

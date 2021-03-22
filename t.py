@@ -1,31 +1,14 @@
-from typing import *
-import math
-
-
 class Solution:
-    def evalRPN(self, tokens: List[str]) -> int:
-        stk = []
-        for token in tokens:
-            if token in ['+', '-', '*', '/']:
-                b, a = stk.pop(), stk.pop()
-                if token == '+':
-                    stk.append(a+b)
-                elif token == '-':
-                    stk.append(a-b)
-                elif token == '*':
-                    stk.append(a*b)
-                else:
-                    # 這裡是 python 複數整除的一個坑，10 // -3 = -4
-                    # 複數除不盡的應該是向上取整，但是 python 中複數也是向下
-                    stk.append(math.trunc(a/b))
-            else:
-                stk.append(int(token))
-
-        return int(stk[0])
+    def hammingWeight(self, n: int) -> int:
+        res = 0
+        for i in range(32):
+            res += n & 1
+            n >>= 1
+        return res
 
 
-def test(test_name, tokens, expected):
-    res = Solution().evalRPN(tokens)
+def test(test_name, n, expected):
+    res = Solution().hammingWeight(n)
     if res == expected:
         print(test_name + ' success.')
     else:
@@ -33,57 +16,47 @@ def test(test_name, tokens, expected):
 
 
 if __name__ == "__main__":
-    tokens1 = ["2", "1", "+", "3", "*"]
-    expected1 = 9;
-    test('test1', tokens1, expected1)
+    n1 = int('00000000000000000000000000001011', 2)
+    expected1 = 3
+    test('test1', n1, expected1)
 
-    tokens2 = ["4", "13", "5", "/", "+"]
-    expected2 = 6;
-    test('test2', tokens2, expected2)
+    n2 = int('00000000000000000000000010000000', 2)
+    expected2 = 1
+    test('test2', n2, expected2)
 
-    tokens3 = ["10", "6", "9", "3", "+", "-11", "*", "/", "*", "17", "+", "5", "+"]
-    expected3 = 22;
-    test('test3', tokens3, expected3)
-
-    tokens4 = ["2","1","+","3","*"]
-    expected4 = 9
-    test('test4', tokens4, expected4)
-
-    tokens5 = ["4","-2","/","2","-3","-","-"]
-    expected5 = -7
-    test('test5', tokens5, expected5)
+    n3 = int('11111111111111111111111111111101', 2)
+    expected3 = 31
+    test("test3", n3, expected3)
 
 
-# Evaluate the value of an arithmetic expression in Reverse Polish Notation.
+# Write a function that takes an unsigned integer and return 
+# the number of '1' bits it has (also known as the Hamming weight).
 
-# Valid operators are +, -, *, /. 
-# Each operand may be an integer or another expression.
+
+# Example 1:
+
+# Input: 00000000000000000000000000001011
+# Output: 3
+# Explanation: The input binary string 00000000000000000000000000001011 has a total of three '1' bits.
+# Example 2:
+
+# Input: 00000000000000000000000010000000
+# Output: 1
+# Explanation: The input binary string 00000000000000000000000010000000 has a total of one '1' bit.
+# Example 3:
+
+# Input: 11111111111111111111111111111101
+# Output: 31
+# Explanation: The input binary string 11111111111111111111111111111101 has a total of thirty one '1' bits.
+#  
 
 # Note:
 
-# Division between two integers should truncate toward zero.
-# The given RPN expression is always valid. 
-# That means the expression would always evaluate to a result and
-# there won't' be any divide by zero operation.
-# Example 1:
+# Note that in some languages such as Java, there is no unsigned integer type. In this case, the input will be given as signed integer type and should not affect your implementation, as the internal binary representation of the integer is the same whether it is signed or unsigned.
+# In Java, the compiler represents the signed integers using 2's complement notation. Therefore, in Example 3 above the input represents the signed integer -3.
+#  
 
-# Input: ["2", "1", "+", "3", "*"]
-# Output: 9
-# Explanation: ((2 + 1) * 3) = 9
-# Example 2:
+# Follow up:
 
-# Input: ["4", "13", "5", "/", "+"]
-# Output: 6
-# Explanation: (4 + (13 / 5)) = 6
-# Example 3:
+# If this function is called many times, how would you optimize it?
 
-# Input: ["10", "6", "9", "3", "+", "-11", "*", "/", "*", "17", "+", "5", "+"]
-# Output: 22
-# Explanation: 
-#   ((10 * (6 / ((9 + 3) * -11))) + 17) + 5
-# = ((10 * (6 / (12 * -11))) + 17) + 5
-# = ((10 * (6 / -132)) + 17) + 5
-# = ((10 * 0) + 17) + 5
-# = (0 + 17) + 5
-# = 17 + 5
-# = 22
