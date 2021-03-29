@@ -1,16 +1,16 @@
-
 class Solution:
     def reverseBits(self, n: int) -> int:
-        reversed_bits = []
+        bits = []
         for i in range(32):
-            cur_bit = n & 1
-            reversed_bits.append(cur_bit)
+            current_bit = n & 1
+            bits.append(current_bit)
             n >>= 1
-        
+
         res = 0
         base = 1
-        for bit in reversed(reversed_bits):
-            res += base * bit
+        bits.reverse()
+        for bit in bits:
+            res += bit * base
             base *= 2
         return res
 
