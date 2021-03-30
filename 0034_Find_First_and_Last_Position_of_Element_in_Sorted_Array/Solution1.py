@@ -1,36 +1,40 @@
-from typing import List
+from typing import *
 
 class Solution:
     def searchRange(self, nums: List[int], target: int) -> List[int]:
+        res = [-1, -1]
         if not nums:
-            return [-1, -1]
+            return res
 
-        def b_search_left(nums, target):
-            l, r = 0, len(nums) - 1
-            while l < r:
-                m = l + (r - l) // 2
-                if nums[m] < target:
-                    l = m + 1
-                else:
-                    r = m
-            return l if nums[l] == target else -1
-        
-        def b_search_right(nums, target):
-            l, r = 0, len(nums) - 1
-            while l < r:
-                m = l + (r - l) // 2 + 1
-                if target < nums[m]:
-                    r = m - 1
-                else:
-                    l = m
-            return r if nums[r] == target else -1
-        
-        return [b_search_left(nums, target), b_search_right(nums, target)]
+        l, r = 0, len(nums)-1
+
+        while l < r:
+            m = l + (r - l) // 2
+            if target < nums[m]:
+                r = m - 1
+            elif target == nums[m]:
+                r = m
+            else:
+                l = m + 1
+        if nums[l] == target:
+            res[0] = l
+
+        r = len(nums) - 1
+        while l < r:
+            m = l + (r - l) // 2 + 1
+            if target < nums[m]:
+                r = m - 1
+            elif target == nums[m]:
+                l = m
+            else:
+                l = m + 1
+        if nums[r] == target:
+            res[1] = r
+        return res
 
 
 def test(test_name, nums, target, expected):
     res = Solution().searchRange(nums, target)
-    print('res = {}'.format(res))
     if res == expected:
         print(test_name + ' success.')
     else:
@@ -47,3 +51,8 @@ if __name__ == '__main__':
     target2 = 6
     expected2 = [-1, -1]
     test('test2', nums2, target2, expected2)
+
+    nums3 = []
+    target3 = 0
+    expected3 = [-1, -1]
+    test('test3', nums3, target3, expected3)

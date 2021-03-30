@@ -1,28 +1,40 @@
 from typing import *
 
 class Solution:
-    def search(self, nums: List[int], target: int) -> int:
-        l, r = 0, len(nums) - 1
-        while l <= r:
-            mid = l + (r - l) // 2
-            if nums[mid] == target:
-                return mid
-            if nums[l] <= nums[mid]:
-                if nums[l] <= target < nums[mid]:
-                    r = mid - 1
-                else:
-                    l = mid + 1
-            if nums[mid] <= nums[r]:
-                if nums[mid] < target <= nums[r]:
-                    l = mid + 1
-                else:
-                    r = mid - 1
+    def searchRange(self, nums: List[int], target: int) -> List[int]:
+        res = [-1, -1]
+        if not nums:
+            return res
 
-        return -1
+        l, r = 0, len(nums)-1
+
+        while l < r:
+            m = l + (r - l) // 2
+            if target < nums[m]:
+                r = m - 1
+            elif target == nums[m]:
+                r = m
+            else:
+                l = m + 1
+        if nums[l] == target:
+            res[0] = l
+
+        r = len(nums) - 1
+        while l < r:
+            m = l + (r - l) // 2 + 1
+            if target < nums[m]:
+                r = m - 1
+            elif target == nums[m]:
+                l = m
+            else:
+                l = m + 1
+        if nums[r] == target:
+            res[1] = r
+        return res
 
 
 def test(test_name, nums, target, expected):
-    res = Solution().search(nums, target)
+    res = Solution().searchRange(nums, target)
     if res == expected:
         print(test_name + ' success.')
     else:
@@ -30,17 +42,17 @@ def test(test_name, nums, target, expected):
 
 
 if __name__ == '__main__':
-    nums1 = [4,5,6,7,0,1,2]
-    target1 = 0
-    expected1 = 4
+    nums1 = [5,7,7,8,8,10]
+    target1 = 8
+    expected1 = [3,4]
     test('test1', nums1, target1, expected1)
 
-    nums2 = [4,5,6,7,0,1,2]
-    target2 = 3
-    expected2 = -1
+    nums2 = [5,7,7,8,8,10]
+    target2 = 6
+    expected2 = [-1, -1]
     test('test2', nums2, target2, expected2)
 
-    nums3 = [1]
+    nums3 = []
     target3 = 0
-    expected3 = -1
+    expected3 = [-1, -1]
     test('test3', nums3, target3, expected3)
