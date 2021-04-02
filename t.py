@@ -1,21 +1,36 @@
 from typing import *
 
 class Solution:
-    def maxArea(self, height: List[int]) -> int:
-        res = 0
-        l, r = 0, len(height) - 1
-        while l < r:
-            res = max(res, min(height[l], height[r]) * (r - l))
-            if height[l] < height[r]:
-                l += 1
-            else:
-                r -= 1
+    def threeSum(self, nums: List[int]) -> List[List[int]]:
+        res = []
+        nums.sort()
+
+        for i, n in enumerate(nums):
+            l, r = i + 1, len(nums) - 1
+            if i > 0 and nums[i] == nums[i-1]:
+                continue
+            while l < r:
+                _sum = nums[l] + nums[r] + n
+                if _sum == 0:
+                    res.append([nums[l], nums[r], n])
+                    l += 1
+                    r -= 1
+                    while l < r and nums[l] == nums[l-1]: l += 1
+                    while l < r and nums[r] == nums[r+1]: r -= 1
+                elif _sum > 0:
+                    r -= 1
+                else:
+                    l += 1
+
         return res
 
 
-def test(test_name, height, expected):
-    slt = Solution()
-    res = slt.maxArea(height)
+def test(test_name, nums, expected):
+    res = Solution().threeSum(nums)
+    [item.sort() for item in res]
+    res.sort()
+    [item.sort() for item in expected]
+    expected.sort()
     if res == expected:
         print(test_name + ' success.')
     else:
@@ -23,6 +38,13 @@ def test(test_name, height, expected):
 
 
 if __name__ == '__main__':
-    height1 = [1,8,6,2,5,4,8,3,7]
-    expected1 = 49
-    test('test1', height1, expected1)
+    nums1 = [-1, 0, 1, 2, -1, -4]
+    expected1 = [
+        [-1, 0, 1],
+        [-1, -1, 2]
+    ]
+    test('test1', nums1, expected1)
+
+    nums2 = [0,0]
+    expected2 = []
+    test('test2', nums2, expected2)
