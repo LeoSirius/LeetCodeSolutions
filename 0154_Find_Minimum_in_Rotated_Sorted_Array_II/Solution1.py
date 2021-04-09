@@ -1,38 +1,41 @@
 from typing import *
 
+
 class Solution:
-    def minArray(self, numbers: List[int]) -> int:
-        l, r = 0, len(numbers) - 1
+    def findMin(self, nums: List[int]) -> int:
+        l, r = 0, len(nums) - 1
         while l < r:
-            mid = l + (r - l) // 2
-            if numbers[mid] < numbers[r]:   # e.g.   6712345  mid = 2
-                r = mid
-            elif numbers[r] < numbers[mid]: # e.g.   3456712  mid = 6
-                l = mid + 1
+            m = l + (r - l) // 2
+            if nums[m] < nums[r]:
+                r = m
+            elif nums[m] > nums[r]:
+                l = m + 1
             else:
-                # mid == r  e.g.     6711111  mid = 1
                 r -= 1
-        return numbers[l]
+        return nums[l]
 
 
-def test(test_name, numbers, expected):
-    res = Solution().minArray(numbers)
+def test(test_name, nums, expected):
+    res = Solution().findMin(nums)
     if res == expected:
         print(test_name + ' success.')
     else:
         print(test_name + ' failed.')
 
 if __name__ == '__main__':
-    numbers1 = [3,4,5,1,2]
+    nums1 = [3,4,5,1,2]
     expected1 = 1
-    test('test1', numbers1, expected1)
+    test('test1', nums1, expected1)
 
-    numbers2 = [2,2,2,0,1]
+    nums2 = [2,2,2,0,1]
     expected2 = 0
-    test('test2', numbers2, expected2)
+    test('test2', nums2, expected2)
 
+    nums3 = [1,3,3]
+    expected3 = 1
+    test('test3', nums3, expected3)
 
+    nums4 = [3,3,1,3]
+    expected4 = 1
+    test('test4', nums4, expected4)
 
-# 把一个数组最开始的若干个元素搬到数组的末尾，我们称之为数组的旋转。
-# 输入一个递增排序的数组的一个旋转，输出旋转数组的最小元素。
-# 例如，数组 [3,4,5,1,2] 为 [1,2,3,4,5] 的一个旋转，该数组的最小值为1。  

@@ -48,3 +48,11 @@ if __name__ == '__main__':
         [-2,  0, 0, 2]
     ]
     test('test1', nums1, target1, expected1)
+
+    nums2 = [-2,-1,-1,1,1,2,2]
+    target2 = 0
+    expected2 = [
+        [-2,-1,1,2],
+        [-1,-1,1,1]
+    ]
+    test('test2', nums2, target2, expected2)

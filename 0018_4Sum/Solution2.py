@@ -1,45 +1,48 @@
-from typing import List
+from typing import *
 
 class Solution:
     def fourSum(self, nums: List[int], target: int) -> List[List[int]]:
-
-        def N_sum(N, nums, target, path, res):
-            if N < 2 or len(nums) < N or N * nums[0] > target or N * nums[-1] < target:
+        
+        def n_sum(N, nums, target, path, res):
+            if (N < 2 or
+                len(nums) < N or
+                nums[0] * N > target or
+                nums[-1] * N < target):
                 return
-
+            
             if N > 2:
-                for i in range(len(nums) - N + 1):
+                for i in range(len(nums) + 1 - N):
                     if i > 0 and nums[i] == nums[i-1]: continue
-                    N_sum(N - 1, nums[i+1:], target - nums[i], path + [nums[i]], res)
+                    n_sum(N-1, nums[i+1:], target-nums[i], path + [nums[i]], res)
                 return
 
             l, r = 0, len(nums) - 1
             while l < r:
-                s = nums[l] + nums[r]
-                if s == target:
+                _sum = nums[l] + nums[r]
+                if _sum < target:
+                    l += 1
+                elif _sum > target:
+                    r -= 1
+                else:
                     res.append(path + [nums[l], nums[r]])
                     l += 1
                     r -= 1
-                    while l < r and nums[l] == nums[l-1]: l += 1
-                    while l < r and nums[r] == nums[r+1]: r -= 1
-                elif s < target:
-                    l += 1
-                else:
-                    r -= 1
+                    while l < r and nums[l-1] == nums[l]: l += 1
+                    while l < r and nums[r+1] == nums[r]: r -= 1
 
-        res = []
         nums.sort()
-        N_sum(4, nums, target, [], res)
+        res = []
+        n_sum(4, nums, target, [], res)
         return res
 
 
 def test(test_name, nums, target, expected):
     res = Solution().fourSum(nums, target)
-    for item in res:
-        item.sort()
+    [item.sort() for item in res]
+    [item.sort() for item in expected]
     res.sort()
-    expected = [sorted(item) for item in expected]
     expected.sort()
+
     if res == expected:
         print(test_name + ' success.')
     else:
@@ -58,7 +61,8 @@ if __name__ == '__main__':
 
     nums2 = [-2,-1,-1,1,1,2,2]
     target2 = 0
-    expected2 = [[
-        -2,-1,1,2],
-        [-1,-1,1,1]]
+    expected2 = [
+        [-2,-1,1,2],
+        [-1,-1,1,1]
+    ]
     test('test2', nums2, target2, expected2)
