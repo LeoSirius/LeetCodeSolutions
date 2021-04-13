@@ -2,12 +2,11 @@ from typing import *
 
 class Solution:
     def removeDuplicates(self, nums: List[int]) -> int:
-        p, tail = 0, 0
-        while p < len(nums):
-            if nums[tail] != nums[p]:
-                nums[tail+1] = nums[p]
+        tail = 0
+        for i in range(len(nums)):
+            if nums[tail] != nums[i]:
+                nums[tail+1] = nums[i]
                 tail += 1
-            p += 1
         return tail + 1
 
 
@@ -35,3 +34,4 @@ if __name__ == '__main__':
     nums4 = [0,0,1,1,1,2,2,3,3,4]
     expected4 = [0,1,2,3,4]
     test('test4', nums4, expected4)
+

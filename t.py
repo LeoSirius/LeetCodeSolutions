@@ -1,50 +1,37 @@
 from typing import *
-from functools import cmp_to_key
 
 class Solution:
-    def largestNumber(self, nums: List[int]) -> str:
-        
-        def cmp(a, b):
-            return int(b+a) - int(a+b)
-        
-        nums = [str(n) for n in nums]
-        nums.sort(key=cmp_to_key(cmp))
-        return '0' if nums[0] == '0' else ''.join(nums)
-
+    def removeDuplicates(self, nums: List[int]) -> int:
+        tail = 0
+        for i in range(len(nums)):
+            if nums[tail] != nums[i]:
+                nums[tail+1] = nums[i]
+                tail += 1
+        return tail + 1
 
 
 def test(test_name, nums, expected):
-    res = Solution().largestNumber(nums)
-    if res == expected:
+    res = Solution().removeDuplicates(nums)
+    if nums[:res] == expected:
         print(test_name + ' success.')
     else:
         print(test_name + ' failed.')
 
+
 if __name__ == '__main__':
-    nums1 = [10, 2]
-    expected1 = '210'
+    nums1 = [1, 1, 2]
+    expected1 = [1,2]
     test('test1', nums1, expected1)
 
-    nums2 = [3,30,34,5,9]
-    expected2 = "9534330"
+    nums2 = []
+    expected2 = []
     test('test2', nums2, expected2)
 
-    nums3 = [0,0]
-    expected3 = '0'
+    nums3 = [1, 1]
+    expected3 = [1]
     test('test3', nums3, expected3)
 
+    nums4 = [0,0,1,1,1,2,2,3,3,4]
+    expected4 = [0,1,2,3,4]
+    test('test4', nums4, expected4)
 
-# Given a list of non negative integers, arrange them such that they
-# form the largest number.
-#
-# Example 1:
-#
-# Input: [10,2]
-# Output: "210"
-
-# Example 2:
-# Input: [3,30,34,5,9]
-# Output: "9534330"
-
-# Note: The result may be very large, so you need to return a string
-# instead of an integer.
