@@ -2,13 +2,12 @@ from typing import *
 
 class Solution:
     def removeElement(self, nums: List[int], val: int) -> int:
-        tail, p = -1, 0
-        while p < len(nums):
-            if nums[p] != val:
-                nums[tail + 1] = nums[p]
+        tail = 0
+        for i in range(len(nums)):
+            if nums[i] != val:
+                nums[tail] = nums[i]
                 tail += 1
-            p += 1
-        return tail + 1
+        return tail
 
 
 def test(test_name, nums, val, expected):

@@ -4,7 +4,7 @@ class Trie:
         """
         Initialize your data structure here.
         """
-        self.is_end = False
+        self.is_ended = False
         self.nexts = [None] * 26
 
 
@@ -14,10 +14,12 @@ class Trie:
         """
         node = self
         for ch in word:
-            if not node.nexts[ord(ch)-ord('a')]:
-                node.nexts[ord(ch)-ord('a')] = Trie()
-            node = node.nexts[ord(ch)-ord('a')]
-        node.is_end = True
+            idx = ord(ch) - ord('a')
+            if not node.nexts[idx]:
+                node.nexts[idx] = Trie()
+            node = node.nexts[idx]
+        node.is_ended = True
+
 
 
     def search(self, word: str) -> bool:
@@ -26,10 +28,10 @@ class Trie:
         """
         node = self
         for ch in word:
-            node = node.nexts[ord(ch)-ord('a')]
+            node = node.nexts[ord(ch) - ord('a')]
             if not node:
                 return False
-        return node.is_end
+        return node.is_ended
 
 
     def startsWith(self, prefix: str) -> bool:
@@ -38,11 +40,10 @@ class Trie:
         """
         node = self
         for ch in prefix:
-            node = node.nexts[ord(ch)-ord('a')]
+            node = node.nexts[ord(ch) - ord('a')]
             if not node:
                 return False
         return True
-
 
 
 # Your Trie object will be instantiated and called as such:
@@ -50,6 +51,8 @@ class Trie:
 # obj.insert(word)
 # param_2 = obj.search(word)
 # param_3 = obj.startsWith(prefix)
+
+
 
 def test1():
     obj = Trie()

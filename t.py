@@ -1,37 +1,30 @@
 from typing import *
 
 class Solution:
-    def removeDuplicates(self, nums: List[int]) -> int:
+    def removeElement(self, nums: List[int], val: int) -> int:
         tail = 0
         for i in range(len(nums)):
-            if nums[tail] != nums[i]:
-                nums[tail+1] = nums[i]
+            if nums[i] != val:
+                nums[tail] = nums[i]
                 tail += 1
-        return tail + 1
+        return tail
 
 
-def test(test_name, nums, expected):
-    res = Solution().removeDuplicates(nums)
+def test(test_name, nums, val, expected):
+    res = Solution().removeElement(nums, val)
     if nums[:res] == expected:
         print(test_name + ' success.')
     else:
         print(test_name + ' failed.')
 
 
-if __name__ == '__main__':
-    nums1 = [1, 1, 2]
-    expected1 = [1,2]
-    test('test1', nums1, expected1)
+if __name__ == "__main__":
+    nums1 = [3,2,2,3]
+    val1 = 3
+    expected1 = [2,2]
+    test('test1', nums1, val1, expected1)
 
-    nums2 = []
-    expected2 = []
-    test('test2', nums2, expected2)
-
-    nums3 = [1, 1]
-    expected3 = [1]
-    test('test3', nums3, expected3)
-
-    nums4 = [0,0,1,1,1,2,2,3,3,4]
-    expected4 = [0,1,2,3,4]
-    test('test4', nums4, expected4)
-
+    nums2 = [0,1,2,2,3,0,4,2]
+    val2 = 2
+    expected2 = [0,1,3,0,4]
+    test('test2', nums2, val2, expected2)
