@@ -1,37 +1,36 @@
-from typing import *
+
 
 class Solution:
-    def rob(self, nums: List[int]) -> int:
-        if not nums:
-            return 0
-        if len(nums) == 1:
-            return nums[0]
-
-        dp1 = [0 for _ in range(len(nums))]
-        dp2 = [0 for _ in range(len(nums))]
-
-        dp1[0] = dp1[1] = nums[0]
-        dp2[1] = nums[1]
-
-        for i in range(2, len(nums)):
-            dp1[i] = max(dp1[i-2] + nums[i], dp1[i-1])
-            dp2[i] = max(dp2[i-2] + nums[i], dp2[i-1])
-        
-        return max(dp1[-2], dp2[-1])
+    def isScramble(self, s1: str, s2: str) -> bool:
+        pass
 
 
-def test(test_name, nums, expected):
-    res = Solution().rob(nums)
+
+def test(test_name, s1, s2, expected):
+    res = Solution().isScramble(s1, s2)
     if res == expected:
         print(test_name + ' success.')
     else:
         print(test_name + ' failed.')
 
-if __name__ == "__main__":
-    nums1 = [2,3,2]
-    expected1 = 3
-    test('test1', nums1, expected1)
 
-    nums2 = [1,2,3,1]
-    expected2 = 4
-    test('test2', nums2, expected2)
+if __name__ == '__main__':
+    # s11, s21 = 'great', 'rgeat'
+    # expected1 = True
+    # test('test1', s11, s21, expected1)
+
+    # s12, s22 = 'abcde', 'caebd'
+    # expected2 = False
+    # test('test2', s21, s22, expected2)
+
+    # s13, s23 = 'a', 'a'
+    # expected3 = True
+    # test('test3', s13, s23, expected3)
+
+    # s14, s24 = 'abc', 'bca'
+    # expected4 = True
+    # test('test4', s14, s24, expected4)
+
+    s15, s25 = 'eebaacbcbcadaaedceaaacadccd', 'eadcaacabaddaceacbceaabeccd'
+    expected5 = True
+    test('test5', s15, s25, expected5)
