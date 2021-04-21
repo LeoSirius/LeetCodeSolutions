@@ -12,12 +12,14 @@ class Solution:
                 dp[i+1] += dp[i-1]
         return dp[len(s)]
 
+
 def test(test_name, s, expected):
     res = Solution().numDecodings(s)
     if res == expected:
         print(test_name + ' success.')
     else:
         print(test_name + ' failed.')
+
 
 if __name__ == "__main__":
     s1 = "12"
