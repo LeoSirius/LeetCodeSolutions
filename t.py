@@ -1,37 +1,64 @@
+from typing import *
+
 class Solution:
-    def numDecodings(self, s: str) -> int:
-        dp = [0] * (len(s) + 1)
-        dp[0] = 1
-        dp[1] = 0 if s[0] == '0' else 1
-        for i in range(1, len(s)):
-            if 1 <= int(s[i]) <= 9:
-                dp[i+1] += dp[i]
-            if 10 <= int(s[i-1:i+1]) <= 26:
-                dp[i+1] += dp[i-1]
-        return dp[-1]
+    def maxSumSubmatrix(self, matrix: List[List[int]], k: int) -> int:
+
+        def get_sum(i, j, m, n):
+            res = 0
+
+            for x in range(i, m+1):
+                for y in range(j, n+1):
+                    res += matrix[x][y]
+            return res
+        
+
+        # for item in matrix:
+        #     item.sort()
+        # matrix.sort()
+
+        max_sum = -float('inf')
+        row_num, col_num = len(matrix), len(matrix[0])
+        for row in range(row_num):
+            for col in range(col_num):
+                for i in range(row+1):
+                    for j in range(col+1):
+                        currnet_sum = get_sum(i, j, row, col)
+                        if currnet_sum > k:
+                            continue
+                        max_sum = max(max_sum, currnet_sum)
+        # print(f'max_sum = {max_sum}')
+        return max_sum
+
+        # i, j = 0, 0
+        # while i <= m and j <= n:
+        #     current_sum = get_sum(i, j, m, n)
+        #     max_sum = max(current_sum, max_sum)
 
 
-def test(test_name, s, expected):
-    res = Solution().numDecodings(s)
+
+def test(test_name, matrix, k, expected):
+    res = Solution().maxSumSubmatrix(matrix, k)
     if res == expected:
         print(test_name + ' success.')
     else:
         print(test_name + ' failed.')
 
 
-if __name__ == "__main__":
-    s1 = "12"
+if __name__ == '__main__':
+    matrix1 = [
+        [1,0,1],
+        [0,-2,3]
+    ]
+    k1 = 2
     expected1 = 2
-    test('test1', s1, expected1)
+    test('test1', matrix1, k1, expected1)
 
-    s2 = "226"
+    matrix2 = [[2,2,-1]]
+    k2 = 3
     expected2 = 3
-    test('test2', s2, expected2)
+    test('test2', matrix2, k2, expected2)
 
-    s3 = "0"
-    expected3 = 0
-    test('test3', s3, expected3)
-
-    s4 = "01"
-    expected4 = 0
-    test('test4', s4, expected4)
+    matrix3 = [[2,2,-1]]
+    k3 = 0
+    expected3 = -1
+    test('test3', matrix3, k3, expected3)
