@@ -26,18 +26,6 @@ class Solution:
         return res
 
 
-
-        # for row in range(row_num):
-        #     for col in range(col_num):
-        #         for i in range(row+1):
-        #             for j in range(col+1):
-        #                 currnet_sum = get_sum(i, j, row, col)
-        #                 if currnet_sum > k:
-        #                     continue
-        #                 max_sum = max(max_sum, currnet_sum)
-        # return max_sum
-
-
 def test(test_name, matrix, k, expected):
     res = Solution().maxSumSubmatrix(matrix, k)
     if res == expected:
