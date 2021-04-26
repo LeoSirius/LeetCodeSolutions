@@ -3,26 +3,26 @@ from typing import *
 class Solution:
     def maxSumSubmatrix(self, matrix: List[List[int]], k: int) -> int:
 
-        res = -float('inf')
+        res = float('-inf')
         row_num, col_num = len(matrix), len(matrix[0])
-        # print(f'col_num = {col_num}')
-        dp = [[0] * (col_num+1) for _ in range(row_num+1)]
-        dp = [dp for _ in range(col_num+1)]
-        dp = [dp for _ in range(row_num+1)]
-        print(f'lendp = {len(dp)}, lendp0 = {len(dp[0])}, lendp00 = {len(dp[0][0])}, lendp000 = {len(dp[0][0][0])}')
+        
+        for l in range(col_num):
+            _sum = [0] * row_num   # 以 l 为边界，每行的和
+            for r in range(l, col_num):
+                pre_sum_matrix = [0] * row_num
+                for j in range(row_num):
+                    _sum[j] += matrix[j][r]
+                    pre_sum_matrix[j] = _sum[j]
+                    print(f'pre = {l, r, j} {pre_sum_matrix}')
+                #     if pre_sum_matrix <= k:
+                #         res = max(res, pre_sum_matrix)
+                #     if _sum[j] <= k:
+                #         res = max(res, _sum[j])
+                # print(f'_sum[j]')
 
-        for i1 in range(1, row_num+1):
-            for j1 in range(1, col_num+1):
-                dp[i1][j1][i1][j1] = matrix[i1][j1]
-                if dp[i1][j1][i1][j1] <= k:
-                    res = max(res, dp[i1][j1][i1][j1])
-                for i2 in range(i1, row_num+1):
-                    for j2 in range(j1, col_num+1):
-                        dp[i1][j1][i2][j2] = dp[i1][j1][i2-1][j2] + dp[i1][j1][i2][j2 - 1] - dp[i1][j1][i2-1][j2 -1] + matrix[i2][j2]
-                        print(f'{i1} {j1} {i2} {j2} dp = {dp[i1][j1][i2][j2]}')
-                        if dp[i1][j1][i2][j2] <= k:
-                            res = max(res, dp[i1][j1][i2][j2])
-        print(f'res = {res}')
+                # for item in pre_sum_matrix:
+                #     if item <= k:
+                #         res = max(res, item)
         return res
 
 
@@ -53,10 +53,26 @@ if __name__ == '__main__':
     # expected3 = -1
     # test('test3', matrix3, k3, expected3)
 
-    matrix4 = [
+    # matrix4 = [
+    #     [5,-4,-3,4],
+    #     [-3,-4,4,5],
+    #     [5,1,5,-4]]
+    # k4 = 10
+    # expected4 = 10
+    # test('test4', matrix4, k4, expected4)
+
+    # matrix5 = [
+    #     [5,-4,-3,4],
+    #     [-3,-4,4,5],
+    #     [5,1,5,-4]]
+    # k5 = 9
+    # expected5 = 9
+    # test('test5', matrix5, k5, expected5)
+
+    matrix6 = [
         [5,-4,-3,4],
         [-3,-4,4,5],
         [5,1,5,-4]]
-    k4 = 10
-    expected4 = 10
-    test('test4', matrix4, k4, expected4)
+    k6 = 8
+    expected6 = 8
+    test('test6', matrix6, k6, expected6)
