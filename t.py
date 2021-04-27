@@ -1,68 +1,43 @@
-from util_py.tree import *
+from typing import *
 
-
-# Definition for a binary tree node.
-# class TreeNode:
-#     def __init__(self, val=0, left=None, right=None):
-#         self.val = val
-#         self.left = left
-#         self.right = right
 class Solution:
-    def rangeSumBST(self, root: TreeNode, low: int, high: int) -> int:
-        res = 0
-
-        def preorder(node):
-            nonlocal res
-            if node.left:
-                preorder(node.left)
-            if low <= node.val <= high:
-                res += node.val
-            if node.right:
-                preorder(node.right)
-        preorder(root)
-
-        return res
+    def searchInsert(self, nums: List[int], target: int) -> int:
+        l, r = 0, len(nums) - 1
+        while l <= r:
+            m = l + (r - l) // 2
+            if nums[m] < target:
+                l = m + 1
+            elif nums[m] > target:
+                r = m - 1
+            else:
+                return m
+        return l
 
 
-def test(test_name, root, low, high, expected):
-    res = Solution().rangeSumBST(root, low, high)
+def test(test_name, nums, target, expected):
+    res = Solution().searchInsert(nums, target)
     if res == expected:
         print(test_name + ' success.')
     else:
         print(test_name + ' failed.')
 
-
 if __name__ == '__main__':
-    #         10
-    #       /   \
-    #      5    15
-    #     / \    \
-    #    3  7    18
-    root1 = TreeNode(10)
-    root1.left = TreeNode(5)
-    root1.left.left = TreeNode(3)
-    root1.left.right = TreeNode(7)
-    root1.right = TreeNode(15)
-    root1.right.right = TreeNode(18)
-    low1 = 7
-    high1 = 15
-    expected1 = 32
-    test('test1', root1, low1, high1, expected1)
+    nums1 = [1,3,5,6]
+    target1 = 5
+    expected1 = 2
+    test('test1', nums1, target1, expected1)
 
-    #         10
-    #       /    \
-    #      5     15
-    #     / \   / \
-    #    3   7 13 18
-    #   /   /
-    #  1   6
-    root2 = TreeNode(10)
-    root2.left = TreeNode(5)
-    root2.left.left = TreeNode(3)
-    root2.left.left.left = TreeNode(1)
-    root2.left.right = TreeNode(7)
-    root2.left.right.left = TreeNode(6)
-    low2 = 6
-    high2 = 10
-    expected2 = 23
-    test('test2', root2, low2, high2, expected2)
+    nums2 = [1,3,5,6]
+    target2 = 2
+    expected2 = 1
+    test('test2', nums2, target2, expected2)
+
+    nums3 = [1,3,5,6]
+    target3 = 7
+    expected3 = 4
+    test('test3', nums3, target3, expected3)
+
+    nums4 = [1,3,5,6]
+    target4 = 0
+    expected4 = 0
+    test('test4', nums4, target4, expected4)
