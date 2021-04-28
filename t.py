@@ -1,43 +1,31 @@
+from typing import *
+
+
 class Solution:
-    def judgeSquareSum(self, c: int) -> bool:
-        l, h = 0, int(c ** 0.5)
-        while l <= h:
-            _sum = l * l + h * h
-            if _sum < c:
-                l += 1
-            elif _sum > c:
-                h -= 1
-            else:
-                return True
+    def maxSubArray(self, nums: List[int]) -> int:
+        dp = [0] * len(nums)
+        dp[0] = nums[0]
 
-        return False
+        for i in range(1, len(nums)):
+            dp[i] = max(0, dp[i-1]) + nums[i]
+
+        return max(dp)
 
 
-def test(test_name, c, expected):
-    res = Solution().judgeSquareSum(c)
+def test(test_name, nums, expected):
+    res = Solution().maxSubArray(nums)
     if res == expected:
         print(test_name + ' success.')
     else:
         print(test_name + ' failed.')
 
 
-if __name__ == '__main__':
-    c1 = 5
-    expected1 = True
-    test('test1', c1, expected1)
+if __name__ == "__main__":
+    nums1 = [-2,1,-3,4,-1,2,1,-5,4]
+    expected1 = 6
+    test('test1', nums1, expected1)
 
-    c2 = 3
-    expected2 = False
-    test('test2', c2, expected2)
+    nums2 = [1]
+    expected2 = 1
+    test('test2', nums2, expected2)
 
-    c3 = 4
-    expected3 = True
-    test('test3', c3, expected3)
-
-    c4 = 2
-    expected4 = True
-    test('test4', c4, expected4)
-
-    c5 = 1
-    expected5 = True
-    test('test5', c5, expected5)

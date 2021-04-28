@@ -28,4 +28,3 @@ if __name__ == "__main__":
     nums2 = [1]
     expected2 = 1
     test('test2', nums2, expected2)
-
