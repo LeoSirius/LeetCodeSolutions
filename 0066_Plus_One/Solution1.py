@@ -2,18 +2,20 @@ from typing import *
 
 class Solution:
     def plusOne(self, digits: List[int]) -> List[int]:
+        _len = len(digits)
         carry = 1
-        for i in range(len(digits)-1, -1, -1):
-            digits[i] += carry
-            if digits[i] == 10:
-                carry = 1
-                digits[i] = 0
-            else:
-                carry = 0
+        for i in range(_len - 1, -1, -1):
+            n = digits[i] + carry
+            digits[i] = n % 10
+            carry = n // 10
+            if carry == 0:
                 break
-        if carry == 1:
-            digits.insert(0, 1)
+
+        if carry:
+            digits.insert(0, carry)
+
         return digits
+
 
 
 def test(test_name, digits, expected):
@@ -36,6 +38,10 @@ if __name__ == "__main__":
     digits3 = [0]
     expected3 = [1]
     test('test3', digits3, expected3)
+
+    digits4 = [9, 9]
+    expected4 = [1, 0, 0]
+    test('test4', digits4, expected4)
 
 
 # Given a non-empty array of decimal digits representing a non-negative 
