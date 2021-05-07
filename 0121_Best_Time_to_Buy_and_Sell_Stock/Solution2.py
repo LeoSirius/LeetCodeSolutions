@@ -1,16 +1,16 @@
-from typing import List
-
+from typing import *
 class Solution:
     def maxProfit(self, prices: List[int]) -> int:
+        res = 0
         if not prices:
-            return 0
+            return res
 
-        res, min_prices = 0, prices[0]
-        for i in range(1, len(prices)):
-            res = max(res, prices[i]-min_prices)
-            min_prices = min(min_prices, prices[i])
-
+        pass_min = prices[0]
+        for price in prices:
+            pass_min = min(pass_min, price)
+            res = max(res, price - pass_min)
         return res
+
 
 def test(test_name, prices, expected):
     res = Solution().maxProfit(prices)
@@ -18,6 +18,7 @@ def test(test_name, prices, expected):
         print(test_name + ' success.')
     else:
         print(test_name + ' failed.')
+
 
 if __name__ == "__main__":
     prices1 = [7,1,5,3,6,4]
