@@ -3,31 +3,28 @@ import math
 
 class Solution:
     def minimumTimeRequired(self, jobs: List[int], k: int) -> int:
-        jobs.sort()
         res = math.inf
+        workers = [0] * k     # 每个工人分配的时间
 
-        time = [0] * k  # time[i]表示第i个工人的时间
-
-        def dfs(idx):
-            nonlocal res, time, jobs, k
-            
-            # idx是完成工作的索引。这里表示所有工作都完成了
-            if idx == len(jobs):
-                t = max(time)
-                res = min(t, res)
+        def dfs(n, max_of_worker):
+            nonlocal res
+            if n == len(jobs):
+                res = min(res, max_of_worker)
                 return
 
             for i in range(k):
-                if time[i] + jobs[idx] > res:  # i工人的时间已经超过了res，则不用看了
+                if workers[i] + jobs[n] >= res:
                     continue
-                time[i] += jobs[idx]
-                dfs(idx+1)
-                time[i] -= jobs[idx]
-                if time[i] == 0:
+                workers[i] += jobs[n]
+                dfs(n+1, max(workers[i], max_of_worker))
+                workers[i] -= jobs[n]
+                # 必要的剪枝，不然会超时。若有工人没有分配，则其他工人的时间必然不是最小的
+                if workers[i] == 0:
                     break
-        dfs(0)
-        return res
 
+        # 遍历 i 个工人， 分配 n 份工作的所有情况
+        dfs(0, 0)
+        return res
 
 
 def test(test_name, jobs, k, expected):
@@ -38,7 +35,7 @@ def test(test_name, jobs, k, expected):
         print(test_name + ' failed.')
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     jobs1 = [3,2,3]
     k1 = 3
     expected1 = 3
