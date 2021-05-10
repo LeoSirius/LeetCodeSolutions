@@ -2,11 +2,11 @@ from typing import *
 
 class Solution:
     def containsDuplicate(self, nums: List[int]) -> bool:
-        s = set()
+        _set = set()
         for n in nums:
-            if n in s:
+            if n in _set:
                 return True
-            s.add(n)
+            _set.add(n)
         return False
 
 
