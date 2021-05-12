@@ -1,6 +1,5 @@
 from typing import *
 
-
 class Solution:
     def moveZeroes(self, nums: List[int]) -> None:
         """
@@ -8,15 +7,14 @@ class Solution:
         """
         for i in range(len(nums)):
             if nums[i] == 0:
-                idxnot0 = i
-                while idxnot0 < len(nums)-1 and nums[idxnot0] == 0:
-                    idxnot0 += 1
-                nums[i], nums[idxnot0] = nums[idxnot0], nums[i]
+                p = i
+                while p < len(nums) - 1 and nums[p] == 0:
+                    p += 1
+                nums[i], nums[p] = nums[p], nums[i]
 
 
 def test(test_name, nums, expected):
     Solution().moveZeroes(nums)
-    print(f'res = {nums}')
     if nums == expected:
         print(test_name + ' success.')
     else:
@@ -43,4 +41,3 @@ if __name__ == '__main__':
 
 # 必须在原数组上操作，不能拷贝额外的数组。
 # 尽量减少操作次数。
-
