@@ -1,44 +1,41 @@
-from typing import *
-
 class Solution:
-    def moveZeroes(self, nums: List[int]) -> None:
-        """
-        Do not return anything, modify nums in-place instead.
-        """
-        tail = 0
-        for i in range(len(nums)):
-            if nums[i] != 0:
-                nums[tail] = nums[i]
-                tail += 1
-        for i in range(tail, len(nums)):
-            nums[i] = 0
+    def numWays(self, steps: int, arrLen: int) -> int:
+        MOD = 10**9+7
+        _max = min(steps // 2, arrLen - 1)
+        dp = [[0] * (_max+1) for _ in range(steps+1)]
+        dp[0][0] = 1
+
+        for i in range(1, steps+1):
+            for j in range(_max+1):
+                dp[i][j] += dp[i-1][j]
+                if j - 1 >= 0:
+                    dp[i][j] += dp[i-1][j-1]
+                if j + 1 <= _max:
+                    dp[i][j] += dp[i-1][j+1]
+
+        return dp[steps][0] % MOD
 
 
-def test(test_name, nums, expected):
-    Solution().moveZeroes(nums)
-    if nums == expected:
+def test(test_name, steps, arrLen, expected):
+    res = Solution().numWays(steps, arrLen)
+    if res == expected:
         print(test_name + ' success.')
     else:
         print(test_name + ' failed.')
 
 
 if __name__ == '__main__':
-    nums1 = [0,1,0,3,12]
-    expected1 = [1,3,12,0,0]
-    test('test1', nums1, expected1)
+    steps1 = 3
+    arrLen1 = 2
+    expected1 = 4
+    test('test1', steps1, arrLen1, expected1)
 
-    nums2 = [1,0]
-    expected2 = [1,0]
-    test('test2', nums2, expected2)
+    steps2 = 2
+    arrLen2 = 4
+    expected2 = 2
+    test('test2', steps2, arrLen2, expected2)
 
-
-# 给定一个数组 nums，编写一个函数将所有 0 移动到数组的末尾，同时保持非零元素的相对顺序。
-
-# 示例:
-
-# 输入: [0,1,0,3,12]
-# 输出: [1,3,12,0,0]
-# 说明:
-
-# 必须在原数组上操作，不能拷贝额外的数组。
-# 尽量减少操作次数。
+    steps3 = 4
+    arrLen3 = 2
+    expected3 = 8
+    test('test3', steps3, arrLen3, expected3)
