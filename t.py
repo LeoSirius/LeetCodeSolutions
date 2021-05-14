@@ -1,17 +1,14 @@
-from typing import *
-
 class Solution:
-    def maxSubArray(self, nums: List[int]) -> int:
-        dp = [0] * len(nums)
-        dp[0] = nums[0]
+    def intToRoman(self, num: int) -> str:
+        M = ['', 'M', 'MM', 'MMM']
+        C = ['', 'C', 'CC', 'CCC', 'CD', 'D', 'DC', 'DCC', 'DCCC', 'CM']
+        X = ['', 'X', 'XX', 'XXX', 'XL', 'L', 'LX', 'LXX', 'LXXX', 'XC']
+        I = ['', 'I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX']
+        return M[num // 1000] + C[(num % 1000) // 100] + X[(num % 100) // 10] + I[(num % 10)]
 
-        for i in range(1, len(nums)):
-            dp[i] = max(dp[i-1] + nums[i], nums[i])
-        return max(dp)
 
-
-def test(test_name, nums, expected):
-    res = Solution().maxSubArray(nums)
+def test(test_name, num, expected):
+    res = Solution().intToRoman(num)
     if res == expected:
         print(test_name + ' success.')
     else:
@@ -19,10 +16,4 @@ def test(test_name, nums, expected):
 
 
 if __name__ == "__main__":
-    nums1 = [-2,1,-3,4,-1,2,1,-5,4]
-    expected1 = 6
-    test('test1', nums1, expected1)
-
-    nums2 = [1]
-    expected2 = 1
-    test('test2', nums2, expected2)
+    test('test1', 58, 'LVIII')
