@@ -1,14 +1,21 @@
+from typing import *
+
 class Solution:
-    def intToRoman(self, num: int) -> str:
-        M = ['', 'M', 'MM', 'MMM']
-        C = ['', 'C', 'CC', 'CCC', 'CD', 'D', 'DC', 'DCC', 'DCCC', 'CM']
-        X = ['', 'X', 'XX', 'XXX', 'XL', 'L', 'LX', 'LXX', 'LXXX', 'XC']
-        I = ['', 'I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX']
-        return M[num // 1000] + C[(num % 1000) // 100] + X[(num % 100) // 10] + I[(num % 10)]
+    def maxProfit(self, prices: List[int]) -> int:
+        if len(prices) == 1:
+            return 0
+        _min = prices[0]
+        _max = 0
+
+        for price in prices:
+            _min = min(_min, price)
+            _max = max(_max, price - _min)
+
+        return _max
 
 
-def test(test_name, num, expected):
-    res = Solution().intToRoman(num)
+def test(test_name, prices, expected):
+    res = Solution().maxProfit(prices)
     if res == expected:
         print(test_name + ' success.')
     else:
@@ -16,4 +23,11 @@ def test(test_name, num, expected):
 
 
 if __name__ == "__main__":
-    test('test1', 58, 'LVIII')
+    prices1 = [7,1,5,3,6,4]
+    expected1 = 5
+    test('test1', prices1, expected1)
+
+    prices2 = [7,6,4,3,1]
+    expected2 = 0
+    test('test2', prices2, expected2)
+

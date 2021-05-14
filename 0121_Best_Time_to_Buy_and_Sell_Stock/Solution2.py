@@ -1,15 +1,17 @@
 from typing import *
+
 class Solution:
     def maxProfit(self, prices: List[int]) -> int:
-        res = 0
-        if not prices:
-            return res
+        if len(prices) == 1:
+            return 0
+        _min = prices[0]
+        _max = 0
 
-        pass_min = prices[0]
         for price in prices:
-            pass_min = min(pass_min, price)
-            res = max(res, price - pass_min)
-        return res
+            _min = min(_min, price)
+            _max = max(_max, price - _min)
+
+        return _max
 
 
 def test(test_name, prices, expected):
@@ -29,6 +31,3 @@ if __name__ == "__main__":
     expected2 = 0
     test('test2', prices2, expected2)
 
-    prices3 = []
-    expected3 = 0
-    test('test3', prices3, expected3)
