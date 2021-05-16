@@ -1,4 +1,4 @@
-### Solution1 Trie
+### Solution1 位运算 + Trie
 
 - 时间复杂度 O(n * logc)
     n 是 nums 的长度，c 是字典树集合的大小，这里是 2
