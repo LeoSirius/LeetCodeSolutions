@@ -97,4 +97,3 @@ if __name__ == '__main__':
     x4, y4 = 1, 3
     expected4 = False
     test('test4', root4, x4, y4, expected4)
-
