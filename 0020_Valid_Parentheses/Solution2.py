@@ -1,19 +1,18 @@
 class Solution:
     def isValid(self, s: str) -> bool:
+        _len = len(s)
+        if _len % 2 == 1:
+            return False
+        
         stk = []
+        mp = {'}': '{', ']': '[', ')': '('}
         for ch in s:
-            if ch in ['(', '[', '{']:
+            if ch in ['(', '{', '[']:
                 stk.append(ch)
             else:
-                if not stk:
+                if not stk or stk[-1] != mp[ch]:
                     return False
-                last = stk.pop()
-                if ch == ')' and last != '(':
-                    return False
-                if ch == ']' and last != '[':
-                    return False
-                if ch == '}' and last != '{':
-                    return False
+                stk.pop()
         return stk == []
 
 
@@ -49,3 +48,7 @@ if __name__ == "__main__":
     s6 = "(])"
     expected6 = False
     test("test6", s6, expected6)
+
+    s7 = '(('
+    expected7 = False
+    test('test7', s7, expected7)
