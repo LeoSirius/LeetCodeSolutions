@@ -1,18 +1,25 @@
-from typing import List
+from typing import *
 
 class Solution:
     def longestCommonPrefix(self, strs: List[str]) -> str:
-        res = ''
-        if not strs:
-            return res
-        min_len = min([len(str) for str in strs])
-        for col in range(min_len):
-            cur_char = strs[0][col]
-            for str in strs:
-                if len(str) <= col or str[col] != cur_char:
-                    return res
-            res += cur_char
-        return res
+        p = 0
+
+        def check_rows(p):
+            for row in range(1, len(strs)):
+                if p >= len(strs[row]) or strs[row][p] != strs[row-1][p]:
+                    return False
+            return True
+
+        while True:
+            if p >= len(strs[0]):
+                break
+
+            if not check_rows(p):
+                break
+
+            p += 1
+
+        return strs[0][:p]
 
 
 def test(test_name, strs, expected):
@@ -22,15 +29,12 @@ def test(test_name, strs, expected):
     else:
         print(test_name + ' failed.')
 
+
 if __name__ == "__main__":
     strs1 = ["flower", "flow", "flight"]
     expected1 = 'fl'
     test('test1', strs1, expected1)
 
-    strs2 = []
+    strs2 = ["aca","cba"]
     expected2 = ''
     test('test2', strs2, expected2)
-
-    strs3 = ["aca","cba"]
-    expected3 = ''
-    test('test3', strs3, expected3)
