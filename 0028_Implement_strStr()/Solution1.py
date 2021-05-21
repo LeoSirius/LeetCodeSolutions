@@ -19,6 +19,7 @@ def test(test_name, haystack, needle, expected):
     else:
         print(test_name + ' failed.')
 
+
 if __name__ == "__main__":
     haystack1 = "hello";
     needle1 = "ll";
