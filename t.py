@@ -1,35 +1,46 @@
+from typing import *
+
+
 class Solution:
-    def lengthOfLastWord(self, s: str) -> int:
-        res = 0
-        for i in range(len(s)-1, -1, -1):
-            if s[i] == ' ':
-                if res == 0: continue
-                else: break
-            res += 1
+    def maximizeXor(self, nums: List[int], queries: List[List[int]]) -> List[int]:
+        nums.sort()
+
+        res = []
+        for query in queries:
+            # print(f'query = {query}')
+            if query[1] < nums[0]:
+                res.append(-1)
+                continue
+
+            cur = query[0] ^ nums[0]
+            for n in nums:
+                if n > query[1]:
+                    break
+                # print(f'query[0] ^ n = {query[0] ^ n}')
+                cur = max(cur, query[0] ^ n)
+            res.append(cur)
+
+
+
         return res
 
 
-def test(test_name, s, expected):
-    res = Solution().lengthOfLastWord(s)
+
+def test(test_name, nums, queries, expected):
+    res = Solution().maximizeXor(nums, queries)
     if res == expected:
         print(test_name + ' success.')
     else:
         print(test_name + ' failed.')
 
 
-if __name__ == "__main__":
-    s1 = "Hello World"
-    expected1 = 5
-    test("test1", s1, expected1)
+if __name__ == '__main__':
+    nums1 = [0,1,2,3,4]
+    queries1 = [[3,1],[1,3],[5,6]]
+    expected1 = [3,3,7]
+    test('test1', nums1, queries1, expected1)
 
-    s2 = " "
-    expected2 = 0
-    test("test2", s2, expected2)
-
-    s3 = "a "
-    expected3 = 1
-    test("test3", s3, expected3)
-
-    s4 = "Today is a nice day"
-    expected4 = 3
-    test("test4", s4, expected4)
+    nums2 = [5,2,4,6,6,3]
+    queries2 = [[12,4],[8,1],[6,3]]
+    expected2 = [15,-1,5]
+    test('test2', nums2, queries2, expected2)
