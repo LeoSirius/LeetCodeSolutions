@@ -1,20 +1,25 @@
 class Solution:
     def addBinary(self, a: str, b: str) -> str:
+        p1, p2 = len(a)-1, len(b)-1
         carry = 0
-        p1, p2 = len(a) - 1, len(b) - 1
-        res = ''
+        res = ['0'] * (max(len(a), len(b)) + 1)
+        p3 = len(res)-1
+
         while carry or p1 >= 0 or p2 >= 0:
             v1, v2 = 0, 0
             if p1 >= 0:
-                v1 = int(a[p1])
+                v1 = a[p1]
                 p1 -= 1
             if p2 >= 0:
-                v2 = int(b[p2])
+                v2 = b[p2]
                 p2 -= 1
-            s = v1 + v2 + carry
-            res = str(s%2) + res
-            carry = s // 2
-        return res
+            _sum = carry + int(v1) + int(v2)
+            carry = _sum // 2
+            cur = _sum % 2
+            res[p3] = str(cur)
+            p3 -= 1
+
+        return ''.join(res[p3+1:])
 
 
 def test(test_name, a, b, expected):
@@ -23,6 +28,7 @@ def test(test_name, a, b, expected):
         print(test_name + ' success.')
     else:
         print(test_name + ' failed.')
+
 
 if __name__ == "__main__":
     a1, b1 = '11', '1'

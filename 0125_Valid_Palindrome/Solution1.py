@@ -1,14 +1,15 @@
 class Solution:
     def isPalindrome(self, s: str) -> bool:
-        s = s.lower()
-        l = [ch for ch in s if ch.isalnum()]
-        left, right = 0, len(l)-1
-        while left < right:
-            if l[left] != l[right]:
-                break
-            left += 1
-            right -= 1
-        return left >= right
+        s = [ch.lower() for ch in s if ch.isalnum()]
+
+        l, r = 0, len(s) - 1
+        while l < r:
+            if s[l] != s[r]:
+                return False
+            l += 1
+            r -= 1
+        return l == r or l == (r+1)
+
 
 def test(test_name, s, expected):
     res = Solution().isPalindrome(s)
@@ -16,6 +17,7 @@ def test(test_name, s, expected):
         print(test_name + ' success.')
     else:
         print(test_name + ' failed.')
+
 
 if __name__ == "__main__":
     s1 = "A man, a plan, a canal: Panama";
