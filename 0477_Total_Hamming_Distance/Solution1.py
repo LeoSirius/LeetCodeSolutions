@@ -9,11 +9,14 @@ class Solution:
         for k in range(30):
             s1, s2 = 0, 0
             for row in range(_len):
+                # print(f'(nums[row] >> k) & 1 = {(nums[row] >> k) & 1}')
                 if (nums[row] >> k) & 1:
                     s1 += 1
                 else:
                     s2 += 1
+            # print(f's1 = {s1}, s2 = {s2}')
             res += s1 * s2
+        # print(f'res = {res}')
         return res
 
 
