@@ -11,7 +11,6 @@ class Solution:
 
 def test(test_name, s, expected):
     res = Solution().firstUniqChar(s)
-    print(f'res = {res}')
     if res == expected:
         print(test_name + ' success.')
     else:
