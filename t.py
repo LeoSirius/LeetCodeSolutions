@@ -1,24 +1,17 @@
-from typing import *
-
+from collections import Counter
 
 class Solution:
-    def totalHammingDistance(self, nums: List[int]) -> int:
-        res = 0
-        _len = len(nums)
-
-        for k in range(30):
-            s1, s2 = 0, 0
-            for row in range(_len):
-                if (nums[row] >> k) & 1:
-                    s1 += 1
-                else:
-                    s2 += 1
-            res += s1 * s2
-        return res
+    def firstUniqChar(self, s: str) -> int:
+        counter = Counter(s)
+        for i in range(len(s)):
+            if counter[s[i]] == 1:
+                return i
+        return -1
 
 
-def test(test_name, nums, expected):
-    res = Solution().totalHammingDistance(nums)
+def test(test_name, s, expected):
+    res = Solution().firstUniqChar(s)
+    print(f'res = {res}')
     if res == expected:
         print(test_name + ' success.')
     else:
@@ -26,10 +19,14 @@ def test(test_name, nums, expected):
 
 
 if __name__ == '__main__':
-    nums1 = [4,14,2]
-    expected1 = 6
-    test('test1', nums1, expected1)
+    s1 = 'leetcode'
+    expected1 = 0
+    test('test1', s1, expected1)
 
-    nums2 = [4,14,4]
-    expected2 = 4
-    test('test2', nums2, expected2)
+    s2 = 'loveleetcode'
+    expected2 = 2
+    test('test2', s2, expected2)
+
+    s3 = 'aabb'
+    expected3 = -1
+    test('test3', s3, expected3)
