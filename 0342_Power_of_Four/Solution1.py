@@ -1,12 +1,9 @@
-from math import sqrt
-
 class Solution:
     def isPowerOfFour(self, n: int) -> bool:
-        n = sqrt(n)
-        if not n.is_integer():
-            return False
-        n = int(n)
-        return n > 0 and n & (n-1) == 0
+        x = 1
+        while x < n:
+            x *= 4
+        return x == n
 
 
 def test(test_name, n, expected):
