@@ -17,6 +17,7 @@ def test(test_name, x, expected):
     else:
         print(test_name + ' failed.')
 
+
 if __name__ == "__main__":
     test('test1', 123, 321)
     test('test2', -123, -321)
