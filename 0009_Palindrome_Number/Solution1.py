@@ -6,13 +6,15 @@ class Solution:
             return True
         elif x % 10 == 0:
             return False
-        
-        join_from_left = 0
-        while join_from_left < x:
-            join_from_left = join_from_left * 10 + x % 10
-            x //= 10
 
-        return join_from_left == x or join_from_left // 10 == x
+        mirror = 0
+        while mirror < x:
+            digit = x % 10
+            x //= 10
+            mirror = mirror * 10 + digit
+
+        return mirror == x or mirror // 10 == x
+
 
 def test(test_name, x, expected):
     res = Solution().isPalindrome(x)
@@ -20,6 +22,7 @@ def test(test_name, x, expected):
         print(test_name + ' success.')
     else:
         print(test_name + ' failed.')
+
 
 if __name__ == "__main__":
     test('test1', 121, True)
