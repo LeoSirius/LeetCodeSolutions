@@ -1,31 +1,25 @@
 from typing import *
 
+
 class Solution:
-    def findTargetSumWays(self, nums: List[int], target: int) -> int:
-        cache = {}
-        def dfs(idx, presum):
-            if (idx, presum) in cache:
-                return cache[(idx, presum)]
-            res = 0
-            if idx >= len(nums):
-                return res
-            if idx == len(nums)-1:
-                if presum + nums[idx] == target:
-                    res += 1
-                if presum - nums[idx] == target:
-                    res += 1
-                cache[(idx, presum)] = res
-                return res
-            for n  in [nums[idx], -nums[idx]]:
-                res += dfs(idx+1, presum + n)
-            cache[(idx, presum)] = res
-            return res
+    def lastStoneWeightII(self, stones: List[int]) -> int:
+        _sum = sum(stones)
+        target_weight = _sum // 2
+        # dp[i] 表示：是否有子集数组，重量和为i，值为 True or False
+        dp = [False] * (target_weight + 1)
+        dp[0]= True
 
-        return dfs(0, 0)
+        for stone in stones:
+            for i in range(target_weight, stone-1, -1):
+                dp[i] = dp[i] or dp[i-stone]
+
+        for i in range(target_weight, -1, -1):
+            if dp[i]:
+                return _sum - 2 * i
 
 
-def test(test_name, nums, target, expected):
-    res = Solution().findTargetSumWays(nums, target)
+def test(test_name, stones, expected):
+    res = Solution().lastStoneWeightII(stones)
     if res == expected:
         print(test_name + ' success.')
     else:
@@ -33,17 +27,14 @@ def test(test_name, nums, target, expected):
 
 
 if __name__ == '__main__':
-    nums1 = [1,1,1,1,1]
-    target1 = 3
-    expected1 = 5
-    test('test1', nums1, target1, expected1)
+    stones1 = [2,7,4,1,8,1]
+    expected1 = 1
+    test('test1', stones1, expected1)
 
-    nums2 = [1]
-    target2 = 1
-    expected2 = 1
-    test('test2', nums2, target2, expected2)
+    stones2 = [31,26,33,21,40]
+    expected2 = 5
+    test('test2', stones2, expected2)
 
-    nums3 = [1, 0]
-    target3 = 1
-    expected3 = 2
-    test('test3', nums3, target3, expected3)
+    stone3 = [1,2]
+    expected3 = 1
+    test('test3', stone3, expected3)
