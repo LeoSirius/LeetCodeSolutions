@@ -1,40 +1,43 @@
-from typing import *
 
 class Solution:
-    def peakIndexInMountainArray(self, arr: List[int]) -> int:
-        idx = 0
-        for i in range(len(arr)-1):
-            if arr[i] > arr[i+1]:
-                idx = i
-                break
-        return idx
+    def addBinary(self, a: str, b: str) -> str:
+        res = [0] * (max(len(a), len(b)) + 1)
+        pa, pb, pc = len(a) - 1, len(b) - 1, len(res) - 1
+        carry = 0
+
+        while pa >= 0 or pb >= 0 or carry:
+            v1, v2 = 0, 0
+            if pa >= 0:
+                v1 = int(a[pa])
+                pa -= 1
+            if pb >= 0:
+                v2 = int(b[pb])
+                pb -= 1
+            _sum = v1 + v2 + carry
+            res[pc] = _sum % 2
+            pc -= 1
+            carry = _sum // 2
+        if res[0] == 0:
+            res = res[1:]
+        return ''.join([str(n) for n in res])
 
 
-def test(test_name, arr, expected):
-    res = Solution().peakIndexInMountainArray(arr)
+
+
+def test(test_name, a, b, expected):
+    res = Solution().addBinary(a, b)
+    # print(f'res = {res}')
     if res == expected:
         print(test_name + ' success.')
     else:
         print(test_name + ' failed.')
 
 
-if __name__ == '__main__':
-    arr1 = [0,1,0]
-    expected1 = 1
-    test('test1', arr1, expected1)
+if __name__ == "__main__":
+    a1, b1 = '11', '1'
+    expected1 = '100'
+    test("test1", a1, b1, expected1)
 
-    arr2 = [0,2,1,0]
-    expected2 = 1
-    test('test2', arr2, expected2)
-
-    arr3 = [0,10,5,2]
-    expected3 = 1
-    test('test3', arr3, expected3)
-
-    arr4 = [3,4,5,1]
-    expected4 = 2
-    test('test4', arr4, expected4)
-
-    arr5 = [24,69,100,99,79,78,67,36,26,19]
-    expected5 = 2
-    test('test5', arr5, expected5)
+    a2, b2 = '1010', '1011'
+    expected2 = '10101'
+    test('test2', a2, b2, expected2)
