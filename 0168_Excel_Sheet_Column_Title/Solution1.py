@@ -1,13 +1,12 @@
 class Solution:
-    def convertToTitle(self, n: int) -> str:
-        res = ''
+    def convertToTitle(self, columnNumber: int) -> str:
+        res = []
+        while columnNumber > 0:
+            columnNumber -= 1
+            columnNumber, m = divmod(columnNumber, 26)
+            res.append(chr(ord('A') + m))
+        return ''.join(reversed(res))
 
-        while n:
-            n -= 1  # n start from 1, so -1.  先在这里减1，能避免很多corner cases
-            n, r = divmod(n, 26)   # 0 <= r <= 25
-            res = chr(r + ord('A')) + res
-
-        return res
 
 def test(test_name, n, expected):
     res = Solution().convertToTitle(n)
@@ -15,6 +14,7 @@ def test(test_name, n, expected):
         print(test_name + ' success.')
     else:
         print(test_name + ' failed.')
+
 
 if __name__ == "__main__":
     n1 = 1

@@ -1,12 +1,14 @@
 class Solution:
     def mySqrt(self, x: int) -> int:
-        if x <= 1:
-            return x
-
-        r = x
-        while r * r > x:
-            r = (r + x / r) // 2
-        return int(r)
+        if x == 0:
+            return 0
+        if x < 1:
+            x = 1 / x
+        res = 1
+        while res * res <= x:
+            res += 1
+        res -= 1
+        return int(res)
 
 
 def test(test_name, x, expected):
