@@ -1,57 +1,42 @@
 from typing import *
-from collections import defaultdict
 
 
-class ThroneInheritance:
-
-    def __init__(self, kingName: str):
-        self.root = kingName
-        self.d_set = set()
-        self.tree = defaultdict(list)
-
-    def birth(self, parentName: str, childName: str) -> None:
-        self.tree[parentName].append(childName)
-
-    def death(self, name: str) -> None:
-        self.d_set.add(name)
-
-    def getInheritanceOrder(self) -> List[str]:
+class Solution:
+    def readBinaryWatch(self, turnedOn: int) -> List[str]:
         res = []
-        def pre_order(name):
-            if name not in self.d_set:
-                res.append(name)
-            for child_name in self.tree[name]:
-                pre_order(child_name)
-        pre_order(self.root)
+
+        def count_one(n):
+            cnt = 0
+            for i in range(6):
+                cnt += n & 1
+                n //= 2
+            return cnt
+
+        for h in range(12):
+            one1 = count_one(h)
+            for m in range(60):
+                one2 = count_one(m)
+                if one1 + one2 == turnedOn:
+                    res.append(f'{h}:0{m}' if m < 10 else f'{h}:{m}')
+
         return res
 
 
-# Your ThroneInheritance object will be instantiated and called as such:
-# obj = ThroneInheritance(kingName)
-# obj.birth(parentName,childName)
-# obj.death(name)
-# param_3 = obj.getInheritanceOrder()
-
-def test1():
-    obj = ThroneInheritance('king')
-    obj.birth('king', 'andy')
-    obj.birth('king', 'bob')
-    obj.birth('king', 'catherine')
-    obj.birth('andy', 'matthew')
-    obj.birth('bob', 'alex')
-    obj.birth('bob', 'asha')
-    res1 = obj.getInheritanceOrder()  # ["king", "andy", "matthew", "bob", "alex", "asha", "catherine"]
-    obj.death('bob')
-    res2 = obj.getInheritanceOrder() # ["king", "andy", "matthew", "alex", "asha", "catherine"]
-    print(f'res1 = {res1}')
-    print(f'res2 = {res2}')
-
-    if (res1 == ["king", "andy", "matthew", "bob", "alex", "asha", "catherine"] and
-            res2 == ["king", "andy", "matthew", "alex", "asha", "catherine"]):
-        print('test1 succeed')
+def test(test_name, turnedOn, expected):
+    res = Solution().readBinaryWatch(turnedOn)
+    res.sort()
+    expected.sort()
+    if res == expected:
+        print(test_name + ' succeed')
     else:
-        print('test1 failed')
+        print(test_name + ' fail')
 
 
 if __name__ == '__main__':
-    test1()
+    turnedOn1 = 1
+    expected1 = ["0:01","0:02","0:04","0:08","0:16","0:32","1:00","2:00","4:00","8:00"]
+    test('test1', turnedOn1, expected1)
+
+    turnedOn2 = 9
+    expected2 = []
+    test('test2', turnedOn2, expected2)
