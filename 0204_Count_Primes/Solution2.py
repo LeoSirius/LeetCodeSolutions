@@ -16,9 +16,9 @@ class Solution:
 def test(test_name, n, expected):
     res = Solution().countPrimes(n)
     if res == expected:
-        print(test_name + ' success.')
+        print(test_name + ' succeed')
     else:
-        print(test_name + ' failed.')
+        print(test_name + ' fail')
 
 if __name__ == "__main__":
     n1, expected1 = 10, 4
