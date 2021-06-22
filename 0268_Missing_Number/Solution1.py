@@ -2,9 +2,8 @@ from typing import *
 
 class Solution:
     def missingNumber(self, nums: List[int]) -> int:
-        n = len(nums)
-        _sum = (n * (n+1)) // 2   # 返回结果需要是 int 类型
-
+        _len = len(nums)
+        _sum = (_len * (_len+1)) // 2
         for n in nums:
             _sum -= n
         return _sum
