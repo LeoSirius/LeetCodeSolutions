@@ -5,28 +5,31 @@ class Solution:
         ch_list, res = list(s), []
 
         def dfs(start):
-            if start == len(ch_list) - 1:
+            if start == len(ch_list)-1:
                 res.append(''.join(ch_list))
                 return
 
-            dic = set()
+            d_set = set()
             for i in range(start, len(ch_list)):
-                if ch_list[i] in dic: continue  # 用set来跳过重复的字符
-                dic.add(ch_list[i])
+                if ch_list[i] in d_set:
+                    continue
+                d_set.add(ch_list[i])
                 ch_list[i], ch_list[start] = ch_list[start], ch_list[i]
-                dfs(start + 1)
+                dfs(start+1)
                 ch_list[i], ch_list[start] = ch_list[start], ch_list[i]
-
         dfs(0)
         return res
 
 
 def test(test_name, s, expected):
     res = Solution().permutation(s)
-    if sorted(res) == sorted(expected):
-        print(test_name + ' success.')
+    res.sort()
+    expected.sort()
+    if res == expected:
+        print(test_name + ' succeed')
     else:
-        print(test_name + ' failed.')
+        print(test_name + ' fail')
+
 
 if __name__ == "__main__":
     s1 = "abc"
