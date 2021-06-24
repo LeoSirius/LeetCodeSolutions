@@ -1,20 +1,22 @@
-from typing import List
+from typing import *
+
 
 class Solution:
     def twoSum(self, nums: List[int], target: int) -> List[int]:
-        mp = {}
+        d = {}
         for i, n in enumerate(nums):
             n2find = target - n
-            if n2find in mp:
-                return [i, mp[n2find]]
-            mp[n] = i
+            if n2find in d:
+                return [i, d[n2find]]
+            d[n] = i
         return []
 
 
 def test(test_name, nums: List[int], target: int, expected: List[int]):
-    slt = Solution()
-    res = slt.twoSum(nums, target)
-    if sorted(res) == sorted(expected):
+    res = Solution().twoSum(nums, target)
+    res.sort()
+    expected.sort()
+    if res == expected:
         print(test_name + ' success')
     else:
         print(test_name + ' failed.')
