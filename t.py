@@ -1,17 +1,23 @@
+from typing import *
+
+
 class Solution:
-    def convertToTitle(self, columnNumber: int) -> str:
-        res_list = []
-        while columnNumber:
-            columnNumber -= 1
-            cur_digit = columnNumber % 26
-            columnNumber //= 26
-            res_list.append(chr(ord('A')+cur_digit))
-        res_list.reverse()
-        return ''.join(res_list)
+    def majorityElement(self, nums: List[int]) -> int:
+        res = nums[0]
+        cnt = 1
+        for i in range(1, len(nums)):
+            if nums[i] == res:
+                cnt += 1
+            else:
+                cnt -= 1
+            if cnt <= 0:
+                cnt = 1
+                res = nums[i]
+        return res
 
 
-def test(test_name, n, expected):
-    res = Solution().convertToTitle(n)
+def test(test_name, nums, expected):
+    res = Solution().majorityElement(nums)
     if res == expected:
         print(test_name + ' success.')
     else:
@@ -19,14 +25,33 @@ def test(test_name, n, expected):
 
 
 if __name__ == "__main__":
-    n1 = 1
-    expected1 = 'A'
-    test('test1', n1, expected1)
+    nums1 = [3,2,3]
+    expected1 = 3
+    test("test1", nums1, expected1)
 
-    n2 = 28
-    expected2 = 'AB'
-    test('test2', n2, expected2)
+    nums2 = [2,2,1,1,1,2,2]
+    expected2 = 2
+    test("test2", nums2, expected2)
 
-    n3 = 701
-    expected3 = 'ZY'
-    test('test3', n3, expected3)
+    nums3 = [10,9,9,9,10]
+    expected3 = 9
+    test('test3', nums3, expected3)
+
+
+# Given an array of size n, find the majority element.
+# The majority element is the element that appears more than ⌊ n/2 ⌋ times.
+
+# You may assume that the array is non-empty and the majority
+# element always exist in the array.
+
+# Example 1:
+
+# Input: [3,2,3]
+# Output: 3
+
+# Example 2:
+
+# Input: [2,2,1,1,1,2,2]
+# Output: 2
+
+
