@@ -1,11 +1,13 @@
 class Solution:
     def convertToTitle(self, columnNumber: int) -> str:
-        res = []
-        while columnNumber > 0:
+        res_list = []
+        while columnNumber:
             columnNumber -= 1
-            columnNumber, m = divmod(columnNumber, 26)
-            res.append(chr(ord('A') + m))
-        return ''.join(reversed(res))
+            cur_digit = columnNumber % 26
+            columnNumber //= 26
+            res_list.append(chr(ord('A')+cur_digit))
+        res_list.reverse()
+        return ''.join(res_list)
 
 
 def test(test_name, n, expected):

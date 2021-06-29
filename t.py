@@ -1,43 +1,32 @@
-from util_py.list import *
-
-# Definition for singly-linked list.
-# class ListNode:
-#     def __init__(self, x):
-#         self.val = x
-#         self.next = None
-
 class Solution:
-    def hasCycle(self, head: ListNode) -> bool:
-        if not head or not head.next:
-            return False
-        fast, slow = head, head
-        while fast and fast.next:
-            slow = slow.next
-            fast = fast.next.next
-            if slow == fast:
-                return True
-        return False
+    def convertToTitle(self, columnNumber: int) -> str:
+        res_list = []
+        while columnNumber:
+            columnNumber -= 1
+            cur_digit = columnNumber % 26
+            columnNumber //= 26
+            res_list.append(chr(ord('A')+cur_digit))
+        res_list.reverse()
+        return ''.join(res_list)
 
 
-def test(test_name, head, expected):
-    res = Solution().hasCycle(head)
-    if type(res) == type(expected) and res == expected:
-        print(test_name + ' succeed')
+def test(test_name, n, expected):
+    res = Solution().convertToTitle(n)
+    if res == expected:
+        print(test_name + ' success.')
     else:
-        print(test_name + ' fail')
+        print(test_name + ' failed.')
 
 
-if __name__ == '__main__':
-    head1 = build_list([3,2,0,-4])
-    head1.next.next.next.next = head1.next
-    expected1 = True
-    test('test1', head1, expected1)
+if __name__ == "__main__":
+    n1 = 1
+    expected1 = 'A'
+    test('test1', n1, expected1)
 
-    head2 = build_list([1,2])
-    head2.next.next = head2
-    expected2 = True
-    test('test2', head2, expected2)
+    n2 = 28
+    expected2 = 'AB'
+    test('test2', n2, expected2)
 
-    head3 = build_list([1])
-    expected3 = False
-    test('test3', head3, expected3)
+    n3 = 701
+    expected3 = 'ZY'
+    test('test3', n3, expected3)
