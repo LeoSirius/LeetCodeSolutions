@@ -1,23 +1,19 @@
 class Solution:
     def isHappy(self, n: int) -> bool:
-
-        def process(n):
-            digits = []
-            for _ in range(31):
-                if n == 0:
-                    break
-                cur_d = n % 10
-                digits.append(cur_d)
-                n //= 10
-            return sum(x * x for x in digits)
+        def process(x):
+            res = 0
+            while x:
+                digit = x % 10
+                x //= 10
+                res += digit * digit
+            return res
 
         slow = process(n)
         fast = process(slow)
 
         while fast != slow:
+            fast = process(process(fast))
             slow = process(slow)
-            fast = process(fast)
-            fast = process(fast)
         return fast == 1
 
 

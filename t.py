@@ -1,99 +1,44 @@
-from collections import deque
+class Solution:
+    def isHappy(self, n: int) -> bool:
+        def process(x):
+            res = 0
+            while x:
+                digit = x % 10
+                x //= 10
+                res += digit * digit
+            return res
 
-from util_py.tree import *
+        slow = process(n)
+        fast = process(slow)
 
-
-# Definition for a binary tree node.
-# class TreeNode(object):
-#     def __init__(self, x):
-#         self.val = x
-#         self.left = None
-#         self.right = None
-
-class Codec:
-
-    def serialize(self, root):
-        """Encodes a tree to a single string.
-
-        :type root: TreeNode
-        :rtype: str
-        """
-        items = []
-        dq = deque([root])
-        while dq:
-            cur_node = dq.popleft()
-            items.append(str(cur_node.val) if cur_node else 'null')
-            if cur_node:
-                dq.append(cur_node.left)
-                dq.append(cur_node.right)
-        return ','.join(items) if items else 'null'
+        while fast != slow:
+            fast = process(process(fast))
+            slow = process(slow)
+        return fast == 1
 
 
-    def deserialize(self, data):
-        """Decodes your encoded data to tree.
-
-        :type data: str
-        :rtype: TreeNode
-        """
-        items = data.split(',')
-        dummy = TreeNode(0)
-        dq = deque([dummy])
-
-        is_left = False
-        for item in items:
-            node = None if item == 'null' else TreeNode(int(item))
-            q = dq[0]
-            if is_left:
-                q.left = node
-            else:
-                q.right = node
-                dq.popleft()
-            if node:
-                dq.append(node)
-            is_left = not is_left
-        return dummy.right
-
-
-# Your Codec object will be instantiated and called as such:
-# codec = Codec()
-# codec.deserialize(codec.serialize(root))
-
-
-# Your Codec object will be instantiated and called as such:
-# codec = Codec()
-# codec.deserialize(codec.serialize(root))
-
-
-def test1():
-    #     1
-    #    / \
-    #   2   3
-    #      / \
-    #     4   5
-
-    # 序列化为 "1,2,3,null,null,4,5"
-    tree = TreeNode(1)
-    tree.left = TreeNode(2)
-    tree.right = TreeNode(3)
-    tree.right.left = TreeNode(4)
-    tree.right.right = TreeNode(5)
-    codec = Codec()
-    res_tree = codec.deserialize(codec.serialize(tree))
-    if is_equal_tree(res_tree, tree):
-        print('test1 succeed')
+def test(test_name, n, expected):
+    res = Solution().isHappy(n)
+    if res == expected:
+        print(test_name + ' succeed')
     else:
-        print('test1 fail')
+        print(test_name + ' fail')
 
-
-def test2():
-    tree = None
-    codec = Codec()
-    res_tree = codec.deserialize(codec.serialize(tree))
-    if is_equal_tree(res_tree, tree):
-        print('test2 succeed')
-    else:
-        print('test2 fail')
 
 if __name__ == "__main__":
-    test1()
-    test2()
+    n1 = 19
+    expected1 = True
+    test('test1', n1, expected1)
+
+    n2 = 1
+    expected2 = True
+    test('test2', n2, expected2)
+
+    n3 = 7
+    expected3 = True
+    test('test3', n3, expected3)
+
+    n4 = 2
+    expected4 = False
+    test('test4', n4, expected4)
+

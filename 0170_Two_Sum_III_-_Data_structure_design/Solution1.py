@@ -1,31 +1,29 @@
-from collections import defaultdict
-
 class TwoSum:
 
     def __init__(self):
         """
         Initialize your data structure here.
         """
-        self.hashmap = defaultdict(int)
+        self.nums = []
 
 
     def add(self, number: int) -> None:
         """
         Add the number to an internal data structure..
         """
-        self.hashmap[number] += 1
+        self.nums.append(number)
 
 
     def find(self, value: int) -> bool:
         """
         Find if there exists any pair of numbers which sum is equal to the value.
         """
-        for key, _ in self.hashmap.items():
-            num2find = value - key
-            if num2find == key and self.hashmap[key] > 1:
+        _set = set()
+        for n in self.nums:
+            n2find = value - n
+            if n2find in _set:
                 return True
-            if num2find != key and num2find in self.hashmap:
-                return True
+            _set.add(n)
         return False
 
 
@@ -33,6 +31,7 @@ class TwoSum:
 # obj = TwoSum()
 # obj.add(number)
 # param_2 = obj.find(value)
+
 
 
 def test1():

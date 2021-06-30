@@ -1,5 +1,5 @@
-### 思路1
+### 思路1 hash 和 two sum 1 类似
 
-用map来记录数据。key是add过的数，value是那个数被add了几次。
+用set来记录数据。
 
 在find的时候，类似第一题two sum的解法
