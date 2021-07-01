@@ -1,48 +1,53 @@
 from typing import *
-from collections import defaultdict, deque
 
 
 class Solution:
-    def numWays(self, n: int, relation: List[List[int]], k: int) -> int:
-        persons = defaultdict(set)    # 每个人能到的 其他人处
-        for rel in relation:
-            persons[rel[0]].add(rel[1])
-
-        que = deque([0])
-        last_len = 1
-        while que and k:
-            while last_len:
-                person = que.popleft()
-                for end in persons[person]:
-                    que.append(end)
-                last_len -= 1
-            k -= 1
-            last_len = len(que)
-
-        res = 0
-        for end in que:
-            if end == n-1:
-                res += 1
-        return res
+    def containsDuplicate(self, nums: List[int]) -> bool:
+        _set = set()
+        for n in nums:
+            if n in _set:
+                return True
+            _set.add(n)
+        return False
 
 
-def test(test_name, n, relation, k, expected):
-    res = Solution().numWays(n, relation, k)
-    if type(res) == type(expected) and res == expected:
+def test(test_name, nums, expected):
+    res = Solution().containsDuplicate(nums)
+    if res == expected:
         print(test_name + ' succeed')
     else:
         print(test_name + ' fail')
 
 
-if __name__ == '__main__':
-    n1 = 5
-    relation1= [[0,2],[2,1],[3,4],[2,3],[1,4],[2,0],[0,4]]
-    k1 = 3
-    expected1 = 3
-    test('test1', n1, relation1, k1, expected1)
+if __name__ == "__main__":
+    nums1 = [1,2,3,1]
+    expected1 = True
+    test('test1', nums1, expected1)
 
-    n2 = 3
-    relation2 = [[0,2],[2,1]]
-    k2 = 2
-    expected2 = 0
-    test('test2', n2, relation2, k2, expected2)
+    nums2 = [1,2,3,4]
+    expected2 = False
+    test('test2', nums2, expected2)
+
+    nums3 = [1,1,1,3,3,4,3,2,4,2]
+    expected3 = True
+    test('test3', nums3, expected3)
+
+
+# Given an array of integers, find if the array contains any duplicates.
+
+# Your function should return true if any value appears at least twice
+# in the array, and it should return false if every element is distinct.
+
+# Example 1:
+
+# Input: [1,2,3,1]
+# Output: true
+# Example 2:
+
+# Input: [1,2,3,4]
+# Output: false
+# Example 3:
+
+# Input: [1,1,1,3,3,4,3,2,4,2]
+# Output: true
+

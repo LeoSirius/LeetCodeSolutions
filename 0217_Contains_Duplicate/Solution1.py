@@ -1,5 +1,6 @@
 from typing import *
 
+
 class Solution:
     def containsDuplicate(self, nums: List[int]) -> bool:
         _set = set()
@@ -13,9 +14,9 @@ class Solution:
 def test(test_name, nums, expected):
     res = Solution().containsDuplicate(nums)
     if res == expected:
-        print(test_name + ' success.')
+        print(test_name + ' succeed')
     else:
-        print(test_name + ' failed.')
+        print(test_name + ' fail')
 
 
 if __name__ == "__main__":
@@ -34,7 +35,7 @@ if __name__ == "__main__":
 
 # Given an array of integers, find if the array contains any duplicates.
 
-# Your function should return true if any value appears at least twice 
+# Your function should return true if any value appears at least twice
 # in the array, and it should return false if every element is distinct.
 
 # Example 1:
