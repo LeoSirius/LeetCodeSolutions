@@ -2,22 +2,21 @@ from typing import *
 
 class Solution:
     def containsNearbyDuplicate(self, nums: List[int], k: int) -> bool:
-        _dict = {}
-        for i, n in enumerate(nums):
-            # 这里第二个条件不用 abs 也行
-            # 我们从后往前遍历，_dict 中存的是前面最新的索引，i 总比 _dict 中的大
-            if n in _dict and i - _dict[n] <= k:
+        mp = {}
+        for i, v in enumerate(nums):
+            if v in mp and i - mp[v] <= k:
                 return True
-            _dict[n] = i
+            mp[v] = i
+
         return False
 
 
 def test(test_name, nums, k, expected):
     res = Solution().containsNearbyDuplicate(nums, k)
     if res == expected:
-        print(test_name + ' success.')
+        print(test_name + ' succeed')
     else:
-        print(test_name + ' failed.')
+        print(test_name + ' fail')
 
 
 if __name__ == '__main__':
