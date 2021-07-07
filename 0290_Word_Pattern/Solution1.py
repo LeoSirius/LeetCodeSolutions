@@ -1,20 +1,18 @@
 class Solution:
     def wordPattern(self, pattern: str, s: str) -> bool:
-        mp = {}
-        added_set = set()
+        mapper = {}
+        _set = set()
         words = s.split(' ')
         if len(pattern) != len(words):
             return False
-        
         for i in range(len(pattern)):
-            if pattern[i] not in mp:
-                if words[i] in added_set:
+            if pattern[i] not in mapper:
+                if words[i] in _set:
                     return False
-                mp[pattern[i]] = words[i]
-                added_set.add(words[i])
-            else:
-                if mp[pattern[i]] != words[i]:
-                    return False
+                _set.add(words[i])
+                mapper[pattern[i]] = words[i]
+            elif mapper[pattern[i]] != words[i]:
+                return False
 
         return True
 
@@ -22,9 +20,9 @@ class Solution:
 def test(test_name, pattern, s, expected):
     res = Solution().wordPattern(pattern, s)
     if res == expected:
-        print(test_name + ' success.')
+        print(test_name + ' succeed')
     else:
-        print(test_name + ' failed.')
+        print(test_name + ' fail')
 
 
 if __name__ == "__main__":
@@ -47,7 +45,7 @@ if __name__ == "__main__":
 
 # Given a pattern and a string s, find if s follows the same pattern.
 
-# Here follow means a full match, such that there is a bijection 
+# Here follow means a full match, such that there is a bijection
 # between a letter in pattern and a non-empty word in s.
 
 # Example 1:

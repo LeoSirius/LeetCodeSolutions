@@ -1,9 +1,10 @@
 from typing import *
 
+
 class Solution:
     def missingNumber(self, nums: List[int]) -> int:
-        _len = len(nums)
-        _sum = (_len * (_len+1)) // 2
+        n = len(nums)
+        _sum = (n * (n+1)) // 2
         for n in nums:
             _sum -= n
         return _sum
@@ -12,9 +13,9 @@ class Solution:
 def test(test_name, nums, expected):
     res = Solution().missingNumber(nums)
     if res == expected:
-        print(test_name + ' success.')
+        print(test_name + ' succeed')
     else:
-        print(test_name + ' failed.')
+        print(test_name + ' fail')
 
 
 if __name__ == '__main__':
