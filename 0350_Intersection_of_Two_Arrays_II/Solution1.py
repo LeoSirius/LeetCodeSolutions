@@ -1,21 +1,16 @@
-from collections import defaultdict
 from typing import *
-
+from collections import Counter
 
 class Solution:
     def intersect(self, nums1: List[int], nums2: List[int]) -> List[int]:
-        mp1 = defaultdict(int)
-        mp2 = defaultdict(int)
-        for n in nums1:
-            mp1[n] += 1
-        for n in nums2:
-            mp2[n] += 1
-
+        c1, c2 = Counter(nums1), Counter(nums2)
         res = []
-        for n, times in mp1.items():
-            if n in mp2:
-                res.extend([n]*min(times, mp2[n]))
-
+        for k in nums1 + nums2:
+            if k in res:
+                continue
+            if k in c1 and k in c2:
+                times = min(c1[k], c2[k])
+                res.extend([k] * times)
         return res
 
 
@@ -24,9 +19,9 @@ def test(test_name, nums1, nums2, expected):
     res.sort()
     expected.sort()
     if res == expected:
-        print(test_name + ' success.')
+        print(test_name + ' succeed')
     else:
-        print(test_name + ' failed.')
+        print(test_name + ' fail')
 
 
 if __name__ == "__main__":
