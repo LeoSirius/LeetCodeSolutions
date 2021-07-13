@@ -1,18 +1,11 @@
+from collections import Counter
+
+
 class Solution:
     def canConstruct(self, ransomNote: str, magazine: str) -> bool:
-        if len(ransomNote) > len(magazine):
-            return False
-
-        def c2zero(ch):
-            return ord(ch)-ord('a')
-
-        arr1, arr2 = [0] * 26, [0] * 26
-        for i in range(len(magazine)):
-            if i < len(ransomNote):
-                arr1[c2zero(ransomNote[i])] += 1
-            arr2[c2zero(magazine[i])] += 1
-        for i in range(26):
-            if arr1[i] > arr2[i]:
+        c1, c2 = Counter(ransomNote), Counter(magazine)
+        for ch, v in c1.items():
+            if ch not in c2 or c2[ch] < v:
                 return False
         return True
 
@@ -20,9 +13,9 @@ class Solution:
 def test(test_name, ransomNote, magazine, expected):
     res = Solution().canConstruct(ransomNote, magazine)
     if res == expected:
-        print(test_name + ' success.')
+        print(test_name + ' succeed')
     else:
-        print(test_name + ' failed.')
+        print(test_name + ' fail')
 
 
 if __name__ == '__main__':
