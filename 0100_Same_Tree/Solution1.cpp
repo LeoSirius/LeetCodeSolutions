@@ -1,30 +1,38 @@
 #include <iostream>
+#include "util_cpp/tree.h"
 using namespace std;
 
-struct TreeNode {
-    int val;
-    TreeNode *left;
-    TreeNode *right;
-    TreeNode(int x) : val(x), left(NULL), right(NULL) {}
-};
 
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
 class Solution {
 public:
     bool isSameTree(TreeNode* p, TreeNode* q) {
         if (p == nullptr && q == nullptr) return true;
         if (p == nullptr || q == nullptr) return false;
         if (p->val != q->val) return false;
+
         return isSameTree(p->left, q->left) && isSameTree(p->right, q->right);
     }
 };
 
+
 void test(string test_name, TreeNode* p, TreeNode* q, bool expected)
 {
-    Solution s;
-    if (s.isSameTree(p, q) == expected) {
-        cout << test_name << " success." << endl;
+    bool res = Solution().isSameTree(p, q);
+    if (res == expected) {
+        cout << test_name << " succeed" << endl;
     } else {
-        cout << test_name << " failed." << endl;
+        cout << test_name << " fail" << endl;
     }
 }
 
@@ -67,6 +75,13 @@ int main()
     //          2   1     1   2
     // Output: false
     test("test3", p3, q3, expected3);
+
+    TreeNode *p4 = new TreeNode(0);
+    p4->left = new TreeNode(-5);
+    TreeNode *q4 = new TreeNode(0);
+    q4->left = new TreeNode(-8);
+    bool expected4 = false;
+    test("test4", p4, q4, expected4);
 
     return 0;
 }
