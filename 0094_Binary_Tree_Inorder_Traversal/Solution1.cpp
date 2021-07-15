@@ -1,37 +1,42 @@
 #include <iostream>
 #include <vector>
+#include "util_cpp/tree.h"
 using namespace std;
 
-struct TreeNode {
-    int val;
-    TreeNode *left;
-    TreeNode *right;
-    TreeNode(int x) : val(x), left(NULL), right(NULL) {}
-};
-
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
 class Solution {
-    void inorder(TreeNode *node, vector<int> &path)
-    {
-        if (node == nullptr) return;
-        inorder(node->left, path);
-        path.push_back(node->val);
-        inorder(node->right, path);
-    }
 public:
+    vector<int> res;
+    void dfs(TreeNode* root) {
+        if (root == nullptr) return;
+        if (root->left) inorderTraversal(root->left);
+        res.push_back(root->val);
+        if (root->right) inorderTraversal(root->right);
+    }
     vector<int> inorderTraversal(TreeNode* root) {
-        vector<int> res;
-        inorder(root, res);
+        dfs(root);
         return res;
     }
 };
 
+
 void test(string test_name, TreeNode *tree, vector<int> expected)
 {
-    Solution s;
-    if (s.inorderTraversal(tree) == expected) {
-        cout << test_name << " success." << endl;
+    vector<int> res = Solution().inorderTraversal(tree);
+    if (res == expected) {
+        cout << test_name << " succeed" << endl;
     } else {
-        cout << test_name << " failed." << endl;
+        cout << test_name << " fail" << endl;
     }
 }
 
