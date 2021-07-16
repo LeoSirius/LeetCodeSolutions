@@ -1,7 +1,7 @@
 #include <iostream>
+#include <algorithm>
 #include "util_cpp/tree.h"
 using namespace std;
-
 
 /**
  * Definition for a binary tree node.
@@ -16,19 +16,15 @@ using namespace std;
  */
 class Solution {
 public:
-    bool isSameTree(TreeNode* p, TreeNode* q) {
-        if (p == nullptr && q == nullptr) return true;
-        if (p == nullptr || q == nullptr) return false;
-        if (p->val != q->val) return false;
-
-        return isSameTree(p->left, q->left) && isSameTree(p->right, q->right);
+    int maxDepth(TreeNode* root) {
+        if (root == nullptr) return 0;
+        return max(maxDepth(root->left), maxDepth(root->right)) + 1;
     }
 };
 
-
-void test(string test_name, TreeNode* p, TreeNode* q, bool expected)
+void test(string test_name, TreeNode *root, int expected)
 {
-    bool res = Solution().isSameTree(p, q);
+    int res = Solution().maxDepth(root);
     if (res == expected) {
         cout << test_name << " succeed" << endl;
     } else {
@@ -38,50 +34,18 @@ void test(string test_name, TreeNode* p, TreeNode* q, bool expected)
 
 int main()
 {
-    TreeNode* p1 = new TreeNode(1);
-    p1->left = new TreeNode(2);
-    p1->right = new TreeNode(3);
-    TreeNode* q1 = new TreeNode(1);
-    q1->left = new TreeNode(2);
-    q1->right = new TreeNode(3);
-    bool expected1 = true;
-    // Input:     1         1
-    //           / \       / \
-    //          2   3     2   3
-    // Output: true
-    test("test1", p1, q1, expected1);
-
-
-    TreeNode *p2 = new TreeNode(1);
-    p2->left = new TreeNode(2);
-    TreeNode *q2 = new TreeNode(1);
-    q2->right = new TreeNode(2);
-    bool expected2 = false;
-    // Input:     1         1
-    //           /           \
-    //          2             2
-    // Output: false
-    test("test2", p2, q2, expected2);
-
-    TreeNode *p3 = new TreeNode(1);
-    p3->left = new TreeNode(2);
-    p3->right = new TreeNode(1);
-    TreeNode *q3 = new TreeNode(1);
-    q3->left = new TreeNode(1);
-    q3->right = new TreeNode(2);
-    bool expected3 = false;
-    // Input:     1         1
-    //           / \       / \
-    //          2   1     1   2
-    // Output: false
-    test("test3", p3, q3, expected3);
-
-    TreeNode *p4 = new TreeNode(0);
-    p4->left = new TreeNode(-5);
-    TreeNode *q4 = new TreeNode(0);
-    q4->left = new TreeNode(-8);
-    bool expected4 = false;
-    test("test4", p4, q4, expected4);
+    TreeNode *t1 = new TreeNode(3);
+    t1->left = new TreeNode(9);
+    t1->right = new TreeNode(20);
+    t1->right->left = new TreeNode(15);
+    t1->right->right = new TreeNode(7);
+    int expected1 = 3;
+    //     3
+    //    / \
+    //   9  20
+    //     /  \
+    //    15   7
+    test("test1", t1, expected1);
 
     return 0;
 }
