@@ -1,20 +1,17 @@
 from typing import *
+from collections import Counter
 
 class Solution:
     def search(self, nums: List[int], target: int) -> int:
-        res = 0
-        for i in nums:
-            if i == target:
-                res += 1
-        return res
+        return Counter(nums)[target]
 
 
 def test(test_name, nums, target, expected):
     res = Solution().search(nums, target)
     if res == expected:
-        print(test_name + ' success.')
+        print(test_name + ' succeed')
     else:
-        print(test_name + ' failed.')
+        print(test_name + ' fail')
 
 
 if __name__ == "__main__":

@@ -1,34 +1,42 @@
 from typing import *
-
+from collections import Counter
 
 class Solution:
-    def maximumElementAfterDecrementingAndRearranging(self, arr: List[int]) -> int:
-        arr.sort()
-        if arr[0] > 1:
-            arr[0] = 1
-        for i in range(1, len(arr)):
-            if arr[i] - arr[i-1] > 1:
-                arr[i] = arr[i-1] + 1
-        return arr[-1]
+    def search(self, nums: List[int], target: int) -> int:
+        return Counter(nums)[target]
 
 
-def test(test_name, arr, expected):
-    res = Solution().maximumElementAfterDecrementingAndRearranging(arr)
+def test(test_name, nums, target, expected):
+    res = Solution().search(nums, target)
     if res == expected:
         print(test_name + ' succeed')
     else:
         print(test_name + ' fail')
 
 
-if __name__ == '__main__':
-    arr1 = [2,2,1,2,1]
+if __name__ == "__main__":
+    nums1 = [5,7,7,8,8,10]
+    target1 = 8
     expected1 = 2
-    test('test1', arr1, expected1)
+    test('test1', nums1, target1, expected1)
 
-    arr2 = [100,1,1000]
-    expected2 = 3
-    test('test2', arr2, expected2)
+    nums2 = [5,7,7,8,8,10]
+    target2 = 6
+    expected2 = 0
+    test('test2', nums2, target2, expected2)
 
-    arr3 = [1,2,3,4,5]
-    expected3 = 5
-    test('test3', arr3, expected3)
+
+# 统计一个数字在排序数组中出现的次数。
+
+# 示例 1:
+
+# 输入: nums = [5,7,7,8,8,10], target = 8
+# 输出: 2
+
+# 示例 2:
+# 输入: nums = [5,7,7,8,8,10], target = 6
+# 输出: 0
+#  
+
+# 限制：
+# 0 <= 数组长度 <= 50000
